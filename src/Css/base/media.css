@@ -1,0 +1,48 @@
+/* 576px */
+@media (max-width: 576px){
+    .container {
+        width: 100%;
+    }
+}
+@media (min-width: 576px){
+    .container {
+        width: 540px;
+    }
+}
+/* 768px */
+@media (min-width: 768px){
+    .container {
+        width: 720px;
+    }
+}
+/* 992px */
+@media (min-width: 992px){
+    .container {
+        width: 960px;
+    }
+}
+@media (max-width: 992px){
+    .container{
+    .form {
+        background-image: linear-gradient(rgba(255, 255, 255, 0.8) 0%,rgba(255, 255, 255, 0.8) 100% ),url('../../../form.jpg');
+    }
+    .custom-form {
+        width: 100%;
+    }
+    .form-control input{
+        width: 100%;
+    }
+}
+}
+/* 1200px */
+@media (min-width: 1200px){
+    .container {
+        width: 1140px;
+    }
+}
+/* 1400px */
+@media (min-width: 1400px){
+    .container {
+        width: 1320px;
+    }
+}
