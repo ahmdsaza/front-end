@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { baseURL, REGISTER } from "../../API/Api";
 import LoadingSubmit from "../../Components/Laoding/Loading";
+import Cookie from "cookie-universal";
 
 export default function Register() {
   // States
@@ -13,6 +14,9 @@ export default function Register() {
 
   // Loading
   const [loading, setLoading] = useState(false);
+
+  // Cookies
+  const cookie = Cookie();
 
   // Err
   const [err, setErr] = useState("");
@@ -27,9 +31,11 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(`${baseURL}/${REGISTER}`, form);
+      const res = await axios.post(`${baseURL}/${REGISTER}`, form);
       setLoading(false);
-      window.location.pathname = "/";
+      const token = res.data.token;
+      cookie.set("e-commerce", token);
+      window.location.pathname = "/users";
     } catch (err) {
       setLoading(false);
       if (err.response.status === 422) {

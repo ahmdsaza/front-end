@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { baseURL, LOGIN } from "../../API/Api";
 import LoadingSubmit from "../../Components/Laoding/Loading";
+import Cookie from "cookie-universal";
 
 export default function Login() {
   // States
@@ -12,6 +13,9 @@ export default function Login() {
 
   // Loading
   const [loading, setLoading] = useState(false);
+
+  // Cookies
+  const cookie = Cookie();
 
   // Err
   const [err, setErr] = useState("");
@@ -32,7 +36,8 @@ export default function Login() {
       });
       setLoading(false);
       const token = res.data.token;
-      window.location.pathname = "/";
+      cookie.set("e-commerce", token);
+      window.location.pathname = "/users";
     } catch (err) {
       setLoading(false);
       if (err.response.status === 401) {
