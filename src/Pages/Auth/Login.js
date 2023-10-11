@@ -81,6 +81,20 @@ export default function Login() {
                 <label htmlFor="password">Password: </label>
               </div>
               <button className="btn btn-primary">Login</button>
+              <div className="google-btn">
+                <a href={`http://127.0.0.1:8000/login-google`}>
+                  <div className="google-icon-wrapper">
+                    <img
+                      className="google-icon"
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png"
+                      alt="sign in google"
+                    />
+                  </div>
+                  <p className="btn-text">
+                    <b>Sign in with google</b>
+                  </p>
+                </a>
+              </div>
               {err !== "" && <span className="error">{err}</span>}
             </div>
           </form>
