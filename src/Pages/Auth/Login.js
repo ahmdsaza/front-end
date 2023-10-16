@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { baseURL, LOGIN } from "../../API/Api";
 import LoadingSubmit from "../../Components/Laoding/Loading";
 import Cookie from "cookie-universal";
+import { Form } from "react-bootstrap";
 
 export default function Login() {
   // States
@@ -51,35 +52,39 @@ export default function Login() {
     <>
       {loading && <LoadingSubmit />}
       <div className="container">
-        <div className="row h-100">
-          <form className="form" onSubmit={handleSubmit}>
+        <div className="row" style={{ height: "100vh" }}>
+          <Form className="form" onSubmit={handleSubmit}>
             <div className="custom-form">
-              <h1>Login</h1>
-              <div className="mb-3 form-control">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
+              <h1 className="mb-5">Login</h1>
+              <Form.Group
+                className="form-custom"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Control
                   value={form.email}
                   onChange={handleChange}
+                  type="email"
+                  name="email"
                   placeholder="Enter your email.."
                   required
                 />
-                <label htmlFor="email">Email: </label>
-              </div>
-              <div className="mb-3 form-control">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
+                <Form.Label>Email:</Form.Label>
+              </Form.Group>
+              <Form.Group
+                className="form-custom"
+                controlId="exampleForm.ControlInput2"
+              >
+                <Form.Control
                   value={form.password}
                   onChange={handleChange}
+                  type="password"
+                  name="password"
                   placeholder="Enter your password.."
                   minLength="6"
                   required
                 />
-                <label htmlFor="password">Password: </label>
-              </div>
+                <Form.Label>Password:</Form.Label>
+              </Form.Group>
               <button className="btn btn-primary">Login</button>
               <div className="google-btn">
                 <a href={`http://127.0.0.1:8000/login-google`}>
@@ -97,7 +102,7 @@ export default function Login() {
               </div>
               {err !== "" && <span className="error">{err}</span>}
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </>

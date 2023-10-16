@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { baseURL, REGISTER } from "../../API/Api";
 import LoadingSubmit from "../../Components/Laoding/Loading";
 import Cookie from "cookie-universal";
+import { Form } from "react-bootstrap";
 
 export default function Register() {
   // States
@@ -37,6 +38,7 @@ export default function Register() {
       cookie.set("e-commerce", token);
       window.location.pathname = "/users";
     } catch (err) {
+      console.log(err);
       setLoading(false);
       if (err.response.status === 422) {
         setErr("Email is already been token");
@@ -49,51 +51,71 @@ export default function Register() {
     <>
       {loading && <LoadingSubmit />}
       <div className="container">
-        <div className="row h-100">
-          <form className="form" onSubmit={handleSubmit}>
+        <div className="row" style={{ height: "100vh" }}>
+          <Form className="form" onSubmit={handleSubmit}>
             <div className="custom-form">
-              <h1>Register Now</h1>
-              <div className="form-control">
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
+              <h1 className="mb-3">Register</h1>
+              <Form.Group
+                className="form-custom"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Control
                   value={form.name}
                   onChange={handleChange}
+                  type="text"
+                  name="name"
                   placeholder="Enter your name.."
                   required
                 />
-                <label htmlFor="name">Name</label>
-              </div>
-              <div className="form-control">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
+                <Form.Label>Name:</Form.Label>
+              </Form.Group>
+              <Form.Group
+                className="form-custom"
+                controlId="exampleForm.ControlInput2"
+              >
+                <Form.Control
                   value={form.email}
                   onChange={handleChange}
+                  type="email"
+                  name="email"
                   placeholder="Enter your email.."
                   required
                 />
-                <label htmlFor="email">Email</label>
-              </div>
-              <div className="form-control">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
+                <Form.Label>Email:</Form.Label>
+              </Form.Group>
+              <Form.Group
+                className="form-custom"
+                controlId="exampleForm.ControlInput3"
+              >
+                <Form.Control
                   value={form.password}
                   onChange={handleChange}
+                  type="password"
+                  name="password"
                   placeholder="Enter your password.."
                   minLength="6"
                   required
                 />
-                <label htmlFor="password">Password</label>
+                <Form.Label>Password:</Form.Label>
+              </Form.Group>
+              <button className="btn btn-primary">Login</button>
+              <div className="google-btn">
+                <a href={`http://127.0.0.1:8000/login-google`}>
+                  <div className="google-icon-wrapper">
+                    <img
+                      className="google-icon"
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png"
+                      alt="sign in google"
+                    />
+                  </div>
+                  <p className="btn-text">
+                    <b>Sign in with google</b>
+                  </p>
+                </a>
               </div>
-              <button className="btn btn-primary">Register</button>
               {err !== "" && <span className="error">{err}</span>}
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </>

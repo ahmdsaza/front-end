@@ -14,7 +14,6 @@ export default function Logout() {
           Authorization: "Bearer " + cookie.get("e-commerce"),
         },
       });
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
