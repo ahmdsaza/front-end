@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { baseURL, REGISTER } from "../../API/Api";
-import LoadingSubmit from "../../Components/Laoding/Loading";
+import LoadingSubmit from "../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
 import { Form } from "react-bootstrap";
 
