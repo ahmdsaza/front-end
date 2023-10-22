@@ -10,13 +10,13 @@
     padding: 0 20px;
 }
 .side-bar{
-    position : fixed;
+    position : sticky;
     top : 70px;
     left: 0;
     background-color: white;
     z-index: 1;
     height: 100vh;
-    box-shadow: 0 0 0 1px rgb(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 1px rgb(0, 0, 0, 0.1);
 }
 .side-bar-link{
     color: #495057;
