@@ -8,19 +8,30 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 export default function Users() {
-  // Users Use States
+  //States
   const [users, setUsers] = useState([]);
+  const [currentUser, setCurrentUser] = useState("");
+  const [noUsers, setNoUsers] = useState(false);
   const [deleteUser, setDeleteUser] = useState(false);
 
-  // Get Data
+  // Current User
+  useEffect(() => {
+    Axios.get(`${USER}`).then((res) => setCurrentUser(res.data));
+  }, []);
+
+  // Current user Filter
+  const userFilter = users.filter((user) => user.id !== currentUser.id);
+
+  // Get All Users
   useEffect(() => {
     Axios.get(`${USERS}`)
       .then((data) => setUsers(data.data))
+      .then(() => setNoUsers(true))
       .catch((err) => console.log(err));
   }, [deleteUser]);
 
-  // Show Users
-  const usersShow = users.map((user, key) => (
+  // Mapping On Users
+  const usersShow = userFilter.map((user, key) => (
     <tr key={key}>
       <td>{key + 1}</td>
       <td>{user.name}</td>
@@ -65,7 +76,23 @@ export default function Users() {
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>{usersShow}</tbody>
+        <tbody>
+          {users.length === 0 ? (
+            <tr>
+              <td colSpan={12} className="text-center">
+                Loading...
+              </td>
+            </tr>
+          ) : users.length <= 1 && noUsers ? (
+            <tr>
+              <td colSpan={12} className="text-center">
+                No Users Found
+              </td>
+            </tr>
+          ) : (
+            usersShow
+          )}
+        </tbody>
       </Table>
     </div>
   );
