@@ -37,6 +37,13 @@ export default function Users() {
       <td>{user.name}</td>
       <td>{user.email}</td>
       <td>
+        {user.role === "1995"
+          ? "admin"
+          : user.role === "2001"
+          ? "user"
+          : "writer"}
+      </td>
+      <td>
         <div className="d-flex align-items-center gap-2">
           <Link to={`${user.id}`}>
             <FontAwesomeIcon fontSize={"19px"} icon={faPenToSquare} />
@@ -73,6 +80,7 @@ export default function Users() {
             <th>id</th>
             <th>Username</th>
             <th>Email</th>
+            <th>Role</th>
             <th>Action</th>
           </tr>
         </thead>
