@@ -19,9 +19,6 @@ export default function Users() {
     Axios.get(`${USER}`).then((res) => setCurrentUser(res.data));
   }, []);
 
-  // Current user Filter
-  const userFilter = users.filter((user) => user.id !== currentUser.id);
-
   // Get All Users
   useEffect(() => {
     Axios.get(`${USERS}`)
@@ -31,11 +28,13 @@ export default function Users() {
   }, [deleteUser]);
 
   // Mapping On Users
-  const usersShow = userFilter.map((user, key) => (
+  const usersShow = users.map((user, key) => (
     <tr key={key}>
       <td>{key + 1}</td>
       <td>{user.name}</td>
-      <td>{user.email}</td>
+      <td>
+        {user.email === currentUser.email ? user.email + " (YOU)" : user.email}
+      </td>
       <td>
         {user.role === "1995"
           ? "admin"
@@ -48,13 +47,15 @@ export default function Users() {
           <Link to={`${user.id}`}>
             <FontAwesomeIcon fontSize={"19px"} icon={faPenToSquare} />
           </Link>
-          <FontAwesomeIcon
-            onClick={() => handleDelete(user.id)}
-            fontSize={"19px"}
-            color="red"
-            cursor={"pointer"}
-            icon={faTrash}
-          />
+          {currentUser.name !== user.name && (
+            <FontAwesomeIcon
+              onClick={() => handleDelete(user.id)}
+              fontSize={"19px"}
+              color="red"
+              cursor={"pointer"}
+              icon={faTrash}
+            />
+          )}
         </div>
       </td>
     </tr>
@@ -62,18 +63,26 @@ export default function Users() {
 
   // Handle Delete
   async function handleDelete(id) {
-    try {
-      const res = await Axios.delete(`${USER}/${id}`);
-      setDeleteUser((prev) => !prev);
-    } catch (err) {
-      console.log(err);
+    if (currentUser.id !== id) {
+      try {
+        const res = await Axios.delete(`${USER}/${id}`);
+        setDeleteUser((prev) => !prev);
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 
   // Code
   return (
     <div className="bg-white w-100 p-2">
-      <h1>Users Page</h1>
+      <div className="d-flex align-items-center justify-content-between">
+        <h1>Users Page</h1>
+        <Link className="btn btn-primary" to="/dashboard/user/add">
+          Add user
+        </Link>
+      </div>
+
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -91,7 +100,7 @@ export default function Users() {
                 Loading...
               </td>
             </tr>
-          ) : users.length <= 1 && noUsers ? (
+          ) : users.length === 0 && noUsers ? (
             <tr>
               <td colSpan={12} className="text-center">
                 No Users Found

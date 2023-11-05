@@ -8,6 +8,9 @@ import GoogleCallback from "./Pages/Auth/GoogleCallback";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import RequireAuth from "./Pages/Auth/RequireAuth";
 import User from "./Pages/Dashboard/User";
+import AddUser from "./Pages/Dashboard/AddUser";
+import Err403 from "./Pages/Auth/403";
+import Writer from "./Pages/Auth/Writer";
 
 function App() {
   return (
@@ -18,11 +21,19 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/auth/google/callback" element={<GoogleCallback />} />
+
         {/* Protected Routes */}
-        <Route element={<RequireAuth />}>
-          <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="/dashboard" element={<Dashboard />}>
+          {/* Admin */}
+          <Route element={<RequireAuth allowedRole={["1995"]} />}>
             <Route path="users" element={<Users />} />
             <Route path="users/:id" element={<User />} />
+            <Route path="user/add" element={<AddUser />} />
+          </Route>
+
+          {/* Writer */}
+          <Route element={<RequireAuth allowedRole={["1996", "1995"]} />}>
+            <Route path="writer" element={<Writer />} />
           </Route>
         </Route>
       </Routes>
