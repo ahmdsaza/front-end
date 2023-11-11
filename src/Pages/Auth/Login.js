@@ -38,8 +38,10 @@ export default function Login() {
       const res = await axios.post(`${baseURL}/${LOGIN}`, form);
       setLoading(false);
       const token = res.data.token;
+      const role = res.data.user.role;
+      const go = role === "1995" ? "users" : "writer";
       cookie.set("e-commerce", token);
-      window.location.pathname = "/dashboard";
+      window.location.pathname = `/dashboard/${go}`;
     } catch (err) {
       setLoading(false);
       if (err.response.status === 401) {

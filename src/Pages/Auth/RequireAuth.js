@@ -9,7 +9,6 @@ import Err403 from "./403";
 export default function RequireAuth({ allowedRole }) {
   // User
   const [user, setUser] = useState("");
-  console.log(user);
 
   // Navigate
   const navigate = useNavigate();
@@ -17,7 +16,6 @@ export default function RequireAuth({ allowedRole }) {
   useEffect(() => {
     Axios.get(`${USER}`)
       .then((data) => setUser(data.data))
-      .then((data) => console.log(setUser))
       .catch(() => navigate("/login", { replace: true }));
   }, []);
 
@@ -31,7 +29,7 @@ export default function RequireAuth({ allowedRole }) {
     ) : allowedRole.includes(user.role) ? (
       <Outlet />
     ) : (
-      <Err403 />
+      <Err403 role={user.role} />
     )
   ) : (
     <Navigate to={"/login"} replace={true} />
