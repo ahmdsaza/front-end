@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Axios } from "../../API/axios";
 import { USER } from "../../API/Api";
@@ -10,6 +10,14 @@ export default function AddUser() {
   const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Ref
+  const focus = useRef();
+
+  // Handle Focus
+  useEffect(() => {
+    focus.current.focus();
+  }, []);
 
   // Handle Submit
   async function HandleSubmit(e) {
@@ -35,6 +43,7 @@ export default function AddUser() {
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>User Name</Form.Label>
           <Form.Control
+            ref={focus}
             required
             value={name}
             onChange={(e) => setName(e.target.value)}

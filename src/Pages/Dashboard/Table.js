@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Axios } from "../../API/axios";
 
 export default function TableShow(props) {
   const currentUser = props.currentUser || {
@@ -20,7 +19,7 @@ export default function TableShow(props) {
       {props.header.map((item2, key2) => (
         <td key={key2}>
           {item2.key === "image" ? (
-            <img width={"50px"} src={item[item2.key]} />
+            <img width={"50px"} src={item[item2.key]} alt="" />
           ) : item[item2.key] === "1995" ? (
             "admin"
           ) : item[item2.key] === "2001" ? (

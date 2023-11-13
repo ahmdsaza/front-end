@@ -16,6 +16,8 @@ import Writer from "./Pages/Dashboard/Writer";
 import Categories from "./Pages/Dashboard/Categories";
 import AddCategory from "./Pages/Dashboard/AddCategory";
 import Category from "./Pages/Dashboard/Category";
+import Products from "./Pages/Dashboard/Products";
+import AddProduct from "./Pages/Dashboard/AddProduct";
 
 function App() {
   return (
@@ -42,9 +44,14 @@ function App() {
 
             {/* Categories Manager */}
             <Route element={<RequireAuth allowedRole={["1999", "1995"]} />}>
+              {/* Categories*/}
               <Route path="categories" element={<Categories />} />
               <Route path="category/add" element={<AddCategory />} />
               <Route path="categories/:id" element={<Category />} />
+              {/* Products */}
+              <Route path="products" element={<Products />} />
+              <Route path="product/add" element={<AddProduct />} />
+              <Route path="product/:id" element={<Category />} />
             </Route>
 
             {/* Writer */}

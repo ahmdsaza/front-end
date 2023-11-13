@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import { Axios } from "../../API/axios";
 import { CATEGORY } from "../../API/Api";
 import LoadingSubmit from "../../Components/Loading/Loading";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Category() {
   const [title, setTitle] = useState("");
@@ -14,9 +14,8 @@ export default function Category() {
   const nav = useNavigate();
 
   // Id
-  const id = Number(
-    window.location.pathname.replace("/dashboard/categories/", "")
-  );
+  const { id } = useParams();
+
   // Get Data
   useEffect(() => {
     setLoading(true);

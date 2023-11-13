@@ -4,13 +4,17 @@ export const REGISTER = "register";
 export const LOGIN = "login";
 export const LOGOUT = "logout";
 
+// Users
+export const USERS = "users";
+export const USER = "user";
+
 // Category
 export const CATEGORIES = "categories";
 export const CATEGORY = "category";
 
-// Users
-export const USERS = "users";
-export const USER = "user";
+// Products
+export const PRODUCTS = "products";
+export const PRODUCT = "product";
 
 // Google
 export const GOOGLE_CALL_BACK = "auth/google/callback";

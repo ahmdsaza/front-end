@@ -31,6 +31,18 @@ export const links = [
     role: ["1995", "1999"],
   },
   {
+    name: "Products",
+    path: "/dashboard/products",
+    icon: faCartShopping,
+    role: ["1995", "1999"],
+  },
+  {
+    name: "Add Product",
+    path: "/dashboard/product/add",
+    icon: faPlus,
+    role: ["1995", "1999"],
+  },
+  {
     name: "Writer",
     path: "/dashboard/writer",
     icon: faPlus,

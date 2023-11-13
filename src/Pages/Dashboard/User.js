@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import { Axios } from "../../API/axios";
 import { USER } from "../../API/Api";
 import LoadingSubmit from "../../Components/Loading/Loading";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function User() {
   const [name, setName] = useState("");
@@ -15,7 +15,7 @@ export default function User() {
   const nav = useNavigate();
 
   // Id
-  const id = Number(window.location.pathname.replace("/dashboard/users/", ""));
+  const { id } = useParams();
   // Get Data
   useEffect(() => {
     setLoading(true);

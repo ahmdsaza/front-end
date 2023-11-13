@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { baseURL, REGISTER } from "../../API/Api";
 import LoadingSubmit from "../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
@@ -26,10 +26,18 @@ export default function Register() {
   // Err
   const [err, setErr] = useState("");
 
+  // Ref
+  const focus = useRef();
+
   // Handle Form Change
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
+
+  // Handle Focus
+  useEffect(() => {
+    focus.current.focus();
+  }, []);
 
   // Handle Submit
   async function handleSubmit(e) {
@@ -64,6 +72,7 @@ export default function Register() {
                 controlId="exampleForm.ControlInput1"
               >
                 <Form.Control
+                  ref={focus}
                   value={form.name}
                   onChange={handleChange}
                   type="text"
@@ -102,7 +111,7 @@ export default function Register() {
                 />
                 <Form.Label>Password:</Form.Label>
               </Form.Group>
-              <button className="btn btn-primary">Login</button>
+              <button className="btn btn-primary">Register</button>
               <div className="google-btn">
                 <a href={`http://127.0.0.1:8000/login-google`}>
                   <div className="google-icon-wrapper">

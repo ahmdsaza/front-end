@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { baseURL, LOGIN } from "../../API/Api";
 import LoadingSubmit from "../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
@@ -25,10 +25,18 @@ export default function Login() {
   // Err
   const [err, setErr] = useState("");
 
+  // Ref
+  const focus = useRef();
+
   // Handle Form Change
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
+
+  // Handle Focus
+  useEffect(() => {
+    focus.current.focus();
+  }, []);
 
   // Handle Submit
   async function handleSubmit(e) {
@@ -64,6 +72,7 @@ export default function Login() {
                 controlId="exampleForm.ControlInput1"
               >
                 <Form.Control
+                  ref={focus}
                   value={form.email}
                   onChange={handleChange}
                   type="email"
