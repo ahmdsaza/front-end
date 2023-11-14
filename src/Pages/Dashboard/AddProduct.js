@@ -15,23 +15,37 @@ export default function AddProduct() {
     About: "",
   });
 
+  const dummyForm = {
+    category: null,
+    title: "title",
+    description: "description",
+    price: 0,
+    discount: 0,
+    About: "About",
+  };
+  // Use State
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [categories, setCategories] = useState([]); // Categories UseState
+  const [id, setId] = useState();
+  const [uploading, setUploading] = useState(0);
   const nav = useNavigate();
-
-  console.log(images);
-
-  // Categories UseState
-  const [categories, setCategories] = useState([]);
+  console.log(uploading);
 
   // Ref
-  const focus = useRef();
-
+  const focus = useRef("");
+  const openImage = useRef(null);
+  const progress = useRef([]);
+  const j = useRef(-1);
   // Handle Focus
   useEffect(() => {
     focus.current.focus();
   }, []);
 
+  function handleOpenImage() {
+    openImage.current.click();
+  }
   // Get All Categories
   useEffect(() => {
     Axios.get(`${CATEGORIES}`)
@@ -39,22 +53,22 @@ export default function AddProduct() {
       .catch((err) => console.log(err));
   }, []);
 
+  // Handle Submit Form
+  async function handleSubmitForm() {
+    try {
+      const res = await Axios.post(`${PRODUCT}/add`, dummyForm);
+      setId(res.data.id);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   // Handle Submit
-  async function handleSubmit(e) {
+  async function handleEdit(e) {
     setLoading(true);
     e.preventDefault();
-    const data = new FormData();
-    data.append("category", form.category);
-    data.append("title", form.title);
-    data.append("description", form.description);
-    data.append("price", form.price);
-    data.append("discount", form.discount);
-    data.append("About", form.About);
-    for (let i = 0; i < images.length; i++) {
-      data.append("images[]", images[i]);
-    }
     try {
-      const res = await Axios.post(`${PRODUCT}/add`, data);
+      const res = await Axios.post(`${PRODUCT}/edit/${id}`, form);
       nav("/dashboard/products");
     } catch (err) {
       setLoading(false);
@@ -65,6 +79,40 @@ export default function AddProduct() {
   // Handle Change
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setSent(1);
+    if (sent !== 1) {
+      handleSubmitForm();
+    }
+  }
+
+  // Handle Images Change
+  async function handleImagesChange(e) {
+    setImages((prev) => [...prev, ...e.target.files]);
+    const imagesAsFiles = e.target.files;
+    const data = new FormData();
+    for (let i = 0; i < imagesAsFiles.length; i++) {
+      j.current++;
+      data.append("image", imagesAsFiles[i]);
+      data.append("product_id", id);
+      try {
+        const res = await Axios.post("/product-img/add", data, {
+          onUploadProgress: (progressEvent) => {
+            const { loaded, total } = progressEvent;
+            const percent = Math.floor((loaded * 100) / total);
+            if (percent % 10 === 0) {
+              progress.current[j.current].style.width = `${percent}%`;
+              progress.current[j.current].setAttribute(
+                "percent",
+                `${percent}%`
+              );
+            }
+          },
+        });
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+    }
   }
 
   // Mapping
@@ -74,16 +122,25 @@ export default function AddProduct() {
     </option>
   ));
 
+  // Mapping Images
   const imagesShow = images.map((img, key) => (
-    <div className="d-flex align-items-center justify-content-start gap-2 border p-2 w-100">
-      <img width={"80px"} src={URL.createObjectURL(img)}></img>
-      <div>
-        <p className="mb-1">{img.name}</p>
-        <p>
-          {img.size / 1024 < 900
-            ? (img.size / 1024).toFixed(2) + "KB"
-            : (img.size / (1024 * 1024)).toFixed(2) + "MB"}
-        </p>
+    <div className="border p-2 w-100">
+      <div className="d-flex align-items-center justify-content-start gap-2">
+        <img width={"80px"} src={URL.createObjectURL(img)}></img>
+        <div>
+          <p className="mb-1">{img.name}</p>
+          <p>
+            {img.size / 1024 < 900
+              ? (img.size / 1024).toFixed(2) + "KB"
+              : (img.size / (1024 * 1024)).toFixed(2) + "MB"}
+          </p>
+        </div>
+      </div>
+      <div className="custom-progress mt-2">
+        <span
+          ref={(e) => (progress.current[key] = e)}
+          className="inner-progress"
+        ></span>
       </div>
     </div>
   ));
@@ -91,7 +148,7 @@ export default function AddProduct() {
   return (
     <>
       {loading && <LoadingSubmit />}
-      <Form className="bg-white w-100 mx-2 p-3" onSubmit={handleSubmit}>
+      <Form className="bg-white w-100 mx-2 p-3" onSubmit={handleEdit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
           <Form.Label>Category</Form.Label>
           <Form.Select
@@ -115,6 +172,7 @@ export default function AddProduct() {
             onChange={handleChange}
             type="text"
             placeholder="Title..."
+            disabled={!sent}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
@@ -126,6 +184,7 @@ export default function AddProduct() {
             onChange={handleChange}
             type="text"
             placeholder="Description..."
+            disabled={!sent}
           />
         </Form.Group>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
@@ -137,6 +196,7 @@ export default function AddProduct() {
             onChange={handleChange}
             type="text"
             placeholder="Price..."
+            disabled={!sent}
           />
         </Form.Group>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
@@ -148,6 +208,7 @@ export default function AddProduct() {
             onChange={handleChange}
             type="text"
             placeholder="Discount..."
+            disabled={!sent}
           />
         </Form.Group>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
@@ -159,16 +220,41 @@ export default function AddProduct() {
             onChange={handleChange}
             type="text"
             placeholder="About..."
+            disabled={!sent}
           />
         </Form.Group>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
           <Form.Label>Images</Form.Label>
           <Form.Control
+            ref={openImage}
+            hidden
             multiple
-            onChange={(e) => setImages([...e.target.files])}
+            onChange={handleImagesChange}
             type="file"
+            disabled={!sent}
           />
         </Form.Group>
+        <div
+          onClick={handleOpenImage}
+          className="d-flex align-items-center justify-content-center gap-2 py-3 rounded mb-2 w-100 flex-column"
+          style={{
+            border: !sent ? "2px dashed gray" : "2px dashed #0086fe",
+            cursor: !sent ? "" : "pointer",
+          }}
+        >
+          <img
+            src={require("../../Assets/upload.png")}
+            alt="Upload here"
+            width={"100px"}
+            style={{ filter: !sent && "grayscale(1" }}
+          />
+          <p
+            className="fw-bold mb-0"
+            style={{ color: !sent ? "gray" : "#0086fe" }}
+          >
+            Upload images
+          </p>
+        </div>
         <div className="d-flex align-items-start flex-column gap-2">
           {imagesShow}
         </div>
