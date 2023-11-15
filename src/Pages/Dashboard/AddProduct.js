@@ -4,6 +4,7 @@ import { Axios } from "../../API/axios";
 import { CATEGORIES, PRODUCT } from "../../API/Api";
 import LoadingSubmit from "../../Components/Loading/Loading";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 export default function AddProduct() {
   const [form, setForm] = useState({
@@ -29,15 +30,15 @@ export default function AddProduct() {
   const [sent, setSent] = useState(false);
   const [categories, setCategories] = useState([]); // Categories UseState
   const [id, setId] = useState();
-  const [uploading, setUploading] = useState(0);
   const nav = useNavigate();
-  console.log(uploading);
 
   // Ref
   const focus = useRef("");
   const openImage = useRef(null);
   const progress = useRef([]);
-  const j = useRef(-1);
+  const ids = useRef([]);
+  const counter = useRef(-1);
+
   // Handle Focus
   useEffect(() => {
     focus.current.focus();
@@ -91,7 +92,7 @@ export default function AddProduct() {
     const imagesAsFiles = e.target.files;
     const data = new FormData();
     for (let i = 0; i < imagesAsFiles.length; i++) {
-      j.current++;
+      counter.current++;
       data.append("image", imagesAsFiles[i]);
       data.append("product_id", id);
       try {
@@ -100,18 +101,31 @@ export default function AddProduct() {
             const { loaded, total } = progressEvent;
             const percent = Math.floor((loaded * 100) / total);
             if (percent % 10 === 0) {
-              progress.current[j.current].style.width = `${percent}%`;
-              progress.current[j.current].setAttribute(
+              progress.current[counter.current].style.width = `${percent}%`;
+              progress.current[counter.current].setAttribute(
                 "percent",
                 `${percent}%`
               );
             }
           },
         });
-        console.log(res);
+        ids.current[counter.current] = res.data.id;
       } catch (err) {
         console.log(err);
       }
+    }
+  }
+
+  // Handle Delete Image
+  async function handleDeleteImage(id, img) {
+    const findId = ids.current[id];
+    try {
+      const res = await Axios.delete(`product-img/${findId}`);
+      setImages((prev) => prev.filter((image) => image !== img));
+      ids.current = ids.current.filter((i) => i !== findId);
+      --counter.current;
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -125,16 +139,21 @@ export default function AddProduct() {
   // Mapping Images
   const imagesShow = images.map((img, key) => (
     <div className="border p-2 w-100">
-      <div className="d-flex align-items-center justify-content-start gap-2">
-        <img width={"80px"} src={URL.createObjectURL(img)}></img>
-        <div>
-          <p className="mb-1">{img.name}</p>
-          <p>
-            {img.size / 1024 < 900
-              ? (img.size / 1024).toFixed(2) + "KB"
-              : (img.size / (1024 * 1024)).toFixed(2) + "MB"}
-          </p>
+      <div className="d-flex align-items-center justify-content-between">
+        <div className="d-flex align-items-center justify-content-start gap-2">
+          <img width="80px" src={URL.createObjectURL(img)}></img>
+          <div>
+            <p className="mb-1">{img.name}</p>
+            <p>
+              {img.size / 1024 < 900
+                ? (img.size / 1024).toFixed(2) + "KB"
+                : (img.size / (1024 * 1024)).toFixed(2) + "MB"}
+            </p>
+          </div>
         </div>
+        <Button onClick={() => handleDeleteImage(key, img)} variant="danger">
+          Delete
+        </Button>
       </div>
       <div className="custom-progress mt-2">
         <span
