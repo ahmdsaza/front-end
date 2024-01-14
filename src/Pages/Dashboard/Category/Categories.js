@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { CATEGORIES, CATEGORY } from "../../API/Api";
-import { Axios } from "../../API/axios";
+import { CATEGORIES, CATEGORY } from "../../../API/Api";
+import { Axios } from "../../../API/axios";
 import { Link } from "react-router-dom";
-import TableShow from "./Table";
+import TableShow from "../Table";
 
 export default function Categories() {
   //States

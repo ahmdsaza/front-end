@@ -50,6 +50,9 @@ export default function TopBar() {
         </div>
         <div>
           <DropdownButton id="dropdown-basic-button" title={name}>
+            <Dropdown.Item onClick={() => navigate("/")}>
+              Back to website
+            </Dropdown.Item>
             <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
           </DropdownButton>
         </div>

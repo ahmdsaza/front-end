@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
-import { Axios } from "../../API/axios";
-import { CATEGORIES, PRODUCT } from "../../API/Api";
-import LoadingSubmit from "../../Components/Loading/Loading";
+import { Axios } from "../../../API/axios";
+import { CATEGORIES, PRODUCT } from "../../../API/Api";
+import LoadingSubmit from "../../../Components/Loading/Loading";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
@@ -141,7 +141,7 @@ export default function AddProduct() {
     <div className="border p-2 w-100">
       <div className="d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center justify-content-start gap-2">
-          <img width="80px" src={URL.createObjectURL(img)}></img>
+          <img width="80px" src={URL.createObjectURL(img)} alt=""></img>
           <div>
             <p className="mb-1">{img.name}</p>
             <p>
@@ -262,7 +262,7 @@ export default function AddProduct() {
           }}
         >
           <img
-            src={require("../../Assets/upload.png")}
+            src={require("../../../Assets/upload.png")}
             alt="Upload here"
             width={"100px"}
             style={{ filter: !sent && "grayscale(1" }}

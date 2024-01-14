@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import { baseURL, GOOGLE_CALL_BACK } from "../../API/Api";
+import { baseURL, GOOGLE_CALL_BACK } from "../../../API/Api";
 import { useLocation } from "react-router-dom";
 import Cookie from "cookie-universal";
 

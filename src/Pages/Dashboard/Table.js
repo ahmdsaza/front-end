@@ -20,6 +20,12 @@ export default function TableShow(props) {
         <td key={key2}>
           {item2.key === "image" ? (
             <img width={"50px"} src={item[item2.key]} alt="" />
+          ) : item2.key === "images" ? (
+            <div className="d-flex align-items-center justify-content-start gap-2 flex-wrap">
+              {item[item2.key].map((img) => (
+                <img width={"50px"} src={img.image} alt="" />
+              ))}
+            </div>
           ) : item[item2.key] === "1995" ? (
             "admin"
           ) : item[item2.key] === "2001" ? (
@@ -34,7 +40,7 @@ export default function TableShow(props) {
           {currentUser && item[item2.key] === currentUser.email && " (YOU) "}
         </td>
       ))}
-      <td>
+      <td key={key + 1}>
         <div className="d-flex align-items-center gap-2">
           <Link to={`${item.id}`}>
             <FontAwesomeIcon fontSize={"19px"} icon={faPenToSquare} />

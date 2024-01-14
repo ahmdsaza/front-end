@@ -1,23 +1,24 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import HomePage from "./Pages/Website/HomePage";
-import Login from "./Pages/Auth/Login";
-import Register from "./Pages/Auth/Register";
-import Users from "./Pages/Dashboard/Users";
-import GoogleCallback from "./Pages/Auth/GoogleCallback";
+import Login from "./Pages/Auth/AuthOperations/Login";
+import Register from "./Pages/Auth/AuthOperations/Register";
+import Users from "./Pages/Dashboard/Users/Users";
+import GoogleCallback from "./Pages/Auth/AuthOperations/GoogleCallback";
 import Dashboard from "./Pages/Dashboard/Dashboard";
-import RequireAuth from "./Pages/Auth/RequireAuth";
-import User from "./Pages/Dashboard/User";
-import AddUser from "./Pages/Dashboard/AddUser";
-import Err403 from "./Pages/Auth/403";
-import Err404 from "./Pages/Auth/404";
-import RequireBack from "./Pages/Auth/RequireBack";
+import RequireAuth from "./Pages/Auth/Protecting/RequireAuth";
+import User from "./Pages/Dashboard/Users/User";
+import AddUser from "./Pages/Dashboard/Users/AddUser";
+// import Err403 from "./Pages/Auth/403";
+import Err404 from "./Pages/Auth/Errors/404";
+import RequireBack from "./Pages/Auth/Protecting/RequireBack";
 import Writer from "./Pages/Dashboard/Writer";
-import Categories from "./Pages/Dashboard/Categories";
-import AddCategory from "./Pages/Dashboard/AddCategory";
-import Category from "./Pages/Dashboard/Category";
-import Products from "./Pages/Dashboard/Products";
-import AddProduct from "./Pages/Dashboard/AddProduct";
+import Categories from "./Pages/Dashboard/Category/Categories";
+import AddCategory from "./Pages/Dashboard/Category/AddCategory";
+import Category from "./Pages/Dashboard/Category/Category";
+import Products from "./Pages/Dashboard/Product/Products";
+import AddProduct from "./Pages/Dashboard/Product/AddProduct";
+import About from "./Pages/Website/About";
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
         </Route>
+        <Route path="/about" element={<About />}></Route>
+        {/* <Route path="/footer" element={<Footer />}></Route>
+        <Route path="/" element={<Porto />}></Route> */}
         <Route path="/auth/google/callback" element={<GoogleCallback />} />
         <Route path="/*" element={<Err404 />} />
 

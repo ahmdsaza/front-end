@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
-import { Axios } from "../../API/axios";
-import { USER } from "../../API/Api";
-import LoadingSubmit from "../../Components/Loading/Loading";
+import { Axios } from "../../../API/axios";
+import { USER } from "../../../API/Api";
+import LoadingSubmit from "../../../Components/Loading/Loading";
 
 export default function AddUser() {
   const [name, setName] = useState("");

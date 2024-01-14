@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./bars.css";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -60,12 +59,14 @@ export default function SideBar() {
                 to={link.path}
                 className="d-flex align-items-center gap-2 side-bar-link"
               >
-                <FontAwesomeIcon
+                <i
                   style={{
                     padding: isOpen ? "10px 8px 10px 15px" : "10px 13px",
                   }}
-                  icon={link.icon}
-                />
+                  class="material-icons"
+                >
+                  <span>{link.icons}</span>
+                </i>
                 <p
                   className="m-0"
                   style={{

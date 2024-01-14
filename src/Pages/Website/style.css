@@ -1,0 +1,85 @@
+.all {
+    background-color: white;
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.items {
+    padding: 0 60px;
+    left: 110px;
+    top: 3px;
+    position: relative;
+    text-align: center;
+    color: black;
+    font-size: 45px;
+    font-weight: 400;
+    line-height: 80px;
+}
+
+.userName {
+    right: 0;
+    top: 23px;
+    position: absolute;
+    color: black;
+    font-size: 32px;
+}
+
+.userName1 {
+    padding-right: 20px;
+    padding-left: 20px;
+    width: 100%;
+    height: 110%;
+    background: rgba(217, 217, 217, 0);
+    border-radius: 61px;
+    border: 1px black solid;
+    -webkit-border-radius: 61px;
+    -moz-border-radius: 61px;
+    -ms-border-radius: 61px;
+    -o-border-radius: 61px;
+}
+
+.underLine {
+    margin-left: 10%;
+    width: 60%;
+    background: rgba(0, 0, 0, 0.10);
+    height: 1px;
+}
+
+.Vector10 {
+    top: 15%;
+    right: 0;
+    position: absolute
+}
+
+/* Paragraph */
+
+.paragraph1 {
+    width: 50%;
+    top: 60%;
+    position: absolute;
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.60px;
+}
+
+.paragraph2 {
+    width: 100%;
+    top: 45%;
+    position: absolute;
+    color: black;
+    font-size: 48px;
+}
+
+.paragraph3 {
+    width: 100%;
+    top: 52%;
+    position: absolute;
+    color: black;
+    font-size: 20px;
+}

@@ -1,6 +1,6 @@
 .dashboard {
     min-height: 100vh;
-    background-color: #c9cbd3;
+    background-color: #F6F6FC;
 }
 
 .custom-progress {
@@ -33,12 +33,12 @@
     -o-transition: 0.3s;
 }
 
-.inner-progress::after{
+.inner-progress::after {
     content: attr(percent);
     position: absolute;
     top: -25px;
     right: 0;
-    background-color: rgb(116,116,116);
+    background-color: rgb(116, 116, 116);
     color: white;
     width: 38px;
     height: 23px;

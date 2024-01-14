@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
-import { Axios } from "../../API/axios";
-import { CATEGORY } from "../../API/Api";
-import LoadingSubmit from "../../Components/Loading/Loading";
+import { Axios } from "../../../API/axios";
+import { CATEGORY } from "../../../API/Api";
+import LoadingSubmit from "../../../Components/Loading/Loading";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function Category() {

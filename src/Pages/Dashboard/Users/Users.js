@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { USERS, USER } from "../../API/Api";
-import { Axios } from "../../API/axios";
+import { USERS, USER } from "../../../API/Api";
+import { Axios } from "../../../API/axios";
 import { Link } from "react-router-dom";
-import TableShow from "./Table";
+import TableShow from "../Table";
 
 export default function Users() {
   //States
