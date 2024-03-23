@@ -24,14 +24,17 @@ export default function AddCategory() {
     const form = new FormData();
     form.append("title", title);
     form.append("image", image);
+
     try {
       const res = await Axios.post(`${CATEGORY}/add`, form);
       window.location.pathname = "/dashboard/categories";
+      console.log(res);
     } catch (err) {
       setLoading(false);
       console.log(err);
     }
   }
+
   return (
     <>
       {loading && <LoadingSubmit />}

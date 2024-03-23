@@ -11,6 +11,9 @@ export const USER = "user";
 // Category
 export const CATEGORIES = "categories";
 export const CATEGORY = "category";
+export const LatestSale = "latest-sale";
+export const Latest = "latest";
+export const TopRatedApi = "top-rated";
 
 // Products
 export const PRODUCTS = "products";

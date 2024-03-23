@@ -3,10 +3,10 @@ import Form from "react-bootstrap/Form";
 import { Axios } from "../../../API/axios";
 import { CATEGORIES, PRODUCT } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-export default function AddProduct() {
+export default function UpdateProduct() {
   const [form, setForm] = useState({
     category: "Select Category",
     title: "",
@@ -16,24 +16,16 @@ export default function AddProduct() {
     About: "",
   });
 
-  const dummyForm = {
-    category: null,
-    title: "title",
-    description: "description",
-    price: 0,
-    discount: 0,
-    About: "About",
-  };
-
-  // Use State
+  // Use States
   const [images, setImages] = useState([]);
+  const [imagesFromServer, setImagesFromServer] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [idsFromServer, setIdsFromServer] = useState([]);
   const [categories, setCategories] = useState([]); // Categories UseState
-  const [id, setId] = useState();
+  const { id } = useParams();
   const nav = useNavigate();
 
-  // Ref
+  // Use Refs
   const focus = useRef("");
   const openImage = useRef(null);
   const progress = useRef([]);
@@ -56,22 +48,25 @@ export default function AddProduct() {
       .catch((err) => console.log(err));
   }, []);
 
-  // Handle Submit Form
-  async function handleSubmitForm() {
-    try {
-      const res = await Axios.post(`${PRODUCT}/add`, dummyForm);
-      setId(res.data.id);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // Get Data
+  useEffect(() => {
+    Axios.get(`${PRODUCT}/${id}`)
+      .then((data) => {
+        setForm(data.data[0]);
+        setImagesFromServer(data.data[0].images);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   // Handle Submit
   async function handleEdit(e) {
     setLoading(true);
     e.preventDefault();
     try {
-      const res = await Axios.post(`${PRODUCT}/edit/${id}`, form);
+      for (let i = 0; i < idsFromServer.length; i++) {
+        await Axios.delete(`product-img/${idsFromServer[i]}`);
+      }
+      await Axios.post(`${PRODUCT}/edit/${id}`, form);
       nav("/dashboard/products");
     } catch (err) {
       setLoading(false);
@@ -82,10 +77,6 @@ export default function AddProduct() {
   // Handle Change
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setSent(1);
-    if (sent !== 1) {
-      handleSubmitForm();
-    }
   }
 
   // Handle Images Change
@@ -131,6 +122,14 @@ export default function AddProduct() {
     }
   }
 
+  // Handle Delete Image From Server
+  async function handleDeleteImageFromServer(id) {
+    setImagesFromServer((prev) => prev.filter((img) => img.id !== id));
+    setIdsFromServer((prev) => {
+      return [...prev, id];
+    });
+  }
+
   // Mapping
   const categoriesShow = categories.map((item, key) => (
     <option key={key} value={item.id}>
@@ -138,9 +137,11 @@ export default function AddProduct() {
     </option>
   ));
 
+  console.log(categoriesShow);
+
   // Mapping Images
   const imagesShow = images.map((img, key) => (
-    <div className="border p-2 w-100">
+    <div key={key} className="border p-2 w-100">
       <div className="d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center justify-content-start gap-2">
           <img width="80px" src={URL.createObjectURL(img)} alt=""></img>
@@ -162,6 +163,24 @@ export default function AddProduct() {
           ref={(e) => (progress.current[key] = e)}
           className="inner-progress"
         ></span>
+      </div>
+    </div>
+  ));
+  const imagesFromServerShow = imagesFromServer.map((img, key) => (
+    <div key={key} className="border p-2 col-2 position-relative">
+      <div className="d-flex align-items-center justify-content-start gap-2">
+        <img width="80px" src={img.image} alt=""></img>
+      </div>
+      <div
+        style={{ cursor: "pointer" }}
+        className="position-absolute top-0 end-0 bg-danger rounded text-white"
+      >
+        <p
+          className=" py-1 px-2 m-0 "
+          onClick={() => handleDeleteImageFromServer(img.id)}
+        >
+          x
+        </p>
       </div>
     </div>
   ));
@@ -193,7 +212,6 @@ export default function AddProduct() {
             onChange={handleChange}
             type="text"
             placeholder="Title..."
-            disabled={!sent}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
@@ -205,7 +223,6 @@ export default function AddProduct() {
             onChange={handleChange}
             type="text"
             placeholder="Description..."
-            disabled={!sent}
           />
         </Form.Group>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
@@ -217,7 +234,6 @@ export default function AddProduct() {
             onChange={handleChange}
             type="text"
             placeholder="Price..."
-            disabled={!sent}
           />
         </Form.Group>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
@@ -229,7 +245,6 @@ export default function AddProduct() {
             onChange={handleChange}
             type="text"
             placeholder="Discount..."
-            disabled={!sent}
           />
         </Form.Group>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
@@ -241,7 +256,6 @@ export default function AddProduct() {
             onChange={handleChange}
             type="text"
             placeholder="About..."
-            disabled={!sent}
           />
         </Form.Group>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
@@ -252,29 +266,28 @@ export default function AddProduct() {
             multiple
             onChange={handleImagesChange}
             type="file"
-            disabled={!sent}
           />
         </Form.Group>
         <div
           onClick={handleOpenImage}
           className="d-flex align-items-center justify-content-center gap-2 py-3 rounded mb-2 w-100 flex-column"
           style={{
-            border: !sent ? "2px dashed gray" : "2px dashed #0086fe",
-            cursor: !sent ? "" : "pointer",
+            border: "2px dashed #0086fe",
+            cursor: "pointer",
           }}
         >
           <img
             src={require("../../../Assets/upload.png")}
             alt="Upload here"
             width={"100px"}
-            style={{ filter: !sent && "grayscale(1" }}
+            style={{ filter: "grayscale(1" }}
           />
-          <p
-            className="fw-bold mb-0"
-            style={{ color: !sent ? "gray" : "#0086fe" }}
-          >
+          <p className="fw-bold mb-0" style={{ color: "#0086fe" }}>
             Upload images
           </p>
+        </div>
+        <div className="d-flex align-items-start flex-warp gap-2">
+          {imagesFromServerShow}
         </div>
         <div className="d-flex align-items-start flex-column gap-2">
           {imagesShow}

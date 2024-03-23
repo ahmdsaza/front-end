@@ -7,13 +7,20 @@ import TableShow from "../Table";
 export default function Products() {
   //States
   const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
 
-  // Get All Products
   useEffect(() => {
-    Axios.get(`${PRODUCTS}`)
-      .then((data) => setProducts(data.data))
-      .catch((err) => console.log(err));
-  }, []);
+    Axios.get(`${PRODUCTS}?limit=${limit}&page=${page}`)
+      .then((data) => {
+        setProducts(data.data.data);
+        setTotal(data.data.total);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  }, [limit, page]);
 
   // Import Table Header
   const header = [
@@ -37,6 +44,14 @@ export default function Products() {
       key: "rating",
       name: "Rating",
     },
+    {
+      key: "created_at",
+      name: "created",
+    },
+    {
+      key: "updated_at",
+      name: "updated",
+    },
   ];
 
   // Handle Delete
@@ -58,7 +73,19 @@ export default function Products() {
           Add Product
         </Link>
       </div>
-      <TableShow header={header} data={products} delete={handleDelete} />
+      <TableShow
+        limit={limit}
+        page={page}
+        header={header}
+        data={products}
+        delete={handleDelete}
+        setPage={setPage}
+        setLimit={setLimit}
+        loading={loading}
+        total={total}
+        typeName="title"
+        searchLink={PRODUCT}
+      />
     </div>
   );
 }

@@ -3,17 +3,27 @@ import { CATEGORIES, CATEGORY } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Link } from "react-router-dom";
 import TableShow from "../Table";
+import { Form } from "react-bootstrap";
 
 export default function Categories() {
   //States
   const [categories, setCategories] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   // Get All Categories
   useEffect(() => {
-    Axios.get(`${CATEGORIES}`)
-      .then((data) => setCategories(data.data))
-      .catch((err) => console.log(err));
-  }, []);
+    setLoading(true);
+    Axios.get(`${CATEGORIES}?limit=${limit}&page=${page}`)
+      .then((data) => {
+        setCategories(data.data.data);
+        setTotal(data.data.total);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  }, [limit, page]);
 
   // Import Table Header
   const header = [
@@ -24,6 +34,14 @@ export default function Categories() {
     {
       key: "image",
       name: "Image",
+    },
+    {
+      key: "created_at",
+      name: "created",
+    },
+    {
+      key: "updated_at",
+      name: "updated",
     },
   ];
 
@@ -46,7 +64,19 @@ export default function Categories() {
           Add Category
         </Link>
       </div>
-      <TableShow header={header} data={categories} delete={handleDelete} />
+      <TableShow
+        limit={limit}
+        page={page}
+        header={header}
+        data={categories}
+        delete={handleDelete}
+        setPage={setPage}
+        setLimit={setLimit}
+        loading={loading}
+        total={total}
+        typeName="title"
+        searchLink={CATEGORY}
+      />
     </div>
   );
 }

@@ -35,10 +35,10 @@ export const links = [
     icons: "add",
     role: ["1995", "1999"],
   },
-  {
-    name: "Writer",
-    path: "/dashboard/writer",
-    icons: "inventory_2",
-    role: ["1995", "1996"],
-  },
+  // {
+  //   name: "Writer",
+  //   path: "/dashboard/writer",
+  //   icons: "inventory_2",
+  //   role: ["1995", "1996"],
+  // },
 ];

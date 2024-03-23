@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import HomePage from "./Pages/Website/HomePage";
 import Login from "./Pages/Auth/AuthOperations/Login";
 import Register from "./Pages/Auth/AuthOperations/Register";
 import Users from "./Pages/Dashboard/Users/Users";
@@ -18,21 +17,24 @@ import AddCategory from "./Pages/Dashboard/Category/AddCategory";
 import Category from "./Pages/Dashboard/Category/Category";
 import Products from "./Pages/Dashboard/Product/Products";
 import AddProduct from "./Pages/Dashboard/Product/AddProduct";
-import About from "./Pages/Website/About";
+import UpdateProduct from "./Pages/Dashboard/Product/UpdateProduct";
+import HomePage from "./Pages/HomePage/HomePage";
+import WebsiteCategoreis from "./Pages/Categoreis/Categoreis";
+import Website from "./Pages/Website/Website";
 
 function App() {
   return (
     <div className="App">
       {/* Public Routes */}
       <Routes>
-        <Route path="/" element={<HomePage />}></Route>
+        <Route element={<Website />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/categories" element={<WebsiteCategoreis />} />
+        </Route>
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
         </Route>
-        <Route path="/about" element={<About />}></Route>
-        {/* <Route path="/footer" element={<Footer />}></Route>
-        <Route path="/" element={<Porto />}></Route> */}
         <Route path="/auth/google/callback" element={<GoogleCallback />} />
         <Route path="/*" element={<Err404 />} />
 
@@ -55,7 +57,7 @@ function App() {
               {/* Products */}
               <Route path="products" element={<Products />} />
               <Route path="product/add" element={<AddProduct />} />
-              <Route path="product/:id" element={<Category />} />
+              <Route path="products/:id" element={<UpdateProduct />} />
             </Route>
 
             {/* Writer */}

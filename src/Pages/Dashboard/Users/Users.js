@@ -9,6 +9,10 @@ export default function Users() {
   //States
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   // Current User
   useEffect(() => {
@@ -17,10 +21,14 @@ export default function Users() {
 
   // Get All Users
   useEffect(() => {
-    Axios.get(`${USERS}`)
-      .then((data) => setUsers(data.data))
-      .catch((err) => console.log(err));
-  }, []);
+    Axios.get(`${USERS}?limit=${limit}&page=${page}`)
+      .then((data) => {
+        setUsers(data.data.data);
+        setTotal(data.data.total);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  }, [limit, page]);
 
   const header = [
     {
@@ -34,6 +42,14 @@ export default function Users() {
     {
       key: "role",
       name: "Role",
+    },
+    {
+      key: "created_at",
+      name: "created",
+    },
+    {
+      key: "updated_at",
+      name: "Last login",
     },
   ];
 
@@ -57,10 +73,18 @@ export default function Users() {
         </Link>
       </div>
       <TableShow
+        limit={limit}
+        page={page}
         header={header}
         data={users}
         currentUser={currentUser}
         delete={handleDelete}
+        setPage={setPage}
+        setLimit={setLimit}
+        loading={loading}
+        total={total}
+        typeName="name"
+        searchLink={USER}
       />
     </div>
   );
