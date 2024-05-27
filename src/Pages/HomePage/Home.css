@@ -1,8 +1,9 @@
 .hand {
-    background-image: url("../../Assets/Background1.jpg");
+    background-image: url("../../Assets/Banner11.jpg");
     background-position: center;
     background-size: cover;
     height: 100vh;
+    width: 100%;
 }
 .custom-search {
     color: rgba(0, 0, 0, 0.5) !important;

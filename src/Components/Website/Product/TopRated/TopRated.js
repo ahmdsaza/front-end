@@ -2,6 +2,7 @@ import React from "react";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./sales.css";
 
 export default function TopRated(props) {
   const roundStars = Math.round(props.rating);
@@ -13,7 +14,7 @@ export default function TopRated(props) {
     <FontAwesomeIcon key={index} icon={regularStar} />
   ));
   return (
-    <div className="col-12 border-bottom d-flex align-items-start flex-warp mb-2">
+    <div className="cards">
       <div
         className="w-100"
         alt=""
@@ -25,7 +26,7 @@ export default function TopRated(props) {
           width: "100%",
         }}
       ></div>
-      <div className="m-1 col-md-7 col-12 rounded p-3 h-100 d-flex flex-column justify-content-between">
+      <div className="m-1 col-12 rounded p-5 h-100 d-flex flex-column justify-content-between">
         <div>
           <p className="text-truncate" style={{ color: "gray" }}>
             {props.title}

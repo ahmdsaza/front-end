@@ -26,12 +26,30 @@ export default function ShowTopRated() {
     />
   ));
   return (
-    <div className="col-md-6 col-12" style={{ border: "2px solid #0D6EFD" }}>
-      <h1 className="text-center m-0 p-3 bg-primary text-white">Top Rated</h1>
-      <div className="p-5">
+    // <div className="d-flex justify-content-center align-items-center flex-wrap">
+    //   <div className="col-lg-6 col-md-6 col-12">
+    //     <h1>Top Rated</h1>
+    //     <div className="p-5">
+    //       {loading ? (
+    //         <>
+    //           <SkeletonShow height="800px" length="1" classes="col-12" />
+    //         </>
+    //       ) : (
+    //         productsShow
+    //       )}
+    //     </div>
+    //   </div>
+    // </div>
+    <div className="card-style">
+      <h1 className="d-flex justify-content-center">Top Rated</h1>
+      <div className="d-flex align-items-center justify-content-center flex-wrap mt-5 gap-2 m-3">
         {loading ? (
           <>
-            <SkeletonShow height="800px" length="1" classes="col-12" />
+            <SkeletonShow
+              height="300px"
+              length="4"
+              classes="col-lg-3 col-md-6 col-12"
+            />
           </>
         ) : (
           productsShow

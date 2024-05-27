@@ -1,4 +1,5 @@
-.categort-title {
+.category-title {
+    color: black;
     transition: 0.2s;
     -webkit-transition: 0.2s;
     -moz-transition: 0.2s;
@@ -6,7 +7,11 @@
     -o-transition: 0.2s;
 }
 
-.categort-title:hover {
+/* .category-title:hover {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+} */
+
+.category-title:hover {
     color: rgb(85, 85, 85) !important;
 }
 

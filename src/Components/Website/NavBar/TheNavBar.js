@@ -6,6 +6,7 @@ import { Axios } from "../../../API/axios";
 import { CATEGORIES } from "../../../API/Api";
 import StringSlice from "../../../helpers/StringSlice";
 import SkeletonShow from "../Skeleton/SkeletonShow";
+import "./TheNavBar.css";
 
 export default function TheNavBar() {
   const [categories, setCategories] = useState([]);
@@ -17,10 +18,7 @@ export default function TheNavBar() {
   }, []);
 
   const categoriesShow = categories.map((category) => (
-    <Link
-      to={`/category/${category.id}`}
-      className="m-0 category-title text-black"
-    >
+    <Link to={`/category/${category.id}`} className="m-0 category-title">
       {StringSlice(category.title, 15)}
     </Link>
   ));
@@ -63,7 +61,7 @@ export default function TheNavBar() {
           </div>
         </div>
         <div className="mt-3">
-          <div className="d-flex align-items-center justify-content-start gap-3 flex-wrap">
+          <div className="category d-flex align-items-center justify-content-start gap-3 flex-wrap">
             {loading ? (
               <>
                 <SkeletonShow length="7" height="30px" width="80px" />

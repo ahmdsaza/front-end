@@ -23,14 +23,14 @@ export default function ShowLatestProducts() {
       img={product.images[0].image}
       price={product.price}
       rating={product.rating}
-      col="6"
+      col="4"
     />
   ));
   return (
-    <div className="col-md-6 col-12">
+    <div className="d-flex justify-content-center">
       <div className="ms-md-3">
-        <h1>Latest Products</h1>
-        <div className="d-flex align-items-stretch justify-content-center flex-wrap mt-5 row-gap-2 mb-5">
+        <h1 className="d-flex justify-content-center">Latest Products</h1>
+        <div className="d-flex justify-content-center flex-wrap mb-5">
           {loading ? (
             <>
               <SkeletonShow

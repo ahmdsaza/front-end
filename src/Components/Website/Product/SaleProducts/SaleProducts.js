@@ -2,6 +2,7 @@ import React from "react";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./sales.css";
 
 export default function SaleProducts(props) {
   const roundStars = Math.round(props.rating);
@@ -14,12 +15,8 @@ export default function SaleProducts(props) {
   ));
   return (
     <div className={`col-lg-${props.col} col-md-6 col-12`}>
-      <div className="m-1 border rounded p-3 h-100 d-flex flex-column justify-content-between">
+      <div className="cards">
         <div>
-          <p className="text-truncate" style={{ color: "gray" }}>
-            {props.title}
-          </p>
-          <p className="text-truncate">{props.description}</p>
           <div className="px-5 py-5 position-relative">
             {props.sale && (
               <p
@@ -42,6 +39,12 @@ export default function SaleProducts(props) {
               }}
             ></div>
           </div>
+          <h4
+            className="text-truncate text-black d-flex justify-content-center"
+            style={{ color: "gray" }}
+          >
+            {props.title}
+          </h4>
         </div>
         <div className="d-flex align-items-center justify-content-between pt-4 border-top">
           <div>
@@ -53,7 +56,6 @@ export default function SaleProducts(props) {
                 className="m-0"
                 style={{ color: "gray", textDecoration: "line-through" }}
               >
-                {" "}
                 {props.price}$
               </h6>
             </div>

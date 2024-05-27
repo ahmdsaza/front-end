@@ -13,8 +13,10 @@ export default function HomePage() {
       <Landing />
       <ShowLatestSaleProducts />
       <Container>
-        <div className="d-flex align-items-start flex-wrap mt-5">
+        <div className="d-block align-items-center flex-wrap mt-5">
           <ShowTopRated />
+        </div>
+        <div className="d-block align-items-center flex-wrap mt-5">
           <ShowLatestProducts />
         </div>
       </Container>
