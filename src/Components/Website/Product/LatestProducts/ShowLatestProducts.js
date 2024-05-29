@@ -30,7 +30,7 @@ export default function ShowLatestProducts() {
     <div className="d-flex justify-content-center">
       <div className="ms-md-3">
         <h1 className="d-flex justify-content-center">Latest Products</h1>
-        <div className="d-flex justify-content-center flex-wrap mb-5">
+        <div className="d-flex justify-content-center flex-wrap row-gap-3 mb-5">
           {loading ? (
             <>
               <SkeletonShow

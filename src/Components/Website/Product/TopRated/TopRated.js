@@ -2,19 +2,19 @@ import React from "react";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./sales.css";
+import "./salesRa.css";
 
 export default function TopRated(props) {
   const roundStars = Math.round(props.rating);
   const stars = Math.min(roundStars, 5);
   const showGoldStars = Array.from({ length: stars }).map((_, index) => (
-    <FontAwesomeIcon style={{ color: "FFB000" }} key={index} icon={solid} />
+    <FontAwesomeIcon key={index} icon={solid} />
   ));
   const showEmptyStars = Array.from({ length: 5 - stars }).map((_, index) => (
     <FontAwesomeIcon key={index} icon={regularStar} />
   ));
   return (
-    <div className="cards">
+    <div className="cards1">
       <div
         className="w-100"
         alt=""
@@ -34,7 +34,7 @@ export default function TopRated(props) {
           <p className="text-truncate">{props.description}</p>
           <div className="px-5 py-5 position-relative"></div>
         </div>
-        <div className="d-flex align-items-center justify-content-between pt-4">
+        <div className="d-flex align-items-center justify-content-between pt-4 border-top">
           <div>
             {showGoldStars}
             {showEmptyStars}

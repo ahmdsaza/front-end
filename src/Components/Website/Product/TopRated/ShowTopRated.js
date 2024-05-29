@@ -42,7 +42,7 @@ export default function ShowTopRated() {
     // </div>
     <div className="card-style">
       <h1 className="d-flex justify-content-center">Top Rated</h1>
-      <div className="d-flex align-items-center justify-content-center flex-wrap mt-5 gap-2 m-3">
+      <div className="d-flex justify-content-center flex-wrap mt-5 gap-2 m-3">
         {loading ? (
           <>
             <SkeletonShow
