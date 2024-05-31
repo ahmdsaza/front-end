@@ -21,6 +21,8 @@ import UpdateProduct from "./Pages/Dashboard/Product/UpdateProduct";
 import HomePage from "./Pages/HomePage/HomePage";
 import WebsiteCategoreis from "./Pages/Categoreis/Categoreis";
 import Website from "./Pages/Website/Website";
+import ProductsPage from "./Components/Website/Product/ProductsPage/ProductsPage";
+import AllProducts from "./Components/Website/Product/ProductsPage/AllProducts";
 
 function App() {
   return (
@@ -30,6 +32,9 @@ function App() {
         <Route element={<Website />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/categories" element={<WebsiteCategoreis />} />
+          <Route path="/Products/:id" element={<ProductsPage />} />
+          <Route path="/shop" element={<AllProducts />} />
+          <Route path="shop/Products/:id" element={<ProductsPage />} />
         </Route>
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />}></Route>

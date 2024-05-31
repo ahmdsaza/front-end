@@ -16,6 +16,7 @@ export default function ShowLatestProducts() {
 
   const productsShow = products.map((product) => (
     <SaleProducts
+      id={product.id}
       title={product.title}
       description={product.description}
       discount={product.discount}

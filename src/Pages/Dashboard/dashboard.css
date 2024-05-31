@@ -52,3 +52,12 @@
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
 }
+
+.new {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: black; */
+    height: 100vh;
+    font-size: 3rem;
+}

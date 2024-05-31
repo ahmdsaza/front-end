@@ -1,0 +1,13 @@
+.cont {
+    /* border: 1px solid black; */
+    margin: 3px;
+}
+.img {
+    width: 100%;
+    max-width: 500px;
+    /* border: 1px solid black; */
+}
+.info {
+    /* border: 1px solid black; */
+    width: 60%;
+}

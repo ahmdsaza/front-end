@@ -8,6 +8,7 @@ export default function Dashboard() {
   return (
     <div className="position-relative ">
       <TopBar />
+      {/* <div className="new">Dashboard</div> */}
       <div className="dashboard d-flex gap-1" style={{ marginTop: "70px" }}>
         <SideBar />
         <Outlet />
