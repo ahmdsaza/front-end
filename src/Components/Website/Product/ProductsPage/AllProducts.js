@@ -4,6 +4,7 @@ import { Axios } from "../../../../API/axios";
 import "./AllProducts.css";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Footer from "../../Footer/Footer";
 
 export default function AllProducts() {
   //States
@@ -54,6 +55,7 @@ export default function AllProducts() {
     <Container>
       <h1 className="page-title">All Products</h1>
       <div className="crd">{showProducts}</div>
+      <Footer />
     </Container>
   );
 }
