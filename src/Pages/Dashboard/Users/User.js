@@ -29,7 +29,6 @@ export default function User() {
       .then(() => setDisable(false))
       .catch(() => nav("/dashboard/users/page/404", { replace: true }));
   }, []);
-
   // Handle Submit
   async function HandleSubmit(e) {
     setLoading(true);

@@ -30,7 +30,7 @@ export default function ShowTopRated() {
   return (
     <Container>
       <div className="card-style">
-        <h1 className="d-flex justify-content-center">Latest Sale Products</h1>
+        <h1 className="d-flex justify-content-center">Top Rated</h1>
         <div className="d-flex align-items-stretch justify-content-center flex-wrap mt-5 row-gap-2 m-3">
           {loading ? (
             <>

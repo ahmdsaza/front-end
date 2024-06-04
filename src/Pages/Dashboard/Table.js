@@ -1,7 +1,7 @@
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Form, Table } from "react-bootstrap";
+import { Container, Form, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PaginatedItems from "../../Components/Dashboard/Pagination/Pagination";
 import { Axios } from "../../API/axios";

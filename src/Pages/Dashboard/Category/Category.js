@@ -4,6 +4,7 @@ import { Axios } from "../../../API/axios";
 import { CATEGORY } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import { useNavigate, useParams } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 export default function Category() {
   const [title, setTitle] = useState("");
@@ -43,7 +44,7 @@ export default function Category() {
     }
   }
   return (
-    <>
+    <Container>
       {loading && <LoadingSubmit />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={HandleSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -67,6 +68,6 @@ export default function Category() {
           Save
         </button>
       </Form>
-    </>
+    </Container>
   );
 }

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
 import { PRODUCT } from "../../../../API/Api";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./ProductsPage.css";
 import { Container } from "react-bootstrap";
 import Footer from "../../Footer/Footer";
-import sho from "../../../../Assets/3.jpg";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -22,32 +21,31 @@ export default function ProductsPage() {
 
   const showData = products.map((item) => (
     <Container>
-      <div>
-        <main class="contain">
-          <div class="left-column">
-            <img data-image="black" src={item.images[0].image} alt="" />
+      <div className="product-div">
+        <div class="product-img">
+          <img src={item.images[0].image} alt="" />
+        </div>
+        <div class="product-side">
+          <div class="product-description">
+            <span className="product-category">{item.category.title}</span>
+            <h1 className="product-title">{item.title}</h1>
+            <p className="product-description">{item.description}</p>
           </div>
-
-          <div class="right-column">
-            <div class="product-description">
-              <span>{item.category.title}</span>
-              <h1>{item.title}</h1>
-              <p>{item.description}</p>
-            </div>
-            <div class="product-price">
-              <span>${item.price}</span>
-              <span className="discount">${item.discount}</span>
-              <a href="/" class="cart-btn">
-                Add to cart
-              </a>
-            </div>
+          <div class="product-prices">
+            <span className="product-discount">${item.discount}</span>
+            <span className="product-price">${item.price}</span>
           </div>
-        </main>
+          <div class="cart-btn">
+            <input type="number" />
+            <Link to="/" className="addToCart">
+              Add to cart
+            </Link>
+          </div>
+        </div>
       </div>
     </Container>
   ));
 
-  console.log(showData);
   return (
     <div>
       {showData}

@@ -3,6 +3,7 @@ import { PRODUCTS, PRODUCT } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Link } from "react-router-dom";
 import TableShow from "../Table";
+import { Container } from "react-bootstrap";
 
 export default function Products() {
   //States

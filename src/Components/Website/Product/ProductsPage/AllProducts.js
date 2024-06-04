@@ -24,18 +24,18 @@ export default function AllProducts() {
   const showProducts = products.map((item, key) => (
     <div key={key}>
       <div className="crd1">
-        <div className="product-in-crd">
+        <div className="products-in-crd">
           <img
-            className="product-image"
+            className="products-image"
             src={item.images[0].image}
             alt="Just an img"
           />
-          <div className="product-info">
-            <p className="product-title">{item.title}</p>
-            <div className="product-icon">
+          <div className="products-info">
+            <p className="products-title">{item.title}</p>
+            <div className="products-icon">
               <div className="prod-price">
-                <div className="product-price">${item.price}</div>
-                <div className="product-discount">${item.discount}</div>
+                <div className="products-price">${item.price}</div>
+                <div className="products-discount">${item.discount}</div>
               </div>
               <Link to={`products/${item.id}`}>
                 <img
