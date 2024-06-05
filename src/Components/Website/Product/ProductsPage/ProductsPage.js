@@ -10,14 +10,13 @@ export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   // const [loading, setLoading] = useState(true);
   const { id } = useParams();
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
     Axios.get(`${PRODUCT}/${id}`)
       .then((data) => setProducts(data.data))
       .catch((err) => console.log(err));
   }, []);
-
-  console.log(products);
 
   const showData = products.map((item) => (
     <Container>
@@ -35,8 +34,28 @@ export default function ProductsPage() {
             <span className="product-discount">${item.discount}</span>
             <span className="product-price">${item.price}</span>
           </div>
+
           <div class="cart-btn">
-            <input type="number" />
+            <div className="count-div">
+              <input
+                className="sum"
+                type="button"
+                value=" - "
+                disabled={count < 2}
+                onClick={() => {
+                  setCount((prev) => prev - 1);
+                }}
+              />
+              <span className="count">{count}</span>
+              <input
+                className="minus"
+                type="button"
+                value=" + "
+                onClick={() => {
+                  setCount((prev) => prev + 1);
+                }}
+              />
+            </div>
             <Link to="/" className="addToCart">
               Add to cart
             </Link>

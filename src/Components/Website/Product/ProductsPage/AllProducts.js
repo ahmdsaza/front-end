@@ -2,24 +2,30 @@ import React, { useEffect, useState } from "react";
 import { PRODUCTS } from "../../../../API/Api";
 import { Axios } from "../../../../API/axios";
 import "./AllProducts.css";
-import { Container } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Footer from "../../Footer/Footer";
+import PaginatedItems from "../../../Dashboard/Pagination/Pagination";
 
 export default function AllProducts() {
   //States
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(12);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    Axios.get(`${PRODUCTS}?limit=${6}&page=${18}`)
-      .then((data) => setProducts(data.data.data))
+    Axios.get(`${PRODUCTS}?limit=${limit}&page=${page}`)
+      .then((data) => {
+        setProducts(data.data.data);
+        setTotal(data.data.total);
+      })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   }, [limit, page]);
+
+  console.log(total);
 
   const showProducts = products.map((item, key) => (
     <div key={key}>
@@ -55,6 +61,26 @@ export default function AllProducts() {
     <Container>
       <h1 className="page-title">All Products</h1>
       <div className="crd">{showProducts}</div>
+      <div className="test">
+        <div className="">
+          <Form.Select
+            onChange={(e) => setLimit(e.target.value)}
+            aria-label="Default select example"
+          >
+            <option value="12">12</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </Form.Select>
+        </div>
+        <div className="page">
+          <PaginatedItems
+            setPage={setPage}
+            itemsPerPage={limit}
+            total={total}
+            typeName={"title"}
+          />{" "}
+        </div>
+      </div>
       <Footer />
     </Container>
   );

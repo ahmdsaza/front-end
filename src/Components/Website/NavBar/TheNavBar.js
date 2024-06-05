@@ -18,7 +18,7 @@ export default function TheNavBar() {
   }, []);
 
   const categoriesShow = categories.map((category) => (
-    <Link to={`/category/${category.id}`} className="m-0 category-title">
+    <Link to={`/category/${category.id}`} className=" m-0 category-title px-3">
       {StringSlice(category.title, 15)}
     </Link>
   ));
@@ -61,7 +61,7 @@ export default function TheNavBar() {
           </div>
         </div>
         <div className="mt-3">
-          <div className="category d-flex align-items-center justify-content-start gap-3 flex-wrap">
+          <div className="category d-flex align-items-center justify-content-start gap-5 flex-wrap">
             {loading ? (
               <>
                 <SkeletonShow length="7" height="30px" width="80px" />

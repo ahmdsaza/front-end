@@ -68,3 +68,11 @@
     display: flex;
     justify-content: space-around;
 }
+.test {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.page {
+    margin-top: 1rem;
+}

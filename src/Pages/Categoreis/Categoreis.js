@@ -26,7 +26,7 @@ export default function WebsiteCategoreis() {
     <>
       <div className="bg-secondary py-5">
         <Container>
-          <div className="d-flex align-items-stretch justify-content-center flex-wrap row-gap-2">
+          <div className="d-flex align-items-stretch justify-content-center flex-wrap row-gap-5">
             {loading ? (
               <SkeletonShow
                 length="15"

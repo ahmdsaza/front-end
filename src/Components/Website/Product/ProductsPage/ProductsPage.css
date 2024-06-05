@@ -35,7 +35,7 @@
 .cart-btn {
     display: flex;
     width: 100%;
-    justify-content: center;
+    justify-content: space-around;
     color: black;
     margin-top: 30%;
     text-align: center;
@@ -47,8 +47,18 @@
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
-.cart-btn input {
-    width: 10%;
+.count-div {
+    display: flex;
+}
+.count {
+    width: 2rem;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
 }
 .addToCart {
     color: black;
