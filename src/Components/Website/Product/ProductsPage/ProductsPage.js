@@ -18,6 +18,8 @@ export default function ProductsPage() {
       .catch((err) => console.log(err));
   }, []);
 
+  console.log(products);
+
   const showData = products.map((item) => (
     <Container>
       <div className="product-div">

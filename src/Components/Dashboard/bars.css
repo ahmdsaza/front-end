@@ -1,4 +1,4 @@
-.top-bar{
+.top-bar {
     position: fixed;
     top: 0;
     left: 0;
@@ -9,15 +9,15 @@
     z-index: 2;
     padding: 0 20px;
 }
-.side-bar{
-    top : 70px;
+.side-bar {
+    top: 70px;
     left: 0;
     background-color: white;
     z-index: 1;
     height: 100vh;
     box-shadow: 0 0 0 1px rgb(0, 0, 0, 0.1);
 }
-.side-bar-link{
+.side-bar-link {
     color: #495057;
     font-size: 18px;
     transition: 0.3s;
@@ -32,17 +32,17 @@
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
-.side-bar .active{
+.side-bar .active {
     background-color: #f2f3fe;
     color: #038edc;
 }
-.side-bar .active:hover{
+.side-bar .active:hover {
     color: #038edc;
 }
-.side-bar-link:hover{
+.side-bar-link:hover {
     color: black;
 }
-a{
+a {
     text-decoration: none !important;
     font-size: 18px;
     transition: 0.3s;

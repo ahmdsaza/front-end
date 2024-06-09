@@ -46,21 +46,5 @@ export default function ShowTopRated() {
         </div>
       </div>
     </Container>
-    // <div className="card-style">
-    //   <h1 className="d-flex justify-content-center">Top Rated</h1>
-    //   <div className="d-flex justify-content-center flex-wrap mt-5 gap-2 m-3">
-    //     {loading ? (
-    //       <>
-    //         <SkeletonShow
-    //           height="300px"
-    //           length="4"
-    //           classes="col-lg-3 col-md-6 col-12"
-    //         />
-    //       </>
-    //     ) : (
-    //       productsShow
-    //     )}
-    //   </div>
-    // </div>
   );
 }

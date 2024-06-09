@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./bars.css";
-
 import React, { useEffect, useState } from "react";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
@@ -32,7 +31,7 @@ export default function TopBar() {
     try {
       const res = await Axios.get(`${LOGOUT}`);
       cookie.remove("e-commerce");
-      window.location.pathname = "/login";
+      window.location.pathname = "/";
     } catch (err) {
       console.log(err);
     }
@@ -49,12 +48,36 @@ export default function TopBar() {
           />
         </div>
         <div>
-          <DropdownButton id="dropdown-basic-button" title={name}>
-            <Dropdown.Item onClick={() => navigate("/")}>
-              Back to website
-            </Dropdown.Item>
-            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-          </DropdownButton>
+          <Dropdown>
+            <Dropdown.Toggle
+              variant="0"
+              style={{ border: "1px solid white" }}
+              id="dropdown-basic"
+            >
+              <img
+                width="30px"
+                src={require("../../Assets/profile.png")}
+                alt="Cart"
+              />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item
+                disabled
+                style={{
+                  marginTop: "-0.5rem",
+                  color: "black",
+                  fontSize: "1rem",
+                  backgroundColor: "#EADBC8",
+                }}
+              >
+                {name}
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => navigate("/")}>
+                Back to website
+              </Dropdown.Item>
+              <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       </div>
     </div>

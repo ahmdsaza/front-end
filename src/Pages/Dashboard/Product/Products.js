@@ -23,8 +23,6 @@ export default function Products() {
       .finally(() => setLoading(false));
   }, [limit, page]);
 
-  console.log(total);
-
   // Import Table Header
   const header = [
     {

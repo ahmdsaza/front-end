@@ -49,11 +49,23 @@
 }
 .count-div {
     display: flex;
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.sum {
+    border: none;
+}
+.minus {
+    border: none;
 }
 .count {
-    width: 2rem;
+    width: 3rem;
     text-align: center;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -63,7 +75,7 @@
 .addToCart {
     color: black;
     width: 50%;
-    border: 1px solid black;
+    border: 1px solid rgb(170, 170, 170);
     border-radius: 5px;
 }
 
