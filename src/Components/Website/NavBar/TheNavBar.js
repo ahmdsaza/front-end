@@ -41,8 +41,12 @@ export default function TheNavBar() {
   }
 
   const categoriesShow = categories.map((category) => (
-    <Link to={`/category/${category.id}`} className=" m-0 category-title px-3">
-      {StringSlice(category.title, 15)}
+    <Link
+      to={`/categories/${category.id}`}
+      className=" m-0 category-title px-3"
+    >
+      {/* {StringSlice(category.title, 15)} */}
+      {category.title}
     </Link>
   ));
   return (

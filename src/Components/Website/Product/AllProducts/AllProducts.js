@@ -21,9 +21,11 @@ export default function AllProducts() {
         setProducts(data.data.data);
         setTotal(data.data.total);
       })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
+      .catch((err) => console.log(err));
+    // .finally(() => setLoading(false));
   }, [limit, page]);
+
+  // console.log(products);
 
   const showProducts = products.map((item, key) => (
     <div key={key}>
@@ -41,7 +43,7 @@ export default function AllProducts() {
                 <div className="products-price">${item.price}</div>
                 <div className="products-discount">${item.discount}</div>
               </div>
-              <Link to={`products/${item.id}`}>
+              <Link to={`${item.id}`}>
                 <img
                   src={require("../../../../Assets/shopping-cart.png")}
                   alt="cart"

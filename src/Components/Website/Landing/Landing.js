@@ -13,7 +13,7 @@ export default function Landing() {
           </h5>
 
           <Link
-            to="/shop"
+            to="/products"
             className="btn btn-primary mt-3 py-3 px-4 fw-bold text-light"
           >
             Shop Now

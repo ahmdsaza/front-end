@@ -19,7 +19,7 @@ export default function WebsiteCategoreis() {
   const showCategories = categories.map((item) => (
     <div className="col-lg-2 col-md-6 col-12 bg-transparent border-0">
       <div className="m-1 bg-white border d-flex align-items-center justify-content-start gap-3 rounded py-2 h-100">
-        <Link to={`category/${item.id}`}>
+        <Link to={`${item.id}`}>
           <img
             className="ms-3"
             width="50px"

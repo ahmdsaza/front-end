@@ -14,6 +14,7 @@ export const CATEGORY = "category";
 export const LatestSale = "latest-sale";
 export const Latest = "latest";
 export const TopRatedApi = "top-rated";
+export const categorry = "categorry";
 
 // Products
 export const PRODUCTS = "products";

@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../API/axios";
-import { PRODUCTS, CATEGORY } from "../../../API/Api";
+import { CATEGORY, categorry } from "../../../API/Api";
 import { Link, useParams } from "react-router-dom";
 import "../../../Components/Website/Product/AllProducts/AllProducts.css";
-import { Container, Form } from "react-bootstrap";
-import PaginatedItems from "../../../Components/Dashboard/Pagination/Pagination";
+import { Container } from "react-bootstrap";
 import Footer from "../../../Components/Website/Footer/Footer";
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
-  const [limit, setLimit] = useState(12);
-  const [products, setProducts] = useState([]);
-  const { id } = useParams();
+  const [title, setTitle] = useState();
+  // const [page, setPage] = useState(1);
+  // const [limit, setLimit] = useState(3);
+  // const [total, setTotal] = useState(0);
 
-  //   useEffect(() => {
-  //     Axios.get(`${PRODUCTS}?where_category_id=${id}`)
-  //       .then((data) => setProducts(data.data))
-  //       .catch((err) => console.log(err));
-  //   }, [limit]);
+  const { id } = useParams();
 
   useEffect(() => {
     Axios.get(`${CATEGORY}/${id}`)
@@ -25,7 +21,25 @@ export default function CategoriesPage() {
       .catch((err) => console.log(err));
   }, []);
 
-  //   console.log(categories[0].images[0].image);
+  // Get Title
+  useEffect(() => {
+    Axios.get(`${categorry}/${id}`)
+      .then((data) => setTitle(data.data.title))
+      .catch((err) => console.log(err));
+  }, []);
+
+  // console.log(title);
+
+  // useEffect(() => {
+  //   Axios.get(`${CATEGORY}/${id}?limit=${limit}&page=${page}`)
+  //     .then((data) => {
+  //       setCategories(data.data);
+  //       setTotal(data.total);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [limit, page]);
+
+  // console.log(categories);
 
   const showData = categories.map((item, key) => (
     <div key={key}>
@@ -57,13 +71,15 @@ export default function CategoriesPage() {
     </div>
   ));
 
+  // const titleCat = categories[0].title;
+
   return (
     <div>
       <Container>
-        <h1 className="page-title">All Products</h1>
+        <h1 className="page-title">{title}</h1>
         <div className="crd">{showData}</div>
-        <div className="test">
-          {/* <div className="">
+        {/* <div className="test">
+          <div className="">
             <Form.Select
               onChange={(e) => setLimit(e.target.value)}
               aria-label="Default select example"
@@ -74,14 +90,14 @@ export default function CategoriesPage() {
             </Form.Select>
           </div>
           <div className="page">
-             <PaginatedItems
+            <PaginatedItems
               setPage={setPage}
               itemsPerPage={limit}
               total={total}
               typeName={"title"}
-            />{" "} 
-          </div>*/}
-        </div>
+            />{" "}
+          </div> 
+        </div>*/}
         <Footer />
       </Container>
     </div>

@@ -33,10 +33,10 @@ function App() {
         <Route element={<Website />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/categories" element={<WebsiteCategoreis />} />
-          <Route path="/categories/category/:id" element={<CategoriesPage />} />
-          <Route path="/Products/:id" element={<ProductsPage />} />
-          <Route path="/shop" element={<AllProducts />} />
-          <Route path="shop/Products/:id" element={<ProductsPage />} />
+          <Route path="/categories/:id" element={<CategoriesPage />} />
+          {/* <Route path="/products/:id" element={<ProductsPage />} /> */}
+          <Route path="/products" element={<AllProducts />} />
+          <Route path="products/:id" element={<ProductsPage />} />
         </Route>
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />}></Route>
