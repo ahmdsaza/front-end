@@ -57,7 +57,7 @@ export default function CategoriesPage() {
                 <div className="products-price">${item.price}</div>
                 <div className="products-discount">${item.discount}</div>
               </div>
-              <Link to={`products/${item.id}`}>
+              <Link to={`../products/${item.id}`}>
                 <img
                   src={require("../../../Assets/shopping-cart.png")}
                   alt="cart"

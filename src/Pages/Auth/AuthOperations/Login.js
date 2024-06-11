@@ -4,7 +4,7 @@ import { baseURL, LOGIN } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
 import { Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   // States
@@ -103,7 +103,7 @@ export default function Login() {
                   <div className="google-icon-wrapper">
                     <img
                       className="google-icon"
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png"
+                      src="https://image.similarpng.com/very-thumbnail/2020/06/Logo-google-icon-PNG.png"
                       alt="sign in google"
                     />
                   </div>
@@ -112,6 +112,7 @@ export default function Login() {
                   </p>
                 </a>
               </div>
+              <Link to="../register">You don't have an account?</Link>
               {err !== "" && <span className="error">{err}</span>}
             </div>
           </Form>

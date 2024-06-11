@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
-import { PRODUCT } from "../../../../API/Api";
+import { PRODUCT, Cart, USER } from "../../../../API/Api";
 import { Link, useParams } from "react-router-dom";
 import "./ProductsPage.css";
 import { Container } from "react-bootstrap";
@@ -11,6 +11,9 @@ export default function ProductsPage() {
   // const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const [count, setCount] = useState(1);
+  const [cart, setCart] = useState();
+  const [addtocart, setAddtoCart] = useState("");
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     Axios.get(`${PRODUCT}/${id}`)
@@ -18,7 +21,39 @@ export default function ProductsPage() {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(products);
+  // Get User Name
+  // useEffect(() => {
+  //   Axios.get(`${USER}`)
+  //     .then((data) => setName(data.data.name))
+  //     .catch((err) => console.log(err));
+  // }, []);
+
+  useEffect(() => {
+    Axios.get(`${USER}`)
+      .then((data) => setUser(data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  // console.log(user);
+
+  async function addToCart() {
+    try {
+      if (user) {
+        Axios.post(`${Cart}`)
+          .then((data) => {
+            setCart(data.data);
+            setAddtoCart("Product add to cart successfully");
+          })
+          .catch((err) => console.log(err));
+      } else {
+        alert("Login To add Products to Cart");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  console.log(cart);
 
   const showData = products.map((item) => (
     <Container>
@@ -36,7 +71,6 @@ export default function ProductsPage() {
             <span className="product-discount">${item.discount}</span>
             <span className="product-price">${item.price}</span>
           </div>
-
           <div class="cart-btn">
             <div className="count-div">
               <input
@@ -58,10 +92,17 @@ export default function ProductsPage() {
                 }}
               />
             </div>
-            <Link to="/" className="addToCart">
+            <button className="addToCart" onClick={addToCart}>
               Add to cart
-            </Link>
+            </button>
           </div>
+          {addtocart !== "" && (
+            <div className="d-flex justify-content-center">
+              <span className="d-flex alert alert-success mt-2 justify-content-center ">
+                {addtocart}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </Container>

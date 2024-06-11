@@ -13,7 +13,6 @@ export default function AllProducts() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(12);
   const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     Axios.get(`${PRODUCTS}?limit=${limit}&page=${page}`)

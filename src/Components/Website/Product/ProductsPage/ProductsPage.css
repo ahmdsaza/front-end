@@ -73,6 +73,7 @@
     -o-border-radius: 5px;
 }
 .addToCart {
+    background-color: white;
     color: black;
     width: 50%;
     border: 1px solid rgb(170, 170, 170);

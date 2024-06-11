@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { Axios } from "../../../API/axios";
 import { CATEGORIES, LOGOUT, USER } from "../../../API/Api";
-import StringSlice from "../../../helpers/StringSlice";
+// import StringSlice from "../../../helpers/StringSlice";
 import SkeletonShow from "../Skeleton/SkeletonShow";
 import Cookie from "cookie-universal";
 import "./TheNavBar.css";
@@ -27,7 +27,7 @@ export default function TheNavBar() {
   useEffect(() => {
     Axios.get(`${USER}`)
       .then((data) => setName(data.data.name))
-      .catch(() => navigate("/", { replace: true }));
+      .catch((err) => console.log(err));
   }, []);
 
   async function handleLogout() {
@@ -104,11 +104,19 @@ export default function TheNavBar() {
                 >
                   {name}
                 </Dropdown.Item>
-                <Dropdown.Item>
-                  <Link to="/dashboard" style={{ color: "black" }}>
-                    Dashboard
-                  </Link>
-                </Dropdown.Item>
+                {name ? (
+                  <Dropdown.Item>
+                    <Link to="/dashboard" style={{ color: "black" }}>
+                      Dashboard
+                    </Link>
+                  </Dropdown.Item>
+                ) : (
+                  <Dropdown.Item>
+                    <Link to="login" style={{ color: "black" }}>
+                      Login / Register
+                    </Link>
+                  </Dropdown.Item>
+                )}
                 <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -116,6 +124,7 @@ export default function TheNavBar() {
         </div>
         <div className="mt-3">
           <div className="category d-flex align-items-center justify-content-start gap-5 flex-wrap">
+            {/**/}{" "}
             {loading ? (
               <>
                 <SkeletonShow length="7" height="30px" width="80px" />
@@ -124,7 +133,7 @@ export default function TheNavBar() {
               categoriesShow
             )}
             <Link className="text-black category-title" to="/categories">
-              Show All
+              Show all Categories
             </Link>
           </div>
         </div>
