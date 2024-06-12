@@ -24,4 +24,5 @@ export const PRODUCTS = "products";
 export const PRODUCT = "product";
 
 // Add To Cart
-export const Cart = "add-to-cart";
+export const CART = "add-to-cart";
+export const CARTS = "carts";

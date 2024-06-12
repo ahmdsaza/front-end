@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
-import { PRODUCT, Cart, USER } from "../../../../API/Api";
-import { Link, useParams } from "react-router-dom";
+import { PRODUCT, CART, USER } from "../../../../API/Api";
+import { useParams } from "react-router-dom";
 import "./ProductsPage.css";
 import { Container } from "react-bootstrap";
 import Footer from "../../Footer/Footer";
@@ -36,10 +36,33 @@ export default function ProductsPage() {
 
   // console.log(user);
 
-  async function addToCart() {
+  // async function addToCart() {
+  //   try {
+  //     if (user) {
+  //       Axios.post(`${CART}`)
+  //         .then((data) => {
+  //           setCart(data.data);
+  //           setAddtoCart("Product add to cart successfully");
+  //         })
+  //         .catch((err) => console.log(err));
+  //     } else {
+  //       alert("Login To add Products to Cart");
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
+  async function addToCart(e) {
+    e.preventDefault();
+
+    const data = {
+      product_id: products[0].id,
+      product_qty: 1,
+    };
     try {
       if (user) {
-        Axios.post(`${Cart}`)
+        Axios.post(`${CART}`, data)
           .then((data) => {
             setCart(data.data);
             setAddtoCart("Product add to cart successfully");
@@ -53,7 +76,7 @@ export default function ProductsPage() {
     }
   }
 
-  console.log(cart);
+  // console.log(products[0].id);
 
   const showData = products.map((item) => (
     <Container>
