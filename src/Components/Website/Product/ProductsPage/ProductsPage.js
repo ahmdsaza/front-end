@@ -57,6 +57,7 @@ export default function ProductsPage() {
     e.preventDefault();
 
     const data = {
+      user_id: user.id,
       product_id: products[0].id,
       product_qty: 1,
     };

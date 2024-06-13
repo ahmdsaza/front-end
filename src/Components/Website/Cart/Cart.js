@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import { Container } from "react-bootstrap";
 import { Axios } from "../../../API/axios";
-import { CARTS, USER } from "../../../API/Api";
+import { CARTS, PRODUCTS, USER } from "../../../API/Api";
 import "./cart.css";
 
 export default function Cart() {
   const [carts, setCarts] = useState([]);
+  const [products, setProducts] = useState([]);
+
   const [user, setUser] = useState("");
 
   useEffect(() => {
@@ -15,21 +17,36 @@ export default function Cart() {
       .catch((err) => console.log(err));
   }, []);
 
+  console.log(user.id);
+
+  useEffect(() => {
+    Axios.get(`${PRODUCTS}`)
+      .then((data) => setProducts(data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  // console.log(products);
+
   useEffect(() => {
     Axios.get(`${CARTS}`)
       .then((data) => setCarts(data.data))
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(carts);
-
   const showCart = carts.map((item) => (
     <div className="card w-100 d-flex flex-row justify-content-start p-3">
-      <p>ID:{item.id}</p>
-      <p>Product:{item.product_id}</p>
-      <p>User Id: {item.user_id}</p>
+      {/* <div className=" w-100 flex-row justify-content-start p-3"> */}
+      <div className="d-block">
+        <p>ID: {item.id}</p>
+        <p>Product: {item.product.title}</p>
+        <p>User Id: {item.user_id}</p>
+        <p>Qty: {item.product_qty}</p>
+        <img src={item.product.image} />
+      </div>
     </div>
   ));
+
+  // console.log(carts);
 
   return (
     <Container>
