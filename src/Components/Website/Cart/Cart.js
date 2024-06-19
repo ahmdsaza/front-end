@@ -2,31 +2,13 @@ import React, { useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import { Container } from "react-bootstrap";
 import { Axios } from "../../../API/axios";
-import { CARTS, PRODUCTS, USER } from "../../../API/Api";
+import { CARTS } from "../../../API/Api";
 import "./cart.css";
 
 export default function Cart() {
   const [carts, setCarts] = useState([]);
-  const [products, setProducts] = useState([]);
 
-  const [user, setUser] = useState("");
-
-  useEffect(() => {
-    Axios.get(`${USER}`)
-      .then((data) => setUser(data.data))
-      .catch((err) => console.log(err));
-  }, []);
-
-  console.log(user.id);
-
-  useEffect(() => {
-    Axios.get(`${PRODUCTS}`)
-      .then((data) => setProducts(data.data))
-      .catch((err) => console.log(err));
-  }, []);
-
-  // console.log(products);
-
+  // Call Cart
   useEffect(() => {
     Axios.get(`${CARTS}`)
       .then((data) => setCarts(data.data))
@@ -34,25 +16,31 @@ export default function Cart() {
   }, []);
 
   const showCart = carts.map((item) => (
-    <div className="card w-100 d-flex flex-row justify-content-start p-3">
+    <div className="card w-100 d-flex flex-column justify-content-start p-3">
       {/* <div className=" w-100 flex-row justify-content-start p-3"> */}
+      {carts.length}
       <div className="d-block">
-        <p>ID: {item.id}</p>
+        <img src={item.product.image} alt={item.product.title} />
         <p>Product: {item.product.title}</p>
-        <p>User Id: {item.user_id}</p>
+        <p>Price: ${item.product.discount}</p>
         <p>Qty: {item.product_qty}</p>
-        <img src={item.product.image} />
+        <p>Total: ${item.product.discount * item.product_qty}</p>
       </div>
     </div>
   ));
-
-  // console.log(carts);
 
   return (
     <Container>
       <h1 className="d-flex justify-content-center">Shopping Cart</h1>
       <div className="cardStyle d-flex flex-column align-items-center justify-content-center h-100 mt-4">
-        {showCart}
+        {carts.length > 0 ? (
+          showCart
+        ) : (
+          <div className="card w-100 d-flex flex-row justify-content-center p-3">
+            {" "}
+            <h3>No Items in Cart</h3>
+          </div>
+        )}
       </div>
       <Footer />
     </Container>

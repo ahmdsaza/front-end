@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import StringSlice from "../../helpers/StringSlice";
 import SkeletonShow from "../../Components/Website/Skeleton/SkeletonShow";
 import { Link } from "react-router-dom";
+import Footer from "../../Components/Website/Footer/Footer";
 
 export default function WebsiteCategoreis() {
   const [categories, setCategories] = useState([]);
@@ -50,6 +51,7 @@ export default function WebsiteCategoreis() {
           </div>
         </Container>
       </div>
+      <Footer />
     </>
   );
 }

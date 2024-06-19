@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Axios } from "../../../API/axios";
-import { CATEGORIES, LOGOUT, USER } from "../../../API/Api";
-// import StringSlice from "../../../helpers/StringSlice";
+import { CATEGORIES, LOGOUT, USER, CARTS } from "../../../API/Api";
 import SkeletonShow from "../Skeleton/SkeletonShow";
 import Cookie from "cookie-universal";
 import "./TheNavBar.css";
 
 export default function TheNavBar() {
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const cookie = Cookie();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    Axios.get(`${CATEGORIES}`)
-      .then((res) => setCategories(res.data.slice(-8)))
-      .finally(() => setLoading(false));
-  }, []);
-
+  // const [categories, setCategories] = useState([]);
+  // const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
+  const [carts, setCarts] = useState([]);
+  const cookie = Cookie();
+
+  // Get Category
+  // useEffect(() => {
+  //   Axios.get(`${CATEGORIES}`)
+  //     .then((res) => setCategories(res.data.slice(-8)))
+  //     .finally(() => setLoading(false));
+  // }, []);
 
   // Get User Name
   useEffect(() => {
@@ -30,6 +29,14 @@ export default function TheNavBar() {
       .catch((err) => console.log(err));
   }, []);
 
+  // Number of Items in Cart
+  useEffect(() => {
+    Axios.get(`${CARTS}`)
+      .then((data) => setCarts(data.data))
+      .catch((err) => console.log(err));
+  }, [carts.length]);
+
+  // Logout
   async function handleLogout() {
     try {
       const res = await Axios.get(`${LOGOUT}`);
@@ -40,19 +47,28 @@ export default function TheNavBar() {
     }
   }
 
-  const categoriesShow = categories.map((category) => (
-    <Link
-      to={`/categories/${category.id}`}
-      className=" m-0 category-title px-3"
-    >
-      {/* {StringSlice(category.title, 15)} */}
-      {category.title}
-    </Link>
-  ));
+  //Category Map
+  // const categoriesShow = categories.map((category) => (
+  //   <Link
+  //     to={`/categories/${category.id}`}
+  //     className=" m-0 category-title px-3"
+  //   >
+  //     {/* {StringSlice(category.title, 15)} */}
+  //     {category.title}
+  //   </Link>
+  // ));
   return (
     <nav className="py-3">
       <Container>
         <div className="d-flex align-items-center justify-content-between flex-wrap">
+          {/* <div className="px-3">
+            <img
+              width="25px"
+              height="25px"
+              src={require("../../../Assets/burger-bar.png")}
+              alt="Cart"
+            />
+          </div> */}
           <Link className="col-3" to="/">
             <img
               width="200px"
@@ -60,18 +76,16 @@ export default function TheNavBar() {
               alt="logo"
             />
           </Link>
-          <div className="col-12 col-md-6 order-md-2 order-3 mt-md-0 mt-3 position-relative">
-            <Form.Control
-              type="search"
-              className="form-control custom-search py-3 rounded-0"
-            />
-            <h3 className="btn btn-primary position-absolute top-0 end-0 h-100 line-height m-0 px-4 rounded-0 d-flex align-items-center justify-content-center">
-              Search
-            </h3>
-          </div>
-
           <div className="col-3 d-flex align-items-center justify-content-end gap-2 order-md-3 order-1">
             <div className="d-flex">
+              <div className="px-3">
+                <img
+                  width="25px"
+                  height="25px"
+                  src={require("../../../Assets/search-icon.png")}
+                  alt="Cart"
+                />
+              </div>
               <Link to="/cart">
                 <img
                   width="30px"
@@ -79,7 +93,7 @@ export default function TheNavBar() {
                   alt="Cart"
                 />
               </Link>
-              <span>3</span>
+              <span>{carts.length}</span>
             </div>
             <Dropdown>
               <Dropdown.Toggle
@@ -105,11 +119,14 @@ export default function TheNavBar() {
                   {name}
                 </Dropdown.Item>
                 {name ? (
-                  <Dropdown.Item>
-                    <Link to="/dashboard" style={{ color: "black" }}>
-                      Dashboard
-                    </Link>
-                  </Dropdown.Item>
+                  <>
+                    <Dropdown.Item>
+                      <Link to="/dashboard" style={{ color: "black" }}>
+                        Dashboard
+                      </Link>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                  </>
                 ) : (
                   <Dropdown.Item>
                     <Link to="login" style={{ color: "black" }}>
@@ -117,24 +134,8 @@ export default function TheNavBar() {
                     </Link>
                   </Dropdown.Item>
                 )}
-                <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-          </div>
-        </div>
-        <div className="mt-3">
-          <div className="category d-flex align-items-center justify-content-start gap-5 flex-wrap">
-            {/**/}{" "}
-            {loading ? (
-              <>
-                <SkeletonShow length="7" height="30px" width="80px" />
-              </>
-            ) : (
-              categoriesShow
-            )}
-            <Link className="text-black category-title" to="/categories">
-              Show all Categories
-            </Link>
           </div>
         </div>
       </Container>

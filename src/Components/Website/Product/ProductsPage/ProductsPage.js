@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
-import { PRODUCT, CART, USER } from "../../../../API/Api";
+import { PRODUCT, CART, USER, CARTS } from "../../../../API/Api";
 import { useParams } from "react-router-dom";
 import "./ProductsPage.css";
 import { Container } from "react-bootstrap";
@@ -8,33 +8,33 @@ import Footer from "../../Footer/Footer";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const [count, setCount] = useState(1);
   const [cart, setCart] = useState();
+  const [carts, setCarts] = useState([]);
   const [addtocart, setAddtoCart] = useState("");
   const [user, setUser] = useState("");
 
+  // Get Product by id
   useEffect(() => {
     Axios.get(`${PRODUCT}/${id}`)
       .then((data) => setProducts(data.data))
       .catch((err) => console.log(err));
   }, []);
 
-  // Get User Name
-  // useEffect(() => {
-  //   Axios.get(`${USER}`)
-  //     .then((data) => setName(data.data.name))
-  //     .catch((err) => console.log(err));
-  // }, []);
-
+  // Get User
   useEffect(() => {
     Axios.get(`${USER}`)
       .then((data) => setUser(data.data))
       .catch((err) => console.log(err));
   }, []);
 
-  // console.log(user);
+  // Number of Items in Cart
+  useEffect(() => {
+    Axios.get(`${CARTS}`)
+      .then((data) => setCarts(data.data))
+      .catch((err) => console.log(err));
+  }, [addtocart]);
 
   // async function addToCart() {
   //   try {
@@ -53,13 +53,14 @@ export default function ProductsPage() {
   //   }
   // }
 
-  async function addToCart(e) {
+  // Add to Cart
+  async function submitToCart(e) {
     e.preventDefault();
 
     const data = {
       user_id: user.id,
       product_id: products[0].id,
-      product_qty: 1,
+      product_qty: count,
     };
     try {
       if (user) {
@@ -77,7 +78,7 @@ export default function ProductsPage() {
     }
   }
 
-  // console.log(products[0].id);
+  console.log(carts.length);
 
   const showData = products.map((item) => (
     <Container>
@@ -106,7 +107,7 @@ export default function ProductsPage() {
                   setCount((prev) => prev - 1);
                 }}
               />
-              <span className="count">{count}</span>
+              <span className="count">{count}</span> {/* product Quantity */}
               <input
                 className="minus"
                 type="button"
@@ -116,7 +117,7 @@ export default function ProductsPage() {
                 }}
               />
             </div>
-            <button className="addToCart" onClick={addToCart}>
+            <button className="addToCart" onClick={submitToCart}>
               Add to cart
             </button>
           </div>

@@ -19,7 +19,7 @@ export default function CategoriesPage() {
     Axios.get(`${CATEGORY}/${id}`)
       .then((data) => setCategories(data.data))
       .catch((err) => console.log(err));
-  }, [categories]);
+  }, []);
 
   // Get Title
   useEffect(() => {
@@ -27,8 +27,6 @@ export default function CategoriesPage() {
       .then((data) => setTitle(data.data.title))
       .catch((err) => console.log(err));
   }, []);
-
-  // console.log(title);
 
   // useEffect(() => {
   //   Axios.get(`${CATEGORY}/${id}?limit=${limit}&page=${page}`)
