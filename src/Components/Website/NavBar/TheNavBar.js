@@ -36,6 +36,8 @@ export default function TheNavBar() {
       .catch((err) => console.log(err));
   }, [carts.length]);
 
+  // console.log(carts[0]);
+
   // Logout
   async function handleLogout() {
     try {

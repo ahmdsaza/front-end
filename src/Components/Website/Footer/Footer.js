@@ -1,9 +1,8 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import {
   faTwitter,
-  faFacebook,
-  faGoogle,
+  // faFacebook,
+  // faGoogle,
   faInstagram,
   faLinkedin,
   faGithub,
@@ -16,37 +15,37 @@ export default function Footer() {
       <footer class="text-center mt-4">
         <div class="container p-4">
           <section class="mb-4">
-            <a
+            {/* <a
               data-mdb-ripple-init
               class="btn btn-outline btn-floating m-1"
               href="#!"
               role="button"
             >
               <FontAwesomeIcon icon={faFacebook} />
-            </a>
+            </a> */}
 
             <a
               data-mdb-ripple-init
               class="btn btn-outline btn-floating m-1"
-              href="#!"
+              href="https://x.com/ahmedsaudzh"
               role="button"
             >
               <FontAwesomeIcon icon={faTwitter} />
             </a>
 
-            <a
+            {/* <a
               data-mdb-ripple-init
               class="btn btn-outline btn-floating m-1"
               href="#!"
               role="button"
             >
               <FontAwesomeIcon icon={faGoogle} />
-            </a>
+            </a> */}
 
             <a
               data-mdb-ripple-init
               class="btn btn-outline btn-floating m-1"
-              href="#!"
+              href="https://www.instagram.com/ahmdsaza"
               role="button"
             >
               <FontAwesomeIcon icon={faInstagram} />
@@ -55,7 +54,7 @@ export default function Footer() {
             <a
               data-mdb-ripple-init
               class="btn btn-outline btn-floating m-1"
-              href="#!"
+              href="https://www.linkedin.com/in/ahmedsaza"
               role="button"
             >
               <FontAwesomeIcon icon={faLinkedin} />
@@ -64,7 +63,7 @@ export default function Footer() {
             <a
               data-mdb-ripple-init
               class="btn btn-outline btn-floating m-1"
-              href="#!"
+              href="https://github.com/ahmdsaza"
               role="button"
             >
               <FontAwesomeIcon icon={faGithub} />

@@ -4,7 +4,7 @@ import { baseURL, LOGIN } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
 import { Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   // States
@@ -20,7 +20,7 @@ export default function Login() {
   const cookie = Cookie();
 
   // Navigate
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Err
   const [err, setErr] = useState("");
@@ -46,10 +46,10 @@ export default function Login() {
       const res = await axios.post(`${baseURL}/${LOGIN}`, form);
       setLoading(false);
       const token = res.data.token;
-      const role = res.data.user.role;
-      const go = role === "1995" ? "users" : "writer";
+      // const role = res.data.user.role;
+      // const go = role === "1995" ? "users" : "writer";
       cookie.set("e-commerce", token);
-      window.location.pathname = `/dashboard/${go}`;
+      window.location.pathname = `/`;
     } catch (err) {
       setLoading(false);
       if (err.response.status === 401) {

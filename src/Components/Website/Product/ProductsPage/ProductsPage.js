@@ -10,9 +10,9 @@ export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const { id } = useParams();
   const [count, setCount] = useState(1);
-  const [cart, setCart] = useState();
-  const [carts, setCarts] = useState([]);
+  // const [carts, setCarts] = useState([]);
   const [addtocart, setAddtoCart] = useState("");
+  // const [checkCart, setCheckCart] = useState(false);
   const [user, setUser] = useState("");
 
   // Get Product by id
@@ -30,11 +30,11 @@ export default function ProductsPage() {
   }, []);
 
   // Number of Items in Cart
-  useEffect(() => {
-    Axios.get(`${CARTS}`)
-      .then((data) => setCarts(data.data))
-      .catch((err) => console.log(err));
-  }, [addtocart]);
+  // useEffect(() => {
+  //   Axios.get(`${CARTS}`)
+  //     .then((data) => setCarts(data.data))
+  //     .catch((err) => console.log(err));
+  // }, [checkCart]);
 
   // async function addToCart() {
   //   try {
@@ -54,6 +54,30 @@ export default function ProductsPage() {
   // }
 
   // Add to Cart
+  // async function submitToCart(e) {
+  //   e.preventDefault();
+
+  //   const data = {
+  //     user_id: user.id,
+  //     product_id: products[0].id,
+  //     product_qty: count,
+  //   };
+  //   try {
+  //     if (user) {
+  //       Axios.post(`${CART}`, data)
+  //         .then((data) => {
+  //           setCart(data.data);
+  //           setAddtoCart("Product add to cart successfully");
+  //         })
+  //         .catch((err) => console.log(err));
+  //     } else {
+  //       alert("Login To add Products to Cart");
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
   async function submitToCart(e) {
     e.preventDefault();
 
@@ -65,10 +89,7 @@ export default function ProductsPage() {
     try {
       if (user) {
         Axios.post(`${CART}`, data)
-          .then((data) => {
-            setCart(data.data);
-            setAddtoCart("Product add to cart successfully");
-          })
+          .then(setAddtoCart("Product add to cart successfully"))
           .catch((err) => console.log(err));
       } else {
         alert("Login To add Products to Cart");
@@ -77,8 +98,6 @@ export default function ProductsPage() {
       console.log(err);
     }
   }
-
-  console.log(carts.length);
 
   const showData = products.map((item) => (
     <Container>

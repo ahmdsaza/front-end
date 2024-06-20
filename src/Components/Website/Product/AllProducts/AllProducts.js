@@ -24,8 +24,6 @@ export default function AllProducts() {
     // .finally(() => setLoading(false));
   }, [limit, page]);
 
-  // console.log(products);
-
   const showProducts = products.map((item, key) => (
     <div key={key}>
       <div className="crd1">
