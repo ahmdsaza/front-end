@@ -96,7 +96,6 @@ export default function CategoriesPage() {
             />{" "}
           </div> 
         </div>*/}
-        <Footer />
       </Container>
     </div>
   );

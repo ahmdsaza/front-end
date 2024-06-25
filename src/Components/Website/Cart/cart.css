@@ -1,3 +1,6 @@
+.cardStyling {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}
 .cardStyle {
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 5px;
@@ -7,19 +10,34 @@
     -o-border-radius: 5px;
 }
 .cart-card {
+    height: 250px;
     /* border: 1px solid black; */
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    /* flex-direction: row; */
     gap: 2rem;
 }
 
 .cart-card-details {
     display: flex;
+    /* flex-wrap: wrap; */
     gap: 1rem;
 }
 
+.cart-image {
+    height: 250px;
+    width: auto;
+    /* width: 30%; */
+}
+
+.cart-image-div {
+    width: 90%;
+}
+
 .cart-product-title {
+    position: absolute;
+    color: black;
     font-size: 1.5rem;
 }
 
@@ -28,8 +46,68 @@
     /* border: 1px solid black; */
 }
 
+.cart-product-price {
+    padding-top: 3rem;
+    font-size: 1.2rem;
+}
+
+/* .cart-product-qty {
+    font-size: 1.2rem;
+} */
+
+.count-qty-div {
+    display: flex;
+    width: 100%;
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.count-qty {
+    width: 3rem;
+    text-align: center;
+    /* border: 1px solid black; */
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
 .cart-product-total {
     display: flex;
     flex-wrap: wrap;
     align-items: end;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 1366px) {
+    .cart-product-title {
+        position: relative;
+        color: black;
+        font-size: 1rem;
+    }
+    .count-qty-div {
+        display: flex;
+        width: 100%;
+        border: 1px solid rgb(170, 170, 170);
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+    }
+    .count-qty {
+        width: 3rem;
+        text-align: center;
+        /* border: 1px solid black; */
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+    }
 }

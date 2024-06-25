@@ -69,9 +69,9 @@
     justify-content: space-around;
 }
 .test {
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: end; */
 }
 .page {
     margin-top: 1rem;

@@ -78,6 +78,8 @@ export default function ProductsPage() {
   //   }
   // }
 
+  // console.log(products[0].images[0].image);
+
   async function submitToCart(e) {
     e.preventDefault();
 
@@ -85,7 +87,12 @@ export default function ProductsPage() {
       user_id: user.id,
       product_id: products[0].id,
       product_qty: count,
+      product_image: products[0].images[0].image,
     };
+    console.log(products[0].images[0].image);
+
+    // "SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'product_image' at row 1 (Connection: mysql, SQL: insert into `carts` (`user_id`, `product_id`, `product_qty`, `product_image`, `updated_at`, `created_at`) values (3, 518, 3, http://127.0.0.1:8000/images/20240604082801.jpg, 2024-06-23 18:02:39, 2024-06-23 18:02:39))"
+
     try {
       if (user) {
         Axios.post(`${CART}`, data)
@@ -152,10 +159,5 @@ export default function ProductsPage() {
     </Container>
   ));
 
-  return (
-    <div>
-      {showData}
-      <Footer />
-    </div>
-  );
+  return <div>{showData}</div>;
 }
