@@ -26,6 +26,7 @@ export const PRODUCT = "product";
 // Add To Cart
 export const CART = "add-to-cart";
 export const CARTS = "carts";
+export const UPDATEQTY = "cart-updateqty";
 
 // Check Out
 export const ORDERS = "place-order";

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import { Container } from "react-bootstrap";
 import { Axios } from "../../../API/axios";
-import { CARTS, USER } from "../../../API/Api";
+import { CARTS, USER, UPDATEQTY } from "../../../API/Api";
 import "./cart.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,6 +27,32 @@ export default function Cart() {
       .then((data) => setUser(data.data))
       .catch((err) => console.log(err));
   }, []);
+
+  function handleDecrement(qty_id) {
+    setCarts((cart) =>
+      carts.map((item) =>
+        qty_id === item.id
+          ? { ...item, product_qty: item.product_qty - 1 }
+          : item
+      )
+    );
+    updateCartQuantity(qty_id, "dec");
+  }
+
+  function handleIncrement(qty_id) {
+    setCarts((cart) =>
+      carts.map((item) =>
+        qty_id === item.id
+          ? { ...item, product_qty: item.product_qty + 1 }
+          : item
+      )
+    );
+    updateCartQuantity(qty_id, "inc");
+  }
+
+  function updateCartQuantity(qty_id, scope) {
+    Axios.put(`${UPDATEQTY}/${qty_id}/${scope}`); //.then((res)=> if(res.data.status === 200));
+  }
 
   const showCart = carts.map((item, key) => {
     totalCartPrice += item.product.discount * item.product_qty;
@@ -65,23 +91,20 @@ export default function Cart() {
               <p className="cart-product-price">Price: ${itemPrice}</p>
               <div className="count-qty-div">
                 <input
-                  className="sum"
+                  className="minus"
                   type="button"
                   value=" - "
-                  disabled={count < 2}
-                  onClick={() => {
-                    setCount((prev) => prev - 1);
-                  }}
+                  disabled={item.product_qty < 2}
+                  onClick={() => handleDecrement(item.id)}
                 />
                 <span className="count-qty">{item.product_qty}</span>
                 {/* product Quantity */}
                 <input
-                  className="minus"
+                  className="sum"
                   type="button"
                   value=" + "
-                  onClick={() => {
-                    setCount((prev) => prev + 1);
-                  }}
+                  disabled={item.product_qty == item.product.qty}
+                  onClick={() => handleIncrement(item.id)}
                 />
               </div>
               {/* <p className="cart-product-qty">Qty: {item.product_qty}</p> */}

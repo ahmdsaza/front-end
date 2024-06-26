@@ -138,11 +138,13 @@ export default function ProductsPage() {
                 className="minus"
                 type="button"
                 value=" + "
+                disabled={count == item.qty}
                 onClick={() => {
                   setCount((prev) => prev + 1);
                 }}
               />
             </div>
+            <p>Quantity: {item.qty}</p>
             <button className="addToCart" onClick={submitToCart}>
               Add to cart
             </button>
