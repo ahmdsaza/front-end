@@ -26,3 +26,6 @@ export const PRODUCT = "product";
 // Add To Cart
 export const CART = "add-to-cart";
 export const CARTS = "carts";
+
+// Check Out
+export const ORDERS = "place-order";

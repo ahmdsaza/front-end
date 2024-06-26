@@ -26,6 +26,7 @@ import AllProducts from "./Components/Website/Product/AllProducts/AllProducts";
 import CategoriesPage from "./Pages/Categoreis/CategoriesPage/CategoriesPage";
 import Cart from "./Components/Website/Cart/Cart";
 import CheckOut from "./Components/Website/CheckOut/CheckOut";
+import ThankYou from "./Components/Website/CheckOut/ThankYou";
 
 function App() {
   return (
@@ -36,7 +37,6 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/categories" element={<WebsiteCategoreis />} />
           <Route path="/categories/:id" element={<CategoriesPage />} />
-          {/* <Route path="/products/:id" element={<ProductsPage />} /> */}
           <Route path="/products" element={<AllProducts />} />
           <Route path="products/:id" element={<ProductsPage />} />
           <Route path="cart" element={<Cart />} />
@@ -47,6 +47,7 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
         </Route>
         <Route path="/auth/google/callback" element={<GoogleCallback />} />
+        <Route path="/thankyou" element={<ThankYou />} />
         <Route path="/*" element={<Err404 />} />
 
         {/* Protected Routes */}

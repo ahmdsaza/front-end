@@ -6,7 +6,6 @@ import ShowTopRated from "../../Components/Website/Product/TopRated/ShowTopRated
 import { Container } from "react-bootstrap";
 import ShowLatestSaleProducts from "../../Components/Website/Product/SaleProducts/ShowLatestSaleProducts";
 import ShowLatestProducts from "../../Components/Website/Product/LatestProducts/ShowLatestProducts";
-import Footer from "../../Components/Website/Footer/Footer";
 
 export default function HomePage() {
   return (

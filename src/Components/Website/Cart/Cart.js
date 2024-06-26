@@ -104,7 +104,7 @@ export default function Cart() {
     );
   });
 
-  let vat = totalCartPrice / 15;
+  let vat = totalCartPrice * 0.15;
   let totalWithVat = totalCartPrice + vat;
 
   return (
