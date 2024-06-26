@@ -34,24 +34,21 @@ export default function WebsiteCategoreis() {
     </div>
   ));
   return (
-    <>
-      <div className="bg-secondary py-5">
-        <Container>
-          <div className="d-flex align-items-stretch justify-content-center flex-wrap row-gap-5">
-            {loading ? (
-              <SkeletonShow
-                length="15"
-                height="70px"
-                baseColor="white"
-                classes="col-lg-2 col-md-6 col-12"
-              />
-            ) : (
-              showCategories
-            )}
-          </div>
-        </Container>
-      </div>
-      <Footer />
-    </>
+    <div className="bg-secondary py-5">
+      <Container>
+        <div className="d-flex align-items-stretch justify-content-center flex-wrap row-gap-5">
+          {loading ? (
+            <SkeletonShow
+              length="15"
+              height="70px"
+              baseColor="white"
+              classes="col-lg-2 col-md-6 col-12"
+            />
+          ) : (
+            showCategories
+          )}
+        </div>
+      </Container>
+    </div>
   );
 }

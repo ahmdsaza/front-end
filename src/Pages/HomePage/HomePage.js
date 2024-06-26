@@ -20,7 +20,6 @@ export default function HomePage() {
         <div className="d-block align-items-center flex-wrap mt-5">
           <ShowLatestProducts />
         </div>
-        <Footer />
       </Container>
     </div>
   );

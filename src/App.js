@@ -25,6 +25,7 @@ import ProductsPage from "./Components/Website/Product/ProductsPage/ProductsPage
 import AllProducts from "./Components/Website/Product/AllProducts/AllProducts";
 import CategoriesPage from "./Pages/Categoreis/CategoriesPage/CategoriesPage";
 import Cart from "./Components/Website/Cart/Cart";
+import CheckOut from "./Components/Website/CheckOut/CheckOut";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/products" element={<AllProducts />} />
           <Route path="products/:id" element={<ProductsPage />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="checkout" element={<CheckOut />} />
         </Route>
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />}></Route>

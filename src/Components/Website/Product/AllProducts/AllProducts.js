@@ -78,7 +78,6 @@ export default function AllProducts() {
           />{" "}
         </div>
       </div>
-      <Footer />
     </Container>
   );
 }

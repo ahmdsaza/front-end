@@ -2,27 +2,23 @@ import React, { useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import { Container } from "react-bootstrap";
 import { Axios } from "../../../API/axios";
-import { CARTS, PRODUCTS, USER } from "../../../API/Api";
+import { CARTS, USER } from "../../../API/Api";
 import "./cart.css";
-import photo from "../../../Assets/4.jpg";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function Cart() {
   const [carts, setCarts] = useState([]);
   const [user, setUser] = useState("");
-  const [products, setProducts] = useState([]);
+  const [count, setCount] = useState(1);
   let totalCartPrice = 0;
   let itemPrice = 0;
 
-  // Call Cart
+  // Import Cart
   useEffect(() => {
     Axios.get(`${CARTS}`)
       .then((data) => setCarts(data.data))
-      .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    Axios.get(`${PRODUCTS}`)
-      .then((data) => setProducts(data.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -32,37 +28,73 @@ export default function Cart() {
       .catch((err) => console.log(err));
   }, []);
 
-  // console.log(products);
-
-  let photos = 0;
-  let get = 0;
-  let ida = 0;
-
-  // const showProducts = products.map((item, key) => (
-  //   <img src={item.images.image} alt={item.title} />
-  // ));
-
   const showCart = carts.map((item, key) => {
     totalCartPrice += item.product.discount * item.product_qty;
     itemPrice = item.product.discount.slice(0, 5);
-    ida = item.product.id;
 
-    // console.log(ida);
-    // console.log(photos);
+    // Handle Delete
+    async function handleDelete(id) {
+      try {
+        const res = await Axios.delete(`${CARTS}/${id}`);
+        setCarts((prev) => prev.filter((item) => item.id !== id));
+      } catch (err) {
+        console.log(err);
+      }
+    }
 
     return (
-      <div className="cardStyle w-100 d-flex flex-column justify-content-start p-3">
+      <div className="cardStyling w-100 d-flex flex-column justify-content-start p-3">
         {/* <div className=" w-100 flex-row justify-content-start p-3"> */}
         <div className="cart-card">
           <div className="cart-card-details">
-            {/* <img src={photos} width="150px" alt={item.product.title} /> */}
+            <div className="cart-image-div">
+              <img
+                className="cart-image"
+                src={item.product_image}
+                alt={item.product.title}
+              />
+            </div>
             <div className="price-details">
-              <p className="cart-product-title">{item.product.title}</p>
+              <Link
+                to={`../products/${item.product.id}`}
+                className="cart-product-title"
+              >
+                {item.product.title}
+              </Link>
+              <p></p>
               <p className="cart-product-price">Price: ${itemPrice}</p>
-              <p className="cart-product-qty">Qty: {item.product_qty}</p>
+              <div className="count-qty-div">
+                <input
+                  className="sum"
+                  type="button"
+                  value=" - "
+                  disabled={count < 2}
+                  onClick={() => {
+                    setCount((prev) => prev - 1);
+                  }}
+                />
+                <span className="count-qty">{item.product_qty}</span>
+                {/* product Quantity */}
+                <input
+                  className="minus"
+                  type="button"
+                  value=" + "
+                  onClick={() => {
+                    setCount((prev) => prev + 1);
+                  }}
+                />
+              </div>
+              {/* <p className="cart-product-qty">Qty: {item.product_qty}</p> */}
             </div>
           </div>
           <div className="d-flex">
+            <FontAwesomeIcon
+              onClick={() => handleDelete(item.id)}
+              fontSize={"19px"}
+              color="red"
+              cursor={"pointer"}
+              icon={faTrash}
+            />
             <p className="cart-product-total">
               Total: ${item.product.discount * item.product_qty}
             </p>
@@ -72,17 +104,6 @@ export default function Cart() {
     );
   });
 
-  // useEffect(() => {
-  //   Axios.get(`${PRODUCT}/${ida}`)
-  //     .then((data) => setProducts(data.data))
-  //     .catch((err) => console.log(err));
-  // }, [ida]);
-
-  // const showImage = products.map((item) => (
-  //   <img src={item.images.image} alt={item.title} />
-  // ));
-
-  // console.log(photos);
   let vat = totalCartPrice / 15;
   let totalWithVat = totalCartPrice + vat;
 
@@ -103,9 +124,11 @@ export default function Cart() {
         )}
       </div>
       {/* {showProducts} */}
-      {user ? (
+      {user && carts.length > 0 ? (
         <div className="d-flex justify-content-around mt-3">
-          <button>CheckOut</button>
+          <Link to="../checkout">
+            <button>CheckOut</button>
+          </Link>
           <div>
             <h3>Before VAT: ${totalCartPrice.toFixed(2)}</h3>
             <h3>VAT: ${vat.toFixed(2)}</h3>
@@ -115,7 +138,6 @@ export default function Cart() {
       ) : (
         <p></p>
       )}
-      <Footer />
     </Container>
   );
 }
