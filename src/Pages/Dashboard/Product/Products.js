@@ -3,7 +3,6 @@ import { PRODUCTS, PRODUCT } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Link } from "react-router-dom";
 import TableShow from "../Table";
-import { Container } from "react-bootstrap";
 
 export default function Products() {
   //States
@@ -22,6 +21,8 @@ export default function Products() {
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   }, [limit, page]);
+
+  console.log(products);
 
   // Import Table Header
   const header = [

@@ -35,6 +35,12 @@ export const links = [
     icons: "add",
     role: ["1995", "1999"],
   },
+  {
+    name: "Orders",
+    path: "/dashboard/orders",
+    icons: "inventory_2",
+    role: "1995",
+  },
   // {
   //   name: "Writer",
   //   path: "/dashboard/writer",

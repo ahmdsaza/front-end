@@ -34,9 +34,7 @@ export default function TheNavBar() {
     Axios.get(`${CARTS}`)
       .then((data) => setCarts(data.data))
       .catch((err) => console.log(err));
-  }, [carts.length]);
-
-  // console.log(carts[0]);
+  }, []);
 
   // Logout
   async function handleLogout() {
@@ -125,6 +123,11 @@ export default function TheNavBar() {
                     <Dropdown.Item>
                       <Link to="/dashboard" style={{ color: "black" }}>
                         Dashboard
+                      </Link>
+                    </Dropdown.Item>
+                    <Dropdown.Item>
+                      <Link to="/orders" style={{ color: "black" }}>
+                        Orders
                       </Link>
                     </Dropdown.Item>
                     <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>

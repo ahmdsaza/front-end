@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Footer from "../Footer/Footer";
 import { Container } from "react-bootstrap";
 import { Axios } from "../../../API/axios";
 import { CARTS, USER, UPDATEQTY } from "../../../API/Api";
@@ -11,7 +10,6 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 export default function Cart() {
   const [carts, setCarts] = useState([]);
   const [user, setUser] = useState("");
-  const [count, setCount] = useState(1);
   let totalCartPrice = 0;
   let itemPrice = 0;
 
@@ -70,7 +68,6 @@ export default function Cart() {
 
     return (
       <div className="cardStyling w-100 d-flex flex-column justify-content-start p-3">
-        {/* <div className=" w-100 flex-row justify-content-start p-3"> */}
         <div className="cart-card">
           <div className="cart-card-details">
             <div className="cart-image-div">
@@ -107,7 +104,6 @@ export default function Cart() {
                   onClick={() => handleIncrement(item.id)}
                 />
               </div>
-              {/* <p className="cart-product-qty">Qty: {item.product_qty}</p> */}
             </div>
           </div>
           <div className="d-flex">

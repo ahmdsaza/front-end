@@ -27,6 +27,9 @@ import CategoriesPage from "./Pages/Categoreis/CategoriesPage/CategoriesPage";
 import Cart from "./Components/Website/Cart/Cart";
 import CheckOut from "./Components/Website/CheckOut/CheckOut";
 import ThankYou from "./Components/Website/CheckOut/ThankYou";
+import Orders from "./Components/Website/Orders/Orders";
+import OrderPage from "./Components/Website/Orders/OrderPage";
+import AllOrders from "./Pages/Dashboard/AllOrders";
 
 function App() {
   return (
@@ -41,6 +44,8 @@ function App() {
           <Route path="products/:id" element={<ProductsPage />} />
           <Route path="cart" element={<Cart />} />
           <Route path="checkout" element={<CheckOut />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="orders/orderpage/:id" element={<OrderPage />} />
         </Route>
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />}></Route>
@@ -56,6 +61,7 @@ function App() {
             {/* Admin */}
             <Route element={<RequireAuth allowedRole={["1995"]} />}>
               <Route path="users" element={<Users />} />
+              <Route path="orders" element={<AllOrders />} />
               <Route path="users/:id" element={<User />} />
               <Route path="user/add" element={<AddUser />} />
             </Route>

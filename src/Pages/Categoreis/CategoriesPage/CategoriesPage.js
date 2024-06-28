@@ -37,8 +37,6 @@ export default function CategoriesPage() {
   //     .catch((err) => console.log(err));
   // }, [limit, page]);
 
-  // console.log(categories);
-
   const showData = categories.map((item, key) => (
     <div key={key}>
       <div className="crd1">

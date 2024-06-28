@@ -1,0 +1,17 @@
+/* table,
+td,
+th {
+    width: 400px;
+    border: 1px solid black;
+    text-align: center;
+}
+th {
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.tabe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
