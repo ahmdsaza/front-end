@@ -12,6 +12,8 @@ export default function Cart() {
   const [user, setUser] = useState("");
   let totalCartPrice = 0;
   let itemPrice = 0;
+  let descPrice = 0;
+  let tot = 0;
 
   // Import Cart
   useEffect(() => {
@@ -55,6 +57,8 @@ export default function Cart() {
   const showCart = carts.map((item, key) => {
     totalCartPrice += item.product.discount * item.product_qty;
     itemPrice = item.product.discount.slice(0, 5);
+    descPrice = itemPrice * item.product_qty;
+    tot = descPrice.toFixed(2);
 
     // Handle Delete
     async function handleDelete(id) {
@@ -114,9 +118,7 @@ export default function Cart() {
               cursor={"pointer"}
               icon={faTrash}
             />
-            <p className="cart-product-total">
-              Total: ${item.product.discount * item.product_qty}
-            </p>
+            <p className="cart-product-total">Total: ${tot}</p>
           </div>
         </div>
       </div>

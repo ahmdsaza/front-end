@@ -6,6 +6,7 @@ export const LOGOUT = "logout";
 
 export const ORDER = "orders";
 export const ORDERID = "order";
+export const ALLORDERS = "get-order";
 
 // Google
 export const GOOGLE_CALL_BACK = "auth/google/callback";

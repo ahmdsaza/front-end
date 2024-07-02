@@ -25,7 +25,7 @@ export default function Orders() {
           <p>Tracking No. {items.tracking_no}</p>
         </div>
         <div className="">
-          <Link to={`./orderpage/${items.id}`}>
+          <Link to={`./${items.id}`}>
             <button>Open</button>
           </Link>
         </div>

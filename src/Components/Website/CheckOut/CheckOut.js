@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CARTS, ORDERS } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import Form from "react-bootstrap/Form";
@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function CheckOut() {
   const [carts, setCarts] = useState([]);
-  const [sent, setSent] = useState(false);
 
   const [form, setForm] = useState({
     firstname: "",
@@ -18,11 +17,9 @@ export default function CheckOut() {
     address: "",
     city: "",
     zipcode: "",
-    payment_mode: "",
+    payment_mode: "cod",
   });
   const nav = useNavigate();
-
-  console.log(form);
 
   // Import Cart
   useEffect(() => {
@@ -185,8 +182,8 @@ export default function CheckOut() {
                 onChange={handleChange}
               >
                 <option disabled>Choose Payment method</option>
-                <option>Visa</option>
                 <option>Cash on Delivery</option>
+                <option>Visa</option>
               </Form.Select>
             </Form.Group>
             <button className="">Check Out</button>
@@ -197,7 +194,6 @@ export default function CheckOut() {
         </div>
         <div>{showCheckOut}</div>
       </div>
-      <div></div>
     </Container>
   );
 }

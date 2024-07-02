@@ -45,7 +45,7 @@ function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="checkout" element={<CheckOut />} />
           <Route path="orders" element={<Orders />} />
-          <Route path="orders/orderpage/:id" element={<OrderPage />} />
+          <Route path="orders/:id" element={<OrderPage />} />
         </Route>
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />}></Route>
