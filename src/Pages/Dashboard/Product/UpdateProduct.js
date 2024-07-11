@@ -14,6 +14,7 @@ export default function UpdateProduct() {
     price: "",
     discount: "",
     About: "",
+    qty: "",
   });
 
   // Use States
@@ -223,6 +224,17 @@ export default function UpdateProduct() {
             onChange={handleChange}
             type="text"
             placeholder="Description..."
+          />
+        </Form.Group>{" "}
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
+          <Form.Label>Quantity</Form.Label>
+          <Form.Control
+            required
+            name="qty"
+            value={form.qty}
+            onChange={handleChange}
+            type="text"
+            placeholder="quantity..."
           />
         </Form.Group>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">

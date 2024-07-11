@@ -16,15 +16,15 @@ export default function OrderPage() {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {
-    Axios.get(`${PRODUCTS}`)
-      .then((data) => setProducts(data.data))
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   Axios.get(`${PRODUCTS}`)
+  //     .then((data) => setProducts(data.data))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   console.log(orders);
 
-  const showOrderItems = orders.map((item) => {
+  const showOrderItems = orders.map((item, key) => {
     // if (item.order_items[2].price) {
     //   totalCartPrice +=
     //     item.order_items[0].price +
@@ -38,24 +38,28 @@ export default function OrderPage() {
     //   }
     // }
 
-    totalCartPrice += item.order_items[0].price;
+    // totalCartPrice += item.order_items[0].price * item.order_items[0].qty;
+
+    totalCartPrice += item.order_items[key].price * item.order_items[key].qty;
 
     return (
-      <div className="">
+      <li className="" key={item.id}>
         <p>Id: {item.id}</p>
         <p>Tracking No: {item.tracking_no}</p>
         <p>Payment method: {item.payment_mode}</p>
 
         <div className="card flex-row gap-4 align-items-center">
           <img
-            src={item.order_items[0].product_image}
+            src={item.order_items[key].product_image}
             width="150px"
-            alt={item.order_items[0].product_title}
+            alt={item.order_items[key].product_title}
           />
-          <p>Products: {item.order_items[0].product_title}</p>
-          <p>QTY: {item.order_items[0].qty}</p>
-          <p>Price: ${item.order_items[0].price}</p>
-          <p>Total: ${item.order_items[0].price * item.order_items[0].qty}</p>
+          <p>Products: {item.order_items[key].product_title}</p>
+          <p>QTY: {item.order_items[key].qty}</p>
+          <p>Price: ${item.order_items[key].price}</p>
+          <p>
+            Total: ${item.order_items[key].price * item.order_items[key].qty}
+          </p>
         </div>
 
         {item.order_items[1] ? (
@@ -90,14 +94,15 @@ export default function OrderPage() {
         )}
 
         <p>{item.status}</p>
-        <p>${totalCartPrice}</p>
-      </div>
+        {/* <p>${totalCartPrice}</p> */}
+      </li>
     );
   });
 
   return (
     <Container>
       <div>{showOrderItems}</div>
+      <p>${totalCartPrice}</p>
     </Container>
   );
 }

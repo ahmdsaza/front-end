@@ -127,7 +127,7 @@ export default function TheNavBar() {
                     </Dropdown.Item>
                     <Dropdown.Item>
                       <Link to="/orders" style={{ color: "black" }}>
-                        Orders
+                        My Orders
                       </Link>
                     </Dropdown.Item>
                     <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
