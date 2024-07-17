@@ -59,7 +59,7 @@ export default function Cart() {
     itemPrice = item.product.discount.slice(0, 5);
     descPrice = itemPrice * item.product_qty;
     tot = descPrice.toFixed(2);
-    console.log(carts);
+    // console.log(carts);
 
     // Handle Delete
     async function handleDelete(id) {

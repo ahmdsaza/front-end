@@ -18,11 +18,10 @@ export default function Orders() {
 
   const showTheOrder = orders.map((items) => (
     <div className="pt-2 ">
-      <div className="card d-flex flex-row justify-content-between">
-        <div>
-          <p>Id: {items.id}</p>
-          <p>User ID: {items.user_id}</p>
-          <p>Tracking No. {items.tracking_no}</p>
+      <div className="card d-flex flex-row align-items-center justify-content-between px-3">
+        <div className="gap-3">
+          <p>Order Number: {items.id}</p>
+          <p>Tracking Number: {items.tracking_no}</p>
         </div>
         <div className="">
           <Link to={`./${items.id}`}>
