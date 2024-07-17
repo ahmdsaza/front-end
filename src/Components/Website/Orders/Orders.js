@@ -14,8 +14,6 @@ export default function Orders() {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(orders);
-
   const showTheOrder = orders.map((items) => (
     <div className="pt-2 ">
       <div className="card d-flex flex-row align-items-center justify-content-between px-3">

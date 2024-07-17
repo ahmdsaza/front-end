@@ -8,14 +8,10 @@ export default function OrderPage() {
   const { id } = useParams();
   const [orders, setOrders] = useState([]);
   const [getOrders, setGetOrders] = useState([]);
-  const [products, setProducts] = useState([]);
   let totalCartPrice = 0;
   let createAt = 0;
-  let test = 0;
-  let test1 = 0;
-  let test2 = 0;
-  let test3 = 0;
-  let keys = 0;
+  let itemqty = 0;
+  let itemqtyfixed = 0;
 
   useEffect(() => {
     Axios.get(`${ORDERID}/${id}`)
@@ -51,6 +47,9 @@ export default function OrderPage() {
   });
 
   const showOrderProducts = getOrders.map((item) => {
+    itemqty = item.price * item.qty;
+    itemqtyfixed = itemqty.toFixed(2);
+
     totalCartPrice += item.price * item.qty;
 
     return (
@@ -62,13 +61,11 @@ export default function OrderPage() {
         </div>
         <div>
           <p>Price: ${item.price}</p>
-          <p>Total: ${item.price * item.qty}</p>
+          <p>Total: ${itemqtyfixed}</p>
         </div>
       </div>
     );
   });
-
-  // totalCartPrice += items.price * item.product_qty;
 
   return (
     <Container>
