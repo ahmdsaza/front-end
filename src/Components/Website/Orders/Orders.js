@@ -15,10 +15,10 @@ export default function Orders() {
   }, []);
 
   const showTheOrder = orders.map((items) => (
-    <div className="pt-2 ">
+    <div className="mt-2">
       <div className="card d-flex flex-row align-items-center justify-content-between px-3">
-        <div className="gap-3">
-          <p>Order Number: {items.id}</p>
+        <div className="mt-3">
+          <p>Order Number: #{items.id}</p>
           <p>Tracking Number: {items.tracking_no}</p>
         </div>
         <div className="">
@@ -30,5 +30,19 @@ export default function Orders() {
     </div>
   ));
 
-  return <Container>{showTheOrder}</Container>;
+  return (
+    <Container>
+      <h1 className="d-flex justify-content-center">My Orders</h1>
+
+      <div>
+        {orders.length > 0 ? (
+          showTheOrder
+        ) : (
+          <div className="card w-100 d-flex flex-row justify-content-center p-3">
+            <h3>No Orders yet</h3>
+          </div>
+        )}
+      </div>
+    </Container>
+  );
 }

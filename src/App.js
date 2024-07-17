@@ -29,7 +29,8 @@ import CheckOut from "./Components/Website/CheckOut/CheckOut";
 import ThankYou from "./Components/Website/CheckOut/ThankYou";
 import Orders from "./Components/Website/Orders/Orders";
 import OrderPage from "./Components/Website/Orders/OrderPage";
-import AllOrders from "./Pages/Dashboard/AllOrders";
+import AllOrders from "./Pages/Dashboard/Orders/AllOrders";
+import DashboardOrdersPage from "./Pages/Dashboard/Orders/DashboardOrdersPage";
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
               <Route path="orders" element={<AllOrders />} />
               <Route path="users/:id" element={<User />} />
               <Route path="user/add" element={<AddUser />} />
+              <Route path="orders/:id" element={<DashboardOrdersPage />} />
             </Route>
 
             {/* Categories Manager */}

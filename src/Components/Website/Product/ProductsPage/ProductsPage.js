@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
-import { PRODUCT, CART, USER } from "../../../../API/Api";
+import { PRODUCT, CART, USER, CARTS } from "../../../../API/Api";
 import { useParams } from "react-router-dom";
 import "./ProductsPage.css";
 import { Container } from "react-bootstrap";
+import TheNavBar from "../../NavBar/TheNavBar";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const { id } = useParams();
   const [count, setCount] = useState(1);
-  // const [carts, setCarts] = useState([]);
+  const [carts, setCarts] = useState([]);
+  const [cartsLength, setCartsLength] = useState([]);
   const [addtocart, setAddtoCart] = useState("");
   const [user, setUser] = useState("");
 
@@ -19,6 +21,14 @@ export default function ProductsPage() {
       .then((data) => setProducts(data.data))
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    Axios.get(`${CARTS}`)
+      .then((data) => setCartsLength(data.data.length))
+      .catch((err) => console.log(err));
+  }, [addtocart]);
+
+  // console.log(cartsLength);
 
   // Get User
   useEffect(() => {

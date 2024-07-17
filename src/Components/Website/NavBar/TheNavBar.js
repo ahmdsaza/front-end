@@ -9,23 +9,16 @@ import Cookie from "cookie-universal";
 import "./TheNavBar.css";
 
 export default function TheNavBar() {
-  // const [categories, setCategories] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
   const [carts, setCarts] = useState([]);
-  const cookie = Cookie();
+  const [cartsLength, setCartsLength] = useState([]);
 
-  // Get Category
-  // useEffect(() => {
-  //   Axios.get(`${CATEGORIES}`)
-  //     .then((res) => setCategories(res.data.slice(-8)))
-  //     .finally(() => setLoading(false));
-  // }, []);
+  const cookie = Cookie();
 
   // Get User Name
   useEffect(() => {
     Axios.get(`${USER}`)
-      .then((data) => setName(data.data.name))
+      .then((data) => setName(data.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -34,7 +27,16 @@ export default function TheNavBar() {
     Axios.get(`${CARTS}`)
       .then((data) => setCarts(data.data))
       .catch((err) => console.log(err));
+  }, [cartsLength]);
+
+  useEffect(() => {
+    //////////////////////
+    Axios.get(`${CARTS}`)
+      .then((data) => setCartsLength(data.data.length))
+      .catch((err) => console.log(err));
   }, []);
+
+  console.log(cartsLength);
 
   // Logout
   async function handleLogout() {
@@ -47,28 +49,10 @@ export default function TheNavBar() {
     }
   }
 
-  //Category Map
-  // const categoriesShow = categories.map((category) => (
-  //   <Link
-  //     to={`/categories/${category.id}`}
-  //     className=" m-0 category-title px-3"
-  //   >
-  //     {/* {StringSlice(category.title, 15)} */}
-  //     {category.title}
-  //   </Link>
-  // ));
   return (
     <nav className="py-3">
       <Container>
         <div className="d-flex align-items-center justify-content-between flex-wrap">
-          {/* <div className="px-3">
-            <img
-              width="25px"
-              height="25px"
-              src={require("../../../Assets/burger-bar.png")}
-              alt="Cart"
-            />
-          </div> */}
           <Link className="col-3" to="/">
             <img
               width="200px"
@@ -116,15 +100,17 @@ export default function TheNavBar() {
                     fontSize: "1rem",
                   }}
                 >
-                  {name}
+                  {name.name}
                 </Dropdown.Item>
+                {name.role === "1995" && (
+                  <Dropdown.Item>
+                    <Link to="/dashboard" style={{ color: "black" }}>
+                      Dashboard
+                    </Link>
+                  </Dropdown.Item>
+                )}
                 {name ? (
                   <>
-                    <Dropdown.Item>
-                      <Link to="/dashboard" style={{ color: "black" }}>
-                        Dashboard
-                      </Link>
-                    </Dropdown.Item>
                     <Dropdown.Item>
                       <Link to="/orders" style={{ color: "black" }}>
                         My Orders

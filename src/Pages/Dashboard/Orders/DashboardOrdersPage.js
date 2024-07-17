@@ -4,7 +4,7 @@ import { ORDERID, PRODUCTS } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Container } from "react-bootstrap";
 
-export default function OrderPage() {
+export default function DashboardOrdersPage() {
   const { id } = useParams();
   const [orders, setOrders] = useState([]);
   const [getOrders, setGetOrders] = useState([]);
@@ -83,7 +83,7 @@ export default function OrderPage() {
           <div className="d-flex gap-1">
             <Link
               style={{ color: "black" }}
-              to={`../products/${item.product_id}`}
+              to={`../../products/${item.product_id}`}
             >
               {" "}
               <p>Product: </p>

@@ -17,7 +17,7 @@ export default function CheckOut() {
     address: "",
     city: "",
     zipcode: "",
-    payment_mode: "cod",
+    payment_mode: "0",
   });
   const nav = useNavigate();
 
@@ -182,8 +182,8 @@ export default function CheckOut() {
                 onChange={handleChange}
               >
                 <option disabled>Choose Payment method</option>
-                <option>Cash on Delivery</option>
-                <option>Visa</option>
+                <option value="0">Cash on Delivery</option>
+                <option value="1">Visa</option>
               </Form.Select>
             </Form.Group>
             <button className="">Check Out</button>
