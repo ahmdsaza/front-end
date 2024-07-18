@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../API/axios";
-import { ALLORDERS } from "../../../API/Api";
+import { ALLORDERS, ORDERID } from "../../../API/Api";
 import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function AllOrders() {
   const [orders, setOrders] = useState([]);
+  let createAt = 0;
 
   useEffect(() => {
     Axios.get(`${ALLORDERS}`)
@@ -12,55 +16,156 @@ export default function AllOrders() {
       .catch((err) => console.log(err));
   }, []);
 
-  const header = [
-    {
-      key: "images",
-      name: "Images",
-    },
-    {
-      key: "title",
-      name: "Title",
-    },
-    {
-      key: "description",
-      name: "Description",
-    },
-    {
-      key: "price",
-      name: "Price",
-    },
-    {
-      key: "rating",
-      name: "Rating",
-    },
-    {
-      key: "created_at",
-      name: "created",
-    },
-    {
-      key: "updated_at",
-      name: "updated",
-    },
-  ];
+  async function handleDelete(id) {
+    try {
+      const res = await Axios.delete(`${ORDERID}/${id}`);
+      setOrders((prev) => prev.filter((item) => item.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-  // console.log(orders);
+  const showTheOrder = orders.map((items, key) => {
+    createAt = items.created_at;
 
-  const showOrders = orders.map((item) => (
-    <div className="d-flex gap-3">
-      <p>Order id: #{item.id}</p>
-      <p>Tracking No: {item.tracking_no}</p>
-      <p>Item Status: {item.status}</p>
-      <div className="">
-        <Link to={`./${item.id}`}>
-          <button>Open</button>
+    return (
+      // <div className="d-flex p-2">
+      //   <tr className="gap-2">
+      //     <th>Id</th>
+      //     <th>Tracking Number</th>
+      //     <th>Status</th>
+      //   </tr>
+      //   <tr>
+      //     <td>{items.id}</td>
+      //     <td>#{items.tracking_no}</td>
+      //     <td>{items.status}</td>
+      //   </tr>
+      // </div>
+      <tr key={key}>
+        {/* <td>{items.id}</td> */}
+        <td>#{items.tracking_no}</td>
+        <td>
+          {createAt.slice(0, 10)} | {createAt.slice(11, 16)}
+        </td>
+        <td className="d-flex gap-1">
+          Status:{" "}
+          {items.status === 0 ? (
+            <td>Pending</td>
+          ) : items.status === 1 ? (
+            <td>Awaiting Payment</td>
+          ) : items.status === 2 ? (
+            <td>Awaiting Shipment</td>
+          ) : items.status === 3 ? (
+            <td>Completed</td>
+          ) : items.status === 4 ? (
+            <td>Shipped</td>
+          ) : items.status === 5 ? (
+            <td>Cancelled</td>
+          ) : (
+            <td>Waiting</td>
+          )}
+        </td>
+        <td key={key + 1}>
+          <div className="d-flex align-items-center gap-2">
+            <Link to={`${items.id}`}>
+              <FontAwesomeIcon fontSize={"19px"} icon={faPenToSquare} />
+            </Link>
+            <FontAwesomeIcon
+              onClick={() => handleDelete(items.id)}
+              fontSize={"19px"}
+              color="red"
+              cursor={"pointer"}
+              icon={faTrash}
+            />
+          </div>
+        </td>
+      </tr>
+
+      // <div className="mt-2">
+      //   <div className="card d-flex flex-row align-items-center justify-content-between px-3">
+      //     <div className="mt-3">
+      //       <p>Order Number: #{items.id}</p>
+      //       <p>Tracking Number: {items.tracking_no}</p>
+      //       <p className="d-flex gap-1">
+      //         Status:{" "}
+      //         {items.status === 0 ? (
+      //           <p>Pending</p>
+      //         ) : items.status === 1 ? (
+      //           <p>Awaiting Payment</p>
+      //         ) : items.status === 2 ? (
+      //           <p>Awaiting Shipment</p>
+      //         ) : items.status === 3 ? (
+      //           <p>Completed</p>
+      //         ) : items.status === 4 ? (
+      //           <p>Shipped</p>
+      //         ) : items.status === 5 ? (
+      //           <p>Cancelled</p>
+      //         ) : (
+      //           <p>Waiting</p>
+      //         )}
+      //       </p>
+      //     </div>
+      //     <div className="">
+      //       <Link to={`./${items.id}`}>
+      //         <button>Open</button>
+      //       </Link>
+      //     </div>
+      //   </div>
+      // </div>
+    );
+  });
+
+  return (
+    // <div>
+    //   <h1 className="d-flex justify-content-center">My Orders</h1>
+    //   <div>
+    //     {orders.length > 0 ? (
+    //       showTheOrder
+    //     ) : (
+    //       <div className="card w-100 d-flex flex-row justify-content-center p-3">
+    //         <h3>No Orders yet</h3>
+    //       </div>
+    //     )}
+    //   </div>
+    // </div>
+    <div className="bg-white w-100 p-2">
+      <div className="d-flex align-items-center justify-content-between">
+        <h1>Orders Page</h1>
+        <Link className="btn btn-primary" to="/dashboard/product/add">
+          Add Order
         </Link>
       </div>
-    </div>
-  ));
-  return (
-    <div>
-      <div>AllOrders</div>
-      <div>{showOrders}</div>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            {/* <th>id</th> */}
+            <th>Tracking Number</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.length > 0 ? (
+            showTheOrder
+          ) : (
+            <div className="card w-100 d-flex flex-row justify-content-center p-3">
+              <h3>No Orders yet</h3>
+            </div>
+          )}
+          {/* {props.loading ? (
+            <tr style={{ textAlign: "center" }}>
+              <td colSpan={12}>Loading...</td>
+            </tr>
+          ) : searchLoading ? (
+            <tr style={{ textAlign: "center" }}>
+              <td colSpan={12}>Searching...</td>
+            </tr>
+          ) : (
+            dataShow
+          )} */}
+        </tbody>
+      </Table>
     </div>
   );
 }

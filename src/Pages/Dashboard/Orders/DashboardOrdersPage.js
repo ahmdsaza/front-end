@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ORDERID, PRODUCTS } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Container } from "react-bootstrap";
+import TableShow from "../Table";
 
 export default function DashboardOrdersPage() {
   const { id } = useParams();

@@ -22,8 +22,6 @@ export default function Products() {
       .finally(() => setLoading(false));
   }, [limit, page]);
 
-  console.log(products);
-
   // Import Table Header
   const header = [
     {
