@@ -31,6 +31,7 @@ import Orders from "./Components/Website/Orders/Orders";
 import OrderPage from "./Components/Website/Orders/OrderPage";
 import AllOrders from "./Pages/Dashboard/Orders/AllOrders";
 import DashboardOrdersPage from "./Pages/Dashboard/Orders/DashboardOrdersPage";
+import EditOrder from "./Pages/Dashboard/Orders/EditOrder";
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
               <Route path="users/:id" element={<User />} />
               <Route path="user/add" element={<AddUser />} />
               <Route path="orders/:id" element={<DashboardOrdersPage />} />
+              <Route path="order/:id" element={<EditOrder />} />
             </Route>
 
             {/* Categories Manager */}

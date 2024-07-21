@@ -102,6 +102,7 @@ export default function OrderPage() {
 
   return (
     <Container>
+      <Link to="../orders">Back To orders</Link>
       <div>{showOrderItems}</div>
       <div>{showOrderProducts}</div>
       <p>Total price: ${totalCartPrice.toFixed(2)}</p>

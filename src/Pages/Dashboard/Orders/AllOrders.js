@@ -4,7 +4,7 @@ import { ALLORDERS, ORDERID } from "../../../API/Api";
 import { Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function AllOrders() {
   const [orders, setOrders] = useState([]);
@@ -29,20 +29,7 @@ export default function AllOrders() {
     createAt = items.created_at;
 
     return (
-      // <div className="d-flex p-2">
-      //   <tr className="gap-2">
-      //     <th>Id</th>
-      //     <th>Tracking Number</th>
-      //     <th>Status</th>
-      //   </tr>
-      //   <tr>
-      //     <td>{items.id}</td>
-      //     <td>#{items.tracking_no}</td>
-      //     <td>{items.status}</td>
-      //   </tr>
-      // </div>
       <tr key={key}>
-        {/* <td>{items.id}</td> */}
         <td>#{items.tracking_no}</td>
         <td>
           {createAt.slice(0, 10)} | {createAt.slice(11, 16)}
@@ -68,7 +55,7 @@ export default function AllOrders() {
         <td key={key + 1}>
           <div className="d-flex align-items-center gap-2">
             <Link to={`${items.id}`}>
-              <FontAwesomeIcon fontSize={"19px"} icon={faPenToSquare} />
+              <FontAwesomeIcon icon={faEye} />
             </Link>
             <FontAwesomeIcon
               onClick={() => handleDelete(items.id)}
