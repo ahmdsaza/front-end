@@ -127,7 +127,7 @@ export default function TableShow(props) {
           placeholder="Search"
           onChange={(e) => {
             setDate(e.target.value);
-            // setSearchLoading(true);
+            setSearchLoading(true);
           }}
         />
       </div>

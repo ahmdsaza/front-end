@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ThankYou() {
   const navigate = useNavigate();
@@ -17,6 +17,12 @@ export default function ThankYou() {
         Thank You For Shopping from us, After 5sec we will send you go to home
         page
       </div>
+      <Link
+        to="../"
+        className="d-flex align-items-center justify-content-center"
+      >
+        Back to website
+      </Link>
     </Container>
   );
 }

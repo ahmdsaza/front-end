@@ -2,17 +2,24 @@ import React, { useEffect, useState } from "react";
 import "./orders.css";
 import { Axios } from "../../../API/axios";
 import { ORDER } from "../../../API/Api";
-import { Container } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import PaginatedItems from "../../Dashboard/Pagination/Pagination";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    Axios.get(`${ORDER}`)
-      .then((data) => setOrders(data.data))
+    Axios.get(`${ORDER}?limit=${limit}&page=${page}`)
+      .then((data) => {
+        setOrders(data.data.data);
+        setTotal(data.data.total);
+      })
       .catch((err) => console.log(err));
-  }, []);
+  }, [limit, page]);
 
   const showTheOrder = orders.map((items) => (
     <div className="mt-2">
@@ -59,6 +66,25 @@ export default function Orders() {
             <h3>No Orders yet</h3>
           </div>
         )}
+      </div>
+      <div className="d-flex align-items-center justify-content-end flex-wrap">
+        <div className="col-1">
+          <Form.Select
+            onChange={(e) => setLimit(e.target.value)}
+            aria-label="Default select example"
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+          </Form.Select>
+        </div>
+        <PaginatedItems
+          setPage={setPage}
+          itemsPerPage={limit}
+          // data={data}
+          total={total}
+          // typeName={typeName}
+        />{" "}
       </div>
     </Container>
   );

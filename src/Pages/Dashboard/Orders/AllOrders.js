@@ -2,19 +2,26 @@ import React, { useEffect, useState } from "react";
 import { Axios } from "../../../API/axios";
 import { ALLORDERS, ORDERID } from "../../../API/Api";
 import { Link } from "react-router-dom";
-import { Table } from "react-bootstrap";
+import { Form, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
+import PaginatedItems from "../../../Components/Dashboard/Pagination/Pagination";
 
 export default function AllOrders() {
   const [orders, setOrders] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [total, setTotal] = useState(0);
   let createAt = 0;
 
   useEffect(() => {
-    Axios.get(`${ALLORDERS}`)
-      .then((data) => setOrders(data.data))
+    Axios.get(`${ALLORDERS}?limit=${limit}&page=${page}`)
+      .then((data) => {
+        setOrders(data.data.data);
+        setTotal(data.data.total);
+      })
       .catch((err) => console.log(err));
-  }, []);
+  }, [limit, page]);
 
   async function handleDelete(id) {
     try {
@@ -67,54 +74,10 @@ export default function AllOrders() {
           </div>
         </td>
       </tr>
-
-      // <div className="mt-2">
-      //   <div className="card d-flex flex-row align-items-center justify-content-between px-3">
-      //     <div className="mt-3">
-      //       <p>Order Number: #{items.id}</p>
-      //       <p>Tracking Number: {items.tracking_no}</p>
-      //       <p className="d-flex gap-1">
-      //         Status:{" "}
-      //         {items.status === 0 ? (
-      //           <p>Pending</p>
-      //         ) : items.status === 1 ? (
-      //           <p>Awaiting Payment</p>
-      //         ) : items.status === 2 ? (
-      //           <p>Awaiting Shipment</p>
-      //         ) : items.status === 3 ? (
-      //           <p>Completed</p>
-      //         ) : items.status === 4 ? (
-      //           <p>Shipped</p>
-      //         ) : items.status === 5 ? (
-      //           <p>Cancelled</p>
-      //         ) : (
-      //           <p>Waiting</p>
-      //         )}
-      //       </p>
-      //     </div>
-      //     <div className="">
-      //       <Link to={`./${items.id}`}>
-      //         <button>Open</button>
-      //       </Link>
-      //     </div>
-      //   </div>
-      // </div>
     );
   });
 
   return (
-    // <div>
-    //   <h1 className="d-flex justify-content-center">My Orders</h1>
-    //   <div>
-    //     {orders.length > 0 ? (
-    //       showTheOrder
-    //     ) : (
-    //       <div className="card w-100 d-flex flex-row justify-content-center p-3">
-    //         <h3>No Orders yet</h3>
-    //       </div>
-    //     )}
-    //   </div>
-    // </div>
     <div className="bg-white w-100 p-2">
       <div className="d-flex align-items-center justify-content-between">
         <h1>Orders Page</h1>
@@ -125,7 +88,6 @@ export default function AllOrders() {
       <Table striped bordered hover>
         <thead>
           <tr>
-            {/* <th>id</th> */}
             <th>Tracking Number</th>
             <th>Date</th>
             <th>Status</th>
@@ -140,19 +102,27 @@ export default function AllOrders() {
               <h3>No Orders yet</h3>
             </div>
           )}
-          {/* {props.loading ? (
-            <tr style={{ textAlign: "center" }}>
-              <td colSpan={12}>Loading...</td>
-            </tr>
-          ) : searchLoading ? (
-            <tr style={{ textAlign: "center" }}>
-              <td colSpan={12}>Searching...</td>
-            </tr>
-          ) : (
-            dataShow
-          )} */}
         </tbody>
       </Table>
+      <div className="d-flex align-items-center justify-content-end flex-wrap">
+        <div className="col-1">
+          <Form.Select
+            onChange={(e) => setLimit(e.target.value)}
+            aria-label="Default select example"
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+          </Form.Select>
+        </div>
+        <PaginatedItems
+          setPage={setPage}
+          itemsPerPage={limit}
+          // data={data}
+          total={total}
+          // typeName={typeName}
+        />{" "}
+      </div>
     </div>
   );
 }

@@ -41,16 +41,16 @@ export default function Products() {
       name: "Price",
     },
     {
+      key: "qty",
+      name: "QTY",
+    },
+    {
       key: "rating",
       name: "Rating",
     },
     {
       key: "created_at",
       name: "created",
-    },
-    {
-      key: "updated_at",
-      name: "updated",
     },
   ];
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ORDERID, ORDER } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
-import { Container } from "react-bootstrap";
+import { Button, Container, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import Form from "react-bootstrap/Form";
@@ -12,7 +12,6 @@ export default function DashboardOrdersPage() {
   const [orders, setOrders] = useState([]);
   const [getOrders, setGetOrders] = useState([]);
   const [status, setStatus] = useState("");
-  const navigate = useNavigate();
 
   let totalCartPrice = 0;
   let createAt = 0;
@@ -37,7 +36,6 @@ export default function DashboardOrdersPage() {
         status: status,
       });
       alert("Status Changed successfully");
-      // navigate("/dashboard/orders");
       console.log(status);
     } catch (err) {
       // setLoading(false);
@@ -97,6 +95,7 @@ export default function DashboardOrdersPage() {
                 </div>
               </Form.Group>
             </Form>
+
             {/* <p className="d-flex gap-1 my-0">
               Status:{" "}
               {item.status === 0 ? (
