@@ -44,7 +44,7 @@ export default function CheckOut() {
               </td>
               <td>QTY: {item.product_qty}</td>
               <td>Price: ${item.product.discount}</td>
-              Price: ${totalCartPrice}
+              Price: ${totalCartPrice.toFixed(2)}
             </tr>
           </table>
         </div>

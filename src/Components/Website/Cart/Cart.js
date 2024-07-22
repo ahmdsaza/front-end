@@ -90,7 +90,10 @@ export default function Cart() {
                 {item.product.title}
               </Link>
               <p></p>
-              <p className="cart-product-price">Price: ${itemPrice}</p>
+              <div className="cart-product-price d-flex gap-1">
+                <p>Price: </p>
+                <p>${itemPrice}</p>
+              </div>
               <div className="count-qty-div">
                 <input
                   className="minus"

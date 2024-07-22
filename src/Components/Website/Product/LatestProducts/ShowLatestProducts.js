@@ -3,6 +3,7 @@ import { Axios } from "../../../../API/axios";
 import { Latest } from "../../../../API/Api";
 import SkeletonShow from "../../Skeleton/SkeletonShow";
 import SaleProducts from "../SaleProducts/SaleProducts";
+import { Container } from "react-bootstrap";
 
 export default function ShowLatestProducts() {
   const [products, setProducts] = useState([]);
@@ -24,20 +25,20 @@ export default function ShowLatestProducts() {
       img={product.images[0].image}
       price={product.price}
       rating={product.rating}
-      col="4"
+      col="3"
     />
   ));
   return (
-    <div className="d-flex justify-content-center">
-      <div className="ms-md-3">
+    <Container>
+      <div className="card-style">
         <h1 className="d-flex justify-content-center">Latest Products</h1>
-        <div className="d-flex justify-content-center flex-wrap row-gap-3 mb-5">
+        <div className="d-flex align-items-stretch justify-content-center flex-wrap mt-5 row-gap-2 m-3">
           {loading ? (
             <>
               <SkeletonShow
                 height="300px"
                 length="4"
-                classes="col-md-6 col-12"
+                classes="col-lg-3 col-md-6 col-12"
               />
             </>
           ) : (
@@ -45,6 +46,6 @@ export default function ShowLatestProducts() {
           )}
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

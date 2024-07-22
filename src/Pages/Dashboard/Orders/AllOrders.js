@@ -37,7 +37,8 @@ export default function AllOrders() {
 
     return (
       <tr key={key}>
-        <td>#{items.tracking_no}</td>
+        <td>#{items.id}</td>
+        <td>{items.tracking_no}</td>
         <td>
           {createAt.slice(0, 10)} | {createAt.slice(11, 16)}
         </td>
@@ -88,6 +89,7 @@ export default function AllOrders() {
       <Table striped bordered hover>
         <thead>
           <tr>
+            <th>Order Id</th>
             <th>Tracking Number</th>
             <th>Date</th>
             <th>Status</th>
