@@ -13,7 +13,7 @@ export default function Footer() {
   return (
     <div>
       <footer class="text-center mt-4">
-        <div class="container p-4">
+        <div class="container pt-4">
           <section class="mb-4">
             {/* <a
               data-mdb-ripple-init
@@ -70,7 +70,7 @@ export default function Footer() {
             </a>
           </section>
 
-          <section class="">
+          {/* <section class="">
             <form action="">
               <div class="row d-flex justify-content-center">
                 <div class="col-auto">
@@ -103,9 +103,9 @@ export default function Footer() {
                 </div>
               </div>
             </form>
-          </section>
+          </section> */}
 
-          <section class="mb-4">
+          {/* <section class="mb-4">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
               distinctio earum repellat quaerat voluptatibus placeat nam,
@@ -224,7 +224,7 @@ export default function Footer() {
                 </ul>
               </div>
             </div>
-          </section>
+          </section>*/}
         </div>
 
         <div

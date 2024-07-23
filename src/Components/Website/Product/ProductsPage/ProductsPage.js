@@ -4,7 +4,6 @@ import { PRODUCT, CART, USER, CARTS } from "../../../../API/Api";
 import { useParams } from "react-router-dom";
 import "./ProductsPage.css";
 import { Container } from "react-bootstrap";
-import TheNavBar from "../../NavBar/TheNavBar";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -28,8 +27,6 @@ export default function ProductsPage() {
       .catch((err) => console.log(err));
   }, [addtocart]);
 
-  // console.log(cartsLength);
-
   // Get User
   useEffect(() => {
     Axios.get(`${USER}`)
@@ -39,7 +36,6 @@ export default function ProductsPage() {
 
   async function submitToCart(e) {
     e.preventDefault();
-
     const data = {
       user_id: user.id,
       product_id: products[0].id,
@@ -75,6 +71,7 @@ export default function ProductsPage() {
           <div class="product-prices">
             <span className="product-discount">${item.discount}</span>
             <span className="product-price">${item.price}</span>
+            <p>QTY: {item.qty}</p>
           </div>
           <div class="cart-btn">
             <div className="count-div">

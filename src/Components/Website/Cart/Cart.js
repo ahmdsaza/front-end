@@ -90,9 +90,15 @@ export default function Cart() {
                 {item.product.title}
               </Link>
               <p></p>
-              <div className="cart-product-price d-flex gap-1">
-                <p>Price: </p>
-                <p>${itemPrice}</p>
+              <div className="cart-product-price">
+                <div className="d-flex gap-1">
+                  <p>Price: </p>
+                  <p>${itemPrice}</p>
+                </div>
+                <div className=" d-flex gap-1">
+                  <p>Total: </p>
+                  <p>${tot}</p>
+                </div>
               </div>
               <div className="count-qty-div">
                 <input
@@ -122,7 +128,6 @@ export default function Cart() {
               cursor={"pointer"}
               icon={faTrash}
             />
-            <p className="cart-product-total">Total: ${tot}</p>
           </div>
         </div>
       </div>
@@ -135,9 +140,6 @@ export default function Cart() {
   return (
     <Container>
       <h1 className="d-flex justify-content-center">Shopping Cart</h1>
-      <h3 className="d-flex justify-content-center">
-        Shopping Cart Items: {carts.length}
-      </h3>
       {/* {showImage} */}
       <div className="cardStyle d-flex flex-column align-items-center justify-content-center h-100 mt-4">
         {carts.length > 0 ? (
@@ -152,7 +154,7 @@ export default function Cart() {
       {user && carts.length > 0 ? (
         <div className="d-flex justify-content-around mt-3">
           <Link to="../checkout">
-            <button>CheckOut</button>
+            <button>Check Out</button>
           </Link>
           <div>
             <h3>Before VAT: ${totalCartPrice.toFixed(2)}</h3>
