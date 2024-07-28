@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ORDERID, PRODUCTS } from "../../../API/Api";
+import { ORDERID } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Container } from "react-bootstrap";
 
@@ -12,6 +12,7 @@ export default function OrderPage() {
   let createAt = 0;
   let itemqty = 0;
   let itemqtyfixed = 0;
+  let totalPrice = 0;
 
   useEffect(() => {
     Axios.get(`${ORDERID}/${id}`)
@@ -73,8 +74,8 @@ export default function OrderPage() {
   const showOrderProducts = getOrders.map((item) => {
     itemqty = item.price * item.qty;
     itemqtyfixed = itemqty.toFixed(2);
-
     totalCartPrice += item.price * item.qty;
+    totalPrice = totalCartPrice * 1.15;
 
     return (
       <div className="card flex-row gap-4 align-items-center justify-content-around">
@@ -85,9 +86,8 @@ export default function OrderPage() {
               style={{ color: "black" }}
               to={`../products/${item.product_id}`}
             >
-              {" "}
-              <p>Product: </p>
-              <p>{item.product_title}</p>
+              <p>Product: {item.product_title}</p>
+              {/* <p>{item.product_title}</p> */}
             </Link>
           </div>
           <p>QTY: {item.qty}</p>
@@ -105,7 +105,7 @@ export default function OrderPage() {
       <Link to="../orders">Back To orders</Link>
       <div>{showOrderItems}</div>
       <div>{showOrderProducts}</div>
-      <p>Total price: ${totalCartPrice.toFixed(2)}</p>
+      <p>Total price: ${totalPrice.toFixed(2)}</p>
     </Container>
   );
 }

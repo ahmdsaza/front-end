@@ -231,9 +231,9 @@ export default function Footer() {
           class="text-center p-3"
           style={{ backgroundColor: "rgba(0, 0, 0, 0.05)", width: "100%" }}
         >
-          © 2020 Copyright:
-          <a class="text-reset fw-bold" href="https://mdbootstrap.com/">
-            MDBootstrap.com
+          © 2024 Copyright:
+          <a class="text-reset fw-bold" href="https://ahmedsaud.me/">
+            Ahmed Alzahrani
           </a>
         </div>
       </footer>

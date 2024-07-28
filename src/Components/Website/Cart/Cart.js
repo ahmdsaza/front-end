@@ -118,16 +118,16 @@ export default function Cart() {
                   onClick={() => handleIncrement(item.id)}
                 />
               </div>
+            </div>{" "}
+            <div className="d-flex">
+              <FontAwesomeIcon
+                onClick={() => handleDelete(item.id)}
+                fontSize={"19px"}
+                color="red"
+                cursor={"pointer"}
+                icon={faTrash}
+              />
             </div>
-          </div>
-          <div className="d-flex">
-            <FontAwesomeIcon
-              onClick={() => handleDelete(item.id)}
-              fontSize={"19px"}
-              color="red"
-              cursor={"pointer"}
-              icon={faTrash}
-            />
           </div>
         </div>
       </div>
@@ -152,15 +152,15 @@ export default function Cart() {
       </div>
       {/* {showProducts} */}
       {user && carts.length > 0 ? (
-        <div className="d-flex justify-content-around mt-3">
-          <Link to="../checkout">
-            <button>Check Out</button>
-          </Link>
+        <div className=" justify-content-around mt-3">
           <div>
             <h3>Before VAT: ${totalCartPrice.toFixed(2)}</h3>
             <h3>VAT: ${vat.toFixed(2)}</h3>
             <h3>Total Price: ${totalWithVat.toFixed(2)}</h3>
-          </div>
+          </div>{" "}
+          <Link to="../checkout">
+            <button>Check Out</button>
+          </Link>
         </div>
       ) : (
         <p></p>

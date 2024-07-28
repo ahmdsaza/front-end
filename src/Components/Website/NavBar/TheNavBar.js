@@ -3,7 +3,7 @@ import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Axios } from "../../../API/axios";
-import { CATEGORIES, LOGOUT, USER, CARTS } from "../../../API/Api";
+import { PRODUCT, LOGOUT, USER, CARTS } from "../../../API/Api";
 import SkeletonShow from "../Skeleton/SkeletonShow";
 import Cookie from "cookie-universal";
 import "./TheNavBar.css";
@@ -12,6 +12,7 @@ export default function TheNavBar() {
   const [name, setName] = useState("");
   const [carts, setCarts] = useState([]);
   const [cartsLength, setCartsLength] = useState([]);
+  const [search, setSearch] = useState("");
 
   const cookie = Cookie();
 
@@ -30,11 +31,31 @@ export default function TheNavBar() {
   }, [cartsLength]);
 
   useEffect(() => {
-    //////////////////////
     Axios.get(`${CARTS}`)
       .then((data) => setCartsLength(data.data.length))
       .catch((err) => console.log(err));
   }, []);
+
+  // const showWichData = search.length > 0 ? search : search;
+
+  async function getSearchedData() {
+    try {
+      const res = await Axios.post(`${PRODUCT}/search?title=${search}`);
+      setSearch(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      search.length > 0 && getSearchedData();
+    }, 500);
+
+    return () => clearTimeout(debounce);
+  }, [search]);
+
+  console.log(search);
 
   // Logout
   async function handleLogout() {
@@ -67,6 +88,18 @@ export default function TheNavBar() {
                   src={require("../../../Assets/search-icon.png")}
                   alt="Cart"
                 />
+                <input
+                  type="text"
+                  name="search"
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                  }}
+                />
+                <div>
+                  {/* {showWichData.map((item) => (
+                    <div>{item.id}</div>
+                  ))} */}
+                </div>
               </div>
               <Link to="/cart">
                 <img

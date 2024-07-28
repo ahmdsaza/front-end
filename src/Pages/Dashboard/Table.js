@@ -25,7 +25,7 @@ export default function TableShow(props) {
   const filterSearchByDate =
     date.length !== 0
       ? filtredData.filter((item) => TransformDated(item.created_at) === date)
-      : props.data;
+      : filtredData;
 
   const showWichData =
     search.length > 0 ? filterSearchByDate : filtredDataByDate;
@@ -49,7 +49,7 @@ export default function TableShow(props) {
     }, 500);
 
     return () => clearTimeout(debounce);
-  }, [search]);
+  }, [search, date]);
 
   // Header Show
   const headerShow = props.header.map((item) => <th>{item.name}</th>);
