@@ -9,8 +9,7 @@ export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const { id } = useParams();
   const [count, setCount] = useState(1);
-  // const [carts, setCarts] = useState([]);
-  // const [cartsLength, setCartsLength] = useState([]);
+
   const [addtocart, setAddtoCart] = useState("");
   const [user, setUser] = useState("");
 

@@ -30,3 +30,21 @@
     border: rgba(0, 0, 0, 0.1) !important;
     outline: rgba(0, 0, 0, 0.1) !important;
 }
+
+.search-bar-data {
+    font-size: 0.75rem;
+    /* position: absolute; */
+    width: 100%;
+    color: black;
+    display: flex;
+    gap: 2rem;
+}
+
+.search-bar {
+    margin-right: 30px;
+}
+
+.search-title,
+.search-price {
+    color: black;
+}

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Axios } from "../../../API/axios";
-import { PRODUCT, LOGOUT, USER, CARTS } from "../../../API/Api";
+import { PRODUCT, PRODUCTS, LOGOUT, USER, CARTS } from "../../../API/Api";
 import SkeletonShow from "../Skeleton/SkeletonShow";
 import Cookie from "cookie-universal";
 import "./TheNavBar.css";
@@ -12,7 +12,10 @@ export default function TheNavBar() {
   const [name, setName] = useState("");
   const [carts, setCarts] = useState([]);
   const [cartsLength, setCartsLength] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState([]);
+  const [searchData, setSearchData] = useState([]);
+  const [showEmpty, setShowEmpty] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
 
   const cookie = Cookie();
 
@@ -36,26 +39,26 @@ export default function TheNavBar() {
       .catch((err) => console.log(err));
   }, []);
 
-  // const showWichData = search.length > 0 ? search : search;
+  const showWichData = search.length > 2 ? searchData : showEmpty;
 
   async function getSearchedData() {
     try {
       const res = await Axios.post(`${PRODUCT}/search?title=${search}`);
-      setSearch(res.data);
+      setSearchData(res.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setSearchLoading(false);
     }
   }
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      search.length > 0 && getSearchedData();
+      search.length > 0 ? getSearchedData() : setSearchLoading(false);
     }, 500);
 
     return () => clearTimeout(debounce);
   }, [search]);
-
-  console.log(search);
 
   // Logout
   async function handleLogout() {
@@ -67,6 +70,18 @@ export default function TheNavBar() {
       console.log(err);
     }
   }
+
+  const dataShow = showWichData.map((item, key) => (
+    <Link to={`./products/${item.id}`}>
+      <div className="seacrh-abs" key={item.id}>
+        <div className="search-bar-data">
+          <img src={item.images[0].image} width="50px" />
+          <p className="search-title">{item.title}</p>
+          <p className="search-price">${item.discount}</p>
+        </div>
+      </div>
+    </Link>
+  ));
 
   return (
     <nav className="py-3">
@@ -81,25 +96,30 @@ export default function TheNavBar() {
           </Link>
           <div className="col-3 d-flex align-items-center justify-content-end gap-2 order-md-3 order-1">
             <div className="d-flex">
-              <div className="px-3">
-                <img
+              {/* <img
                   width="25px"
                   height="25px"
                   src={require("../../../Assets/search-icon.png")}
                   alt="Cart"
-                />
-                <input
-                  type="text"
-                  name="search"
+                /> */}
+              <div>
+                <Form.Control
+                  type="search"
+                  className="search-bar"
+                  aria-label="Search here..."
+                  placeholder="Search..."
                   onChange={(e) => {
                     setSearch(e.target.value);
+                    setSearchLoading(true);
                   }}
                 />
-                <div>
-                  {/* {showWichData.map((item) => (
-                    <div>{item.id}</div>
-                  ))} */}
-                </div>
+                {searchLoading ? (
+                  <tr style={{ textAlign: "center" }}>
+                    <td colSpan={12}>Searching...</td>
+                  </tr>
+                ) : (
+                  <div>{dataShow}</div>
+                )}
               </div>
               <Link to="/cart">
                 <img

@@ -16,13 +16,10 @@ export default function OrderPage() {
 
   useEffect(() => {
     Axios.get(`${ORDERID}/${id}`)
-      .then((data) => setOrders(data.data))
-      .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    Axios.get(`${ORDERID}/${id}`)
-      .then((data) => setGetOrders(data.data[0].order_items))
+      .then((data) => {
+        setOrders(data.data);
+        setGetOrders(data.data[0].order_items);
+      })
       .catch((err) => console.log(err));
   }, []);
 
