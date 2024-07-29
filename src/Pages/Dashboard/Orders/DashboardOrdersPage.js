@@ -6,6 +6,7 @@ import { Button, Container, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import Form from "react-bootstrap/Form";
+import "./dashboardorder.css";
 
 export default function DashboardOrdersPage() {
   const { id } = useParams();
@@ -17,6 +18,7 @@ export default function DashboardOrdersPage() {
   let createAt = 0;
   let itemqty = 0;
   let itemqtyfixed = 0;
+  let totalPrice = 0;
 
   useEffect(() => {
     Axios.get(`${ORDERID}/${id}`)
@@ -48,7 +50,7 @@ export default function DashboardOrdersPage() {
   const showOrderItems = orders.map((item, key) => {
     createAt = item.created_at;
     return (
-      <div className="" key={key}>
+      <div className="change-font" key={key}>
         <div className="d-flex justify-content-between align-items-center mt-3">
           <div>
             <p>Order number: #{item.id}</p>
@@ -126,8 +128,8 @@ export default function DashboardOrdersPage() {
   const showOrderProducts = getOrders.map((item) => {
     itemqty = item.price * item.qty;
     itemqtyfixed = itemqty.toFixed(2);
-
     totalCartPrice += item.price * item.qty;
+    totalPrice = totalCartPrice * 1.15;
 
     return (
       <div className="card flex-row gap-4 align-items-center justify-content-around">
@@ -156,7 +158,7 @@ export default function DashboardOrdersPage() {
       <Link to="../orders">Back To orders</Link>
       <div>{showOrderItems}</div>
       <div>{showOrderProducts}</div>
-      <p>Total price: ${totalCartPrice.toFixed(2)}</p>
+      <p>Total price: ${totalPrice.toFixed(2)}</p>
     </Container>
   );
 }

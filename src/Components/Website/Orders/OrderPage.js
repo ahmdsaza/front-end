@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ORDERID } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Container } from "react-bootstrap";
+import "./orderpage.css";
 
 export default function OrderPage() {
   const { id } = useParams();
@@ -26,7 +27,7 @@ export default function OrderPage() {
   const showOrderItems = orders.map((item, key) => {
     createAt = item.created_at;
     return (
-      <div className="" key={key}>
+      <div className="change-font" key={key}>
         <div className="d-flex justify-content-between align-items-center">
           <div>
             <p>Order number: #{item.id}</p>

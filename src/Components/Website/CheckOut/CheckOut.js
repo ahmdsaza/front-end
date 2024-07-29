@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function CheckOut() {
   const [carts, setCarts] = useState([]);
+  let descPrice = 0;
+  let itemPrice = 0;
+  let tot = 0;
 
   const [form, setForm] = useState({
     firstname: "",
@@ -32,21 +35,21 @@ export default function CheckOut() {
 
   const showCheckOut = carts.map((item) => {
     totalCartPrice += item.product.discount * item.product_qty;
+    itemPrice = item.product.discount.slice(0, 5);
+    descPrice = itemPrice * item.product_qty;
+    tot = descPrice.toFixed(2);
 
     return (
-      <div>
-        <div className="checkout-order">
-          <table className="border-1">
-            <th>{item.product.title}</th>
-            <tr>
-              <td>
-                <img src={item.product_image} width="150px" />
-              </td>
-              <td>QTY: {item.product_qty}</td>
-              <td>Price: ${item.product.discount}</td>
-              Price: ${totalCartPrice.toFixed(2)}
-            </tr>
-          </table>
+      <div className="cart-card-checkout">
+        <div className="cart-card-details">
+          <div>
+            <p>{item.product.title}</p>
+            <p>Qty: {item.product_qty}</p>
+          </div>
+          <div>
+            <p>Price: ${item.product.discount}</p>
+            <p>Total: ${tot}</p>
+          </div>
         </div>
       </div>
     );
@@ -68,33 +71,14 @@ export default function CheckOut() {
     }
   }
 
-  // Handle Change
-  // function handleChange(e) {
-  //   setForm({ ...form, [e.target.name]: e.target.value });
-  //   setSent(1);
-  //   if (sent !== 1) {
-  //     HandleSubmit();
-  //   }
-  // }
-
-  // function handleChange(e) {
-  //   setForm({ ...form, [e.target.name]: e.target.value });
-
-  //   HandleSubmit();
-  // }
-
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
-    // setSent(1);
-    // if (sent !== 1) {
-    //   handleSubmit();
-    // }
   }
 
   return (
     <Container>
       <div className="d-flex w-100">
-        <div className="w-100">
+        <div className="w-75">
           <Form className="bg-white w-100 mx-2 p-3" onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
               <Form.Label>First name:</Form.Label>
@@ -186,13 +170,19 @@ export default function CheckOut() {
                 <option value="1">Visa</option>
               </Form.Select>
             </Form.Group>
-            <button className="">Check Out</button>
+            <button className="checkout-button">
+              <sapn className="checkout-span">Check Out</sapn>
+            </button>
           </Form>
-          <div className="d-flex justify-content-end">
-            Total Price: ${totalWithVat.toFixed(2)}
+        </div>
+        <div>
+          {showCheckOut}{" "}
+          <div className="total-amount-checkout">
+            <p>Before VAT: ${totalCartPrice.toFixed(2)}</p>
+            <p>VAT: ${vat.toFixed(2)}</p>
+            <p>Total Price: ${totalWithVat.toFixed(2)}</p>
           </div>
         </div>
-        <div>{showCheckOut}</div>
       </div>
     </Container>
   );

@@ -19,7 +19,7 @@ export default function SaleProducts(props) {
       <div className="cards">
         <div>
           <div className="px-5 py-5 position-relative">
-            {props.sale && (
+            {props.discount > 0 && (
               <p
                 className="m-0 position-absolute top-0 start-0 bg-primary rounded-circle text-white text-uppercase d-inline-block
                   text-center"

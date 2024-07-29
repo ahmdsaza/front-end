@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Axios } from "../../../API/axios";
 import { PRODUCT, PRODUCTS, LOGOUT, USER, CARTS } from "../../../API/Api";
 import SkeletonShow from "../Skeleton/SkeletonShow";
@@ -18,6 +18,8 @@ export default function TheNavBar() {
   const [searchLoading, setSearchLoading] = useState(false);
 
   const cookie = Cookie();
+
+  const navigate = useNavigate();
 
   // Get User Name
   useEffect(() => {
@@ -73,9 +75,9 @@ export default function TheNavBar() {
 
   const dataShow = showWichData.map((item, key) => (
     <Link to={`./products/${item.id}`}>
-      <div className="seacrh-abs" key={item.id}>
+      <div className="search-abs" key={item.id}>
         <div className="search-bar-data">
-          <img src={item.images[0].image} width="50px" />
+          <img src={item.images[0].image} width="80px" />
           <p className="search-title">{item.title}</p>
           <p className="search-price">${item.discount}</p>
         </div>
@@ -95,7 +97,7 @@ export default function TheNavBar() {
             />
           </Link>
           <div className="col-3 d-flex align-items-center justify-content-end gap-2 order-md-3 order-1">
-            <div className="d-flex">
+            <div className="d-flex gap-2">
               {/* <img
                   width="25px"
                   height="25px"
@@ -121,14 +123,16 @@ export default function TheNavBar() {
                   <div>{dataShow}</div>
                 )}
               </div>
-              <Link to="/cart">
-                <img
-                  width="30px"
-                  src={require("../../../Assets/shopping-cart.png")}
-                  alt="Cart"
-                />
-              </Link>
-              <span>{carts.length}</span>
+              <div className="d-flex">
+                <Link to="/cart">
+                  <img
+                    width="30px"
+                    src={require("../../../Assets/shopping-cart.png")}
+                    alt="Cart"
+                  />
+                </Link>
+                <span>{carts.length}</span>
+              </div>
             </div>
             <Dropdown>
               <Dropdown.Toggle

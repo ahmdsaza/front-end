@@ -51,7 +51,7 @@ export default function Cart() {
   }
 
   function updateCartQuantity(qty_id, scope) {
-    Axios.put(`${UPDATEQTY}/${qty_id}/${scope}`); //.then((res)=> if(res.data.status === 200));
+    Axios.put(`${UPDATEQTY}/${qty_id}/${scope}`);
   }
 
   const showCart = carts.map((item, key) => {
@@ -59,7 +59,6 @@ export default function Cart() {
     itemPrice = item.product.discount.slice(0, 5);
     descPrice = itemPrice * item.product_qty;
     tot = descPrice.toFixed(2);
-    // console.log(carts);
 
     // Handle Delete
     async function handleDelete(id) {
@@ -72,7 +71,10 @@ export default function Cart() {
     }
 
     return (
-      <div className="cardStyling w-100 d-flex flex-column justify-content-start p-3">
+      <div
+        className="cardStyling w-100 d-flex flex-column align-items-center p-3"
+        key={key}
+      >
         <div className="cart-card">
           <div className="cart-card-details">
             <div className="cart-image-div">
@@ -153,13 +155,17 @@ export default function Cart() {
       {/* {showProducts} */}
       {user && carts.length > 0 ? (
         <div className=" justify-content-around mt-3">
-          <div>
-            <h3>Before VAT: ${totalCartPrice.toFixed(2)}</h3>
-            <h3>VAT: ${vat.toFixed(2)}</h3>
-            <h3>Total Price: ${totalWithVat.toFixed(2)}</h3>
+          <div className="total-amount">
+            <p className="before-vat">
+              Before VAT: ${totalCartPrice.toFixed(2)}
+            </p>
+            <p className="vat">VAT: ${vat.toFixed(2)}</p>
+            <p className="after-vat">Total Price: ${totalWithVat.toFixed(2)}</p>
           </div>{" "}
           <Link to="../checkout">
-            <button>Check Out</button>
+            <button className="checkout-button mt-3">
+              <sapn className="checkout-span">Check Out</sapn>
+            </button>
           </Link>
         </div>
       ) : (

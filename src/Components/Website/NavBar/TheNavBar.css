@@ -32,16 +32,26 @@
 }
 
 .search-bar-data {
-    font-size: 0.75rem;
-    /* position: absolute; */
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    padding: 0.5rem;
     width: 100%;
     color: black;
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
+    z-index: -1;
 }
 
 .search-bar {
     margin-right: 30px;
+}
+
+.search-abs {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
 .search-title,
