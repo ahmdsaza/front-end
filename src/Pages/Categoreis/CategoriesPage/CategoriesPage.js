@@ -4,7 +4,6 @@ import { CATEGORY, categorry } from "../../../API/Api";
 import { Link, useParams } from "react-router-dom";
 import "../../../Components/Website/Product/AllProducts/AllProducts.css";
 import { Container } from "react-bootstrap";
-import Footer from "../../../Components/Website/Footer/Footer";
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Axios } from "../../../API/axios";
-import { PRODUCT, PRODUCTS, LOGOUT, USER, CARTS } from "../../../API/Api";
+import { PRODUCT, LOGOUT, USER, CARTS } from "../../../API/Api";
 import SkeletonShow from "../Skeleton/SkeletonShow";
 import Cookie from "cookie-universal";
 import "./TheNavBar.css";
@@ -18,8 +18,6 @@ export default function TheNavBar() {
   const [searchLoading, setSearchLoading] = useState(false);
 
   const cookie = Cookie();
-
-  const navigate = useNavigate();
 
   // Get User Name
   useEffect(() => {
@@ -77,7 +75,7 @@ export default function TheNavBar() {
     <Link to={`./products/${item.id}`}>
       <div className="search-abs" key={item.id}>
         <div className="search-bar-data">
-          <img src={item.images[0].image} width="80px" />
+          <img src={item.images[0].image} width="80px" alt={item.title} />
           <p className="search-title">{item.title}</p>
           <p className="search-price">${item.discount}</p>
         </div>

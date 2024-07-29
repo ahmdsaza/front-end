@@ -4,7 +4,6 @@ import { Axios } from "../../../../API/axios";
 import "./AllProducts.css";
 import { Container, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Footer from "../../Footer/Footer";
 import PaginatedItems from "../../../Dashboard/Pagination/Pagination";
 
 export default function AllProducts() {
