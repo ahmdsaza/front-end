@@ -31,10 +31,12 @@ import Orders from "./Components/Website/Orders/Orders";
 import OrderPage from "./Components/Website/Orders/OrderPage";
 import AllOrders from "./Pages/Dashboard/Orders/AllOrders";
 import DashboardOrdersPage from "./Pages/Dashboard/Orders/DashboardOrdersPage";
+import { Container } from "react-bootstrap";
 
 function App() {
   return (
     <div className="App">
+      {/* <Container> */}
       {/* Public Routes */}
       <Routes>
         <Route element={<Website />}>
@@ -87,6 +89,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      {/* </Container> */}
     </div>
   );
 }

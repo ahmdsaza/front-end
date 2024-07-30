@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
 import { PRODUCT, CART, USER } from "../../../../API/Api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./ProductsPage.css";
 import { Container } from "react-bootstrap";
 
@@ -11,6 +11,9 @@ export default function ProductsPage() {
   const [count, setCount] = useState(1);
   const [addtocart, setAddtoCart] = useState("");
   const [user, setUser] = useState("");
+  const [err, setErr] = useState("");
+
+  const navigate = useNavigate();
 
   // Get Product by id
   useEffect(() => {
@@ -39,7 +42,13 @@ export default function ProductsPage() {
       if (user) {
         Axios.post(`${CART}`, data)
           .then(setAddtoCart("Product add to cart successfully"))
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            if (err.response.status === 420) {
+              setErr("No qunatity enough");
+            } else {
+              setErr("Something went worng");
+            }
+          });
       } else {
         alert("Login To add Products to Cart");
       }
@@ -48,8 +57,12 @@ export default function ProductsPage() {
     }
   }
 
-  const showData = products.map((item) => (
-    <Container>
+  function BackToHoem() {
+    navigate(`/`);
+  }
+
+  const showData = products.map((item, key) => (
+    <Container key={item.id}>
       <div className="product-div">
         <div class="product-img">
           <img src={item.images[0].image} alt="" />
@@ -90,14 +103,23 @@ export default function ProductsPage() {
               Add to cart
             </button>
           </div>
-          {addtocart !== "" && (
+          {err ? (
+            <div className="d-flex justify-content-center">
+              <span className="d-flex alert alert-danger mt-2 justify-content-center ">
+                {err}
+              </span>
+            </div>
+          ) : addtocart !== "" ? (
             <div className="d-flex justify-content-center">
               <span className="d-flex alert alert-success mt-2 justify-content-center ">
                 {addtocart}
               </span>
             </div>
+          ) : (
+            <></>
           )}
         </div>
+        <button onClick={BackToHoem}>But</button>
       </div>
     </Container>
   ));

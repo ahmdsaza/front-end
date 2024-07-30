@@ -8,13 +8,14 @@ import SkeletonShow from "../Skeleton/SkeletonShow";
 import Cookie from "cookie-universal";
 import "./TheNavBar.css";
 
-export default function TheNavBar() {
+export default function TheNavBar(props) {
   const [name, setName] = useState("");
   const [carts, setCarts] = useState([]);
   const [cartsLength, setCartsLength] = useState([]);
   const [search, setSearch] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  const [showEmpty, setShowEmpty] = useState([]);
+  // const [showEmpty, setShowEmpty] = useState([]);
+  const showEmpty = [];
   const [searchLoading, setSearchLoading] = useState(false);
 
   const cookie = Cookie();
@@ -29,15 +30,12 @@ export default function TheNavBar() {
   // Number of Items in Cart
   useEffect(() => {
     Axios.get(`${CARTS}`)
-      .then((data) => setCarts(data.data))
+      .then((data) => {
+        setCarts(data.data);
+        setCartsLength(data.data.length);
+      })
       .catch((err) => console.log(err));
-  }, [cartsLength]);
-
-  useEffect(() => {
-    Axios.get(`${CARTS}`)
-      .then((data) => setCartsLength(data.data.length))
-      .catch((err) => console.log(err));
-  }, []);
+  }, [props.test]);
 
   const showWichData = search.length > 2 ? searchData : showEmpty;
 
@@ -72,15 +70,21 @@ export default function TheNavBar() {
   }
 
   const dataShow = showWichData.map((item, key) => (
-    <Link to={`./products/${item.id}`}>
-      <div className="search-abs" key={item.id}>
-        <div className="search-bar-data">
-          <img src={item.images[0].image} width="80px" alt={item.title} />
-          <p className="search-title">{item.title}</p>
-          <p className="search-price">${item.discount}</p>
+    <div key={item.id}>
+      <Link to={`./products/${item.id}`}>
+        <div className="search-abs">
+          <div className="search-bar-data">
+            <img
+              src={item.images[0].image}
+              className="search-img"
+              alt={item.title}
+            />
+            <p className="search-title">{item.title}</p>
+            <p className="search-price">${item.discount}</p>
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   ));
 
   return (
@@ -96,6 +100,7 @@ export default function TheNavBar() {
           </Link>
           <div className="col-3 d-flex align-items-center justify-content-end gap-2 order-md-3 order-1">
             <div className="d-flex gap-2">
+              {props.test}
               {/* <img
                   width="25px"
                   height="25px"
@@ -113,13 +118,6 @@ export default function TheNavBar() {
                     setSearchLoading(true);
                   }}
                 />
-                {searchLoading ? (
-                  <tr style={{ textAlign: "center" }}>
-                    <td colSpan={12}>Searching...</td>
-                  </tr>
-                ) : (
-                  <div>{dataShow}</div>
-                )}
               </div>
               <div className="d-flex">
                 <Link to="/cart">
@@ -182,6 +180,15 @@ export default function TheNavBar() {
             </Dropdown>
           </div>
         </div>
+        {searchLoading ? (
+          <tr style={{ textAlign: "center" }}>
+            <td colSpan={12}>Searching...</td>
+          </tr>
+        ) : (
+          <div onClick={() => setSearch("")}>
+            <div>{dataShow}</div>
+          </div>
+        )}
       </Container>
     </nav>
   );

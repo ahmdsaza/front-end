@@ -76,8 +76,12 @@ export default function OrderPage() {
     totalPrice = totalCartPrice * 1.15;
 
     return (
-      <div className="card flex-row gap-4 align-items-center justify-content-around">
-        <img src={item.product_image} width="150px" alt={item.product_title} />
+      <div className="card flex-row gap-2 align-items-center justify-content-around">
+        <img
+          src={item.product_image}
+          className="order-img"
+          alt={item.product_title}
+        />
         <div>
           <div className="d-flex gap-1">
             <Link
@@ -98,12 +102,16 @@ export default function OrderPage() {
     );
   });
 
+  let vat = totalCartPrice * 0.15;
+
   return (
     <Container>
       <Link to="../orders">Back To orders</Link>
       <div>{showOrderItems}</div>
       <div>{showOrderProducts}</div>
-      <p>Total price: ${totalPrice.toFixed(2)}</p>
+      <p>Before VAT: ${totalCartPrice.toFixed(2)}</p>
+      <p>VAT: ${vat.toFixed(2)}</p>
+      <p>Total with VAT: ${totalPrice.toFixed(2)}</p>
     </Container>
   );
 }

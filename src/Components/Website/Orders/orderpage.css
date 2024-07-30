@@ -1,3 +1,9 @@
+.order-img {
+    height: 250px;
+    max-width: 150px;
+    object-fit: cover;
+}
+
 @media (max-width: 768px) {
     .change-font {
         font-size: 0.75rem;
