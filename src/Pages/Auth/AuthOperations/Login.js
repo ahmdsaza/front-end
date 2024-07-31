@@ -99,7 +99,7 @@ export default function Login() {
               </Form.Group>
               <button className="btn btn-primary">Login</button>
               <div className="google-btn">
-                <a href={`http://127.0.0.1:8000/login-google`}>
+                <a href={`http://localhost:3000/login-google`}>
                   <div className="google-icon-wrapper">
                     <img
                       className="google-icon"

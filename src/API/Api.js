@@ -1,5 +1,7 @@
-// export const baseURL = `http://127.0.0.1:8000/api`;
-export const baseURL = `http://192.168.0.113:80/api`;
+export const baseURL = `http://127.0.0.1:8000/api`;
+// export const baseURL = `http://192.168.0.113:80/api`;
+
+// export const baseURL = `https://ahmedsaud.me/api`;
 
 // Auth
 export const REGISTER = "register";
