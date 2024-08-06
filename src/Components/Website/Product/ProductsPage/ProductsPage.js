@@ -57,9 +57,9 @@ export default function ProductsPage() {
     }
   }
 
-  function BackToHoem() {
-    navigate(`/`);
-  }
+  // function BackToHoem() {
+  //   navigate(`/`);
+  // }
 
   const showData = products.map((item, key) => (
     <Container key={item.id}>
@@ -119,7 +119,7 @@ export default function ProductsPage() {
             <></>
           )}
         </div>
-        <button onClick={BackToHoem}>But</button>
+        {/* <button onClick={BackToHoem}>But</button> */}
       </div>
     </Container>
   ));

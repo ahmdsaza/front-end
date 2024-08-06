@@ -111,7 +111,7 @@ export default function OrderPage() {
       <div>{showOrderProducts}</div>
       <p>Before VAT: ${totalCartPrice.toFixed(2)}</p>
       <p>VAT: ${vat.toFixed(2)}</p>
-      <p>Total with VAT: ${totalPrice.toFixed(2)}</p>
+      <p>Total included VAT: ${totalPrice.toFixed(2)}</p>
     </Container>
   );
 }

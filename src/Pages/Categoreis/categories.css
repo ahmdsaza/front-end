@@ -1,0 +1,9 @@
+.catTitle {
+    color: black;
+    font-size: 2rem;
+}
+.category-products-image {
+    height: 250px;
+    width: 200px;
+    object-fit: cover;
+}

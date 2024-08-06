@@ -138,8 +138,6 @@ export default function UpdateProduct() {
     </option>
   ));
 
-  console.log(categoriesShow);
-
   // Mapping Images
   const imagesShow = images.map((img, key) => (
     <div key={key} className="border p-2 w-100">

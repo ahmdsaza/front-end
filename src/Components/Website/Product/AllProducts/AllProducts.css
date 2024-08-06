@@ -13,7 +13,6 @@
 .crd1 {
     display: flex;
     flex-wrap: wrap;
-    /* background-color: #def5e5; */
     justify-content: center;
     border: 1px solid rgba(100, 100, 111, 0.2);
     border-radius: 5px;
@@ -35,12 +34,11 @@
 }
 
 .products-info {
-    /* border: 1px solid black; */
-    /* height: 100vh; */
     align-items: center;
     justify-content: center;
 }
 .products-image {
+    object-fit: cover;
     width: 250px;
     height: 250px;
     border-radius: 5px;

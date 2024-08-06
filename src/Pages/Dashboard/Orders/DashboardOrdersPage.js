@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ORDERID, ORDER } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
-import {  Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import Form from "react-bootstrap/Form";
@@ -132,33 +132,43 @@ export default function DashboardOrdersPage() {
     totalPrice = totalCartPrice * 1.15;
 
     return (
-      <div className="card flex-row gap-4 align-items-center justify-content-around">
-        <img src={item.product_image} width="150px" alt={item.product_title} />
-        <div>
-          <div className="d-flex gap-1">
-            <Link
-              style={{ color: "black" }}
-              to={`../../products/${item.product_id}`}
-            >
-              <p>Product: {item.product_title}</p>
-            </Link>
+      <div className="w-100">
+        <div className="card flex-row gap-4 align-items-center justify-content-between px-4">
+          <img
+            src={item.product_image}
+            width="150px"
+            alt={item.product_title}
+          />
+          <div>
+            <div className="d-flex gap-1 ">
+              <Link
+                style={{ color: "black" }}
+                to={`../../products/${item.product_id}`}
+              >
+                <p>{item.product_title}</p>
+              </Link>
+            </div>
+            <p>QTY: {item.qty}</p>
           </div>
-          <p>QTY: {item.qty}</p>
-        </div>
-        <div>
-          <p>Price: ${item.price}</p>
-          <p>Total: ${itemqtyfixed}</p>
+          <div>
+            <p>Price: ${item.price}</p>
+            <p>Total: ${itemqtyfixed}</p>
+          </div>
         </div>
       </div>
     );
   });
+
+  let vat = totalCartPrice * 0.15;
 
   return (
     <Container>
       <Link to="../orders">Back To orders</Link>
       <div>{showOrderItems}</div>
       <div>{showOrderProducts}</div>
-      <p>Total price: ${totalPrice.toFixed(2)}</p>
+      <p>Before VAT: ${totalCartPrice.toFixed(2)}</p>
+      <p>VAT: ${vat.toFixed(2)}</p>
+      <p>Total included VAT: ${totalPrice.toFixed(2)}</p>
     </Container>
   );
 }

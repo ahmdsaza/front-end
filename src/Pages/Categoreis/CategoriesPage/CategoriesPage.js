@@ -4,21 +4,17 @@ import { CATEGORY, categorry } from "../../../API/Api";
 import { Link, useParams } from "react-router-dom";
 import "../../../Components/Website/Product/AllProducts/AllProducts.css";
 import { Container } from "react-bootstrap";
+import PaginatedItems from "../../../Components/Dashboard/Pagination/Pagination";
+import Form from "react-bootstrap/Form";
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
   const [title, setTitle] = useState();
-  // const [page, setPage] = useState(1);
-  // const [limit, setLimit] = useState(3);
-  // const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(8);
+  const [total, setTotal] = useState(0);
 
   const { id } = useParams();
-
-  useEffect(() => {
-    Axios.get(`${CATEGORY}/${id}`)
-      .then((data) => setCategories(data.data))
-      .catch((err) => console.log(err));
-  }, []);
 
   // Get Title
   useEffect(() => {
@@ -27,14 +23,14 @@ export default function CategoriesPage() {
       .catch((err) => console.log(err));
   }, []);
 
-  // useEffect(() => {
-  //   Axios.get(`${CATEGORY}/${id}?limit=${limit}&page=${page}`)
-  //     .then((data) => {
-  //       setCategories(data.data);
-  //       setTotal(data.total);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [limit, page]);
+  useEffect(() => {
+    Axios.get(`${CATEGORY}/${id}?limit=${limit}&page=${page}`)
+      .then((data) => {
+        setCategories(data.data.data);
+        setTotal(data.data.total);
+      })
+      .catch((err) => console.log(err));
+  }, [limit, page]);
 
   const showData = categories.map((item, key) => (
     <div key={key}>
@@ -66,22 +62,20 @@ export default function CategoriesPage() {
     </div>
   ));
 
-  // const titleCat = categories[0].title;
-
   return (
     <div>
       <Container>
         <h1 className="page-title">{title}</h1>
         <div className="crd">{showData}</div>
-        {/* <div className="test">
+        <div className="test">
           <div className="">
             <Form.Select
               onChange={(e) => setLimit(e.target.value)}
               aria-label="Default select example"
             >
-              <option value="12">12</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
+              <option value="8">8</option>
+              <option value="16">16</option>
+              <option value="24">24</option>
             </Form.Select>
           </div>
           <div className="page">
@@ -91,8 +85,8 @@ export default function CategoriesPage() {
               total={total}
               typeName={"title"}
             />{" "}
-          </div> 
-        </div>*/}
+          </div>
+        </div>
       </Container>
     </div>
   );
