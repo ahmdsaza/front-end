@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
 import { PRODUCT, CART, USER } from "../../../../API/Api";
-import { useNavigate, useParams } from "react-router-dom";
-import "./ProductsPage.css";
+import { useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import "./ProductsPage.css";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -12,8 +12,6 @@ export default function ProductsPage() {
   const [addtocart, setAddtoCart] = useState("");
   const [user, setUser] = useState("");
   const [err, setErr] = useState("");
-
-  const navigate = useNavigate();
 
   // Get Product by id
   useEffect(() => {
@@ -56,10 +54,6 @@ export default function ProductsPage() {
       console.log(err);
     }
   }
-
-  // function BackToHoem() {
-  //   navigate(`/`);
-  // }
 
   const showData = products.map((item, key) => (
     <Container key={item.id}>

@@ -3,7 +3,7 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./salesPro.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function SaleProducts(props) {
   const roundStars = Math.round(props.rating);
@@ -15,7 +15,10 @@ export default function SaleProducts(props) {
     <FontAwesomeIcon key={index} icon={regularStar} />
   ));
   return (
-    <div className={`col-lg-${props.col} col-md-6 col-12`}>
+    <NavLink
+      to={`products/${props.id}`}
+      className={`col-lg-${props.col} col-md-6 col-12`}
+    >
       <div className="cards">
         <div>
           <div className="px-5 py-5 position-relative">
@@ -48,7 +51,7 @@ export default function SaleProducts(props) {
           </h4>
         </div>
         <div className="d-flex align-items-center justify-content-between pt-4 border-top">
-          <div>
+          <div className="text-black">
             {showGoldStars}
             {showEmptyStars}
             <div className="d-flex align-items-center gap-3">
@@ -62,16 +65,16 @@ export default function SaleProducts(props) {
             </div>
           </div>
           <div className="border p-2 rounded">
-            <Link to={`products/${props.id}`}>
-              <img
-                src={require("../../../../Assets/shopping-cart.png")}
-                alt="cart"
-                width="20px"
-              />
-            </Link>
+            {/* <Link to={`products/${props.id}`}> */}
+            <img
+              src={require("../../../../Assets/shopping-cart.png")}
+              alt="cart"
+              width="20px"
+            />
+            {/* </Link> */}
           </div>
         </div>
       </div>
-    </div>
+    </NavLink>
   );
 }

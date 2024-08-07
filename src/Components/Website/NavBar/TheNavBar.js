@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { Axios } from "../../../API/axios";
 import { PRODUCT, LOGOUT, USER, CARTS } from "../../../API/Api";
 import SkeletonShow from "../Skeleton/SkeletonShow";
@@ -11,10 +11,8 @@ import "./TheNavBar.css";
 export default function TheNavBar(props) {
   const [name, setName] = useState("");
   const [carts, setCarts] = useState([]);
-  const [cartsLength, setCartsLength] = useState([]);
   const [search, setSearch] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  // const [showEmpty, setShowEmpty] = useState([]);
   const showEmpty = [];
   const [searchLoading, setSearchLoading] = useState(false);
 
@@ -32,10 +30,9 @@ export default function TheNavBar(props) {
     Axios.get(`${CARTS}`)
       .then((data) => {
         setCarts(data.data);
-        setCartsLength(data.data.length);
       })
       .catch((err) => console.log(err));
-  }, [props.test]);
+  }, []);
 
   const showWichData = search.length > 2 ? searchData : showEmpty;
 
@@ -70,8 +67,8 @@ export default function TheNavBar(props) {
   }
 
   const dataShow = showWichData.map((item, key) => (
-    <div key={item.id}>
-      <Link to={`./products/${item.id}`}>
+    <div key={item.id + key}>
+      <NavLink to={`./products/${item.id}`} reloadDocument>
         <div className="search-abs">
           <div className="search-bar-data">
             <img
@@ -83,7 +80,7 @@ export default function TheNavBar(props) {
             <p className="search-price">${item.discount}</p>
           </div>
         </div>
-      </Link>
+      </NavLink>
     </div>
   ));
 
@@ -100,7 +97,6 @@ export default function TheNavBar(props) {
           </Link>
           <div className="col-3 d-flex align-items-center justify-content-end gap-2 order-md-3 order-1">
             <div className="d-flex gap-2">
-              {props.test}
               {/* <img
                   width="25px"
                   height="25px"

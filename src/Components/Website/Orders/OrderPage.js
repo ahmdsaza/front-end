@@ -88,7 +88,7 @@ export default function OrderPage() {
               style={{ color: "black" }}
               to={`../products/${item.product_id}`}
             >
-              <p>Product: {item.product_title}</p>
+              <p>{item.product_title}</p>
               {/* <p>{item.product_title}</p> */}
             </Link>
           </div>
