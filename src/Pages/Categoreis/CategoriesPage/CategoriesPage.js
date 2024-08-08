@@ -13,6 +13,8 @@ export default function CategoriesPage() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(8);
   const [total, setTotal] = useState(0);
+  const [sort, setSort] = useState("created_at");
+  const [type, setType] = useState("asc");
 
   const { id } = useParams();
 
@@ -24,13 +26,15 @@ export default function CategoriesPage() {
   }, []);
 
   useEffect(() => {
-    Axios.get(`${CATEGORY}/${id}?limit=${limit}&page=${page}`)
+    Axios.get(
+      `${CATEGORY}/${id}?sort=${sort}&type=${type}&limit=${limit}&page=${page}`
+    )
       .then((data) => {
         setCategories(data.data.data);
         setTotal(data.data.total);
       })
       .catch((err) => console.log(err));
-  }, [limit, page]);
+  }, [limit, page, sort, type]);
 
   const showData = categories.map((item, key) => (
     <div key={key}>
@@ -62,10 +66,35 @@ export default function CategoriesPage() {
     </div>
   ));
 
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setSort(value.slice(4, 20));
+    setType(value.slice(0, 4));
+  }
+
   return (
     <div>
       <Container>
         <h1 className="page-title">{title}</h1>
+        <div className="">
+          <Form.Select
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
+            aria-label="Default select example"
+            className="w-25"
+          >
+            <option value="asc created_at">Default</option>
+            <option value="asc title" name="asc">
+              Name A-Z
+            </option>
+            <option value="desctitle" name="desc">
+              Name Z-A
+            </option>
+            <option value="asc discount">Price low-high</option>
+            <option value="descdiscount">Price high-low</option>
+          </Form.Select>
+        </div>
         <div className="crd">{showData}</div>
         <div className="test">
           <div className="">

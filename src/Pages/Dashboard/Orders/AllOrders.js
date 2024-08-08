@@ -12,16 +12,17 @@ export default function AllOrders() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
+  const [status, setStatus] = useState();
   let createAt = 0;
 
   useEffect(() => {
-    Axios.get(`${ALLORDERS}?limit=${limit}&page=${page}`)
+    Axios.get(`${ALLORDERS}?status=${status}&limit=${limit}&page=${page}`)
       .then((data) => {
         setOrders(data.data.data);
         setTotal(data.data.total);
       })
       .catch((err) => console.log(err));
-  }, [limit, page]);
+  }, [limit, page, status]);
 
   async function handleDelete(id) {
     try {
@@ -82,9 +83,26 @@ export default function AllOrders() {
     <div className="bg-white w-100 p-2">
       <div className="d-flex align-items-center justify-content-between">
         <h1>Orders Page</h1>
-        <Link className="btn btn-primary" to="/dashboard/product/add">
+        <div className="col-6">
+          <Form.Select
+            onChange={(e) => {
+              setStatus(e.target.value);
+            }}
+            aria-label="Default select example"
+            className="w-25"
+          >
+            <option value="1&2">All</option>
+            <option value="0">Pending</option>
+            <option value="1">Awaiting Payment</option>
+            <option value="2">Awaiting Shipment</option>
+            <option value="3">Completed</option>
+            <option value="4">Shipped</option>
+            <option value="5">Cancelled</option>
+          </Form.Select>
+        </div>
+        {/* <Link className="btn btn-primary" to="/dashboard/product/add">
           Add Order
-        </Link>
+        </Link> */}
       </div>
       <Table striped bordered hover>
         <thead>
@@ -100,8 +118,8 @@ export default function AllOrders() {
           {orders.length > 0 ? (
             showTheOrder
           ) : (
-            <div className="card w-100 d-flex flex-row justify-content-center p-3">
-              <h3>No Orders yet</h3>
+            <div className="d-flex justify-content-center align-items-center">
+              <h3>No Orders found</h3>
             </div>
           )}
         </tbody>
