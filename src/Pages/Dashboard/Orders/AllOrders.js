@@ -12,7 +12,7 @@ export default function AllOrders() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
-  const [status, setStatus] = useState();
+  const [status, setStatus] = useState(0);
   let createAt = 0;
 
   useEffect(() => {
@@ -91,8 +91,8 @@ export default function AllOrders() {
             aria-label="Default select example"
             className="w-25"
           >
-            <option value="1&2">All</option>
-            <option value="0">Pending</option>
+            <option value="0">All</option>
+            <option value="00">Pending</option>
             <option value="1">Awaiting Payment</option>
             <option value="2">Awaiting Shipment</option>
             <option value="3">Completed</option>

@@ -19,9 +19,10 @@
     gap: 2rem;
 }
 
-.cart-card-details {
+.cart-card-details-cart {
     display: flex;
-    gap: 1rem;
+    justify-content: space-between;
+    gap: 2rem;
 }
 
 .cart-image {

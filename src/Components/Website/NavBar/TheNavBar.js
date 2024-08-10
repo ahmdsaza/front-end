@@ -13,6 +13,8 @@ export default function TheNavBar(props) {
   const [carts, setCarts] = useState([]);
   const [search, setSearch] = useState([]);
   const [searchData, setSearchData] = useState([]);
+  const [cartCount, setCartCount] = useState("");
+
   const showEmpty = [];
   const [searchLoading, setSearchLoading] = useState(false);
 
@@ -28,9 +30,7 @@ export default function TheNavBar(props) {
   // Number of Items in Cart
   useEffect(() => {
     Axios.get(`${CARTS}`)
-      .then((data) => {
-        setCarts(data.data);
-      })
+      .then((data) => setCarts(data.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -150,26 +150,28 @@ export default function TheNavBar(props) {
                   {name.name}
                 </Dropdown.Item>
                 {name.role === "1995" && (
-                  <Dropdown.Item>
-                    <Link to="/dashboard" style={{ color: "black" }}>
-                      Dashboard
-                    </Link>
-                  </Dropdown.Item>
+                  <div>
+                    <Dropdown.Item>
+                      <NavLink to="/dashboard" className="text-black">
+                        Dashboard
+                      </NavLink>
+                    </Dropdown.Item>
+                  </div>
                 )}
                 {name ? (
                   <>
                     <Dropdown.Item>
-                      <Link to="/orders" style={{ color: "black" }}>
+                      <NavLink to="/orders" style={{ color: "black" }}>
                         My Orders
-                      </Link>
+                      </NavLink>
                     </Dropdown.Item>
                     <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                   </>
                 ) : (
                   <Dropdown.Item>
-                    <Link to="login" style={{ color: "black" }}>
+                    <NavLink to="login" style={{ color: "black" }}>
                       Login / Register
-                    </Link>
+                    </NavLink>
                   </Dropdown.Item>
                 )}
               </Dropdown.Menu>
@@ -181,9 +183,7 @@ export default function TheNavBar(props) {
             <td colSpan={12}>Searching...</td>
           </tr>
         ) : (
-          <div onClick={() => setSearch("")}>
-            <div>{dataShow}</div>
-          </div>
+          <div onClick={() => setSearch("")}>{dataShow}</div>
         )}
       </Container>
     </nav>

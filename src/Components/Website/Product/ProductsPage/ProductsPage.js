@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
 import { PRODUCT, CART, USER } from "../../../../API/Api";
 import { useParams } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container, NavLink } from "react-bootstrap";
 import "./ProductsPage.css";
 
 export default function ProductsPage() {
@@ -56,7 +56,7 @@ export default function ProductsPage() {
   }
 
   const showData = products.map((item, key) => (
-    <Container key={item.id}>
+    <Container key={item.id + key}>
       <div className="product-div">
         <div class="product-img">
           <img src={item.images[0].image} alt="" />

@@ -76,7 +76,7 @@ export default function Cart() {
         key={key}
       >
         <div className="cart-card">
-          <div className="cart-card-details">
+          <div className="cart-card-details-cart">
             <div className="cart-image-div">
               <img
                 className="cart-image"

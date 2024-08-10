@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../API/axios";
 import { CATEGORY, categorry } from "../../../API/Api";
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import "../../../Components/Website/Product/AllProducts/AllProducts.css";
 import { Container } from "react-bootstrap";
 import PaginatedItems from "../../../Components/Dashboard/Pagination/Pagination";
@@ -38,36 +38,38 @@ export default function CategoriesPage() {
 
   const showData = categories.map((item, key) => (
     <div key={key}>
-      <div className="crd1">
-        <div className="products-in-crd">
-          <img
-            className="products-image"
-            src={item.images[0].image}
-            alt="Just an img"
-          />
-          <div className="products-info">
-            <p className="products-title">{item.title}</p>
-            <div className="products-icon">
-              <div className="prod-price">
-                <div className="products-price">${item.price}</div>
-                <div className="products-discount">${item.discount}</div>
+      <NavLink to={`../products/${item.id}`} className="text-black">
+        <div className="crd1">
+          <div className="products-in-crd">
+            <img
+              className="products-image"
+              src={item.images[0].image}
+              alt="Just an img"
+            />
+            <div className="products-info">
+              <p className="products-title">{item.title}</p>
+              <div className="products-icon">
+                <div className="prod-price">
+                  <div className="products-price">${item.price}</div>
+                  <div className="products-discount">${item.discount}</div>
+                </div>
+                <div>
+                  <img
+                    src={require("../../../Assets/shopping-cart.png")}
+                    alt="cart"
+                    width="20px"
+                  />
+                </div>
               </div>
-              <Link to={`../products/${item.id}`}>
-                <img
-                  src={require("../../../Assets/shopping-cart.png")}
-                  alt="cart"
-                  width="20px"
-                />
-              </Link>
             </div>
           </div>
         </div>
-      </div>
+      </NavLink>
     </div>
   ));
 
   function handleInputChange(e) {
-    const { name, value } = e.target;
+    const { value } = e.target;
     setSort(value.slice(4, 20));
     setType(value.slice(0, 4));
   }
@@ -85,14 +87,14 @@ export default function CategoriesPage() {
             className="w-25"
           >
             <option value="asc created_at">Default</option>
+            <option value="asc discount">Price low-high</option>
+            <option value="descdiscount">Price high-low</option>
             <option value="asc title" name="asc">
               Name A-Z
             </option>
             <option value="desctitle" name="desc">
               Name Z-A
             </option>
-            <option value="asc discount">Price low-high</option>
-            <option value="descdiscount">Price high-low</option>
           </Form.Select>
         </div>
         <div className="crd">{showData}</div>
