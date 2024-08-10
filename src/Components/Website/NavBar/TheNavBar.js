@@ -13,10 +13,9 @@ export default function TheNavBar(props) {
   const [carts, setCarts] = useState([]);
   const [search, setSearch] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  const [cartCount, setCartCount] = useState("");
-
-  const showEmpty = [];
+  const [cartLength, setCartLength] = useState(0);
   const [searchLoading, setSearchLoading] = useState(false);
+  const showEmpty = [];
 
   const cookie = Cookie();
 
@@ -30,7 +29,9 @@ export default function TheNavBar(props) {
   // Number of Items in Cart
   useEffect(() => {
     Axios.get(`${CARTS}`)
-      .then((data) => setCarts(data.data))
+      .then((data) => {
+        setCarts(data.data);
+      })
       .catch((err) => console.log(err));
   }, []);
 

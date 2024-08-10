@@ -40,6 +40,11 @@ export default function ProductsPage() {
       if (user) {
         Axios.post(`${CART}`, data)
           .then(setAddtoCart("Product add to cart successfully"))
+          .then(
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000)
+          )
           .catch((err) => {
             if (err.response.status === 420) {
               setErr("No qunatity enough");
@@ -80,6 +85,9 @@ export default function ProductsPage() {
                 disabled={count < 2}
                 onClick={() => {
                   setCount((prev) => prev - 1);
+                  {
+                    /* decrease 1 to quantity*/
+                  }
                 }}
               />
               <span className="count">{count}</span> {/* product Quantity */}
@@ -90,6 +98,9 @@ export default function ProductsPage() {
                 disabled={count === item.qty}
                 onClick={() => {
                   setCount((prev) => prev + 1);
+                  {
+                    /* increase 1 to quantity*/
+                  }
                 }}
               />
             </div>
