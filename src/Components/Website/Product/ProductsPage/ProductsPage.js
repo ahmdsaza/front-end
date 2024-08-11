@@ -85,9 +85,8 @@ export default function ProductsPage() {
                 disabled={count < 2}
                 onClick={() => {
                   setCount((prev) => prev - 1);
-                  {
-                    /* decrease 1 to quantity*/
-                  }
+
+                  /* decrease 1 to quantity*/
                 }}
               />
               <span className="count">{count}</span> {/* product Quantity */}
@@ -98,9 +97,8 @@ export default function ProductsPage() {
                 disabled={count === item.qty}
                 onClick={() => {
                   setCount((prev) => prev + 1);
-                  {
-                    /* increase 1 to quantity*/
-                  }
+
+                  /* increase 1 to quantity*/
                 }}
               />
             </div>
@@ -124,7 +122,6 @@ export default function ProductsPage() {
             <></>
           )}
         </div>
-        {/* <button onClick={BackToHoem}>But</button> */}
       </div>
     </Container>
   ));

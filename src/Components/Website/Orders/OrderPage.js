@@ -69,7 +69,7 @@ export default function OrderPage() {
     );
   });
 
-  const showOrderProducts = getOrders.map((item) => {
+  const showOrderProducts = getOrders.map((item, key) => {
     itemqty = item.price * item.qty;
     itemqtyfixed = itemqty.toFixed(2);
     totalCartPrice += item.price * item.qty;
@@ -77,27 +77,32 @@ export default function OrderPage() {
 
     return (
       <div className="card flex-row gap-2 align-items-center justify-content-around">
-        <img
-          src={item.product_image}
-          className="order-img"
-          alt={item.product_title}
-        />
-        <div>
-          <div className="d-flex gap-1">
-            <Link
-              style={{ color: "black" }}
-              to={`../products/${item.product_id}`}
-            >
-              <p>{item.product_title}</p>
-              {/* <p>{item.product_title}</p> */}
-            </Link>
+        <div className="d-flex gap-3">
+          <img
+            src={item.product_image}
+            className="order-img"
+            alt={item.product_title}
+          />
+          <div>
+            <div className="d-flex gap-1 mt-3">
+              <Link
+                style={{ color: "black" }}
+                to={`../products/${item.product_id}`}
+              >
+                <p>{item.product_title}</p>
+                {/* <p>{item.product_title}</p> */}
+              </Link>
+            </div>
+            <p>QTY: {item.qty}</p>
           </div>
-          <p>QTY: {item.qty}</p>
+          <div className="mt-3">
+            <p>Price: ${item.price}</p>
+            <p>Total: ${itemqtyfixed}</p>
+          </div>
         </div>
-        <div>
-          <p>Price: ${item.price}</p>
-          <p>Total: ${itemqtyfixed}</p>
-        </div>
+        <Link to={`../rate/${item.product_id}`}>
+          <button>Add Rating</button>
+        </Link>
       </div>
     );
   });

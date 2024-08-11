@@ -31,6 +31,7 @@ import Orders from "./Components/Website/Orders/Orders";
 import OrderPage from "./Components/Website/Orders/OrderPage";
 import AllOrders from "./Pages/Dashboard/Orders/AllOrders";
 import DashboardOrdersPage from "./Pages/Dashboard/Orders/DashboardOrdersPage";
+import Rating from "./Components/Website/Rating/Rating";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="checkout" element={<CheckOut />} />
           <Route path="orders" element={<Orders />} />
           <Route path="orders/:id" element={<OrderPage />} />
+          <Route path="rate/:id" element={<Rating />} />
         </Route>
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />}></Route>
