@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./rating.css";
 import { useParams } from "react-router-dom";
-import { PRODUCT, USER } from "../../../API/Api";
+import { PRODUCT, USER, RATE } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Container } from "react-bootstrap";
 
@@ -33,27 +33,20 @@ export default function Rating() {
       user_id: user.id,
       product_id: products[0].id,
       product_rate: rate * 1,
-      product_description: description,
+      description: description,
     };
 
-    console.log(datarate);
-
-    // try {
-    //   if (user) {
-    //     Axios.post(`${CART}`, data)
-    //       .then(setAddtoCart("Product add to cart successfully"))
-    //       .then(
-    //         setTimeout(() => {
-    //           window.location.reload();
-    //         }, 1000)
-    //       )
-    //       .catch((err) => console.log(err));
-    //   } else {
-    //     alert("Login To add Products to Cart");
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    try {
+      if (user) {
+        Axios.post(`${RATE}`, datarate)
+          // .then(setAddtoCart("Product add to cart successfully"))
+          .catch((err) => console.log(err));
+      } else {
+        alert("Login To add Products to Cart");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   const showData = products.map((item, key) => (
@@ -66,7 +59,7 @@ export default function Rating() {
           <div class="product-description">
             <span className="product-category">{item.category.title}</span>
             <h1 className="product-title">{item.title}</h1>
-            <p className="product-description">{item.description}</p>
+            {/* <p className="product-description">{item.description}</p> */}
           </div>
           <div class="product-prices">
             <span className="product-discount">${item.discount}</span>
