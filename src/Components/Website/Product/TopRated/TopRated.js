@@ -3,20 +3,23 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./salesRa.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
 export default function TopRated(props) {
   const roundStars = Math.round(props.rating);
   const stars = Math.min(roundStars, 5);
   const showGoldStars = Array.from({ length: stars }).map((_, index) => (
-    <FontAwesomeIcon key={index} icon={solid} />
+    <FontAwesomeIcon key={index} icon={solid} style={{ color: "FFC100" }} />
   ));
   const showEmptyStars = Array.from({ length: 5 - stars }).map((_, index) => (
     <FontAwesomeIcon key={index} icon={regularStar} />
   ));
   return (
-    <div className="col-lg-3 col-md-6 col-12">
+    <NavLink
+      className="col-lg-3 col-md-6 col-12 text-black"
+      to={`products/${props.id}`}
+    >
       <div className="cards">
         <div>
           <div className="px-5 py-5 position-relative">
@@ -63,16 +66,14 @@ export default function TopRated(props) {
             </div>
           </div>
           <div className="border p-2 rounded">
-            <Link to={`products/${props.id}`}>
-              <img
-                src={require("../../../../Assets/shopping-cart.png")}
-                alt="cart"
-                width="20px"
-              />
-            </Link>
+            <img
+              src={require("../../../../Assets/shopping-cart.png")}
+              alt="cart"
+              width="20px"
+            />
           </div>
         </div>
       </div>
-    </div>
+    </NavLink>
   );
 }

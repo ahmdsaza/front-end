@@ -80,10 +80,25 @@ export default function ProductsPage() {
     ratingCount += item.product_rate;
     ratingStar = ratingCount / theLength;
 
+    const roundStarsRate = Math.round(item.product_rate);
+    const starsRate = Math.min(roundStarsRate, 5);
+    const showGoldStarsRate = Array.from({ length: starsRate }).map(
+      (_, index) => (
+        <FontAwesomeIcon key={index} icon={solid} style={{ color: "FFC100" }} />
+      )
+    );
+    const showEmptyStarsRate = Array.from({ length: 5 - starsRate }).map(
+      (_, index) => <FontAwesomeIcon key={index} icon={regularStar} />
+    );
+
     return (
-      <div className="d-flex flex-column align-items-center">
-        <p>Description: {item.description}</p>
-        <p>Rate: {item.product_rate}</p>
+      <div className="card d-flex flex-column align-items-center mt-3">
+        <p>
+          {showGoldStarsRate}
+          {showEmptyStarsRate}
+          {item.product_rate}
+        </p>
+        <p>{item.description}</p>
       </div>
     );
   });
@@ -91,7 +106,7 @@ export default function ProductsPage() {
   const roundStars = Math.round(ratingStar);
   const stars = Math.min(roundStars, 5);
   const showGoldStars = Array.from({ length: stars }).map((_, index) => (
-    <FontAwesomeIcon key={index} icon={solid} />
+    <FontAwesomeIcon key={index} icon={solid} style={{ color: "FFC100" }} />
   ));
   const showEmptyStars = Array.from({ length: 5 - stars }).map((_, index) => (
     <FontAwesomeIcon key={index} icon={regularStar} />

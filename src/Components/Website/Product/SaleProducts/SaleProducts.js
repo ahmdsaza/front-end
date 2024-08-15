@@ -9,7 +9,7 @@ export default function SaleProducts(props) {
   const roundStars = Math.round(props.rating);
   const stars = Math.min(roundStars, 5);
   const showGoldStars = Array.from({ length: stars }).map((_, index) => (
-    <FontAwesomeIcon key={index} icon={solid} />
+    <FontAwesomeIcon key={index} icon={solid} style={{ color: "FFC100" }} />
   ));
   const showEmptyStars = Array.from({ length: 5 - stars }).map((_, index) => (
     <FontAwesomeIcon key={index} icon={regularStar} />
