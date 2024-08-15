@@ -180,7 +180,6 @@ export default function AddProduct() {
             name="category"
             value={form.category}
             onChange={handleChange}
-            placeholder="Title..."
           >
             <option disabled>Select Category</option>
             {categoriesShow}

@@ -4,6 +4,7 @@ import TopRated from "./TopRated";
 import { TopRatedApi } from "../../../../API/Api";
 import SkeletonShow from "../../Skeleton/SkeletonShow";
 import { Container } from "react-bootstrap";
+import SaleProducts from "../SaleProducts/SaleProducts";
 
 export default function ShowTopRated() {
   const [products, setProducts] = useState([]);
@@ -16,7 +17,7 @@ export default function ShowTopRated() {
   }, []);
 
   const productsShow = products.map((product) => (
-    <TopRated
+    <SaleProducts
       id={product.id}
       title={product.title}
       description={product.description}
@@ -25,6 +26,7 @@ export default function ShowTopRated() {
       img={product.images[0].image}
       price={product.price}
       rating={product.rating}
+      col="3"
     />
   ));
   return (
