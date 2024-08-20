@@ -4,7 +4,7 @@ import { Axios } from "../../../API/axios";
 import Form from "react-bootstrap/Form";
 import { Container } from "react-bootstrap";
 import "./checkout.css";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function CheckOut() {
   const [carts, setCarts] = useState([]);
@@ -40,18 +40,47 @@ export default function CheckOut() {
     tot = descPrice.toFixed(2);
 
     return (
-      <div className="cart-card-checkout">
-        <div className="cart-card-details">
-          <div>
-            <p>{item.product.title}</p>
-            <p>Qty: {item.product_qty}</p>
+      <tr class="border-bottom">
+        <td>
+          <div class="d-flex align-items-center">
+            {/* <div className="pic"></div> */}
+            <div class="ps-3 d-flex flex-column justify-content">
+              <p class="pic fw-bold">
+                <NavLink to={`../products/${item.id}`}>
+                  <span class="ps-1 text-black">{item.product.title}</span>
+                </NavLink>
+              </p>
+              {/* <small class="d-flex">
+                  <span class="text-muted">Color:</span>
+                  <span class="fw-bold">Red/White</span>
+                </small> 
+                <small class="">
+                  <span class="text-muted">Size:</span>
+                  <span class="fw-bold">L</span>
+                </small> */}
+            </div>
           </div>
-          <div>
-            <p>Price: ${item.product.discount}</p>
-            <p>Total: ${tot}</p>
+        </td>
+        <td>
+          <div class="d-flex">
+            <p class="pe-3">
+              <span class="text-muted">${item.product.discount}</span>
+            </p>
+            <p class="fw-bold">Total: ${tot}</p>
           </div>
-        </div>
-      </div>
+        </td>
+        <td>
+          <div class="d-flex align-items-center">
+            <span class="pe-3 text-muted">Quantity</span>
+            <span class="pe-3">
+              <input class="ps-2" type="number" value={item.product_qty} />
+            </span>
+            {/* <div class="round">
+                <span class=""> L </span>
+              </div> */}
+          </div>
+        </td>
+      </tr>
     );
   });
 
@@ -75,9 +104,271 @@ export default function CheckOut() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
+  console.log(form);
+
   return (
     <Container>
-      <div className="d-flex w-100">
+      <div class="containers mt-4 p-0">
+        <div class="row px-md-4 px-2 pt-4">
+          <div class="col-lg-8">
+            <p class="pb-2 fw-bold">Order list</p>
+            <div class="card">
+              <div class="table-responsive px-md-4 px-2 pt-3">
+                <table class="table table-borderless">
+                  <tbody>{showCheckOut}</tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 payment-summary">
+            <p class="fw-bold pt-lg-0 pt-4 pb-2">Payment Summary</p>
+            <div class="card px-md-3 px-2 pt-2">
+              <div class="d-flex flex-column">
+                <div class="d-flex justify-content-between py-3">
+                  <small class="text-muted">Order price</small>
+                  <p>${totalCartPrice.toFixed(2)}</p>
+                </div>
+                <div class="d-flex justify-content-between pb-3 border-bottom">
+                  <small class="text-muted">VAT</small>
+                  <p>${vat.toFixed(2)}</p>
+                </div>
+                <div class="d-flex justify-content-between mt-3 mb-3">
+                  <p class="fw-bold">Total Amount</p>
+                  <p className="fw-bold">${totalWithVat.toFixed(2)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 delivery px-md-3 px-1">
+            <p class="pt-2 fw-bold pb-3 ps-2">Address</p>
+            <div class="container">
+              <Form>
+                <div>
+                  <div className="name">
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput0"
+                    >
+                      <Form.Label for="f-name">First name:</Form.Label>
+                      <Form.Control
+                        required
+                        name="firstname"
+                        value={form.firstname}
+                        onChange={handleChange}
+                        // disabled={!sent}
+                        placeholder="First name..."
+                      ></Form.Control>
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>Last name:</Form.Label>
+                      <Form.Control
+                        required
+                        name="lastname"
+                        value={form.lastname}
+                        onChange={handleChange}
+                        type="text"
+                        placeholder="Last name..."
+                        // disabled={!sent}
+                      />
+                    </Form.Group>
+                  </div>
+                  <div className="street">
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput0"
+                    >
+                      <Form.Label>Phone number:</Form.Label>
+                      <Form.Control
+                        required
+                        name="phone"
+                        value={form.phone}
+                        onChange={handleChange}
+                        placeholder="+966..."
+                      ></Form.Control>
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>Email:</Form.Label>
+                      <Form.Control
+                        required
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        type="email"
+                        placeholder="Email..."
+                        // disabled={!sent}
+                      />
+                    </Form.Group>
+                  </div>
+                  <div class="address-info">
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput0"
+                    >
+                      <Form.Label>Country:</Form.Label>
+                      <Form.Control
+                        required
+                        name="address"
+                        value={form.address}
+                        onChange={handleChange}
+                        placeholder="Country..."
+                      ></Form.Control>
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>City:</Form.Label>
+                      <Form.Control
+                        required
+                        name="city"
+                        value={form.city}
+                        onChange={handleChange}
+                        type="text"
+                        placeholder="City..."
+                        // disabled={!sent}
+                      />
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput0"
+                    >
+                      <Form.Label>zipcode:</Form.Label>
+                      <Form.Control
+                        required
+                        name="zipcode"
+                        value={form.zipcode}
+                        onChange={handleChange}
+                        placeholder="zipcode..."
+                      ></Form.Control>
+                    </Form.Group>
+                  </div>
+                  {/* <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput0"
+                  >
+                    <Form.Label>Payment:</Form.Label>
+                    <Form.Select
+                      required
+                      name="payment_mode"
+                      value={form.payment_mode}
+                      onChange={handleChange}
+                    >
+                      <option disabled>Choose Payment method</option>
+                      <option value="0">Cash on Delivery</option>
+                      <option value="1">Visa</option>
+                    </Form.Select>
+                  </Form.Group> */}
+                </div>
+                {/* <button className="checkout-button">
+                  <sapn className="checkout-span">Check Out</sapn>
+                </button> */}
+              </Form>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <p class="pt-4 fw-bold pb-3">Payment Method</p>
+            <div class="card p-3 mb-2">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-bold">
+                  <div class="d-flex gap-2">
+                    <img
+                      class=""
+                      src="https://www.mada.com.sa/sites/mada/themes/custom/mada_theme/images/logo.svg"
+                      width="45px"
+                      alt=""
+                    />
+                    Mada
+                    {/* <small class="text-muted">
+                      One year of additional Care
+                    </small> */}
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  {/* <p class="pe-3">$10.00</p> */}
+                  <div class="form-check form-switch">
+                    <Form value={form.payment_mode} onChange={handleChange}>
+                      <Form.Check
+                        class="form-check-input"
+                        type="checkbox"
+                        id="SwitchCheck"
+                        value="2"
+                      />
+                    </Form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card p-3 mb-2">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-bold">
+                  <div class="d-flex gap-2">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Old_Visa_Logo.svg/2560px-Old_Visa_Logo.svg.png"
+                      alt=""
+                      width="45px"
+                    />
+                    VISA
+                    {/* <small class="text-muted">
+                      One year of additional Care
+                    </small> */}
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  {/* <p class="pe-3">$2.00</p> */}
+                  <div class="form-check form-switch">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="SwitchCheck"
+                      value={(form.payment_mode = 1)}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card p-3 mb-2">
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+                  <div className="d-flex align-items-center">
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/10351/10351751.png"
+                      alt=""
+                      width="45px"
+                    />
+                    <p class="fw-bold">Cash on Delivery</p>
+                  </div>
+                  <small class="text-muted">
+                    Add fees because cash on delivery
+                  </small>
+                </div>
+                <div class="d-flex align-items-center">
+                  <p class="pe-3">+$5.00</p>
+                  <div class="form-check form-switch">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="SwitchCheck"
+                      value={(form.payment_mode = 0)}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="checkout-button" onClick={handleSubmit}>
+              Check Out
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* <div className="d-flex w-100">
         <div className="w-75">
           <Form className="bg-white w-100 mx-2 p-3" onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
@@ -157,20 +448,21 @@ export default function CheckOut() {
                 placeholder="zipcode..."
               ></Form.Control>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
-              <Form.Label>Payment:</Form.Label>
-              <Form.Select
-                required
-                name="payment_mode"
-                value={form.payment_mode}
-                onChange={handleChange}
-              >
-                <option disabled>Choose Payment method</option>
-                <option value="0">Cash on Delivery</option>
-                <option value="1">Visa</option>
-              </Form.Select>
-            </Form.Group>
-            <button className="checkout-button">
+            */}
+      {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
+        <Form.Label>Payment:</Form.Label>
+        <Form.Select
+          required
+          name="payment_mode"
+          value={form.payment_mode}
+          onChange={handleChange}
+        >
+          <option disabled>Choose Payment method</option>
+          <option value="0">Cash on Delivery</option>
+          <option value="1">Visa</option>
+        </Form.Select>
+      </Form.Group> */}
+      {/*<button className="checkout-button">
               <sapn className="checkout-span">Check Out</sapn>
             </button>
           </Form>
@@ -183,7 +475,7 @@ export default function CheckOut() {
             <p>Total Price: ${totalWithVat.toFixed(2)}</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </Container>
   );
 }

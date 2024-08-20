@@ -1,4 +1,4 @@
-.cart-card-checkout {
+/* .cart-card-checkout {
     width: 150%;
     height: 100px;
     border: 1px solid black;
@@ -82,4 +82,239 @@
 
 .checkout-button:hover::before {
     transform: translate3d(100%, 0, 0);
+} */
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: "Montserrat", sans-serif;
+}
+
+.containers {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #eee;
+}
+.card {
+    position: relative;
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+small {
+    font-size: 12px;
+}
+.cart {
+    line-height: 1;
+}
+.icon {
+    background-color: #eee;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.pic {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 90px;
+    border-radius: 5px;
+}
+td {
+    vertical-align: middle;
+}
+.red {
+    color: #fd1c1c;
+    font-weight: 600;
+}
+.b-bottom {
+    border-bottom: 2px dotted black;
+    padding-bottom: 20px;
+}
+p {
+    margin: 0px;
+}
+table input {
+    width: 40px;
+    border: 1px solid #eee;
+}
+input:focus {
+    border: 1px solid #eee;
+    outline: none;
+}
+.round {
+    background-color: #eee;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.payment-summary .unregistered {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+.payment-summary input {
+    width: 100%;
+    margin-right: 20px;
+}
+.payment-summary .sale {
+    width: 100%;
+    background-color: #e9b3b3;
+    text-transform: uppercase;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
+}
+.red {
+    color: #fd1c1c;
+}
+.del {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+}
+.wrapper {
+    margin-top: 5%;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    -webkit-box-shadow: 9px 13px 25px 0px rgba(0, 0, 0, 0.18);
+    -moz-box-shadow: 9px 13px 25px 0px rgba(0, 0, 0, 0.18);
+    box-shadow: 9px 13px 25px 0px rgba(0, 0, 0, 0.18);
+}
+
+@keyframes slideUp {
+    0% {
+        -webkit-transform: translateY(100%);
+        transform: translateY(100%);
+        visibility: visible;
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    align-self: center;
+}
+
+form {
+    width: 100%;
+
+    > * {
+        margin-top: 20px;
+    }
+
+    input {
+        width: 100%;
+        min-height: 25px;
+        border: 0;
+        font-size: 1rem;
+        margin-top: 5px;
+        border-radius: 4px;
+    }
+}
+
+.name {
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+    gap: 10px;
+
+    div {
+        width: 45%;
+    }
+}
+
+.address-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    div {
+        width: 30%;
+    }
+}
+
+.cc-info {
+    display: flex;
+    justify-content: space-between;
+
+    div {
+        width: 45%;
+    }
+}
+
+label {
+    font-weight: 600;
+}
+
+@media (max-width: 736px) {
+    .wrapper {
+        width: 100%;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    form h1 {
+        text-align: center;
+    }
+
+    .name,
+    .address-info,
+    .cc-info {
+        flex-direction: column;
+        width: 100%;
+        justify-content: space-between;
+
+        div {
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            display: flex;
+        }
+    }
+
+    .street,
+    .cc-num {
+        text-align: center;
+    }
+
+    input {
+        margin: 5px 0;
+        min-height: 30px;
+    }
+}
+
+.checkout-button {
+    background-color: rgba(51, 51, 51, 0.05);
+    border: #838383 solid 0.1rem;
+    border-radius: 8px;
+    border-width: 1;
+    color: #333333;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding: 10px 22px;
 }
