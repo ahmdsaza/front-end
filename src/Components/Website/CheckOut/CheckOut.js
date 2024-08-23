@@ -104,14 +104,23 @@ export default function CheckOut() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  console.log(form);
+  function handlePayment(e) {
+    form.payment_mode = e.target.value;
+  }
+
+  // console.log(form);
 
   return (
     <Container>
       <div class="containers mt-4 p-0">
         <div class="row px-md-4 px-2 pt-4">
           <div class="col-lg-8">
-            <p class="pb-2 fw-bold">Order list</p>
+            {carts.length > 1 ? (
+              <p class="pb-2 fw-bold">Orders list</p>
+            ) : (
+              <p class="pb-2 fw-bold">Order list</p>
+            )}
+
             <div class="card">
               <div class="table-responsive px-md-4 px-2 pt-3">
                 <table class="table table-borderless">
@@ -175,7 +184,7 @@ export default function CheckOut() {
                       />
                     </Form.Group>
                   </div>
-                  <div className="street">
+                  <div className="name">
                     <Form.Group
                       className="mb-3"
                       controlId="exampleForm.ControlInput0"
@@ -248,26 +257,7 @@ export default function CheckOut() {
                       ></Form.Control>
                     </Form.Group>
                   </div>
-                  {/* <Form.Group
-                    className="mb-3"
-                    controlId="exampleForm.ControlInput0"
-                  >
-                    <Form.Label>Payment:</Form.Label>
-                    <Form.Select
-                      required
-                      name="payment_mode"
-                      value={form.payment_mode}
-                      onChange={handleChange}
-                    >
-                      <option disabled>Choose Payment method</option>
-                      <option value="0">Cash on Delivery</option>
-                      <option value="1">Visa</option>
-                    </Form.Select>
-                  </Form.Group> */}
                 </div>
-                {/* <button className="checkout-button">
-                  <sapn className="checkout-span">Check Out</sapn>
-                </button> */}
               </Form>
             </div>
           </div>
@@ -284,22 +274,18 @@ export default function CheckOut() {
                       alt=""
                     />
                     Mada
-                    {/* <small class="text-muted">
-                      One year of additional Care
-                    </small> */}
                   </div>
                 </div>
                 <div class="d-flex align-items-center">
-                  {/* <p class="pe-3">$10.00</p> */}
                   <div class="form-check form-switch">
-                    <Form value={form.payment_mode} onChange={handleChange}>
-                      <Form.Check
-                        class="form-check-input"
-                        type="checkbox"
-                        id="SwitchCheck"
-                        value="2"
-                      />
-                    </Form>
+                    <input
+                      class="form-check-input"
+                      name="payment"
+                      type="radio"
+                      id="SwitchCheck"
+                      value={2}
+                      onClick={handlePayment}
+                    />
                   </div>
                 </div>
               </div>
@@ -314,20 +300,17 @@ export default function CheckOut() {
                       width="45px"
                     />
                     VISA
-                    {/* <small class="text-muted">
-                      One year of additional Care
-                    </small> */}
                   </div>
                 </div>
                 <div class="d-flex align-items-center">
-                  {/* <p class="pe-3">$2.00</p> */}
                   <div class="form-check form-switch">
                     <input
                       class="form-check-input"
-                      type="checkbox"
+                      name="payment"
+                      type="radio"
                       id="SwitchCheck"
-                      value={(form.payment_mode = 1)}
-                      onChange={handleChange}
+                      value={1}
+                      onClick={handlePayment}
                     />
                   </div>
                 </div>
@@ -353,10 +336,11 @@ export default function CheckOut() {
                   <div class="form-check form-switch">
                     <input
                       class="form-check-input"
-                      type="checkbox"
+                      name="payment"
+                      type="radio"
                       id="SwitchCheck"
-                      value={(form.payment_mode = 0)}
-                      onChange={handleChange}
+                      value={0}
+                      onClick={handlePayment}
                     />
                   </div>
                 </div>
@@ -368,114 +352,6 @@ export default function CheckOut() {
           </div>
         </div>
       </div>
-      {/* <div className="d-flex w-100">
-        <div className="w-75">
-          <Form className="bg-white w-100 mx-2 p-3" onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
-              <Form.Label>First name:</Form.Label>
-              <Form.Control
-                required
-                name="firstname"
-                value={form.firstname}
-                onChange={handleChange}
-                // disabled={!sent}
-                placeholder="First name..."
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Last name:</Form.Label>
-              <Form.Control
-                required
-                name="lastname"
-                value={form.lastname}
-                onChange={handleChange}
-                type="text"
-                placeholder="Last name..."
-                // disabled={!sent}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
-              <Form.Label>Phone number:</Form.Label>
-              <Form.Control
-                required
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                placeholder="+966..."
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email:</Form.Label>
-              <Form.Control
-                required
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                type="email"
-                placeholder="Email..."
-                // disabled={!sent}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
-              <Form.Label>Country:</Form.Label>
-              <Form.Control
-                required
-                name="address"
-                value={form.address}
-                onChange={handleChange}
-                placeholder="Country..."
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>City:</Form.Label>
-              <Form.Control
-                required
-                name="city"
-                value={form.city}
-                onChange={handleChange}
-                type="text"
-                placeholder="City..."
-                // disabled={!sent}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
-              <Form.Label>zipcode:</Form.Label>
-              <Form.Control
-                required
-                name="zipcode"
-                value={form.zipcode}
-                onChange={handleChange}
-                placeholder="zipcode..."
-              ></Form.Control>
-            </Form.Group>
-            */}
-      {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
-        <Form.Label>Payment:</Form.Label>
-        <Form.Select
-          required
-          name="payment_mode"
-          value={form.payment_mode}
-          onChange={handleChange}
-        >
-          <option disabled>Choose Payment method</option>
-          <option value="0">Cash on Delivery</option>
-          <option value="1">Visa</option>
-        </Form.Select>
-      </Form.Group> */}
-      {/*<button className="checkout-button">
-              <sapn className="checkout-span">Check Out</sapn>
-            </button>
-          </Form>
-        </div>
-        <div>
-          {showCheckOut}{" "}
-          <div className="total-amount-checkout">
-            <p>Before VAT: ${totalCartPrice.toFixed(2)}</p>
-            <p>VAT: ${vat.toFixed(2)}</p>
-            <p>Total Price: ${totalWithVat.toFixed(2)}</p>
-          </div>
-        </div>
-      </div> */}
     </Container>
   );
 }

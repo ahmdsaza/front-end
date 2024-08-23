@@ -16,6 +16,7 @@ export default function ProductsPage() {
   const [user, setUser] = useState("");
   const [err, setErr] = useState("");
   const [showRate, setShowRate] = useState([]);
+  const [showNameRate, setShowNameRate] = useState([]);
 
   // Rate
   let ratingStar = 0;
@@ -84,21 +85,33 @@ export default function ProductsPage() {
     const starsRate = Math.min(roundStarsRate, 5);
     const showGoldStarsRate = Array.from({ length: starsRate }).map(
       (_, index) => (
-        <FontAwesomeIcon key={index} icon={solid} style={{ color: "FFC100" }} />
+        <FontAwesomeIcon
+          key={index}
+          icon={solid}
+          style={{ color: "FFC100", fontSize: "12px" }}
+        />
       )
     );
     const showEmptyStarsRate = Array.from({ length: 5 - starsRate }).map(
-      (_, index) => <FontAwesomeIcon key={index} icon={regularStar} />
+      (_, index) => (
+        <FontAwesomeIcon
+          key={index}
+          icon={regularStar}
+          style={{ fontSize: "12px" }}
+        />
+      )
     );
 
     return (
-      <div className="card d-flex flex-column align-items-center mt-3">
-        <p>
+      <div className="card">
+        <div>
+          <p className="fw-bold">{item.users[0].name}</p>
           {showGoldStarsRate}
           {showEmptyStarsRate}
-          {item.product_rate}
-        </p>
-        <p>{item.description}</p>
+        </div>
+        <div>
+          <p>{item.description}</p>
+        </div>
       </div>
     );
   });
