@@ -74,13 +74,6 @@
     -o-border-radius: 5px;
 }
 
-.cart-product-total {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: end;
-    font-size: 1.5rem;
-}
-
 .total-amount {
     width: 30%;
     font-size: 1.5rem;
