@@ -103,14 +103,20 @@ export default function ProductsPage() {
     );
 
     return (
-      <div className="card">
-        <div>
-          <p className="fw-bold">{item.users[0].name}</p>
-          {showGoldStarsRate}
-          {showEmptyStarsRate}
-        </div>
-        <div>
-          <p>{item.description}</p>
+      <div className="card mt-3">
+        <div className="rate-div">
+          <div>
+            <img
+              width="50px"
+              src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+            />
+          </div>
+          <div>
+            <p className="fw-bold">{item.users[0].name}</p>
+            {showGoldStarsRate}
+            {showEmptyStarsRate}
+            <p>{item.description}</p>
+          </div>
         </div>
       </div>
     );

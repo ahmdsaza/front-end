@@ -43,5 +43,5 @@ export const ORDERS = "place-order";
 
 // Rate
 
-export const RATES = "rates";
 export const RATE = "rate/add";
+export const RATES = "rates";
