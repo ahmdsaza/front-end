@@ -32,6 +32,7 @@ import OrderPage from "./Components/Website/Orders/OrderPage";
 import AllOrders from "./Pages/Dashboard/Orders/AllOrders";
 import DashboardOrdersPage from "./Pages/Dashboard/Orders/DashboardOrdersPage";
 import Rating from "./Components/Website/Rating/Rating";
+import Activity from "./Pages/Dashboard/Activity";
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
             <Route element={<RequireAuth allowedRole={["1995"]} />}>
               <Route path="users" element={<Users />} />
               <Route path="orders" element={<AllOrders />} />
+              <Route path="activity" element={<Activity />} />
               <Route path="users/:id" element={<User />} />
               <Route path="user/add" element={<AddUser />} />
               <Route path="orders/:id" element={<DashboardOrdersPage />} />

@@ -153,7 +153,7 @@ export default function TheNavBar(props) {
                 {name.role === "1995" && (
                   <div>
                     <Dropdown.Item>
-                      <NavLink to="/dashboard" className="text-black">
+                      <NavLink to="/dashboard/activity" className="text-black">
                         Dashboard
                       </NavLink>
                     </Dropdown.Item>

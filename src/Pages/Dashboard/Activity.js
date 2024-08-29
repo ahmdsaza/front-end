@@ -1,0 +1,34 @@
+import React, { useEffect, useState } from "react";
+import { Axios } from "../../API/axios";
+import { ALLORDERS, USER } from "../../API/Api";
+import { NavLink } from "react-router-dom";
+
+export default function Activity() {
+  const [orders, setOrders] = useState([]);
+  const [name, setName] = useState([]);
+
+  useEffect(() => {
+    Axios.get(`${ALLORDERS}`)
+      .then((data) => setOrders(data.data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  // Gett User Name
+  useEffect(() => {
+    Axios.get(`${USER}`)
+      .then((data) => setName(data.data.name))
+      .catch((err) => console.log(err));
+  }, []);
+
+  return (
+    <div>
+      <div>Welcome: {name}</div>
+      <div>
+        <NavLink to={`../orders`} className="text-black">
+          {" "}
+          Orders number: {orders.length}
+        </NavLink>
+      </div>
+    </div>
+  );
+}

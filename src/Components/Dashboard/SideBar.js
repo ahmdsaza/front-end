@@ -53,7 +53,7 @@ export default function SideBar() {
               icon={faBars}
             />
             <MenuItem
-              component={<Link to={`./`} />}
+              component={<Link to={`./activity`} />}
               icon={<i class="material-icons">dashboard</i>}
               label="Dashboard"
             >
