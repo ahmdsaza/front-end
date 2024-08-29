@@ -8,6 +8,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 export default function CheckOut() {
   const [carts, setCarts] = useState([]);
+  // const [totalWithVat, setTotalWithVat] = useState(0);
+
   let descPrice = 0;
   let itemPrice = 0;
   let tot = 0;
@@ -46,7 +48,7 @@ export default function CheckOut() {
             {/* <div className="pic"></div> */}
             <div class="ps-3 d-flex flex-column justify-content">
               <p class="pic fw-bold">
-                <NavLink to={`../products/${item.id}`}>
+                <NavLink to={`../products/${item.product.id}`}>
                   <span class="ps-1 text-black">{item.product.title}</span>
                 </NavLink>
               </p>
@@ -71,9 +73,10 @@ export default function CheckOut() {
         </td>
         <td>
           <div class="d-flex align-items-center">
-            <span class="pe-3 text-muted">Quantity</span>
+            <span class="pe-3 text-muted">Quantity:</span>
             <span class="pe-3">
-              <input class="ps-2" type="number" value={item.product_qty} />
+              {/* <input class="ps-2" type="number" value={item.product_qty} /> */}
+              {item.product_qty}
             </span>
             {/* <div class="round">
                 <span class=""> L </span>
@@ -104,11 +107,21 @@ export default function CheckOut() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
+  console.log(form);
+
+  let totalWithVatNew = 0;
+
   function handlePayment(e) {
-    form.payment_mode = e.target.value;
+    if (e.target.value == 0) {
+      form.payment_mode = e.target.value;
+      let totalWithVatNew = totalCartPrice + vat + 5;
+      console.log("Equla to 0 / " + totalWithVat);
+    } else {
+      form.payment_mode = e.target.value;
+    }
   }
 
-  // console.log(form);
+  // console.log(form.payment_mode);
 
   return (
     <Container>
@@ -143,7 +156,12 @@ export default function CheckOut() {
                 </div>
                 <div class="d-flex justify-content-between mt-3 mb-3">
                   <p class="fw-bold">Total Amount</p>
-                  <p className="fw-bold">${totalWithVat.toFixed(2)}</p>
+                  <p className="fw-bold">
+                    $
+                    {form.payment_mode === 0
+                      ? totalWithVatNew.toFixed(2)
+                      : totalWithVat.toFixed(2)}
+                  </p>
                 </div>
               </div>
             </div>
