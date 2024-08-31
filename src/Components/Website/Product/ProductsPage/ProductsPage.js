@@ -16,12 +16,8 @@ export default function ProductsPage() {
   const [user, setUser] = useState("");
   const [err, setErr] = useState("");
   const [showRate, setShowRate] = useState([]);
-  const [showNameRate, setShowNameRate] = useState([]);
+  const [showRateNumber, setShowRateNumber] = useState(0);
 
-  // Rate
-  let ratingStar = 0;
-  let ratingCount = 0;
-  let theLength = 0;
   // Call Rate
   useEffect(() => {
     Axios.get(`${RATES}/${id}`)
@@ -32,7 +28,10 @@ export default function ProductsPage() {
   // Get Product by id
   useEffect(() => {
     Axios.get(`${PRODUCT}/${id}`)
-      .then((data) => setProducts(data.data))
+      .then((data) => {
+        setProducts(data.data);
+        setShowRateNumber(data.data[0].rating);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -76,11 +75,16 @@ export default function ProductsPage() {
     }
   }
 
-  const showRateData = showRate.map((item) => {
-    theLength = showRate.length;
-    ratingCount += item.product_rate;
-    ratingStar = ratingCount / theLength;
+  const roundStars = Math.round(showRateNumber);
+  const stars = Math.min(roundStars, 5);
+  const showGoldStars = Array.from({ length: stars }).map((_, index) => (
+    <FontAwesomeIcon key={index} icon={solid} style={{ color: "FFC100" }} />
+  ));
+  const showEmptyStars = Array.from({ length: 5 - stars }).map((_, index) => (
+    <FontAwesomeIcon key={index} icon={regularStar} />
+  ));
 
+  const showRateData = showRate.map((item) => {
     const roundStarsRate = Math.round(item.product_rate);
     const starsRate = Math.min(roundStarsRate, 5);
     const showGoldStarsRate = Array.from({ length: starsRate }).map(
@@ -122,80 +126,73 @@ export default function ProductsPage() {
     );
   });
 
-  const roundStars = Math.round(ratingStar);
-  const stars = Math.min(roundStars, 5);
-  const showGoldStars = Array.from({ length: stars }).map((_, index) => (
-    <FontAwesomeIcon key={index} icon={solid} style={{ color: "FFC100" }} />
-  ));
-  const showEmptyStars = Array.from({ length: 5 - stars }).map((_, index) => (
-    <FontAwesomeIcon key={index} icon={regularStar} />
-  ));
+  const showData = products.map((item, key) => {
+    return (
+      <div className="product-div" key={item.id + key}>
+        <div class="product-img">
+          <img src={item.images[0].image} alt="" />
+        </div>
+        <div class="product-side">
+          <div class="product-description">
+            {showGoldStars}
+            {showEmptyStars}
+            <span className="product-category">{item.category.title}</span>
+            <h1 className="product-title">{item.title}</h1>
+            <p className="product-description">{item.description}</p>
+          </div>
+          <div class="product-prices">
+            <span className="product-discount">${item.discount}</span>
+            <span className="product-price">${item.price}</span>
+          </div>
+          <div class="cart-btn">
+            <div className="count-div">
+              <input
+                className="sum"
+                type="button"
+                value=" - "
+                disabled={count < 2}
+                onClick={() => {
+                  setCount((prev) => prev - 1);
 
-  const showData = products.map((item, key) => (
-    <div className="product-div" key={item.id + key}>
-      <div class="product-img">
-        <img src={item.images[0].image} alt="" />
+                  /* decrease 1 to quantity*/
+                }}
+              />
+              <span className="count">{count}</span> {/* product Quantity */}
+              <input
+                className="minus"
+                type="button"
+                value=" + "
+                disabled={count === item.qty}
+                onClick={() => {
+                  setCount((prev) => prev + 1);
+
+                  /* increase 1 to quantity*/
+                }}
+              />
+            </div>
+            <button className="addToCart" onClick={submitToCart}>
+              Add to cart
+            </button>
+          </div>
+          {err ? (
+            <div className="d-flex justify-content-center">
+              <span className="d-flex alert alert-danger mt-2 justify-content-center ">
+                {err}
+              </span>
+            </div>
+          ) : addtocart !== "" ? (
+            <div className="d-flex justify-content-center">
+              <span className="d-flex alert alert-success mt-2 justify-content-center ">
+                {addtocart}
+              </span>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
-      <div class="product-side">
-        <div class="product-description">
-          {showGoldStars}
-          {showEmptyStars}
-          <span className="product-category">{item.category.title}</span>
-          <h1 className="product-title">{item.title}</h1>
-          <p className="product-description">{item.description}</p>
-        </div>
-        <div class="product-prices">
-          <span className="product-discount">${item.discount}</span>
-          <span className="product-price">${item.price}</span>
-        </div>
-        <div class="cart-btn">
-          <div className="count-div">
-            <input
-              className="sum"
-              type="button"
-              value=" - "
-              disabled={count < 2}
-              onClick={() => {
-                setCount((prev) => prev - 1);
-
-                /* decrease 1 to quantity*/
-              }}
-            />
-            <span className="count">{count}</span> {/* product Quantity */}
-            <input
-              className="minus"
-              type="button"
-              value=" + "
-              disabled={count === item.qty}
-              onClick={() => {
-                setCount((prev) => prev + 1);
-
-                /* increase 1 to quantity*/
-              }}
-            />
-          </div>
-          <button className="addToCart" onClick={submitToCart}>
-            Add to cart
-          </button>
-        </div>
-        {err ? (
-          <div className="d-flex justify-content-center">
-            <span className="d-flex alert alert-danger mt-2 justify-content-center ">
-              {err}
-            </span>
-          </div>
-        ) : addtocart !== "" ? (
-          <div className="d-flex justify-content-center">
-            <span className="d-flex alert alert-success mt-2 justify-content-center ">
-              {addtocart}
-            </span>
-          </div>
-        ) : (
-          <></>
-        )}
-      </div>
-    </div>
-  ));
+    );
+  });
 
   return (
     <Container>

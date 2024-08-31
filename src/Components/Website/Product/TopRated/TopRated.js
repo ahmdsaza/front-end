@@ -3,8 +3,7 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./salesRa.css";
-import { Link, NavLink } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 export default function TopRated(props) {
   const roundStars = Math.round(props.rating);

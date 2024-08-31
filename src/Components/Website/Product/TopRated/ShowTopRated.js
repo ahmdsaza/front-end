@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
-import TopRated from "./TopRated";
 import { TopRatedApi } from "../../../../API/Api";
 import SkeletonShow from "../../Skeleton/SkeletonShow";
 import { Container } from "react-bootstrap";
