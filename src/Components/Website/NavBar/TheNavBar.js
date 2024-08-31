@@ -150,22 +150,31 @@ export default function TheNavBar(props) {
                 >
                   {name.name}
                 </Dropdown.Item>
-                {name.role === "1995" && (
-                  <div>
-                    <Dropdown.Item>
-                      <NavLink to="/dashboard/activity" className="text-black">
-                        Dashboard
-                      </NavLink>
-                    </Dropdown.Item>
-                  </div>
-                )}
+
                 {name ? (
                   <>
+                    <Dropdown.Item>
+                      <NavLink to="/profile" style={{ color: "black" }}>
+                        Profile
+                      </NavLink>
+                    </Dropdown.Item>
+                    {name.role === "1995" && (
+                      <div>
+                        <Dropdown.Item>
+                          <NavLink
+                            to="/dashboard/activity"
+                            className="text-black"
+                          >
+                            Dashboard
+                          </NavLink>
+                        </Dropdown.Item>
+                      </div>
+                    )}
                     <Dropdown.Item>
                       <NavLink to="/orders" style={{ color: "black" }}>
                         My Orders
                       </NavLink>
-                    </Dropdown.Item>
+                    </Dropdown.Item>{" "}
                     <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                   </>
                 ) : (

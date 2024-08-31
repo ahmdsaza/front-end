@@ -33,6 +33,8 @@ import AllOrders from "./Pages/Dashboard/Orders/AllOrders";
 import DashboardOrdersPage from "./Pages/Dashboard/Orders/DashboardOrdersPage";
 import Rating from "./Components/Website/Rating/Rating";
 import Activity from "./Pages/Dashboard/Activity";
+import Profile from "./Components/Website/Profile/Profile";
+import ProfileEdit from "./Components/Website/Profile/ProfileEdit";
 
 function App() {
   return (
@@ -50,6 +52,8 @@ function App() {
           <Route path="orders" element={<Orders />} />
           <Route path="orders/:id" element={<OrderPage />} />
           <Route path="rate/:id" element={<Rating />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="profile/edit/:id" element={<ProfileEdit />} />
         </Route>
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />}></Route>

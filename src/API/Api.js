@@ -21,6 +21,7 @@ export const GOOGLE_CALL_BACK = "auth/google/callback";
 // Users
 export const USERS = "users";
 export const USER = "user";
+export const USERPROFILE = "profile-edit";
 
 // Category
 export const CATEGORIES = "categories";
@@ -43,7 +44,6 @@ export const UPDATEQTY = "cart-updateqty";
 export const ORDERS = "place-order";
 
 // Rate
-
 export const RATE = "rate/add";
 export const RATES = "rates";
 export const RATESS = "ratess";
