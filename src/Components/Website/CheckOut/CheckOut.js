@@ -8,6 +8,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 export default function CheckOut() {
   const [carts, setCarts] = useState([]);
+  const [sent, setSent] = useState(false);
+
   // const [totalWithVat, setTotalWithVat] = useState(0);
 
   let descPrice = 0;
@@ -107,22 +109,20 @@ export default function CheckOut() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  console.log(form);
-
   let totalWithVatNew = 0;
 
   function handlePayment(e) {
     if (e.target.value == 0) {
       form.payment_mode = e.target.value;
+      setSent(true);
       let totalWithVatNew = totalCartPrice + vat + 5;
-      console.log("Equla to 0 / " + totalWithVat);
     } else {
       form.payment_mode = e.target.value;
+      setSent(true);
     }
   }
 
   // console.log(form.payment_mode);
-
   return (
     <Container>
       <div class="containers mt-4 p-0">
@@ -133,7 +133,6 @@ export default function CheckOut() {
             ) : (
               <p class="pb-2 fw-bold">Order list</p>
             )}
-
             <div class="card">
               <div class="table-responsive px-md-4 px-2 pt-3">
                 <table class="table table-borderless">
@@ -364,7 +363,11 @@ export default function CheckOut() {
                 </div>
               </div>
             </div>
-            <button class="checkout-button" onClick={handleSubmit}>
+            <button
+              disabled={!sent}
+              class="checkout-button"
+              onClick={handleSubmit}
+            >
               Check Out
             </button>
           </div>

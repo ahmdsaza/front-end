@@ -13,6 +13,7 @@ export const LOGOUT = "logout";
 export const ORDER = "orders";
 export const ORDERID = "order";
 export const ALLORDERS = "get-order";
+export const ORDERSCOUNT = "get-order-count";
 
 // Google
 export const GOOGLE_CALL_BACK = "auth/google/callback";

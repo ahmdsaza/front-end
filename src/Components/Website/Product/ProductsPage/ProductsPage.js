@@ -196,10 +196,8 @@ export default function ProductsPage() {
 
   return (
     <Container>
-      <div>
         {showData}
         {showRateData}
-      </div>
     </Container>
   );
 }

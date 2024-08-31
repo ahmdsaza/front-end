@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../API/axios";
-import { ALLORDERS, USER } from "../../API/Api";
+import { ORDERSCOUNT, USER } from "../../API/Api";
 import { NavLink } from "react-router-dom";
 
 export default function Activity() {
@@ -8,8 +8,8 @@ export default function Activity() {
   const [name, setName] = useState([]);
 
   useEffect(() => {
-    Axios.get(`${ALLORDERS}`)
-      .then((data) => setOrders(data.data.data))
+    Axios.get(`${ORDERSCOUNT}`)
+      .then((data) => setOrders(data.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -25,8 +25,7 @@ export default function Activity() {
       <div>Welcome: {name}</div>
       <div>
         <NavLink to={`../orders`} className="text-black">
-          {" "}
-          Orders number: {orders.length}
+          Orders number: {orders}
         </NavLink>
       </div>
     </div>
