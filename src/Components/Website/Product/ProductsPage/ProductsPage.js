@@ -23,7 +23,7 @@ export default function ProductsPage() {
     Axios.get(`${RATES}/${id}`)
       .then((data) => setShowRate(data.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   // Get Product by id
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function ProductsPage() {
         setShowRateNumber(data.data[0].rating);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   // Get User
   useEffect(() => {
@@ -107,19 +107,22 @@ export default function ProductsPage() {
     );
 
     return (
-      <div className="card mt-3">
-        <div className="rate-div">
-          <div>
-            <img
-              width="50px"
-              src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-            />
-          </div>
-          <div>
-            <p className="fw-bold">{item.users[0].name}</p>
-            {showGoldStarsRate}
-            {showEmptyStarsRate}
-            <p>{item.description}</p>
+      <div>
+        <div className="card mt-3">
+          <div className="rate-div">
+            <div>
+              <img
+                width="50px"
+                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                alt={item.users[0].name}
+              />
+            </div>
+            <div>
+              <p className="fw-bold">{item.users[0].name}</p>
+              {showGoldStarsRate}
+              {showEmptyStarsRate}
+              <p>{item.description}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -196,8 +199,16 @@ export default function ProductsPage() {
 
   return (
     <Container>
-        {showData}
-        {showRateData}
+      {showData}
+
+      {showRate.length > 0 ? (
+        <div>
+          <h1 className="text-center mt-3">Reviews</h1>
+          <div> {showRateData}</div>
+        </div>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 }

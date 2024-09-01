@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../API/axios";
 import { CATEGORY, categorry } from "../../../API/Api";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import "../../../Components/Website/Product/AllProducts/AllProducts.css";
 import { Container } from "react-bootstrap";
 import PaginatedItems from "../../../Components/Dashboard/Pagination/Pagination";
 import Form from "react-bootstrap/Form";
+import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
+import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
@@ -23,7 +26,7 @@ export default function CategoriesPage() {
     Axios.get(`${categorry}/${id}`)
       .then((data) => setTitle(data.data.title))
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     Axios.get(
@@ -34,39 +37,52 @@ export default function CategoriesPage() {
         setTotal(data.data.total);
       })
       .catch((err) => console.log(err));
-  }, [limit, page, sort, type]);
+  }, [limit, page, sort, type, id]);
 
-  const showData = categories.map((item, key) => (
-    <div key={key}>
-      <NavLink to={`../products/${item.id}`} className="text-black">
-        <div className="crd1">
-          <div className="products-in-crd">
-            <img
-              className="products-image"
-              src={item.images[0].image}
-              alt="Just an img"
-            />
-            <div className="products-info">
-              <p className="products-title">{item.title}</p>
-              <div className="products-icon">
-                <div className="prod-price">
-                  <div className="products-price">${item.price}</div>
-                  <div className="products-discount">${item.discount}</div>
-                </div>
-                <div>
-                  <img
-                    src={require("../../../Assets/shopping-cart.png")}
-                    alt="cart"
-                    width="20px"
-                  />
+  const showData = categories.map((item, key) => {
+    const roundStars = Math.round(item.rating);
+    const stars = Math.min(roundStars, 5);
+    const showGoldStars = Array.from({ length: stars }).map((_, index) => (
+      <FontAwesomeIcon key={index} icon={solid} style={{ color: "FFC100" }} />
+    ));
+    const showEmptyStars = Array.from({ length: 5 - stars }).map((_, index) => (
+      <FontAwesomeIcon key={index} icon={regularStar} />
+    ));
+
+    return (
+      <div key={key}>
+        <NavLink to={`../products/${item.id}`} className="text-black">
+          <div className="crd1">
+            <div className="products-in-crd">
+              <img
+                className="products-image"
+                src={item.images[0].image}
+                alt="Just an img"
+              />
+              {showGoldStars}
+              {showEmptyStars}
+              <div className="products-info">
+                <p className="products-title">{item.title}</p>
+                <div className="products-icon">
+                  <div className="prod-price">
+                    <div className="products-price">${item.price}</div>
+                    <div className="products-discount">${item.discount}</div>
+                  </div>
+                  <div>
+                    <img
+                      src={require("../../../Assets/shopping-cart.png")}
+                      alt="cart"
+                      width="20px"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </NavLink>
-    </div>
-  ));
+        </NavLink>
+      </div>
+    );
+  });
 
   function handleInputChange(e) {
     const { value } = e.target;

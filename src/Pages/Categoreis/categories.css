@@ -46,6 +46,16 @@
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
+.category-products-image {
+    object-fit: cover;
+    width: auto;
+    height: 220px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
 .products-title {
     text-align: center;
     font-size: 1.5rem;

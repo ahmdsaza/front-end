@@ -20,9 +20,10 @@ export default function Profile() {
           <img
             width="50px"
             src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+            alt={user.name}
           />
           <div className="mt-2">
-            <p>Name: {user.name}</p>
+            <p>Username: {user.name}</p>
             <p>E-mail: {user.email}</p>
           </div>
           <button className="mt-3">

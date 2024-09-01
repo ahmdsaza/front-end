@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import { Axios } from "../../../API/axios";
 import { PRODUCT, LOGOUT, USER, CARTS } from "../../../API/Api";
-import SkeletonShow from "../Skeleton/SkeletonShow";
+// import SkeletonShow from "../Skeleton/SkeletonShow";
 import Cookie from "cookie-universal";
 import "./TheNavBar.css";
 
@@ -13,7 +13,7 @@ export default function TheNavBar(props) {
   const [carts, setCarts] = useState([]);
   const [search, setSearch] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  const [cartLength, setCartLength] = useState(0);
+  // const [cartLength, setCartLength] = useState(0);
   const [searchLoading, setSearchLoading] = useState(false);
   const showEmpty = [];
 
@@ -69,7 +69,7 @@ export default function TheNavBar(props) {
 
   const dataShow = showWichData.map((item, key) => (
     <div key={item.id + key}>
-      <NavLink to={`./products/${item.id}`} reloadDocument>
+      <NavLink to={`./products/${item.id}`}>
         <div className="search-abs">
           <div className="search-bar-data">
             <img

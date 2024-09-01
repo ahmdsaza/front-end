@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Axios } from "../../API/axios";
 import { CATEGORIES } from "../../API/Api";
 import { Container } from "react-bootstrap";
-import StringSlice from "../../helpers/StringSlice";
 import SkeletonShow from "../../Components/Website/Skeleton/SkeletonShow";
 import { Link } from "react-router-dom";
-import Footer from "../../Components/Website/Footer/Footer";
 import "./categories.css";
 
 export default function WebsiteCategoreis() {
