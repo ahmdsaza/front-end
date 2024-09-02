@@ -107,12 +107,17 @@ export default function SideBar() {
                 Add Product
               </MenuItem>
             </SubMenu>
-
             <MenuItem
               component={<Link to={`./orders`} />}
               icon={<i class="material-icons">list_alt</i>}
             >
               Orders
+            </MenuItem>
+            <MenuItem
+              component={<Link to={`./rate`} />}
+              icon={<i class="material-icons">list_alt</i>}
+            >
+              Reviews
             </MenuItem>
           </Menu>
         </Sidebar>

@@ -32,9 +32,11 @@ import OrderPage from "./Components/Website/Orders/OrderPage";
 import AllOrders from "./Pages/Dashboard/Orders/AllOrders";
 import DashboardOrdersPage from "./Pages/Dashboard/Orders/DashboardOrdersPage";
 import Rating from "./Components/Website/Rating/Rating";
-import Activity from "./Pages/Dashboard/Activity";
 import Profile from "./Components/Website/Profile/Profile";
 import ProfileEdit from "./Components/Website/Profile/ProfileEdit";
+import Activity from "./Pages/Dashboard/Activity/Activity";
+import Rate from "./Pages/Dashboard/Rate/Rate";
+import RateEdit from "./Pages/Dashboard/Rate/RateEdit";
 
 function App() {
   return (
@@ -70,10 +72,12 @@ function App() {
             <Route element={<RequireAuth allowedRole={["1995"]} />}>
               <Route path="users" element={<Users />} />
               <Route path="orders" element={<AllOrders />} />
+              <Route path="rate" element={<Rate />} />
               <Route path="activity" element={<Activity />} />
               <Route path="users/:id" element={<User />} />
               <Route path="user/add" element={<AddUser />} />
               <Route path="orders/:id" element={<DashboardOrdersPage />} />
+              <Route path="rate/:id" element={<RateEdit />} />
             </Route>
 
             {/* Categories Manager */}

@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../API/axios";
-import { ALLORDERS, ORDERID } from "../../../API/Api";
-import { Link } from "react-router-dom";
+import { RATESSHOW, RATES } from "../../../API/Api";
+import { NavLink } from "react-router-dom";
 import { Form, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import PaginatedItems from "../../../Components/Dashboard/Pagination/Pagination";
 
-export default function AllOrders() {
-  const [orders, setOrders] = useState([]);
+export default function Rate() {
+  const [rate, setRate] = useState([]);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useState(0);
-  let createAt = 0;
 
   useEffect(() => {
-    Axios.get(`${ALLORDERS}?status=${status}&limit=${limit}&page=${page}`)
+    Axios.get(`${RATESSHOW}?status=${status}&limit=${limit}&page=${page}`)
       .then((data) => {
-        setOrders(data.data.data);
+        setRate(data.data.data);
         setTotal(data.data.total);
       })
       .catch((err) => console.log(err));
@@ -26,45 +25,31 @@ export default function AllOrders() {
 
   async function handleDelete(id) {
     try {
-      const res = await Axios.delete(`${ORDERID}/${id}`);
-      setOrders((prev) => prev.filter((item) => item.id !== id));
+      const res = await Axios.delete(`${RATES}/${id}`);
+      setRate((prev) => prev.filter((item) => item.id !== id));
     } catch (err) {
       console.log(err);
     }
   }
 
-  const showTheOrder = orders.map((items, key) => {
-    createAt = items.created_at;
+  //   console.log(rate);
 
+  const showTheRate = rate.map((items, key) => {
     return (
       <tr key={key}>
         <td>#{items.id}</td>
-        <td>{items.tracking_no}</td>
-        <td>
-          {createAt.slice(0, 10)} | {createAt.slice(11, 16)}
-        </td>
+        <td>{items.products[0].title}</td>
+        <td>{items.users[0].name}</td>
+        <td>{items.description.slice(0, 25)}</td>
         <td className="d-flex gap-1">
-          {items.status === 0 ? (
-            <td>Pending</td>
-          ) : items.status === 1 ? (
-            <td>Awaiting Payment</td>
-          ) : items.status === 2 ? (
-            <td>Awaiting Shipment</td>
-          ) : items.status === 3 ? (
-            <td>Completed</td>
-          ) : items.status === 4 ? (
-            <td>Shipped</td>
-          ) : items.status === 5 ? (
-            <td>Cancelled</td>
-          ) : (
-            <td>Waiting</td>
-          )}
+          {items.status === "0" ? <>Visable</> : <>Hidden</>}
+          {/* visable */}
         </td>
         <td key={key + 1}>
           <div className="d-flex align-items-center gap-2">
-            <Link to={`${items.id}`}>
+            <NavLink to={`${items.id}`}>
               <FontAwesomeIcon icon={faEye} />
-            </Link>
+            </NavLink>
             <FontAwesomeIcon
               onClick={() => handleDelete(items.id)}
               fontSize={"19px"}
@@ -81,7 +66,7 @@ export default function AllOrders() {
   return (
     <div className="bg-white w-100 p-2">
       <div className="d-flex align-items-center justify-content-between">
-        <h1>Orders Page</h1>
+        <h1>Rate Page</h1>
         <div className="col-6">
           <Form.Select
             onChange={(e) => {
@@ -90,35 +75,32 @@ export default function AllOrders() {
             aria-label="Default select example"
             className="w-25"
           >
-            <option value="0">All</option>
-            <option value="00">Pending</option>
-            <option value="1">Awaiting Payment</option>
-            <option value="2">Awaiting Shipment</option>
-            <option value="3">Completed</option>
-            <option value="4">Shipped</option>
-            <option value="5">Cancelled</option>
+            <option value="">all</option>
+            <option value="0">visable</option>
+            <option value="1">hidden</option>
           </Form.Select>
         </div>
         {/* <Link className="btn btn-primary" to="/dashboard/product/add">
-          Add Order
-        </Link> */}
+      Add Order
+    </Link> */}
       </div>
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Order Id</th>
-            <th>Tracking Number</th>
-            <th>Date</th>
+            <th>Rate Id</th>
+            <th>product</th>
+            <th>Username</th>
+            <th>Description</th>
             <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {orders.length > 0 ? (
-            showTheOrder
+          {rate.length > 0 ? (
+            showTheRate
           ) : (
             <div className="d-flex justify-content-center align-items-center">
-              <h3>No Orders found</h3>
+              <h3>No Reviews yet</h3>
             </div>
           )}
         </tbody>

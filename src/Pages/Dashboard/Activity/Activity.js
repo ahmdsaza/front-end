@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Axios } from "../../API/axios";
-import { ORDERSCOUNT, USER } from "../../API/Api";
+import { Axios } from "../../../API/axios";
+import { ORDERSCOUNT, USER } from "../../../API/Api";
 import { NavLink } from "react-router-dom";
 
 export default function Activity() {

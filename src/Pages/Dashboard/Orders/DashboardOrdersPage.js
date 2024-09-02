@@ -38,11 +38,8 @@ export default function DashboardOrdersPage() {
         status: status,
       });
       alert("Status Changed successfully");
-      console.log(status);
     } catch (err) {
       // setLoading(false);
-      console.log(status);
-
       console.log(err);
     }
   }
@@ -81,7 +78,7 @@ export default function DashboardOrdersPage() {
                     onChange={(e) => setStatus(e.target.value)}
                   >
                     <option disabled value="">
-                      Select Role
+                      Select Status
                     </option>
                     <option value="0">Pending</option>
                     <option value="1">Awaiting Payment</option>
