@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/e-commerce-back-end/static/css/main.9415af0b.css",
+    "main.js": "/e-commerce-back-end/static/js/main.fc35b286.js",
+    "static/media/form.jpg": "/e-commerce-back-end/static/media/form.5460e0abc170dfdcc120.jpg",
+    "static/media/Banner11.jpg": "/e-commerce-back-end/static/media/Banner11.f076e707c36678b80b77.jpg",
+    "static/media/upload.png": "/e-commerce-back-end/static/media/upload.603c355a69ce762e0aae.png",
+    "static/media/profile.png": "/e-commerce-back-end/static/media/profile.5faf09a7795d28bf5a2b.png",
+    "static/media/Orange and Gray Tag Cart Virtual Shop Logo.png": "/e-commerce-back-end/static/media/Orange and Gray Tag Cart Virtual Shop Logo.955634e6fa4136b5d574.png",
+    "static/media/shopping-cart.png": "/e-commerce-back-end/static/media/shopping-cart.96c73cb49987ccdf1154.png",
+    "index.html": "/e-commerce-back-end/index.html",
+    "main.9415af0b.css.map": "/e-commerce-back-end/static/css/main.9415af0b.css.map",
+    "main.fc35b286.js.map": "/e-commerce-back-end/static/js/main.fc35b286.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9415af0b.css",
+    "static/js/main.fc35b286.js"
+  ]
+}
