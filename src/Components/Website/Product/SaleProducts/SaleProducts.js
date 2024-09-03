@@ -54,6 +54,7 @@ export default function SaleProducts(props) {
           <div className="text-black">
             {showGoldStars}
             {showEmptyStars}
+            <small className="mx-1">{props.ratings_number}</small>
             <div className="d-flex align-items-center gap-3">
               <h5 className="m-0 text-primary">{props.discount}$</h5>
               <h6

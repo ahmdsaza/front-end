@@ -47,7 +47,12 @@ export default function CheckOut() {
       <tr class="border-bottom">
         <td>
           <div class="d-flex align-items-center">
-            {/* <div className="pic"></div> */}
+            <img
+              className="pic"
+              // width="75px"
+              src={item.images[0].image}
+              alt={item.product.title}
+            />
             <div class="ps-3 d-flex flex-column justify-content">
               <p class="pic fw-bold">
                 <NavLink to={`../products/${item.product.id}`}>

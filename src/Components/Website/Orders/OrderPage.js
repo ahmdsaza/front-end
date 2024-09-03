@@ -82,11 +82,11 @@ export default function OrderPage() {
     return (
       <div className="card flex-row gap-2 align-items-center justify-content-around">
         <div className="d-flex gap-3">
-          <img
+          {/* <img
             src={item.product_image}
             className="order-img"
             alt={item.product_title}
-          />
+          /> */}
           <div>
             <div className="d-flex gap-1 mt-3">
               <Link

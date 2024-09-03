@@ -1,9 +1,9 @@
 // export const baseURL = `http://127.0.0.1:8000/api`;
-export const baseURL = `http://192.168.0.113:80/api`;
+// export const baseURL = `http://192.168.0.113:80/api`;
 
 // export const baseURL = `https://ahmedsaud.me/api`;
 
-// export const baseURL = `https://e-commerce-back-end-5015b0a82239.herokuapp.com/api`;
+export const baseURL = `https://e-commerce-back-end-5015b0a82239.herokuapp.com/api`;
 
 // Auth
 export const REGISTER = "register";

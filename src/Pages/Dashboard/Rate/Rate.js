@@ -25,14 +25,12 @@ export default function Rate() {
 
   async function handleDelete(id) {
     try {
-      const res = await Axios.delete(`${RATES}/${id}`);
+      const res = await Axios.delete(`${RATESSHOW}/${id}`);
       setRate((prev) => prev.filter((item) => item.id !== id));
     } catch (err) {
       console.log(err);
     }
   }
-
-  //   console.log(rate);
 
   const showTheRate = rate.map((items, key) => {
     return (
@@ -88,7 +86,7 @@ export default function Rate() {
         <thead>
           <tr>
             <th>Rate Id</th>
-            <th>product</th>
+            <th>Product</th>
             <th>Username</th>
             <th>Description</th>
             <th>Status</th>

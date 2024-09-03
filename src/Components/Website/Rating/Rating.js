@@ -17,7 +17,7 @@ export default function Rating() {
     Axios.get(`${PRODUCT}/${id}`)
       .then((data) => setProducts(data.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   // Get User
   useEffect(() => {
@@ -34,6 +34,7 @@ export default function Rating() {
       product_id: products[0].id,
       product_rate: rate * 1,
       description: description,
+      status: 0,
     };
 
     try {

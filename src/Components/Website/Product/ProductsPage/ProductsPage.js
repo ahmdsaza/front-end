@@ -48,7 +48,7 @@ export default function ProductsPage() {
       user_id: user.id,
       product_id: products[0].id,
       product_qty: count,
-      product_image: products[0].images[0].image,
+      product_image: products[0].id,
     };
 
     try {

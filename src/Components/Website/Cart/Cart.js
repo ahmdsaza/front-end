@@ -80,7 +80,7 @@ export default function Cart() {
             <div className="cart-image-div">
               <img
                 className="cart-image"
-                src={item.product_image}
+                src={item.images[0].image}
                 alt={item.product.title}
               />
             </div>

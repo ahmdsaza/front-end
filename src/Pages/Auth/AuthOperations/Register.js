@@ -4,7 +4,7 @@ import { baseURL, REGISTER } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
 import { Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Register() {
   // States
@@ -111,7 +111,12 @@ export default function Register() {
                 />
                 <Form.Label>Password:</Form.Label>
               </Form.Group>
-              <button className="btn btn-primary">Register</button>
+              <div>
+                <button className="btn btn-primary">Register</button>
+              </div>
+              <div>
+                <NavLink to="/login">Back to Login</NavLink>
+              </div>
               <div className="google-btn">
                 <a href={`http://127.0.0.1:8000/login-google`}>
                   <div className="google-icon-wrapper">
