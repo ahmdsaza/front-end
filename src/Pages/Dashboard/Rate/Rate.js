@@ -12,7 +12,7 @@ export default function Rate() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
-  const [status, setStatus] = useState(0);
+  const [status, setStatus] = useState();
 
   useEffect(() => {
     Axios.get(`${RATESSHOW}?status=${status}&limit=${limit}&page=${page}`)
@@ -40,7 +40,7 @@ export default function Rate() {
         <td>{items.users[0].name}</td>
         <td>{items.description.slice(0, 25)}</td>
         <td className="d-flex gap-1">
-          {items.status === "0" ? <>Visable</> : <>Hidden</>}
+          {items.status === 0 ? <>Visable</> : <>Hidden</>}
           {/* visable */}
         </td>
         <td key={key + 1}>
@@ -73,8 +73,8 @@ export default function Rate() {
             aria-label="Default select example"
             className="w-25"
           >
-            <option value="">all</option>
-            <option value="0">visable</option>
+            <option value="0">all</option>
+            <option value="00">visable</option>
             <option value="1">hidden</option>
           </Form.Select>
         </div>

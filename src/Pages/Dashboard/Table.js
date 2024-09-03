@@ -78,10 +78,18 @@ export default function TableShow(props) {
             "writer"
           ) : item[item2.key] === "1999" ? (
             "Product Manager"
+          ) : item2.key === "description" ? (
+            item[item2.key].length > 20 ? (
+              item[item2.key].slice(0, 30) + "..."
+            ) : (
+              item[item2.key]
+            )
+          ) : item2.key === "price" ? (
+            "$" + item[item2.key]
           ) : (
             item[item2.key]
           )}
-          {currentUser && item[item2.key] === currentUser.email && " (YOU) "}
+          {currentUser && item[item2.key] === currentUser.email && " ( You ) "}
         </td>
       ))}
       <td key={key + 1}>
