@@ -229,6 +229,7 @@ export default function ProductsPage() {
   return (
     <Container>
       {showData}
+      {sizeChoice}
       {showRate.length > 0 ? (
         <div>
           <h1 className="text-center mt-3">Reviews</h1>
