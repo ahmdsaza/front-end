@@ -7,7 +7,7 @@ import { Container } from "react-bootstrap";
 
 export default function Rating() {
   const { id } = useParams();
-  const [rate, setRate] = useState(0);
+  const [rate, setRate] = useState(1);
   const [user, setUser] = useState("");
   const [products, setProducts] = useState([]);
   const [description, setDescription] = useState("");

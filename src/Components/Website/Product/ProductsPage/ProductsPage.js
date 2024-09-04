@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
 import { PRODUCT, CART, USER, RATES } from "../../../../API/Api";
 import { useParams } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +16,9 @@ export default function ProductsPage() {
   const [user, setUser] = useState("");
   const [err, setErr] = useState("");
   const [showRate, setShowRate] = useState([]);
+  const [showSize, setShowSize] = useState([]);
   const [showRateNumber, setShowRateNumber] = useState(0);
+  const [sizeChoice, setSizeChoice] = useState(0);
 
   // Call Rate
   useEffect(() => {
@@ -31,6 +33,7 @@ export default function ProductsPage() {
       .then((data) => {
         setProducts(data.data);
         setShowRateNumber(data.data[0].rating);
+        setShowSize(data.data[0].sizes);
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -49,17 +52,18 @@ export default function ProductsPage() {
       product_id: products[0].id,
       product_qty: count,
       product_image: products[0].id,
+      product_size: sizeChoice,
     };
 
     try {
       if (user) {
         Axios.post(`${CART}`, data)
           .then(setAddtoCart("Product add to cart successfully"))
-          .then(
-            setTimeout(() => {
-              window.location.reload();
-            }, 500)
-          )
+          // .then(
+          //   setTimeout(() => {
+          //     window.location.reload();
+          //   }, 500)
+          // )
           .catch((err) => {
             if (err.response.status === 420) {
               setErr("No qunatity enough");
@@ -73,6 +77,10 @@ export default function ProductsPage() {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  function handleSize(e) {
+    setSizeChoice(e.target.value);
   }
 
   const roundStars = Math.round(showRateNumber);
@@ -130,8 +138,16 @@ export default function ProductsPage() {
   });
 
   const showData = products.map((item, key) => {
+    {
+      showSize.map((item) => (
+        <option key={key} name="name" value={item.id} onChange={handleSize}>
+          {item.id}
+        </option>
+      ));
+    }
+
     return (
-      <div className="product-div" key={item.id + key}>
+      <div className="product-div">
         <div class="product-img">
           <img src={item.images[0].image} alt="" />
         </div>
@@ -146,7 +162,20 @@ export default function ProductsPage() {
           <div class="product-prices">
             <span className="product-discount">${item.discount}</span>
             <span className="product-price">${item.price}</span>
-          </div>
+          </div>{" "}
+          {showSize.length > 0 ? (
+            <>
+              <Form.Select onClick={handleSize}>
+                {showSize.map((item, key) => (
+                  <option className="size" key={key} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </Form.Select>
+            </>
+          ) : (
+            <></>
+          )}
           <div class="cart-btn">
             <div className="count-div">
               <input
@@ -200,7 +229,7 @@ export default function ProductsPage() {
   return (
     <Container>
       {showData}
-
+      {sizeChoice}
       {showRate.length > 0 ? (
         <div>
           <h1 className="text-center mt-3">Reviews</h1>
