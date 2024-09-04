@@ -103,6 +103,9 @@ export default function OrderPage() {
             <p>Price: ${item.price}</p>
             <p>Total: ${itemqtyfixed}</p>
           </div>
+          <div className="mt-3">
+            <span>{item.size}</span>
+          </div>
         </div>
         <Link to={`../rate/${item.product_id}`}>
           <button>Add Rating</button>
@@ -112,6 +115,8 @@ export default function OrderPage() {
   });
 
   let vat = totalCartPrice * 0.15;
+
+  // console.log(getOrders);
 
   return (
     <Container>

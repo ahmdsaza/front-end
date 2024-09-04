@@ -35,6 +35,9 @@ export const categorry = "categorry";
 export const PRODUCTS = "products";
 export const PRODUCT = "product";
 
+// Add Sizes
+export const SIZES = "sizes";
+
 // Add To Cart
 export const CART = "add-to-cart";
 export const CARTS = "carts";

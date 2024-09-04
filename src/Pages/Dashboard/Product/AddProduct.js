@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Axios } from "../../../API/axios";
-import { CATEGORIES, PRODUCT } from "../../../API/Api";
+import { CATEGORIES, PRODUCT, SIZES } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -31,10 +31,18 @@ export default function AddProduct() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [count, setCount] = useState(0);
   const [categories, setCategories] = useState([]); // Categories UseState
   const [id, setId] = useState();
   const nav = useNavigate();
 
+  const [sizes, setSizes] = useState({
+    name: "",
+    quantity: "",
+    product_id: id,
+  });
+
+  const [showSizes, setShowSizes] = useState([]);
   // Ref
   const focus = useRef("");
   const openImage = useRef(null);
@@ -168,6 +176,60 @@ export default function AddProduct() {
     </div>
   ));
 
+  // Handle Sizes Change
+  async function handleSizesChange(e) {
+    setSizes({ ...sizes, [e.target.name]: e.target.value });
+  }
+
+  async function submitToSizes() {
+    const data = {
+      product_id: id,
+      name: sizes.name,
+      quantity: sizes.quantity * 1,
+    };
+
+    try {
+      Axios.post(`${SIZES}/add`, data).catch((err) => console.log(err));
+      setCount(count + 1);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function handleDeleteSize(item) {
+    try {
+      const res = await Axios.delete(`size-delete/${item}`);
+      setCount(count + 1);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    Axios.get(`${SIZES}/${id}`)
+      .then((data) => setShowSizes(data.data))
+      .catch((err) => console.log(err));
+  }, [count]);
+
+  // Mapping Sizes
+  const sizesShow = showSizes.map((item, key) => (
+    <div className="border p-2 w-100">
+      <div className="d-flex align-items-center justify-content-between">
+        <div className="d-flex align-items-center justify-content-start gap-2">
+          <div>
+            <p className="mb-1">Name: {item.name}</p>
+          </div>
+          <div>
+            <p className="mb-1">Quantity: {item.quantity}</p>
+          </div>
+        </div>
+        <Button onClick={() => handleDeleteSize(item.id)} variant="danger">
+          Delete
+        </Button>
+      </div>
+    </div>
+  ));
+
   return (
     <>
       {loading && <LoadingSubmit />}
@@ -257,6 +319,41 @@ export default function AddProduct() {
             disabled={!sent}
           />
         </Form.Group>{" "}
+        <Form.Group
+          className="d-flex flex-column mb-3"
+          controlId="exampleForm.ControlInput5"
+        >
+          <Form.Label>Sizes</Form.Label>
+          <div className="d-flex col-4 gap-2">
+            <Form.Label className="d-flex align-items-center">Name</Form.Label>
+            <Form.Control
+              className="col-2"
+              required
+              name="name"
+              value={sizes.name}
+              onChange={handleSizesChange}
+              type="text"
+              placeholder="Name..."
+              disabled={!sent}
+            />
+            <Form.Label className="d-flex align-items-center">
+              Quantity
+            </Form.Label>
+            <Form.Control
+              className="col-2"
+              required
+              name="quantity"
+              value={sizes.quantity}
+              onChange={handleSizesChange}
+              type="text"
+              placeholder="Quantity..."
+              disabled={!sent}
+            />
+            <div onClick={submitToSizes} className="btn btn-primary">
+              Add
+            </div>
+          </div>
+        </Form.Group>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
           <Form.Label>Images</Form.Label>
           <Form.Control
@@ -268,6 +365,7 @@ export default function AddProduct() {
             disabled={!sent}
           />
         </Form.Group>
+        {sizesShow}
         <div
           onClick={handleOpenImage}
           className="d-flex align-items-center justify-content-center gap-2 py-3 rounded mb-2 w-100 flex-column"

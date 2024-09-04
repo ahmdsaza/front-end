@@ -101,6 +101,10 @@ export default function Cart() {
                   <p>Total: </p>
                   <p>${tot}</p>
                 </div>
+                <div className=" d-flex gap-1">
+                  <p>Size: </p>
+                  <p>{item.sizes[0].name}</p>
+                </div>
               </div>
               <div className="count-qty-div">
                 <input
@@ -138,6 +142,8 @@ export default function Cart() {
 
   let vat = totalCartPrice * 0.15;
   let totalWithVat = totalCartPrice + vat;
+
+  // console.log(carts);
 
   return (
     <Container>

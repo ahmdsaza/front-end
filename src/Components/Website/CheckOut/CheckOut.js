@@ -37,6 +37,8 @@ export default function CheckOut() {
 
   let totalCartPrice = 0;
 
+  // console.log(carts);
+
   const showCheckOut = carts.map((item) => {
     totalCartPrice += item.product.discount * item.product_qty;
     itemPrice = item.product.discount.slice(0, 5);
@@ -85,9 +87,9 @@ export default function CheckOut() {
               {/* <input class="ps-2" type="number" value={item.product_qty} /> */}
               {item.product_qty}
             </span>
-            {/* <div class="round">
-                <span class=""> L </span>
-              </div> */}
+            <div class="round">
+              <span class="">{item.sizes[0].name.slice(0, 1)}</span>
+            </div>
           </div>
         </td>
       </tr>
@@ -127,7 +129,6 @@ export default function CheckOut() {
     }
   }
 
-  // console.log(form.payment_mode);
   return (
     <Container>
       <div class="containers mt-4 p-0">
