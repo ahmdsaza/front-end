@@ -7,9 +7,11 @@ import { Container } from "react-bootstrap";
 
 export default function Rating() {
   const { id } = useParams();
-  const [rate, setRate] = useState(1);
+  const [rate, setRate] = useState(5);
   const [user, setUser] = useState("");
   const [products, setProducts] = useState([]);
+  const [err, setErr] = useState("");
+  const [addRate, setAddRate] = useState("");
   const [description, setDescription] = useState("");
 
   // Get Product by id
@@ -40,10 +42,10 @@ export default function Rating() {
     try {
       if (user) {
         Axios.post(`${RATE}`, datarate)
-          // .then(setAddtoCart("Product add to cart successfully"))
+          .then(setAddRate("Rate add successfully"))
           .catch((err) => console.log(err));
       } else {
-        alert("Login To add Products to Cart");
+        alert("Some thing wrong try later");
       }
     } catch (err) {
       console.log(err);
@@ -136,6 +138,21 @@ export default function Rating() {
           <button onClick={submitRate}>Submit</button>
         </div>
       </form>
+      {err ? (
+        <div className="d-flex justify-content-center">
+          <span className="d-flex alert alert-danger mt-2 justify-content-center ">
+            {err}
+          </span>
+        </div>
+      ) : addRate !== "" ? (
+        <div className="d-flex justify-content-center">
+          <span className="d-flex alert alert-success mt-2 justify-content-center ">
+            {addRate}
+          </span>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

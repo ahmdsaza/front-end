@@ -12,6 +12,7 @@ export default function Rate() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
+
   const [status, setStatus] = useState("");
 
   useEffect(() => {

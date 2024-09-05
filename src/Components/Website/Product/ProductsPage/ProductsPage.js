@@ -226,7 +226,6 @@ export default function ProductsPage() {
     );
   });
 
-  console.log(showRate);
   return (
     <Container>
       {showData}
