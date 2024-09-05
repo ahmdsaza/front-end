@@ -12,7 +12,6 @@ export default function Rate() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
-
   const [status, setStatus] = useState("");
 
   useEffect(() => {
@@ -38,6 +37,7 @@ export default function Rate() {
       <tr key={key}>
         <td>#{items.id}</td>
         <td>{items.products[0].title}</td>
+        <td>{items.products[0].id}</td>
         <td>{items.users[0].name}</td>
         <td>
           {items.description != null
@@ -95,6 +95,7 @@ export default function Rate() {
           <tr>
             <th>Rate Id</th>
             <th>Product</th>
+            <th>Product Id</th>
             <th>Username</th>
             <th>Description</th>
             <th>Status</th>

@@ -25,6 +25,7 @@ export default function ShowLatestProducts() {
       img={product.images[0].image}
       price={product.price}
       rating={product.rating}
+      ratings_number={product.ratings_number}
       col="3"
     />
   ));
