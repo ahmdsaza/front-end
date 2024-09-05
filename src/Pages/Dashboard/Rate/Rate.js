@@ -12,7 +12,7 @@ export default function Rate() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
-  const [status, setStatus] = useState();
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     Axios.get(`${RATESSHOW}?status=${status}&limit=${limit}&page=${page}`)
@@ -38,11 +38,18 @@ export default function Rate() {
         <td>#{items.id}</td>
         <td>{items.products[0].title}</td>
         <td>{items.users[0].name}</td>
-        <td>{items.description.slice(0, 25)}</td>
+        <td>
+          {items.description != null
+            ? items.description.length > 25
+              ? items.description.slice(0, 25) + "..."
+              : items.description
+            : items.description}
+        </td>
         <td className="d-flex gap-1">
-          {items.status === 0 ? <>Visable</> : <>Hidden</>}
+          {items.status === "1" ? <>Visable</> : <>Hidden</>}
           {/* visable */}
         </td>
+        <td>{items.product_rate}</td>
         <td key={key + 1}>
           <div className="d-flex align-items-center gap-2">
             <NavLink to={`${items.id}`}>
@@ -73,9 +80,9 @@ export default function Rate() {
             aria-label="Default select example"
             className="w-25"
           >
-            <option value="0">all</option>
-            <option value="00">visable</option>
-            <option value="1">hidden</option>
+            <option value="">all</option>
+            <option value="1">visable</option>
+            <option value="2">hidden</option>
           </Form.Select>
         </div>
         {/* <Link className="btn btn-primary" to="/dashboard/product/add">
@@ -90,6 +97,7 @@ export default function Rate() {
             <th>Username</th>
             <th>Description</th>
             <th>Status</th>
+            <th>Rate</th>
             <th>Action</th>
           </tr>
         </thead>

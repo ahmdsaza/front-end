@@ -120,7 +120,7 @@ export default function Cart() {
                   className="sum"
                   type="button"
                   value=" + "
-                  disabled={item.product_qty === item.product.qty}
+                  disabled={item.product_qty === item.sizes[0].quantity}
                   onClick={() => handleIncrement(item.id)}
                 />
               </div>

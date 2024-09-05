@@ -67,8 +67,8 @@ export default function RateEdit() {
                     <option disabled value="">
                       Select Status
                     </option>
-                    <option value="0">Visible</option>
-                    <option value="1">Hidden</option>
+                    <option value="1">Visible</option>
+                    <option value="2">Hidden</option>
                   </Form.Select>
                   <button className="btn btn-primary">
                     <FontAwesomeIcon icon={faPenToSquare} />

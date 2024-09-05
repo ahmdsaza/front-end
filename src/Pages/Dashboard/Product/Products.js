@@ -41,10 +41,6 @@ export default function Products() {
       name: "Price",
     },
     {
-      key: "qty",
-      name: "QTY",
-    },
-    {
       key: "rating",
       name: "Rating",
     },

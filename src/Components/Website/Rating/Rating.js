@@ -34,7 +34,7 @@ export default function Rating() {
       product_id: products[0].id,
       product_rate: rate * 1,
       description: description,
-      status: 0,
+      status: 1,
     };
 
     try {

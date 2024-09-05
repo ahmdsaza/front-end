@@ -36,7 +36,7 @@ export default function ProductsPage() {
         setShowSize(data.data[0].sizes);
       })
       .catch((err) => console.log(err));
-  }, [id]);
+  }, [id, sizeChoice]);
 
   // Get User
   useEffect(() => {
@@ -226,10 +226,10 @@ export default function ProductsPage() {
     );
   });
 
+  console.log(showRate);
   return (
     <Container>
       {showData}
-      {sizeChoice}
       {showRate.length > 0 ? (
         <div>
           <h1 className="text-center mt-3">Reviews</h1>

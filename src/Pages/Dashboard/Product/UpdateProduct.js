@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Axios } from "../../../API/axios";
-import { CATEGORIES, PRODUCT } from "../../../API/Api";
+import { CATEGORIES, PRODUCT, SIZES } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -17,12 +17,19 @@ export default function UpdateProduct() {
     qty: "",
   });
 
+  const [sizes, setSizes] = useState({
+    name: "",
+    quantity: "",
+  });
+
   // Use States
   const [images, setImages] = useState([]);
   const [imagesFromServer, setImagesFromServer] = useState([]);
   const [loading, setLoading] = useState(false);
   const [idsFromServer, setIdsFromServer] = useState([]);
   const [categories, setCategories] = useState([]); // Categories UseState
+  const [showSizes, setShowSizes] = useState([]);
+  const [count, setCount] = useState(0);
   const { id } = useParams();
   const nav = useNavigate();
 
@@ -165,6 +172,7 @@ export default function UpdateProduct() {
       </div>
     </div>
   ));
+
   const imagesFromServerShow = imagesFromServer.map((img, key) => (
     <div key={key} className="border p-2 col-2 position-relative">
       <div className="d-flex align-items-center justify-content-start gap-2">
@@ -180,6 +188,73 @@ export default function UpdateProduct() {
         >
           x
         </p>
+      </div>
+    </div>
+  ));
+
+  useEffect(() => {
+    Axios.get(`${SIZES}/${id}`)
+      .then((data) => setShowSizes(data.data))
+      .catch((err) => console.log(err));
+  }, [count]);
+
+  console.log(showSizes);
+
+  async function handleDeleteSize(item) {
+    try {
+      const res = await Axios.delete(`size-delete/${item}`);
+      setCount(count + 1);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // Handle Sizes Change
+  async function handleSizesChange(e) {
+    setSizes({ ...sizes, [e.target.name]: e.target.value });
+  }
+
+  async function submitToSizes() {
+    const data = {
+      product_id: id,
+      name: sizes.name,
+      quantity: sizes.quantity * 1,
+    };
+
+    try {
+      Axios.post(`${SIZES}/add`, data).catch((err) => console.log(err));
+      setCount(count + 1);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // Mapping Sizes
+  const sizesShow = showSizes.map((item, key) => (
+    <div className="border p-2 w-100">
+      <div className="d-flex align-items-center justify-content-between">
+        <div className="d-flex align-items-center justify-content-start gap-2">
+          <div>
+            <label>Name:</label>
+            <input type="text" className="mb-1" value={item.name} />
+          </div>
+          <div>
+            <p className="mb-1">Quantity:</p>
+            <input type="text" className="mb-1" value={item.quantity} />
+          </div>
+        </div>
+        <div className=" d-flex gap-2">
+          <div>
+            <Button onClick={() => handleDeleteSize(item.id)} variant="danger">
+              Edit
+            </Button>
+          </div>
+          <div>
+            <Button onClick={() => handleDeleteSize(item.id)} variant="danger">
+              Delete
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   ));
@@ -223,18 +298,38 @@ export default function UpdateProduct() {
             type="text"
             placeholder="Description..."
           />
-        </Form.Group>{" "}
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
-          <Form.Label>Quantity</Form.Label>
-          <Form.Control
-            required
-            name="qty"
-            value={form.qty}
-            onChange={handleChange}
-            type="text"
-            placeholder="quantity..."
-          />
-        </Form.Group>{" "}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Sizes</Form.Label>
+          <div className="d-flex col-4 gap-2">
+            <Form.Label className="d-flex align-items-center">Name</Form.Label>
+            <Form.Control
+              className="col-2"
+              required
+              name="name"
+              value={sizes.name}
+              onChange={handleSizesChange}
+              type="text"
+              placeholder="Name..."
+            />
+            <Form.Label className="d-flex align-items-center">
+              Quantity
+            </Form.Label>
+            <Form.Control
+              className="col-2"
+              required
+              name="quantity"
+              value={sizes.quantity}
+              onChange={handleSizesChange}
+              type="text"
+              placeholder="Quantity..."
+            />
+            <div onClick={submitToSizes} className="btn btn-primary">
+              Add
+            </div>
+          </div>
+        </Form.Group>
+        {sizesShow}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
           <Form.Label>Price</Form.Label>
           <Form.Control

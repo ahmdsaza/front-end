@@ -14,7 +14,7 @@ export default function AddProduct() {
     price: "",
     discount: "",
     About: "",
-    qty: "",
+    // qty: "",
   });
 
   const dummyForm = {
@@ -24,7 +24,7 @@ export default function AddProduct() {
     price: 0,
     discount: 0,
     About: "About",
-    qty: 0,
+    // qty: 0,
   };
 
   // Use State
@@ -271,7 +271,7 @@ export default function AddProduct() {
             disabled={!sent}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
+        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
           <Form.Label>Quantity</Form.Label>
           <Form.Control
             required
@@ -282,7 +282,7 @@ export default function AddProduct() {
             placeholder="Quantity..."
             disabled={!sent}
           />
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
           <Form.Label>Price</Form.Label>
           <Form.Control
