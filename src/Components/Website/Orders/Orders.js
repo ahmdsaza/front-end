@@ -24,23 +24,27 @@ export default function Orders() {
   const showTheOrder = orders.map((items) => (
     <div className="mt-2">
       <div className="card d-flex flex-row align-items-center justify-content-between px-3">
-        <div className="mt-3">
+        <div className="mt-3 py-2">
           <p>Order Number: #{items.id}</p>
           <p>Tracking Number: {items.tracking_no}</p>
           <p className="d-flex gap-1">
             Status:{" "}
             {items.status === 0 ? (
-              <p>Pending</p>
+              <p className="bg-primary rounded-1 px-1 text-white">Pending</p>
             ) : items.status === 1 ? (
-              <p>Awaiting Payment</p>
+              <p className="bg-warning rounded-1 px-1 text-black">
+                Awaiting Payment
+              </p>
             ) : items.status === 2 ? (
-              <p>Awaiting Shipment</p>
+              <p className="bg-secondary rounded-1 px-1 text-white">
+                Awaiting Shipment
+              </p>
             ) : items.status === 3 ? (
-              <p>Completed</p>
+              <p className="bg-success rounded-1 px-1 text-white">Completed</p>
             ) : items.status === 4 ? (
-              <p>Shipped</p>
+              <p className="bg-success rounded-1 px-1 text-white">Shipped</p>
             ) : items.status === 5 ? (
-              <p>Cancelled</p>
+              <p className="bg-danger rounded-1 px-1 text-white">Cancelled</p>
             ) : (
               <p>Waiting</p>
             )}

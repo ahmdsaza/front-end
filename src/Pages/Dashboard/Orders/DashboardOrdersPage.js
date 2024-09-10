@@ -56,8 +56,12 @@ export default function DashboardOrdersPage() {
               Payment method:{" "}
               {item.payment_mode === "0" ? (
                 <p>Cash on Deleviry</p>
+              ) : item.payment_mode === "1" ? (
+                <p>VISA</p>
+              ) : item.payment_mode === "2" ? (
+                <p>mada</p>
               ) : (
-                item.payment_mode === "1" && <p>VISA</p>
+                <p></p>
               )}
             </p>
           </div>

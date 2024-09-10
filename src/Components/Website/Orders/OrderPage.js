@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { ORDERID } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Container } from "react-bootstrap";
-import "./orderpage.css";
+import "../CheckOut/thankyou.css";
 
 export default function OrderPage() {
   const { id } = useParams();
@@ -11,8 +11,6 @@ export default function OrderPage() {
   const [getOrders, setGetOrders] = useState([]);
   let totalCartPrice = 0;
   let createAt = 0;
-  let itemqty = 0;
-  let itemqtyfixed = 0;
   let totalPrice = 0;
 
   useEffect(() => {
@@ -27,45 +25,60 @@ export default function OrderPage() {
   const showOrderItems = orders.map((item, key) => {
     createAt = item.created_at;
     return (
-      <div className="change-font" key={key}>
-        <div className="d-flex justify-content-between align-items-center">
-          <div>
-            <p>Order number: #{item.id}</p>
-            <p>Tracking No: {item.tracking_no}</p>
+      <div class="order-complete">
+        <div class="order-info">
+          <div class="order-info__item">
+            <label>Order Number</label>
+            <span>#{item.id}</span>
           </div>
-          <div>
+          <div class="order-info__item">
+            <label>Date</label>
+            <span>
+              {createAt.slice(0, 10)} | {createAt.slice(11, 16)}
+            </span>
+          </div>
+          <div class="order-info__item">
+            <label>Tracking Number</label>
+            <span>{item.tracking_no}</span>
+          </div>
+          <div class="order-info__item">
+            <label>Paymetn Method</label>
+            <span>
+              {item.payment_mode == 0 ? (
+                <span>Cash on Delivery</span>
+              ) : item.payment_mode == 1 ? (
+                <span>Visa</span>
+              ) : item.payment_mode == 2 ? (
+                <span>Mada</span>
+              ) : (
+                <></>
+              )}
+            </span>
+          </div>
+          <div class="order-info__item">
+            <label>status</label>
             <p className="d-flex gap-1 my-0">
-              Status:{" "}
               {item.status === 0 ? (
-                <p>Pending</p>
+                <p className="bg-primary rounded-1 px-1 text-white">Pending</p>
               ) : item.status === 1 ? (
-                <p>Awaiting Payment</p>
+                <p className="bg-warning rounded-1 px-1 text-black">
+                  Awaiting Payment
+                </p>
               ) : item.status === 2 ? (
-                <p>Awaiting Shipment</p>
+                <p className="bg-secondary rounded-1 px-1 text-white">
+                  Awaiting Shipment
+                </p>
               ) : item.status === 3 ? (
-                <p>Completed</p>
+                <p className="bg-success rounded-1 px-1 text-white">
+                  Completed
+                </p>
               ) : item.status === 4 ? (
-                <p>Shipped</p>
+                <p className="bg-success rounded-1 px-1 text-white">Shipped</p>
               ) : item.status === 5 ? (
-                <p>Cancelled</p>
+                <p className="bg-danger rounded-1 px-1 text-white">Cancelled</p>
               ) : (
                 <p>Waiting</p>
               )}
-            </p>
-            <p className="d-flex gap-1 my-0">
-              Payment method:{" "}
-              {item.payment_mode === "0" ? (
-                <p>Cash on Deleviry</p>
-              ) : item.payment_mode === "1" ? (
-                <p>VISA</p>
-              ) : item.payment_mode === "2" ? (
-                <p>mada</p>
-              ) : (
-                <p></p>
-              )}
-            </p>
-            <p>
-              Order date: {createAt.slice(0, 10)} | {createAt.slice(11, 16)}
             </p>
           </div>
         </div>
@@ -74,58 +87,75 @@ export default function OrderPage() {
   });
 
   const showOrderProducts = getOrders.map((item, key) => {
-    itemqty = item.price * item.qty;
-    itemqtyfixed = itemqty.toFixed(2);
     totalCartPrice += item.price * item.qty;
     totalPrice = totalCartPrice * 1.15;
 
     return (
-      <div className="card flex-row gap-2 align-items-center justify-content-around">
-        <div className="d-flex gap-3">
-          {/* <img
-            src={item.product_image}
-            className="order-img"
-            alt={item.product_title}
-          /> */}
-          <div>
-            <div className="d-flex gap-1 mt-3">
-              <Link
-                style={{ color: "black" }}
+      <>
+        <tbody>
+          <tr>
+            <td>
+              <NavLink
+                className="text-secondary"
                 to={`../products/${item.product_id}`}
               >
-                <p>{item.product_title}</p>
-                {/* <p>{item.product_title}</p> */}
-              </Link>
-            </div>
-            <p>QTY: {item.qty}</p>
-          </div>
-          <div className="mt-3">
-            <p>Price: ${item.price}</p>
-            <p>Total: ${itemqtyfixed}</p>
-          </div>
-          <div className="mt-3">
-            <span>{item.size}</span>
-          </div>
-        </div>
-        <Link to={`../rate/${item.product_id}`}>
-          <button>Add Rating</button>
-        </Link>
-      </div>
+                {item.product_title}
+              </NavLink>{" "}
+              ({item.size}) * {item.qty}
+            </td>
+            <td>${item.price}</td>
+            <td>${(item.price * item.qty).toFixed(2)}</td>
+          </tr>
+        </tbody>
+      </>
     );
   });
-
   let vat = totalCartPrice * 0.15;
-
-  // console.log(getOrders);
 
   return (
     <Container>
-      <Link to="../orders">Back To orders</Link>
-      <div>{showOrderItems}</div>
-      <div>{showOrderProducts}</div>
-      <p>Before VAT: ${totalCartPrice.toFixed(2)}</p>
-      <p>VAT: ${vat.toFixed(2)}</p>
-      <p>Total included VAT: ${totalPrice.toFixed(2)}</p>
+      <main class="pt-90">
+        <div class="mb-4 pb-4"></div>
+        <div class="order-complete">
+          <h2 class="page-title">Order Page</h2>
+          <div class="checkout__totals-wrapper">
+            {showOrderItems}
+            <div class="checkout__totals">
+              <h3>Order Details</h3>
+              <table class="checkout-cart-items">
+                <thead>
+                  <tr>
+                    <th>PRODUCT</th>
+                    <th>SUBTOTAL</th>
+                    <th>TOTAL</th>
+                  </tr>
+                </thead>
+                {showOrderProducts}
+              </table>
+              <table class="checkout-totals">
+                <tbody>
+                  <tr>
+                    <th>SUBTOTAL</th>
+                    <td>${totalCartPrice.toFixed(2)}</td>
+                  </tr>
+                  <tr>
+                    <th>SHIPPING</th>
+                    <td>Free shipping</td>
+                  </tr>
+                  <tr>
+                    <th>VAT</th>
+                    <td>${vat.toFixed(2)}</td>
+                  </tr>
+                  <tr>
+                    <th>TOTAL</th>
+                    <td>${totalPrice.toFixed(2)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
     </Container>
   );
 }

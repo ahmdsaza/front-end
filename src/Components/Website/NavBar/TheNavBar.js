@@ -117,14 +117,20 @@ export default function TheNavBar(props) {
                 />
               </div>
               <div className="d-flex">
-                <Link to="/cart">
-                  <img
-                    width="30px"
-                    src={require("../../../Assets/shopping-cart.png")}
-                    alt="Cart"
-                  />
-                </Link>
-                <span>{carts.length}</span>
+                {name ? (
+                  <>
+                    <Link to="/cart">
+                      <img
+                        width="30px"
+                        src={require("../../../Assets/shopping-cart.png")}
+                        alt="Cart"
+                      />
+                    </Link>
+                    <span>{carts.length}</span>
+                  </>
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
             <Dropdown>

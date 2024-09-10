@@ -43,23 +43,41 @@ export default function AllOrders() {
         <td>
           {createAt.slice(0, 10)} | {createAt.slice(11, 16)}
         </td>
-        <td className="d-flex gap-1">
-          {items.status === 0 ? (
-            <td>Pending</td>
-          ) : items.status === 1 ? (
-            <td>Awaiting Payment</td>
-          ) : items.status === 2 ? (
-            <td>Awaiting Shipment</td>
-          ) : items.status === 3 ? (
-            <td>Completed</td>
-          ) : items.status === 4 ? (
-            <td>Shipped</td>
-          ) : items.status === 5 ? (
-            <td>Cancelled</td>
-          ) : (
-            <td>Waiting</td>
-          )}
-        </td>
+        {items.status === 0 ? (
+          <td>
+            <span className="bg-primary rounded-1 p-1 text-white">Pending</span>
+          </td>
+        ) : items.status === 1 ? (
+          <td>
+            <span className="bg-warning rounded-1 p-1 text-black p-1">
+              Awaiting Payment
+            </span>
+          </td>
+        ) : items.status === 2 ? (
+          <td>
+            <span className="bg-secondary rounded-1 p-1 text-white">
+              Awaiting Shipment
+            </span>
+          </td>
+        ) : items.status === 3 ? (
+          <td>
+            <span className="bg-success rounded-1 p-1 text-white">
+              Completed
+            </span>
+          </td>
+        ) : items.status === 4 ? (
+          <td>
+            <span className="bg-success rounded-1 p-1 text-white">Shipped</span>
+          </td>
+        ) : items.status === 5 ? (
+          <td>
+            <span className="bg-danger rounded-1 p-1 text-white">
+              Cancelled
+            </span>
+          </td>
+        ) : (
+          <span>Waiting</span>
+        )}
         <td key={key + 1}>
           <div className="d-flex align-items-center gap-2">
             <Link to={`${items.id}`}>
