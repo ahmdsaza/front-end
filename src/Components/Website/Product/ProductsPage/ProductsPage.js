@@ -18,7 +18,7 @@ export default function ProductsPage() {
   const [showRate, setShowRate] = useState([]);
   const [showSize, setShowSize] = useState([]);
   const [showRateNumber, setShowRateNumber] = useState(0);
-  const [sizeChoice, setSizeChoice] = useState(0);
+  const [sizeChoice, setSizeChoice] = useState();
 
   // Call Rate
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function ProductsPage() {
       product_id: products[0].id,
       product_qty: count,
       product_image: products[0].id,
-      product_size: sizeChoice,
+      product_size: sizeChoice == null ? showSize[0].id : sizeChoice,
     };
 
     try {
@@ -138,13 +138,11 @@ export default function ProductsPage() {
   });
 
   const showData = products.map((item, key) => {
-    {
-      showSize.map((item) => (
-        <option key={key} name="name" value={item.id} onChange={handleSize}>
-          {item.id}
-        </option>
-      ));
-    }
+    showSize.map((item) => (
+      <option key={key} name="name" value={item.id} onChange={handleSize}>
+        {item.id}
+      </option>
+    ));
 
     return (
       <div className="product-div">

@@ -10,6 +10,7 @@ export default function CheckOut() {
   const [carts, setCarts] = useState([]);
   const [sent, setSent] = useState(false);
   const [totalPriceState, setTotalPriceState] = useState("");
+  const [id, setId] = useState();
 
   let descPrice = 0;
   let itemPrice = 0;
@@ -23,7 +24,7 @@ export default function CheckOut() {
     address: "",
     city: "",
     zipcode: "",
-    payment_mode: "0",
+    payment_mode: "",
   });
   const nav = useNavigate();
 
@@ -87,7 +88,7 @@ export default function CheckOut() {
   });
 
   let vat = totalCartPrice * 0.15;
-  // let totalWithVat = totalCartPrice + vat;
+  let totalWithVat = totalCartPrice + vat;
 
   // Handle Submit
   async function handleSubmit(e) {
@@ -95,6 +96,7 @@ export default function CheckOut() {
     e.preventDefault();
     try {
       const res = await Axios.post(`${ORDERS}`, form);
+      setId(res.data.id);
       nav("/thankyou");
     } catch (err) {
       // setLoading(false);
@@ -111,8 +113,8 @@ export default function CheckOut() {
   function handlePayment(e) {
     if (e.target.value == 0) {
       form.payment_mode = e.target.value;
-      setSent(true);
       setTotalPriceState((totalCartPrice + vat + 5).toFixed(2));
+      setSent(true);
     } else {
       form.payment_mode = e.target.value;
       setTotalPriceState((totalCartPrice + vat).toFixed(2));
@@ -146,6 +148,14 @@ export default function CheckOut() {
                   <small class="text-muted">Order price</small>
                   <p>${totalCartPrice.toFixed(2)}</p>
                 </div>
+                {form.payment_mode === "0" ? (
+                  <div class="d-flex justify-content-between pb-3 ">
+                    <small class="text-muted">COD Fees</small>
+                    <p>$5.00</p>
+                  </div>
+                ) : (
+                  <></>
+                )}
                 <div class="d-flex justify-content-between pb-3 border-bottom">
                   <small class="text-muted">VAT</small>
                   <p>${vat.toFixed(2)}</p>
@@ -153,7 +163,12 @@ export default function CheckOut() {
                 <div class="d-flex justify-content-between mt-3 mb-3">
                   <p class="fw-bold">Total Amount</p>
                   {/* <p className="fw-bold">${totalWithVat.toFixed(2)}</p> */}
-                  <p className="fw-bold">${totalPriceState}</p>
+                  <p className="fw-bold">
+                    $
+                    {totalPriceState == ""
+                      ? totalWithVat.toFixed(2)
+                      : totalPriceState}
+                  </p>
                 </div>
               </div>
             </div>

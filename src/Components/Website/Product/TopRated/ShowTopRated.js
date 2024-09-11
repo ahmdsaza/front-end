@@ -7,7 +7,7 @@ import SaleProducts from "../SaleProducts/SaleProducts";
 
 export default function ShowTopRated() {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Axios.get(`${TopRatedApi}`)

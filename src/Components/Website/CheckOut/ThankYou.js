@@ -7,8 +7,9 @@ import "./thankyou.css";
 export default function ThankYou() {
   const [orders, setOrders] = useState([]);
   const [getOrders, setGetOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   let totalCartPrice = 0;
-  let createAt = 0;
   let itemqty = 0;
   let itemqtyfixed = 0;
   let totalPrice = 0;
@@ -16,52 +17,52 @@ export default function ThankYou() {
   useEffect(() => {
     Axios.get(`${GETLASTORDER}`)
       .then((data) => {
-        setOrders(data.data);
+        setOrders(data.data[0]);
         setGetOrders(data.data[0].order_items);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  // console.log(orders);
   console.log(orders);
 
-  const showOrderItems = orders.map((item, key) => {
-    createAt = item.created_at;
-    return (
-      <div class="order-complete">
-        <div class="order-info">
-          <div class="order-info__item">
-            <label>Order Number</label>
-            <span>#{item.id}</span>
-          </div>
-          <div class="order-info__item">
-            <label>Date</label>
-            <span>
-              {createAt.slice(0, 10)} | {createAt.slice(11, 16)}
-            </span>
-          </div>
-          <div class="order-info__item">
-            <label>Tracking Number</label>
-            <span>{item.tracking_no}</span>
-          </div>
-          <div class="order-info__item">
-            <label>Paymetn Method</label>
-            <span>
-              {item.payment_mode == 0 ? (
-                <span>Cash on Delivery</span>
-              ) : item.payment_mode == 1 ? (
-                <span>Visa</span>
-              ) : item.payment_mode == 2 ? (
-                <span>Mada</span>
-              ) : (
-                <></>
-              )}
-            </span>
-          </div>
-        </div>
-      </div>
-    );
-  });
+  // const showOrderItems = orders.map((item, key) => {
+  //   createAt = item.created_at;
+  //   return (
+  //     <div class="order-complete">
+  //       <div class="order-info">
+  //         <div class="order-info__item">
+  //           <label>Order Number</label>
+  //           <span>#{item.id}</span>
+  //         </div>
+  //         <div class="order-info__item">
+  //           <label>Date</label>
+  //           <span>
+  //             {createAt.slice(0, 10)} | {createAt.slice(11, 16)}
+  //           </span>
+  //         </div>
+  //         <div class="order-info__item">
+  //           <label>Tracking Number</label>
+  //           <span>{item.tracking_no}</span>
+  //         </div>
+  //         <div class="order-info__item">
+  //           <label>Paymetn Method</label>
+  //           <span>
+  //             {item.payment_mode === 0 ? (
+  //               <span>Cash on Delivery</span>
+  //             ) : item.payment_mode === 1 ? (
+  //               <span>Visa</span>
+  //             ) : item.payment_mode === 2 ? (
+  //               <span>Mada</span>
+  //             ) : (
+  //               <></>
+  //             )}
+  //           </span>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // });
 
   const showOrderProducts = getOrders.map((item, key) => {
     itemqty = item.price * item.qty;
@@ -85,6 +86,10 @@ export default function ThankYou() {
   });
 
   let vat = totalCartPrice * 0.15;
+
+  // console.log(orders);
+  let createAtDate = orders ? orders.created_at : <></>;
+  let createAtTime = orders ? orders.created_at : <></>;
 
   return (
     <main class="pt-90">
@@ -110,13 +115,81 @@ export default function ThankYou() {
             <p>Thank you. Your order has been received.</p>
           </div>
           <div class="checkout__totals-wrapper">
-            {showOrderItems}
+            <div class="order-complete">
+              <div class="order-info">
+                <div class="order-info__item">
+                  <label>Order Number</label>
+                  <span>#{orders.id}</span>
+                </div>
+                <div class="order-info__item">
+                  <label>Date</label>
+                  <span>
+                    {createAtTime} |{createAtDate}
+                  </span>
+                </div>
+                <div class="order-info__item">
+                  <label>Tracking Number</label>
+                  <span>{orders.tracking_no}</span>
+                </div>
+                <div class="order-info__item">
+                  <label>Paymetn Method</label>
+                  <span>
+                    {orders.payment_mode === "0" ? (
+                      <span>Cash on Delivery</span>
+                    ) : orders.payment_mode === "1" ? (
+                      <span>Visa</span>
+                    ) : orders.payment_mode === "2" ? (
+                      <span>Mada</span>
+                    ) : (
+                      <></>
+                    )}
+                  </span>
+                </div>
+                <div class="order-info__item">
+                  <label>status</label>
+                  <p className="d-flex gap-1 my-0"></p>
+                  {orders.status === 0 ? (
+                    <p className="bg-primary rounded-1 px-1 text-white">
+                      Pending
+                    </p>
+                  ) : orders.status === 1 ? (
+                    <p className="bg-warning rounded-1 px-1 text-black">
+                      Awaiting Payment
+                    </p>
+                  ) : orders.status === 2 ? (
+                    <p className="bg-secondary rounded-1 px-1 text-white">
+                      Awaiting Shipment
+                    </p>
+                  ) : orders.status === 3 ? (
+                    <p className="bg-success rounded-1 px-1 text-white">
+                      Completed
+                    </p>
+                  ) : orders.status === 4 ? (
+                    <p className="bg-success rounded-1 px-1 text-white">
+                      Shipped
+                    </p>
+                  ) : orders.status === 5 ? (
+                    <p className="bg-danger rounded-1 px-1 text-white">
+                      Cancelled
+                    </p>
+                  ) : (
+                    <p>Waiting</p>
+                  )}
+                </div>
+              </div>
+            </div>
             <div class="checkout__totals">
               <h3>Order Details</h3>
               <table class="checkout-cart-items">
                 <thead>
                   <tr>
-                    <th>PRODUCT</th>
+                    {loading ? (
+                      <th>PRODUCT</th>
+                    ) : getOrders.length > 1 ? (
+                      <th>PRODUCTS</th>
+                    ) : (
+                      <th>PRODUCT</th>
+                    )}
                     <th>SUBTOTAL</th>
                     <th>TOTAL</th>
                   </tr>
@@ -137,9 +210,24 @@ export default function ThankYou() {
                     <th>VAT</th>
                     <td>${vat.toFixed(2)}</td>
                   </tr>
+                  {orders.payment_mode === "0" ? (
+                    <>
+                      <tr>
+                        <th>COD Fees</th>
+                        <td>$5.00</td>
+                      </tr>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                   <tr>
                     <th>TOTAL</th>
-                    <td>${totalPrice.toFixed(2)}</td>
+                    <td>
+                      $
+                      {orders.payment_mode === "0"
+                        ? (totalPrice + 5).toFixed(2)
+                        : totalPrice.toFixed(2)}
+                    </td>
                   </tr>
                 </tbody>
               </table>
