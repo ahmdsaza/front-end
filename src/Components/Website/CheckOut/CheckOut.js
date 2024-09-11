@@ -9,8 +9,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 export default function CheckOut() {
   const [carts, setCarts] = useState([]);
   const [sent, setSent] = useState(false);
-
-  // const [totalWithVat, setTotalWithVat] = useState(0);
+  const [totalPriceState, setTotalPriceState] = useState("");
 
   let descPrice = 0;
   let itemPrice = 0;
@@ -37,8 +36,6 @@ export default function CheckOut() {
 
   let totalCartPrice = 0;
 
-  // console.log(carts);
-
   const showCheckOut = carts.map((item) => {
     totalCartPrice += item.product.discount * item.product_qty;
     itemPrice = item.product.discount.slice(0, 5);
@@ -51,7 +48,6 @@ export default function CheckOut() {
           <div class="d-flex align-items-center">
             <img
               className="pic"
-              // width="75px"
               src={item.images[0].image}
               alt={item.product.title}
             />
@@ -62,13 +58,13 @@ export default function CheckOut() {
                 </NavLink>
               </p>
               {/* <small class="d-flex">
-                  <span class="text-muted">Color:</span>
-                  <span class="fw-bold">Red/White</span>
-                </small> 
-                <small class="">
-                  <span class="text-muted">Size:</span>
-                  <span class="fw-bold">L</span>
-                </small> */}
+                <span class="text-muted">Color:</span>
+                <span class="fw-bold">Red/White</span>
+              </small> */}
+              <small class="">
+                <span class="text-muted">Size:</span>
+                <span class="fw-bold">{item.sizes[0].name}</span>
+              </small>
             </div>
           </div>
         </td>
@@ -83,13 +79,7 @@ export default function CheckOut() {
         <td>
           <div class="d-flex align-items-center">
             <span class="pe-3 text-muted">Quantity:</span>
-            <span class="pe-3">
-              {/* <input class="ps-2" type="number" value={item.product_qty} /> */}
-              {item.product_qty}
-            </span>
-            <div class="round">
-              <span class="">{item.sizes[0].name.slice(0, 1)}</span>
-            </div>
+            <span class="pe-3">{item.product_qty}</span>
           </div>
         </td>
       </tr>
@@ -97,7 +87,7 @@ export default function CheckOut() {
   });
 
   let vat = totalCartPrice * 0.15;
-  let totalWithVat = totalCartPrice + vat;
+  // let totalWithVat = totalCartPrice + vat;
 
   // Handle Submit
   async function handleSubmit(e) {
@@ -116,15 +106,16 @@ export default function CheckOut() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  let totalWithVatNew = 0;
+  // let totalWithVatNew = 0;
 
   function handlePayment(e) {
     if (e.target.value == 0) {
       form.payment_mode = e.target.value;
       setSent(true);
-      let totalWithVatNew = totalCartPrice + vat + 5;
+      setTotalPriceState((totalCartPrice + vat + 5).toFixed(2));
     } else {
       form.payment_mode = e.target.value;
+      setTotalPriceState((totalCartPrice + vat).toFixed(2));
       setSent(true);
     }
   }
@@ -161,12 +152,8 @@ export default function CheckOut() {
                 </div>
                 <div class="d-flex justify-content-between mt-3 mb-3">
                   <p class="fw-bold">Total Amount</p>
-                  <p className="fw-bold">
-                    $
-                    {form.payment_mode === 0
-                      ? totalWithVatNew.toFixed(2)
-                      : totalWithVat.toFixed(2)}
-                  </p>
+                  {/* <p className="fw-bold">${totalWithVat.toFixed(2)}</p> */}
+                  <p className="fw-bold">${totalPriceState}</p>
                 </div>
               </div>
             </div>
