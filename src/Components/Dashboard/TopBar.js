@@ -3,16 +3,15 @@ import "./bars.css";
 import React, { useEffect, useState } from "react";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
-import { Menu } from "../../Context/MenuContext";
+import { MenuContextExport } from "../../Context/MenuContext";
 import { USER, LOGOUT } from "../../API/Api";
 import { Axios } from "../../API/axios";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import Cookie from "cookie-universal";
 
 export default function TopBar() {
-  const menu = useContext(Menu);
+  const menu = useContext(MenuContextExport);
   const setIsOpen = menu.setIsOpen;
   const navigate = useNavigate();
   const cookie = Cookie();
@@ -41,11 +40,11 @@ export default function TopBar() {
       <div className="d-flex align-items-center justify-content-between h-100">
         <div className="d-flex align-items-center gap-5">
           <h3>E-Commerce</h3>
-          {/* <FontAwesomeIcon
+          <FontAwesomeIcon
             onClick={() => setIsOpen((prev) => !prev)}
             cursor={"pointer"}
             icon={faBars}
-          /> */}
+          />
         </div>
         <div>
           <Dropdown>

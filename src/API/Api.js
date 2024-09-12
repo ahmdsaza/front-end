@@ -38,9 +38,10 @@ export const PRODUCT = "product";
 // Add Sizes
 export const SIZES = "sizes";
 
-// Add To Cart
+// Cart
 export const CART = "add-to-cart";
 export const CARTS = "carts";
+export const CARTLENGTH = "cart-length";
 export const UPDATEQTY = "cart-updateqty";
 
 // Check Out

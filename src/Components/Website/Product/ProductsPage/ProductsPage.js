@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
 import { PRODUCT, CART, USER, RATES } from "../../../../API/Api";
 import { useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import { Container, Form } from "react-bootstrap";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MenuContextExport } from "../../../../Context/MenuContext";
 import "./ProductsPage.css";
 
 export default function ProductsPage() {
@@ -19,6 +20,9 @@ export default function ProductsPage() {
   const [showSize, setShowSize] = useState([]);
   const [showRateNumber, setShowRateNumber] = useState(0);
   const [sizeChoice, setSizeChoice] = useState();
+
+  const menu = useContext(MenuContextExport);
+  const setIsOpen = menu.setIsOpen;
 
   // Call Rate
   useEffect(() => {
@@ -58,12 +62,10 @@ export default function ProductsPage() {
     try {
       if (user) {
         Axios.post(`${CART}`, data)
-          .then(setAddtoCart("Product add to cart successfully"))
-          // .then(
-          //   setTimeout(() => {
-          //     window.location.reload();
-          //   }, 500)
-          // )
+          .then(
+            setAddtoCart("Product add to cart successfully"),
+            setIsOpen((prev) => !prev)
+          )
           .catch((err) => {
             if (err.response.status === 420) {
               setErr("No qunatity enough");

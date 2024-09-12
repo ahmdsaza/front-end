@@ -1,21 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import { Axios } from "../../../API/axios";
-import { PRODUCT, LOGOUT, USER, CARTS } from "../../../API/Api";
+import { PRODUCT, LOGOUT, USER, CARTS, CARTLENGTH } from "../../../API/Api";
+import { MenuContextExport } from "../../../Context/MenuContext";
 // import SkeletonShow from "../Skeleton/SkeletonShow";
 import Cookie from "cookie-universal";
 import "./TheNavBar.css";
+// import { CartExport } from "../../../Context/CartContext";
 
 export default function TheNavBar(props) {
   const [name, setName] = useState("");
   const [carts, setCarts] = useState([]);
   const [search, setSearch] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  // const [cartLength, setCartLength] = useState(0);
+  const [cartLength, setCartLength] = useState();
   const [searchLoading, setSearchLoading] = useState(false);
   const showEmpty = [];
+
+  const menu = useContext(MenuContextExport);
+  const isOpen = menu.isOpen;
 
   const cookie = Cookie();
 
@@ -55,6 +60,12 @@ export default function TheNavBar(props) {
 
     return () => clearTimeout(debounce);
   }, [search]);
+
+  useEffect(() => {
+    Axios.get(`${CARTLENGTH}`)
+      .then((data) => setCartLength(data.data))
+      .catch((err) => console.log(err));
+  }, [isOpen]);
 
   // Logout
   async function handleLogout() {
@@ -126,7 +137,7 @@ export default function TheNavBar(props) {
                         alt="Cart"
                       />
                     </Link>
-                    <span>{carts.length}</span>
+                    <span>{cartLength}</span>
                   </>
                 ) : (
                   <></>

@@ -1,26 +1,17 @@
 import "./bars.css";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-// import { Menu } from "../../Context/MenuContext";
+import { MenuContextExport } from "../../Context/MenuContext";
 import { useContext } from "react";
-import { WindowSize } from "../../Context/WindowContext";
 import { USER } from "../../API/Api";
 import { Axios } from "../../API/axios";
 // import { links } from "./NavLink";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 export default function SideBar() {
-  const [collapsed, setCollapsed] = useState(true);
-
   // Menu Context
-  const menu = useContext(Menu);
-  // const isOpen = menu.isOpen;
-
-  // WindowSize Context
-  const window = useContext(WindowSize);
-  const windowSize = window.windowSize;
+  const menu = useContext(MenuContextExport);
+  const isOpen = menu.isOpen;
 
   // User
   const [user, setUser] = useState("");
@@ -44,14 +35,14 @@ export default function SideBar() {
           // position: "fixed",
         }}
       >
-        <Sidebar collapsed={collapsed}>
+        <Sidebar collapsed={isOpen}>
           <Menu>
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               className=""
               onClick={() => setCollapsed(!collapsed)}
               cursor={"pointer"}
               icon={faBars}
-            />
+            /> */}
             <MenuItem
               component={<Link to={`./activity`} />}
               icon={<i class="material-icons">dashboard</i>}

@@ -1,9 +1,13 @@
 import React from "react";
 import { createContext, useState } from "react";
-export const Menu = createContext(true);
+export const MenuContextExport = createContext(true);
+
 export default function MenuContext({ children }) {
   const [isOpen, setIsOpen] = useState(true);
+
   return (
-    <Menu.Provider value={{ isOpen, setIsOpen }}>{children}</Menu.Provider>
+    <MenuContextExport.Provider value={{ isOpen, setIsOpen }}>
+      {children}
+    </MenuContextExport.Provider>
   );
 }
