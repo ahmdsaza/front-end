@@ -71,8 +71,8 @@ export default function Orders() {
           </div>
         )}
       </div>
-      <div className="d-flex align-items-center justify-content-end flex-wrap">
-        <div className="col-1">
+      <div className="d-flex align-items-center justify-content-end flex-wrap mt-3">
+        <div>
           <Form.Select
             onChange={(e) => setLimit(e.target.value)}
             aria-label="Default select example"
@@ -82,13 +82,15 @@ export default function Orders() {
             <option value="15">15</option>
           </Form.Select>
         </div>
-        <PaginatedItems
-          setPage={setPage}
-          itemsPerPage={limit}
-          // data={data}
-          total={total}
-          // typeName={typeName}
-        />{" "}
+        <div>
+          <PaginatedItems
+            setPage={setPage}
+            itemsPerPage={limit}
+            // data={data}
+            total={total}
+            // typeName={typeName}
+          />
+        </div>
       </div>
     </Container>
   );

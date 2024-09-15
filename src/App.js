@@ -37,6 +37,7 @@ import ProfileEdit from "./Components/Website/Profile/ProfileEdit";
 import Activity from "./Pages/Dashboard/Activity/Activity";
 import Rate from "./Pages/Dashboard/Rate/Rate";
 import RateEdit from "./Pages/Dashboard/Rate/RateEdit";
+import ReloadPage from "./Components/Website/CheckOut/ReloadPage";
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="profile/edit/:id" element={<ProfileEdit />} />
           <Route path="/thankyou" element={<ThankYou />} />
+          <Route path="/reload" element={<ReloadPage />} />
         </Route>
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />}></Route>

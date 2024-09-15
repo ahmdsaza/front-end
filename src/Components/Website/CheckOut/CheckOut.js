@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CARTS, ORDERS } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import Form from "react-bootstrap/Form";
 import { Container } from "react-bootstrap";
 import "./checkout.css";
 import { NavLink, useNavigate } from "react-router-dom";
+import { MenuContextExport } from "../../../Context/MenuContext";
 
 export default function CheckOut() {
   const [carts, setCarts] = useState([]);
@@ -25,7 +26,11 @@ export default function CheckOut() {
     city: "",
     zipcode: "",
     payment_mode: "",
+    totalprice: "",
   });
+  const menu = useContext(MenuContextExport);
+  const setIsOpen = menu.setIsOpen;
+
   const nav = useNavigate();
 
   // Import Cart
@@ -96,8 +101,8 @@ export default function CheckOut() {
     e.preventDefault();
     try {
       const res = await Axios.post(`${ORDERS}`, form);
-      setId(res.data.id);
-      nav("/thankyou");
+      setIsOpen((prev) => !prev);
+      nav("/reload");
     } catch (err) {
       // setLoading(false);
       console.log(err);
@@ -114,10 +119,12 @@ export default function CheckOut() {
     if (e.target.value == 0) {
       form.payment_mode = e.target.value;
       setTotalPriceState((totalCartPrice + vat + 5).toFixed(2));
+      form.totalprice = (totalCartPrice + vat + 5).toFixed(2);
       setSent(true);
     } else {
       form.payment_mode = e.target.value;
       setTotalPriceState((totalCartPrice + vat).toFixed(2));
+      form.totalprice = (totalCartPrice + vat).toFixed(2);
       setSent(true);
     }
   }

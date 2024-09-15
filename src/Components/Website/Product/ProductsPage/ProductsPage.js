@@ -68,7 +68,7 @@ export default function ProductsPage() {
           )
           .catch((err) => {
             if (err.response.status === 420) {
-              setErr("No qunatity enough");
+              setErr(err.response.data.error);
             } else {
               setErr("Something went worng");
             }
