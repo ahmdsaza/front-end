@@ -55,14 +55,14 @@ export default function Rating() {
   const showData = products.map((item, key) => (
     <Container key={item.id + key}>
       <div className="product-div">
-        <div class="product-img">
+        <div class="product-img-rate">
           <img src={item.images[0].image} alt="" />
         </div>
         <div class="product-side">
           <div class="product-description">
             <span className="product-category">{item.category.title}</span>
             <h1 className="product-title">{item.title}</h1>
-            {/* <p className="product-description">{item.description}</p> */}
+            <p className="product-description">{item.description}</p>
           </div>
           <div class="product-prices">
             <span className="product-discount">${item.discount}</span>
@@ -74,9 +74,9 @@ export default function Rating() {
   ));
 
   return (
-    <div>
+    <div className="d-flex flex-column">
       <div>{showData}</div>
-      <form className="d-flex flex-column align-items-lg-start">
+      <form className="d-flex flex-column align-items-center">
         <div class="rate">
           <input
             type="radio"
@@ -129,14 +129,18 @@ export default function Rating() {
             1 star
           </label>
         </div>
-        <div className="d-flex">
-          <textarea
-            type="description"
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-          />
-          <button onClick={submitRate}>Submit</button>
-        </div>
+        <textarea
+          className="w-50 align-self-center"
+          type="description"
+          onChange={(e) => setDescription(e.target.value)}
+          value={description}
+        />
+        <button
+          onClick={submitRate}
+          className="align-self-center btn btn-primary"
+        >
+          Send rate
+        </button>
       </form>
       {err ? (
         <div className="d-flex justify-content-center">

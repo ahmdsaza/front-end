@@ -47,10 +47,10 @@ export default function Users() {
       key: "created_at",
       name: "created",
     },
-    {
-      key: "updated_at",
-      name: "Last login",
-    },
+    // {
+    //   key: "updated_at",
+    //   name: "Last login",
+    // },
   ];
 
   // Handle Delete

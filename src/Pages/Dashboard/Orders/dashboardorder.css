@@ -1,3 +1,29 @@
+.wg-table {
+    overflow-x: auto !important;
+}
+.wg-table::-webkit-scrollbar {
+    width: 0px;
+}
+
+.table-striped {
+    min-width: 1200px;
+}
+.wg-table.table-all-user > * {
+    min-width: 1515px;
+}
+
+.wg-box {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    background: var(--White);
+    box-shadow: 0px 4px 24px 2px rgba(20, 25, 38, 0.05);
+}
+
 @media (max-width: 768px) {
     .change-font {
         font-size: 0.75rem;

@@ -121,12 +121,11 @@ export default function OrderPage() {
   return (
     <Container>
       <main class="pt-90">
-        <div class="mb-4 ">
-          <NavLink className="btn btn-primary" to="../orders">
-            {" "}
-            &lt;- Back to Orders
-          </NavLink>
-        </div>
+        <NavLink className="btn btn-primary" to="../orders">
+          {" "}
+          &lt;- Back to Orders
+        </NavLink>
+        <div class="mb-4 "></div>
         <section class="shop-checkout container">
           <div class="order-complete">
             <h1>Order Details</h1>

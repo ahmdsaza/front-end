@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { MenuContextExport } from "../../Context/MenuContext";
 import { USER, LOGOUT } from "../../API/Api";
 import { Axios } from "../../API/axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import Cookie from "cookie-universal";
 
@@ -71,9 +71,13 @@ export default function TopBar() {
               >
                 {name}
               </Dropdown.Item>
-              <Dropdown.Item onClick={() => navigate("/")}>
-                Back to website
+
+              <Dropdown.Item>
+                <NavLink to="../" className="text-black">
+                  Back to website
+                </NavLink>
               </Dropdown.Item>
+
               <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

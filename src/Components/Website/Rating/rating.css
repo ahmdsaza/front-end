@@ -1,8 +1,14 @@
-/* Stars section */
 * {
     margin: 0;
     padding: 0;
 }
+.product-img-rate img {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+}
+
+/* Stars section */
 .rate {
     float: left;
     height: 46px;

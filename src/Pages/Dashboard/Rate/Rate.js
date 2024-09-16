@@ -6,6 +6,7 @@ import { Form, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import PaginatedItems from "../../../Components/Dashboard/Pagination/Pagination";
+import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 
 export default function Rate() {
   const [rate, setRate] = useState([]);
@@ -36,8 +37,8 @@ export default function Rate() {
     return (
       <tr key={key}>
         <td>#{items.id}</td>
-        <td>{items.products[0].title}</td>
         <td>{items.products[0].id}</td>
+        <td>{items.products[0].title}</td>
         <td>{items.users[0].name}</td>
         <td>
           {items.description != null
@@ -50,7 +51,14 @@ export default function Rate() {
           {items.status === "1" ? <>Visable</> : <>Hidden</>}
           {/* visable */}
         </td>
-        <td>{items.product_rate}</td>
+        <td>
+          {items.product_rate}
+          <FontAwesomeIcon
+            className="mx-1"
+            icon={solid}
+            style={{ color: "FFC100" }}
+          />
+        </td>
         <td key={key + 1}>
           <div className="d-flex align-items-center gap-2">
             <NavLink to={`${items.id}`}>
@@ -94,8 +102,8 @@ export default function Rate() {
         <thead>
           <tr>
             <th>Rate Id</th>
-            <th>Product</th>
             <th>Product Id</th>
+            <th>Product</th>
             <th>Username</th>
             <th>Description</th>
             <th>Status</th>

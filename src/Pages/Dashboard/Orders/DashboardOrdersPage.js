@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { ORDERID, ORDER } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Container } from "react-bootstrap";
@@ -144,12 +144,12 @@ export default function DashboardOrdersPage() {
           />
           <div>
             <div className="d-flex gap-1 ">
-              <Link
-                style={{ color: "black" }}
+              <NavLink
+                className="text-black"
                 to={`../../products/${item.product_id}`}
               >
                 <p>{item.product_title}</p>
-              </Link>
+              </NavLink>
             </div>
             <p>QTY: {item.qty}</p>
           </div>
@@ -166,7 +166,10 @@ export default function DashboardOrdersPage() {
 
   return (
     <Container>
-      <Link to="../orders">Back To orders</Link>
+      <NavLink className="btn btn-primary mt-2" to="../orders">
+        {" "}
+        &lt;- Back to Orders
+      </NavLink>
       <div>{showOrderItems}</div>
       <div>{showOrderProducts}</div>
       <p>Before VAT: ${totalCartPrice.toFixed(2)}</p>
