@@ -4,7 +4,8 @@ import { baseURL, LOGIN } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
 import { Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import googleIcon from "../../../Assets/Logo-google-icon-PNG.png";
 
 export default function Login() {
   // States
@@ -99,18 +100,18 @@ export default function Login() {
               </Form.Group>
               <button className="btn btn-primary">Login</button>
               <div className="google-btn">
-                <a href={`http://localhost:3000/login-google`}>
+                <NavLink to={`http://localhost:3000/login-google`}>
                   <div className="google-icon-wrapper">
                     <img
                       className="google-icon"
-                      src="https://image.similarpng.com/very-thumbnail/2020/06/Logo-google-icon-PNG.png"
+                      src={googleIcon}
                       alt="sign in google"
                     />
                   </div>
                   <p className="btn-text">
                     <b>Sign in with google</b>
                   </p>
-                </a>
+                </NavLink>
               </div>
               <Link to="../register">You don't have an account?</Link>
               {err !== "" && <span className="error">{err}</span>}

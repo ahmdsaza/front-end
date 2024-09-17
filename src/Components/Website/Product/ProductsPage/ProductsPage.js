@@ -165,9 +165,9 @@ export default function ProductsPage() {
           </div>{" "}
           {showSize.length > 0 ? (
             <>
-              <Form.Select onClick={handleSize}>
+              <Form.Select className="size" onClick={handleSize}>
                 {showSize.map((item, key) => (
-                  <option className="size" key={key} value={item.id}>
+                  <option key={key} value={item.id}>
                     {item.name}
                   </option>
                 ))}

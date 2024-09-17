@@ -50,15 +50,19 @@ function App() {
           <Route path="/categories/:id" element={<CategoriesPage />} />
           {/* <Route path="/products" element={<AllProducts />} /> */}
           <Route path="products/:id" element={<ProductsPage />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="checkout" element={<CheckOut />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="orders/:id" element={<OrderPage />} />
-          <Route path="rate/:id" element={<Rating />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="profile/edit/:id" element={<ProfileEdit />} />
-          <Route path="/thankyou" element={<ThankYou />} />
-          <Route path="/reload" element={<ReloadPage />} />
+          <Route
+            element={<RequireAuth allowedRole={["1996", "1995", "1999"]} />}
+          >
+            <Route path="cart" element={<Cart />} />
+            <Route path="checkout" element={<CheckOut />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="orders/:id" element={<OrderPage />} />
+            <Route path="rate/:id" element={<Rating />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="profile/edit/:id" element={<ProfileEdit />} />
+            <Route path="/reload" element={<ReloadPage />} />
+            <Route path="/thankyou" element={<ThankYou />} />
+          </Route>
         </Route>
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />}></Route>

@@ -93,6 +93,7 @@
     /* flex-direction: column; */
 }
 .size {
+    width: 3.5rem;
     border: 1px solid black;
     border-radius: 5px;
     padding: 0.5rem;

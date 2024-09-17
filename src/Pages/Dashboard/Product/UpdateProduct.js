@@ -198,8 +198,6 @@ export default function UpdateProduct() {
       .catch((err) => console.log(err));
   }, [count]);
 
-  console.log(showSizes);
-
   async function handleDeleteSize(item) {
     try {
       const res = await Axios.delete(`size-delete/${item}`);

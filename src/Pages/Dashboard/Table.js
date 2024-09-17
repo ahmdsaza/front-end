@@ -86,6 +86,8 @@ export default function TableShow(props) {
             )
           ) : item2.key === "price" ? (
             "$" + item[item2.key]
+          ) : item2.key === "rating" ? (
+            item[item2.key].slice(0, 1)
           ) : (
             item[item2.key]
           )}
