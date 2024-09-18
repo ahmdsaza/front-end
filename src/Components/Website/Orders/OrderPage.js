@@ -11,6 +11,7 @@ export default function OrderPage() {
   const { id } = useParams();
   const [orders, setOrders] = useState([]);
   const [getOrders, setGetOrders] = useState([]);
+  const [orderPrice, setOrderPrice] = useState([]);
   const [loading, setLoading] = useState(true);
   let totalCartPrice = 0;
   let totalPrice = 0;
@@ -20,6 +21,7 @@ export default function OrderPage() {
       .then((data) => {
         setOrders(data.data[0]);
         setGetOrders(data.data[0].order_items);
+        setOrderPrice(data.data[0].payment[0]);
         setLoading(false);
       })
       .catch((err) => console.log(err));
@@ -118,6 +120,8 @@ export default function OrderPage() {
   let createAtDate = orders ? TransformDated(orders.created_at) : <></>;
   let createAtTime = orders ? TransformTime(orders.created_at) : <></>;
 
+  // console.log(orders);
+
   return (
     <Container>
       <main class="pt-90">
@@ -193,6 +197,30 @@ export default function OrderPage() {
                     </p>
                   </div>
                 </div>
+                <div class="order-info mt-3">
+                  <div class="order-info__item">
+                    <label>Full name:</label>
+                    <span>
+                      {orders.firstname} {orders.lastname}
+                    </span>
+                  </div>
+                  <div class="order-info__item">
+                    <label>City:</label>
+                    <span>{orders.city}</span>
+                  </div>
+                  <div class="order-info__item">
+                    <label>Address:</label>
+                    <span>{orders.address}</span>
+                  </div>
+                  <div class="order-info__item">
+                    <label>Zipcode:</label>
+                    <span>{orders.zipcode}</span>
+                  </div>
+                  <div class="order-info__item">
+                    <label>Phone:</label>
+                    <span>{orders.phone}</span>
+                  </div>
+                </div>
               </div>
               <div class="checkout__totals">
                 <h3>Order Details</h3>
@@ -216,7 +244,7 @@ export default function OrderPage() {
                   <tbody>
                     <tr>
                       <th>SUBTOTAL</th>
-                      <td>${totalCartPrice.toFixed(2)}</td>
+                      <td>${orderPrice.productsprice}</td>
                     </tr>
                     <tr>
                       <th>SHIPPING</th>
@@ -224,7 +252,7 @@ export default function OrderPage() {
                     </tr>
                     <tr>
                       <th>VAT</th>
-                      <td>${vat.toFixed(2)}</td>
+                      <td>${orderPrice.vat}</td>
                     </tr>
                     {orders.payment_mode === "0" ? (
                       <>
@@ -238,12 +266,7 @@ export default function OrderPage() {
                     )}
                     <tr>
                       <th>TOTAL</th>
-                      <td>
-                        $
-                        {orders.payment_mode === "0"
-                          ? (totalPrice + 5).toFixed(2)
-                          : totalPrice.toFixed(2)}
-                      </td>
+                      <td>${orderPrice.total_price}</td>
                     </tr>
                   </tbody>
                 </table>

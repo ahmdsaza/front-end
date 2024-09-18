@@ -48,6 +48,10 @@ export const UPDATEQTY = "cart-updateqty";
 export const ORDERS = "place-order";
 export const GETLASTORDER = "get-last-order";
 
+// Address
+export const ADDRESS = "address";
+export const ADDRESSADD = "add-address";
+
 // Rate
 export const RATE = "rate/add";
 export const RATES = "rates";

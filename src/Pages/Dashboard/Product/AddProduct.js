@@ -14,7 +14,6 @@ export default function AddProduct() {
     price: "",
     discount: "",
     About: "",
-    // qty: "",
   });
 
   const dummyForm = {
@@ -24,17 +23,9 @@ export default function AddProduct() {
     price: 0,
     discount: 0,
     About: "About",
-    // qty: 0,
   };
 
-  // Use State
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [count, setCount] = useState(0);
-  const [categories, setCategories] = useState([]); // Categories UseState
   const [id, setId] = useState();
-  const nav = useNavigate();
 
   const [sizes, setSizes] = useState({
     name: "",
@@ -42,7 +33,15 @@ export default function AddProduct() {
     product_id: id,
   });
 
+  // Use State
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [count, setCount] = useState(0);
+  const [categories, setCategories] = useState([]); // Categories UseState
   const [showSizes, setShowSizes] = useState([]);
+  const nav = useNavigate();
+
   // Ref
   const focus = useRef("");
   const openImage = useRef(null);

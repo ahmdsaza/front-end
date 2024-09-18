@@ -1,33 +1,45 @@
 import React, { useContext, useEffect, useState } from "react";
-import { CARTS, ORDERS } from "../../../API/Api";
+import { CARTS, ORDERS, ADDRESS, ADDRESSADD } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import Form from "react-bootstrap/Form";
 import { Container } from "react-bootstrap";
 import "./checkout.css";
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MenuContextExport } from "../../../Context/MenuContext";
 
 export default function CheckOut() {
   const [carts, setCarts] = useState([]);
   const [sent, setSent] = useState(false);
+  const [count, setCount] = useState(0);
+  const [errCall, setErrorCall] = useState("");
+  const [addressCall, setAddressCall] = useState([]);
   const [totalPriceState, setTotalPriceState] = useState("");
-  const [id, setId] = useState();
 
   let descPrice = 0;
   let itemPrice = 0;
   let tot = 0;
 
   const [form, setForm] = useState({
+    address_id: addressCall,
+    payment_mode: "",
+    productsprice: "",
+    vat: "",
+    totalprice: "",
+  });
+
+  // console.log(addressCall);
+
+  const [addressForm, setAddressForm] = useState({
     firstname: "",
     lastname: "",
     phone: "",
-    email: "",
     address: "",
     city: "",
     zipcode: "",
-    payment_mode: "",
-    totalprice: "",
   });
+
   const menu = useContext(MenuContextExport);
   const setIsOpen = menu.setIsOpen;
 
@@ -39,6 +51,14 @@ export default function CheckOut() {
       .then((data) => setCarts(data.data))
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    Axios.get(`${ADDRESS}`)
+      .then((data) => setAddressCall(data.data))
+      .catch((err) => console.log(err));
+  }, [count]);
+
+  // console.log(addressCall);
 
   let totalCartPrice = 0;
 
@@ -105,34 +125,122 @@ export default function CheckOut() {
       nav("/reload");
     } catch (err) {
       // setLoading(false);
+      if (err.response.data.message === "The address id field is required.") {
+        setErrorCall("Please chose addresss");
+      } else {
+        console.log(err);
+      }
+    }
+  }
+
+  // Handle Address Submit
+  async function handleAddressSubmit(e) {
+    // setLoading(true);
+    e.preventDefault();
+    try {
+      const res = await Axios.post(`${ADDRESSADD}`, addressForm);
+      setCount(count + 1);
+    } catch (err) {
+      // setLoading(false);
       console.log(err);
     }
   }
 
-  function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
+  // function handleChange(e) {
+  //   setForm({ ...form, [e.target.name]: e.target.value });
+  // }
 
-  // let totalWithVatNew = 0;
+  function handleAddressForm(e) {
+    setAddressForm({ ...addressForm, [e.target.name]: e.target.value });
+  }
 
   function handlePayment(e) {
     if (e.target.value == 0) {
       form.payment_mode = e.target.value;
       setTotalPriceState((totalCartPrice + vat + 5).toFixed(2));
+      form.productsprice = totalCartPrice.toFixed(2);
+      form.vat = vat.toFixed(2);
       form.totalprice = (totalCartPrice + vat + 5).toFixed(2);
       setSent(true);
     } else {
       form.payment_mode = e.target.value;
       setTotalPriceState((totalCartPrice + vat).toFixed(2));
+      form.productsprice = totalCartPrice.toFixed(2);
+      form.vat = vat.toFixed(2);
       form.totalprice = (totalCartPrice + vat).toFixed(2);
       setSent(true);
     }
   }
 
+  function handleAddress(e) {
+    form.address_id = e.target.value;
+    setSent(true);
+  }
+
+  async function handleDelete(id) {
+    try {
+      const res = await Axios.delete(`${ADDRESS}/delete/${id}`);
+      setAddressCall((prev) => prev.filter((item) => item.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const showAddress = addressCall.map((item) => (
+    <>
+      <div className="d-flex border rounded justify-content-around">
+        <input
+          name="address"
+          type="radio"
+          onClick={handleAddress}
+          value={item.id}
+        />
+        <div class="col-lg-10 delivery py-1">
+          <div className="name">
+            <span>
+              First name:{" "}
+              {item.firstname.length > 8
+                ? item.firstname.slice(0, 12) + "..."
+                : item.firstname}
+            </span>
+            <span>
+              Last name:{" "}
+              {item.lastname.length > 8
+                ? item.lastname.slice(0, 12) + "..."
+                : item.lastname}
+            </span>
+            <span>Phone: {item.phone}</span>
+          </div>
+          {/* <div className="name"></div> */}
+          <div className="address-info">
+            <span>Address: {item.address}</span>
+            <span>City: {item.city}</span>
+            <span>Zipcode: {item.zipcode}</span>
+          </div>
+        </div>
+        <div className="py-3">
+          <FontAwesomeIcon
+            fontSize={"19px"}
+            color={"#4379F2"}
+            icon={faPenToSquare}
+          />
+          <FontAwesomeIcon
+            onClick={() => handleDelete(item.id)}
+            fontSize={"19px"}
+            color="red"
+            cursor={"pointer"}
+            icon={faTrash}
+          />
+        </div>
+      </div>
+    </>
+  ));
+
   return (
     <Container>
       <div class="containers mt-4 p-0">
         <div class="row px-md-4 px-2 pt-4">
+          {/*Show orders*/}
           <div class="col-lg-8">
             {carts.length > 1 ? (
               <p class="pb-2 fw-bold">Orders list</p>
@@ -147,6 +255,7 @@ export default function CheckOut() {
               </div>
             </div>
           </div>
+          {/*Payment summary*/}
           <div class="col-lg-4 payment-summary">
             <p class="fw-bold pt-lg-0 pt-4 pb-2">Payment Summary</p>
             <div class="card px-md-3 px-2 pt-2">
@@ -180,10 +289,12 @@ export default function CheckOut() {
               </div>
             </div>
           </div>
+          {/*Address*/}
           <div class="col-lg-8 delivery px-md-3 px-1">
             <p class="pt-2 fw-bold pb-3 ps-2">Address</p>
+            <div>{showAddress}</div>
             <div class="container">
-              <Form>
+              <Form onSubmit={handleAddressSubmit}>
                 <div>
                   <div className="name">
                     <Form.Group
@@ -194,8 +305,8 @@ export default function CheckOut() {
                       <Form.Control
                         required
                         name="firstname"
-                        value={form.firstname}
-                        onChange={handleChange}
+                        value={addressForm.firstname}
+                        onChange={handleAddressForm}
                         // disabled={!sent}
                         placeholder="First name..."
                       ></Form.Control>
@@ -208,8 +319,8 @@ export default function CheckOut() {
                       <Form.Control
                         required
                         name="lastname"
-                        value={form.lastname}
-                        onChange={handleChange}
+                        value={addressForm.lastname}
+                        onChange={handleAddressForm}
                         type="text"
                         placeholder="Last name..."
                         // disabled={!sent}
@@ -225,39 +336,10 @@ export default function CheckOut() {
                       <Form.Control
                         required
                         name="phone"
-                        value={form.phone}
-                        onChange={handleChange}
+                        value={addressForm.phone}
+                        onChange={handleAddressForm}
+                        maxLength={9}
                         placeholder="+966..."
-                      ></Form.Control>
-                    </Form.Group>
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput1"
-                    >
-                      <Form.Label>Email:</Form.Label>
-                      <Form.Control
-                        required
-                        name="email"
-                        value={form.email}
-                        onChange={handleChange}
-                        type="email"
-                        placeholder="Email..."
-                        // disabled={!sent}
-                      />
-                    </Form.Group>
-                  </div>
-                  <div class="address-info">
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput0"
-                    >
-                      <Form.Label>Country:</Form.Label>
-                      <Form.Control
-                        required
-                        name="address"
-                        value={form.address}
-                        onChange={handleChange}
-                        placeholder="Country..."
                       ></Form.Control>
                     </Form.Group>
                     <Form.Group
@@ -268,10 +350,27 @@ export default function CheckOut() {
                       <Form.Control
                         required
                         name="city"
-                        value={form.city}
-                        onChange={handleChange}
+                        value={addressForm.city}
+                        onChange={handleAddressForm}
                         type="text"
                         placeholder="City..."
+                        // disabled={!sent}
+                      />
+                    </Form.Group>
+                  </div>
+                  <div class="address-info">
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>Address:</Form.Label>
+                      <Form.Control
+                        required
+                        name="address"
+                        value={addressForm.address}
+                        onChange={handleAddressForm}
+                        type="text"
+                        placeholder="Address..."
                         // disabled={!sent}
                       />
                     </Form.Group>
@@ -283,16 +382,18 @@ export default function CheckOut() {
                       <Form.Control
                         required
                         name="zipcode"
-                        value={form.zipcode}
-                        onChange={handleChange}
+                        value={addressForm.zipcode}
+                        onChange={handleAddressForm}
                         placeholder="zipcode..."
                       ></Form.Control>
                     </Form.Group>
                   </div>
+                  <button className="btn btn-primary">Save</button>
                 </div>
               </Form>
             </div>
           </div>
+          {/*Payment method*/}
           <div class="col-lg-4">
             <p class="pt-4 fw-bold pb-3">Payment Method</p>
             <div class="card p-3 mb-2">
@@ -360,7 +461,7 @@ export default function CheckOut() {
                     <p class="fw-bold">Cash on Delivery</p>
                   </div>
                   <small class="text-muted">
-                    Add fees because cash on delivery
+                    Add fees for cash on delivery
                   </small>
                 </div>
                 <div class="d-flex align-items-center">
@@ -385,6 +486,15 @@ export default function CheckOut() {
             >
               Check Out
             </button>
+            {errCall ? (
+              <div className="d-flex justify-content-center">
+                <span className="d-flex alert alert-danger mt-2 justify-content-center ">
+                  {errCall}
+                </span>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>

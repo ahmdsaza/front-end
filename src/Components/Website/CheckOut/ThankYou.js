@@ -175,6 +175,30 @@ export default function ThankYou() {
                   </p>
                 </div>
               </div>
+              <div class="order-info mt-3">
+                <div class="order-info__item">
+                  <label>Full name:</label>
+                  <span>
+                    {orders.firstname} {orders.lastname}
+                  </span>
+                </div>
+                <div class="order-info__item">
+                  <label>City:</label>
+                  <span>{orders.city}</span>
+                </div>
+                <div class="order-info__item">
+                  <label>Address:</label>
+                  <span>{orders.address}</span>
+                </div>
+                <div class="order-info__item">
+                  <label>Zipcode:</label>
+                  <span>{orders.zipcode}</span>
+                </div>
+                <div class="order-info__item">
+                  <label>Phone:</label>
+                  <span>{orders.phone}</span>
+                </div>
+              </div>
             </div>
             <div class="checkout__totals">
               <h3>Order Details</h3>
