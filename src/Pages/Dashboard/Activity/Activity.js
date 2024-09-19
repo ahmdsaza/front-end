@@ -82,8 +82,10 @@ export default function Activity() {
 
   return (
     <div>
-      {/* <div>Welcome: {name}</div>
-      <div>
+      <div class="username my-3 mx-3">
+        <h1 class="body-text mb-2 text-center">Welcome: {name}</h1>
+      </div>
+      {/*<div>
         <NavLink to={`../orders`} className="text-black">
           Orders number: {orders}
         </NavLink>
@@ -116,7 +118,9 @@ export default function Activity() {
                   <div>
                     <div class="body-text mb-2">Total Amount</div>
                     <h4 className="fw-bold">${ordersAmount}</h4>
-                    <small>* With out Cancelled orders</small>
+                    <small style={{ position: "absolute" }}>
+                      * With out Cancelled orders
+                    </small>
                   </div>
                 </div>
               </div>
