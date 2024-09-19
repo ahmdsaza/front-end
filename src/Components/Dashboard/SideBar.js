@@ -30,8 +30,8 @@ export default function SideBar() {
         style={{
           display: "flex",
           minHeight: "400px",
-          // position: "fixed",
-          height: "100vh",
+          position: "sticky",
+          minHeight: "100%",
           backgroundColor: "white",
         }}
       >

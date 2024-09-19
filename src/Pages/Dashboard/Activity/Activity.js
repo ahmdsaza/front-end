@@ -6,6 +6,10 @@ import {
   ORDERSPENDINGCOUNT,
   ORDERSCOMPLETEDCOUNT,
   ORDERSCANCELLEDCOUNT,
+  ORDERSAMOUNT,
+  ORDERSPENDINGAMOUNT,
+  ORDERSCOMPLETEDAMOUNT,
+  ORDERSCANCELLEDAMOUNT,
 } from "../../../API/Api";
 import { NavLink } from "react-router-dom";
 import "./activity.css";
@@ -15,6 +19,10 @@ export default function Activity() {
   const [ordersPending, setOrdersPending] = useState([]);
   const [ordersCompleted, setOrdersCompleted] = useState([]);
   const [ordersCancelled, setOrdersCancelled] = useState([]);
+  const [ordersAmount, setOrdersAmount] = useState([]);
+  const [ordersPendingAmount, setOrdersPendingAmount] = useState([]);
+  const [ordersCompletedAmount, setOrdersCompletedAmount] = useState([]);
+  const [ordersCancelledAmount, setOrdersCancelledAmount] = useState([]);
   const [name, setName] = useState([]);
 
   useEffect(() => {
@@ -41,6 +49,30 @@ export default function Activity() {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    Axios.get(`${ORDERSAMOUNT}`)
+      .then((data) => setOrdersAmount(data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    Axios.get(`${ORDERSPENDINGAMOUNT}`)
+      .then((data) => setOrdersPendingAmount(data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    Axios.get(`${ORDERSCOMPLETEDAMOUNT}`)
+      .then((data) => setOrdersCompletedAmount(data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    Axios.get(`${ORDERSCANCELLEDAMOUNT}`)
+      .then((data) => setOrdersCancelledAmount(data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   // Gett User Name
   useEffect(() => {
     Axios.get(`${USER}`)
@@ -62,9 +94,9 @@ export default function Activity() {
             <div class="wg-chart-default mb-20">
               <div class="flex align-items-center justify-content-between">
                 <div class="flex align-items-center gap14">
-                  <div class="image ic-bg">
-                    <i class="icon-shopping-bag"></i>
-                  </div>
+                  <i class="material-icons mt-3" style={{ color: "#4379F2" }}>
+                    inventory_2
+                  </i>
                   <div>
                     <div class="body-text mb-2">Total Orders</div>
                     <h4 className="fw-bold">{orders}</h4>
@@ -75,12 +107,16 @@ export default function Activity() {
             <div class="wg-chart-default mb-20">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap14">
-                  <div class="image ic-bg">
-                    <i class="icon-dollar-sign"></i>
-                  </div>
+                  <span
+                    class="material-icons my-3"
+                    style={{ color: "#6EC207" }}
+                  >
+                    payments
+                  </span>
                   <div>
                     <div class="body-text mb-2">Total Amount</div>
-                    <h4 className="fw-bold">481.34</h4>
+                    <h4 className="fw-bold">${ordersAmount}</h4>
+                    <small>* With out Cancelled orders</small>
                   </div>
                 </div>
               </div>
@@ -88,9 +124,9 @@ export default function Activity() {
             <div class="wg-chart-default mb-20">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap14">
-                  <div class="image ic-bg">
-                    <i class="icon-shopping-bag"></i>
-                  </div>
+                  <i class="material-icons mt-3" style={{ color: "#4379F2" }}>
+                    inventory_2
+                  </i>
                   <div>
                     <div class="body-text mb-2">Pending Orders</div>
                     <h4 className="fw-bold">{ordersPending}</h4>
@@ -101,12 +137,15 @@ export default function Activity() {
             <div class="wg-chart-default">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap14">
-                  <div class="image ic-bg">
-                    <i class="icon-dollar-sign"></i>
-                  </div>
+                  <span
+                    class="material-icons my-3"
+                    style={{ color: "#6EC207" }}
+                  >
+                    payments
+                  </span>
                   <div>
                     <div class="body-text mb-2">Pending Orders Amount</div>
-                    <h4 className="fw-bold">481.34</h4>
+                    <h4 className="fw-bold">${ordersPendingAmount}</h4>
                   </div>
                 </div>
               </div>
@@ -117,9 +156,9 @@ export default function Activity() {
             <div class="wg-chart-default mb-20">
               <div class="flex align-items-center justify-content-between">
                 <div class="flex align-items-center gap14">
-                  <div class="image ic-bg">
-                    <i class="icon-shopping-bag"></i>
-                  </div>
+                  <i class="material-icons mt-3" style={{ color: "#4379F2" }}>
+                    inventory_2
+                  </i>
                   <div>
                     <div class="body-text mb-2">Delivered Orders</div>
                     <h4 className="fw-bold">{ordersCompleted}</h4>
@@ -130,12 +169,15 @@ export default function Activity() {
             <div class="wg-chart-default mb-20">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap14">
-                  <div class="image ic-bg">
-                    <i class="icon-dollar-sign"></i>
-                  </div>
+                  <span
+                    class="material-icons my-3"
+                    style={{ color: "#6EC207" }}
+                  >
+                    payments
+                  </span>
                   <div>
                     <div class="body-text mb-2">Delivered Orders Amount</div>
-                    <h4 className="fw-bold">481.34</h4>
+                    <h4 className="fw-bold">${ordersCompletedAmount}</h4>
                   </div>
                 </div>
               </div>
@@ -143,9 +185,9 @@ export default function Activity() {
             <div class="wg-chart-default mb-20">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap14">
-                  <div class="image ic-bg">
-                    <i class="icon-shopping-bag"></i>
-                  </div>
+                  <i class="material-icons mt-3" style={{ color: "#4379F2" }}>
+                    inventory_2
+                  </i>{" "}
                   <div>
                     <div class="body-text mb-2">Canceled Orders</div>
                     <h4 className="fw-bold">{ordersCancelled}</h4>
@@ -156,12 +198,15 @@ export default function Activity() {
             <div class="wg-chart-default">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap14">
-                  <div class="image ic-bg">
-                    <i class="icon-dollar-sign"></i>
-                  </div>
+                  <span
+                    class="material-icons my-3"
+                    style={{ color: "#6EC207" }}
+                  >
+                    payments
+                  </span>
                   <div>
                     <div class="body-text mb-2">Canceled Orders Amount</div>
-                    <h4 className="fw-bold">481.34</h4>
+                    <h4 className="fw-bold">${ordersCancelledAmount}</h4>
                   </div>
                 </div>
               </div>

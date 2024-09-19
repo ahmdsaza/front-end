@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../API/axios";
 import { GETLASTORDER } from "../../../API/Api";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./thankyou.css";
 import TransformDated from "../../../helpers/TransformDated";
 import TransformTime from "../../../helpers/TransformTime";

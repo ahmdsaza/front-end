@@ -129,7 +129,7 @@ export default function CheckOut() {
     } catch (err) {
       // setLoading(false);
       if (err.response.data.message === "The address id field is required.") {
-        setErrorCall("Please chose addresss");
+        setErrorCall("Please choose address");
       } else {
         console.log(err);
       }

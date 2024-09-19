@@ -105,11 +105,23 @@ export default function OrderPage() {
                 to={`../products/${item.product_id}`}
               >
                 {item.product_title}
-              </NavLink>{" "}
+              </NavLink>
               ({item.size}) * {item.qty}
             </td>
             <td>${item.price}</td>
             <td>${(item.price * item.qty).toFixed(2)}</td>
+            {orders.status === 3 ? (
+              <td>
+                <NavLink
+                  to={`../rate/${item.product_id}`}
+                  className="text-secondary mt-2"
+                >
+                  Rate product
+                </NavLink>
+              </td>
+            ) : (
+              <></>
+            )}
           </tr>
         </tbody>
       </>
@@ -236,6 +248,7 @@ export default function OrderPage() {
                       )}
                       <th>SUBTOTAL</th>
                       <th>TOTAL</th>
+                      {orders.status === 3 ? <th>Rate</th> : <></>}
                     </tr>
                   </thead>
                   {showOrderProducts}
