@@ -121,7 +121,7 @@ export default function ThankYou() {
                 <div class="order-info__item">
                   <label>Date</label>
                   <span>
-                    {createAtTime} |{createAtDate}
+                    {createAtTime} | {createAtDate}
                   </span>
                 </div>
                 <div class="order-info__item">

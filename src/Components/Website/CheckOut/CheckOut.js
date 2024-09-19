@@ -2,20 +2,26 @@ import React, { useContext, useEffect, useState } from "react";
 import { CARTS, ORDERS, ADDRESS, ADDRESSADD } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import Form from "react-bootstrap/Form";
-import { Container } from "react-bootstrap";
+import { Container, Collapse } from "react-bootstrap";
 import "./checkout.css";
-import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPenToSquare,
+  faTrash,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink, useNavigate } from "react-router-dom";
-import { MenuContextExport } from "../../../Context/MenuContext";
+import { CartExport } from "../../../Context/CartContext";
 
 export default function CheckOut() {
   const [carts, setCarts] = useState([]);
   const [sent, setSent] = useState(false);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(false);
   const [errCall, setErrorCall] = useState("");
   const [addressCall, setAddressCall] = useState([]);
   const [totalPriceState, setTotalPriceState] = useState("");
+  const [open, setOpen] = useState(false);
+  const { setIsChange } = useContext(CartExport);
 
   let descPrice = 0;
   let itemPrice = 0;
@@ -39,9 +45,6 @@ export default function CheckOut() {
     city: "",
     zipcode: "",
   });
-
-  const menu = useContext(MenuContextExport);
-  const setIsOpen = menu.setIsOpen;
 
   const nav = useNavigate();
 
@@ -121,7 +124,7 @@ export default function CheckOut() {
     e.preventDefault();
     try {
       const res = await Axios.post(`${ORDERS}`, form);
-      setIsOpen((prev) => !prev);
+      setIsChange((prev) => !prev);
       nav("/reload");
     } catch (err) {
       // setLoading(false);
@@ -139,16 +142,12 @@ export default function CheckOut() {
     e.preventDefault();
     try {
       const res = await Axios.post(`${ADDRESSADD}`, addressForm);
-      setCount(count + 1);
+      setCount((prev) => !prev);
     } catch (err) {
       // setLoading(false);
       console.log(err);
     }
   }
-
-  // function handleChange(e) {
-  //   setForm({ ...form, [e.target.name]: e.target.value });
-  // }
 
   function handleAddressForm(e) {
     setAddressForm({ ...addressForm, [e.target.name]: e.target.value });
@@ -209,9 +208,8 @@ export default function CheckOut() {
                 ? item.lastname.slice(0, 12) + "..."
                 : item.lastname}
             </span>
-            <span>Phone: {item.phone}</span>
+            <span>Phone: +966{item.phone}</span>
           </div>
-          {/* <div className="name"></div> */}
           <div className="address-info">
             <span>Address: {item.address}</span>
             <span>City: {item.city}</span>
@@ -224,6 +222,7 @@ export default function CheckOut() {
             color={"#4379F2"}
             icon={faPenToSquare}
           />
+
           <FontAwesomeIcon
             onClick={() => handleDelete(item.id)}
             fontSize={"19px"}
@@ -293,104 +292,136 @@ export default function CheckOut() {
           <div class="col-lg-8 delivery px-md-3 px-1">
             <p class="pt-2 fw-bold pb-3 ps-2">Address</p>
             <div>{showAddress}</div>
-            <div class="container">
-              <Form onSubmit={handleAddressSubmit}>
-                <div>
-                  <div className="name">
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput0"
-                    >
-                      <Form.Label for="f-name">First name:</Form.Label>
-                      <Form.Control
-                        required
-                        name="firstname"
-                        value={addressForm.firstname}
-                        onChange={handleAddressForm}
-                        // disabled={!sent}
-                        placeholder="First name..."
-                      ></Form.Control>
-                    </Form.Group>
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput1"
-                    >
-                      <Form.Label>Last name:</Form.Label>
-                      <Form.Control
-                        required
-                        name="lastname"
-                        value={addressForm.lastname}
-                        onChange={handleAddressForm}
-                        type="text"
-                        placeholder="Last name..."
-                        // disabled={!sent}
-                      />
-                    </Form.Group>
+            <div class="">
+              <>
+                <div
+                  className="border rounded "
+                  onClick={() => setOpen(!open)}
+                  aria-expanded={open}
+                >
+                  <div className="d-flex justify-content-center align-items-center gap-2">
+                    <h4 className="mt-2">Add a new address</h4>
+                    <FontAwesomeIcon
+                      fontSize={"19px"}
+                      color={"#4379F2"}
+                      icon={faPlus}
+                    />
                   </div>
-                  <div className="name">
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput0"
-                    >
-                      <Form.Label>Phone number:</Form.Label>
-                      <Form.Control
-                        required
-                        name="phone"
-                        value={addressForm.phone}
-                        onChange={handleAddressForm}
-                        maxLength={9}
-                        placeholder="+966..."
-                      ></Form.Control>
-                    </Form.Group>
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput1"
-                    >
-                      <Form.Label>City:</Form.Label>
-                      <Form.Control
-                        required
-                        name="city"
-                        value={addressForm.city}
-                        onChange={handleAddressForm}
-                        type="text"
-                        placeholder="City..."
-                        // disabled={!sent}
-                      />
-                    </Form.Group>
-                  </div>
-                  <div class="address-info">
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput1"
-                    >
-                      <Form.Label>Address:</Form.Label>
-                      <Form.Control
-                        required
-                        name="address"
-                        value={addressForm.address}
-                        onChange={handleAddressForm}
-                        type="text"
-                        placeholder="Address..."
-                        // disabled={!sent}
-                      />
-                    </Form.Group>
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput0"
-                    >
-                      <Form.Label>zipcode:</Form.Label>
-                      <Form.Control
-                        required
-                        name="zipcode"
-                        value={addressForm.zipcode}
-                        onChange={handleAddressForm}
-                        placeholder="zipcode..."
-                      ></Form.Control>
-                    </Form.Group>
-                  </div>
-                  <button className="btn btn-primary">Save</button>
                 </div>
-              </Form>
+                <Collapse in={open}>
+                  <Form onSubmit={handleAddressSubmit}>
+                    <div>
+                      <div className="name">
+                        <Form.Group
+                          className="mb-3"
+                          controlId="exampleForm.ControlInput0"
+                        >
+                          <Form.Label for="f-name">First name:</Form.Label>
+                          <Form.Control
+                            required
+                            name="firstname"
+                            value={addressForm.firstname}
+                            onChange={handleAddressForm}
+                            // disabled={!sent}
+                            placeholder="First name..."
+                          ></Form.Control>
+                        </Form.Group>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="exampleForm.ControlInput1"
+                        >
+                          <Form.Label>Last name:</Form.Label>
+                          <Form.Control
+                            required
+                            name="lastname"
+                            value={addressForm.lastname}
+                            onChange={handleAddressForm}
+                            type="text"
+                            placeholder="Last name..."
+                            // disabled={!sent}
+                          />
+                        </Form.Group>
+                      </div>
+                      <div className="name">
+                        <Form.Group
+                          className="mb-3"
+                          controlId="exampleForm.ControlInput0"
+                        >
+                          <Form.Label>Phone number:</Form.Label>
+                          <p class="input-group">
+                            <span class="input-group-text">+966</span>
+                            <Form.Control
+                              required
+                              name="phone"
+                              value={addressForm.phone}
+                              onChange={handleAddressForm}
+                              maxLength={9}
+                              placeholder="Phone..."
+                            />
+                          </p>
+                        </Form.Group>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="exampleForm.ControlInput1"
+                        >
+                          <Form.Label>City:</Form.Label>
+                          <Form.Control
+                            required
+                            name="city"
+                            value={addressForm.city}
+                            onChange={handleAddressForm}
+                            type="text"
+                            placeholder="City..."
+                            // disabled={!sent}
+                          />
+                        </Form.Group>
+                      </div>
+                      <div class="address-info">
+                        <Form.Group
+                          className="mb-3"
+                          controlId="exampleForm.ControlInput1"
+                        >
+                          <Form.Label>Address:</Form.Label>
+                          <Form.Control
+                            required
+                            name="address"
+                            value={addressForm.address}
+                            onChange={handleAddressForm}
+                            type="text"
+                            placeholder="Address..."
+                            // disabled={!sent}
+                          />
+                        </Form.Group>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="exampleForm.ControlInput0"
+                        >
+                          <Form.Label>zipcode:</Form.Label>
+                          <Form.Control
+                            required
+                            name="zipcode"
+                            value={addressForm.zipcode}
+                            onChange={handleAddressForm}
+                            placeholder="zipcode..."
+                          ></Form.Control>
+                        </Form.Group>
+                      </div>
+                      <button
+                        onClick={() => setOpen(!open)}
+                        className="btn btn-primary"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </Form>
+                  {/* <div id="example-collapse-text">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life
+                    accusamus terry richardson ad squid. Nihil anim keffiyeh
+                    helvetica, craft beer labore wes anderson cred nesciunt
+                    sapiente ea proident.
+                  </div> */}
+                </Collapse>
+              </>
             </div>
           </div>
           {/*Payment method*/}
@@ -461,7 +492,7 @@ export default function CheckOut() {
                     <p class="fw-bold">Cash on Delivery</p>
                   </div>
                   <small class="text-muted">
-                    Add fees for cash on delivery
+                    Fees added for cash on delivery
                   </small>
                 </div>
                 <div class="d-flex align-items-center">

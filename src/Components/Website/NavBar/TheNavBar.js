@@ -3,24 +3,21 @@ import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import { Axios } from "../../../API/axios";
-import { PRODUCT, LOGOUT, USER, CARTS, CARTLENGTH } from "../../../API/Api";
-import { MenuContextExport } from "../../../Context/MenuContext";
+import { PRODUCT, LOGOUT, USER, CARTLENGTH } from "../../../API/Api";
 // import SkeletonShow from "../Skeleton/SkeletonShow";
 import Cookie from "cookie-universal";
 import "./TheNavBar.css";
-// import { CartExport } from "../../../Context/CartContext";
+import { CartExport } from "../../../Context/CartContext";
 
 export default function TheNavBar(props) {
   const [name, setName] = useState("");
-  const [carts, setCarts] = useState([]);
   const [search, setSearch] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [cartLength, setCartLength] = useState();
   const [searchLoading, setSearchLoading] = useState(false);
   const showEmpty = [];
 
-  const menu = useContext(MenuContextExport);
-  const isOpen = menu.isOpen;
+  const { isChange } = useContext(CartExport);
 
   const cookie = Cookie();
 
@@ -31,21 +28,13 @@ export default function TheNavBar(props) {
       .catch((err) => console.log(err));
   }, []);
 
-  // Number of Items in Cart
-  useEffect(() => {
-    Axios.get(`${CARTS}`)
-      .then((data) => {
-        setCarts(data.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
   const showWichData = search.length > 2 ? searchData : showEmpty;
 
   async function getSearchedData() {
     try {
       const res = await Axios.post(`${PRODUCT}/search?title=${search}`);
       setSearchData(res.data);
+      setSearchLoading(false);
     } catch (err) {
       console.log(err);
     } finally {
@@ -65,7 +54,7 @@ export default function TheNavBar(props) {
     Axios.get(`${CARTLENGTH}`)
       .then((data) => setCartLength(data.data))
       .catch((err) => console.log(err));
-  }, [isOpen]);
+  }, [isChange]);
 
   // Logout
   async function handleLogout() {

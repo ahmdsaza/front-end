@@ -5,7 +5,6 @@ import { MenuContextExport } from "../../Context/MenuContext";
 import { useContext } from "react";
 import { USER } from "../../API/Api";
 import { Axios } from "../../API/axios";
-// import { links } from "./NavLink";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 
 export default function SideBar() {
@@ -30,19 +29,14 @@ export default function SideBar() {
       <div
         style={{
           display: "flex",
-          height: "100%",
           minHeight: "400px",
           // position: "fixed",
+          height: "100vh",
+          backgroundColor: "white",
         }}
       >
-        <Sidebar collapsed={isOpen}>
+        <Sidebar collapsed={window.innerWidth > 768 ? !isOpen : isOpen}>
           <Menu>
-            {/* <FontAwesomeIcon
-              className=""
-              onClick={() => setCollapsed(!collapsed)}
-              cursor={"pointer"}
-              icon={faBars}
-            /> */}
             <MenuItem
               component={<Link to={`./activity`} />}
               icon={<i class="material-icons">dashboard</i>}

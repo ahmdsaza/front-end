@@ -37,7 +37,7 @@ export default function AddProduct() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(false);
   const [categories, setCategories] = useState([]); // Categories UseState
   const [showSizes, setShowSizes] = useState([]);
   const nav = useNavigate();
@@ -189,7 +189,7 @@ export default function AddProduct() {
 
     try {
       Axios.post(`${SIZES}/add`, data).catch((err) => console.log(err));
-      setCount(count + 1);
+      setCount((prev) => !prev);
     } catch (err) {
       console.log(err);
     }
@@ -198,7 +198,7 @@ export default function AddProduct() {
   async function handleDeleteSize(item) {
     try {
       const res = await Axios.delete(`size-delete/${item}`);
-      setCount(count + 1);
+      setCount((prev) => !prev);
     } catch (err) {
       console.log(err);
     }

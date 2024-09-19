@@ -29,7 +29,7 @@ export default function UpdateProduct() {
   const [idsFromServer, setIdsFromServer] = useState([]);
   const [categories, setCategories] = useState([]); // Categories UseState
   const [showSizes, setShowSizes] = useState([]);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(false);
   const { id } = useParams();
   const nav = useNavigate();
 
@@ -201,7 +201,7 @@ export default function UpdateProduct() {
   async function handleDeleteSize(item) {
     try {
       const res = await Axios.delete(`size-delete/${item}`);
-      setCount(count + 1);
+      setCount((prev) => !prev);
     } catch (err) {
       console.log(err);
     }
@@ -221,7 +221,7 @@ export default function UpdateProduct() {
 
     try {
       Axios.post(`${SIZES}/add`, data).catch((err) => console.log(err));
-      setCount(count + 1);
+      setCount((prev) => !prev);
     } catch (err) {
       console.log(err);
     }

@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Axios } from "../../../API/axios";
 import { CARTS, USER, UPDATEQTY } from "../../../API/Api";
-import "./cart.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { MenuContextExport } from "../../../Context/MenuContext";
+import { CartExport } from "../../../Context/CartContext";
+import "./cart.css";
 
 export default function Cart() {
   const [carts, setCarts] = useState([]);
@@ -16,8 +16,7 @@ export default function Cart() {
   let descPrice = 0;
   let tot = 0;
 
-  const menu = useContext(MenuContextExport);
-  const setIsOpen = menu.setIsOpen;
+  const { setIsChange } = useContext(CartExport);
 
   // Import Cart
   useEffect(() => {
@@ -69,7 +68,7 @@ export default function Cart() {
       try {
         const res = await Axios.delete(`${CARTS}/${id}`);
         setCarts((prev) => prev.filter((item) => item.id !== id));
-        setIsOpen((prev) => !prev);
+        setIsChange((prev) => !prev);
       } catch (err) {
         console.log(err);
       }

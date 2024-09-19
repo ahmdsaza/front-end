@@ -14,15 +14,18 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import MenuContext from "./Context/MenuContext";
 import WindowContext from "./Context/WindowContext";
+import CartContext from "./Context/CartContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <WindowContext>
       <MenuContext>
-        <Router>
-          <App />
-        </Router>
+        <CartContext>
+          <Router>
+            <App />
+          </Router>
+        </CartContext>
       </MenuContext>
     </WindowContext>
   </React.StrictMode>

@@ -10,10 +10,16 @@ export const REGISTER = "register";
 export const LOGIN = "login";
 export const LOGOUT = "logout";
 
+// Orders
 export const ORDER = "orders";
 export const ORDERID = "order";
 export const ALLORDERS = "get-order";
+
+// Showing Orders Status
 export const ORDERSCOUNT = "get-order-count";
+export const ORDERSPENDINGCOUNT = "get-pending-order-count";
+export const ORDERSCOMPLETEDCOUNT = "get-completed-order-count";
+export const ORDERSCANCELLEDCOUNT = "get-cancelled-order-count";
 
 // Google
 export const GOOGLE_CALL_BACK = "auth/google/callback";

@@ -100,7 +100,7 @@ export default function Login() {
               </Form.Group>
               <button className="btn btn-primary">Login</button>
               <div className="google-btn">
-                <NavLink to={`http://localhost:3000/login-google`}>
+                <NavLink to={`/login-google`}>
                   <div className="google-icon-wrapper">
                     <img
                       className="google-icon"

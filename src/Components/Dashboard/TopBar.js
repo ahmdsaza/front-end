@@ -39,7 +39,7 @@ export default function TopBar() {
     <div className="top-bar">
       <div className="d-flex align-items-center justify-content-between h-100">
         <div className="d-flex align-items-center gap-5">
-          <h3>E-Commerce</h3>
+          {/* <h3>E-Commerce</h3> */}
           <FontAwesomeIcon
             onClick={() => setIsOpen((prev) => !prev)}
             cursor={"pointer"}

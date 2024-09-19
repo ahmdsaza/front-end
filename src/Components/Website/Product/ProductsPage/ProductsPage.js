@@ -6,7 +6,7 @@ import { Container, Form } from "react-bootstrap";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MenuContextExport } from "../../../../Context/MenuContext";
+import { CartExport } from "../../../../Context/CartContext";
 import "./ProductsPage.css";
 
 export default function ProductsPage() {
@@ -20,9 +20,7 @@ export default function ProductsPage() {
   const [showSize, setShowSize] = useState([]);
   const [showRateNumber, setShowRateNumber] = useState(0);
   const [sizeChoice, setSizeChoice] = useState();
-
-  const menu = useContext(MenuContextExport);
-  const setIsOpen = menu.setIsOpen;
+  const { setIsChange } = useContext(CartExport);
 
   // Call Rate
   useEffect(() => {
@@ -64,7 +62,7 @@ export default function ProductsPage() {
         Axios.post(`${CART}`, data)
           .then(
             setAddtoCart("Product add to cart successfully"),
-            setIsOpen((prev) => !prev)
+            setIsChange((prev) => !prev)
           )
           .catch((err) => {
             if (err.response.status === 420) {
