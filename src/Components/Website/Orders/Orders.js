@@ -60,7 +60,7 @@ export default function Orders() {
   ));
 
   return (
-    <Container>
+    <Container className="mt-3">
       <h1 className="d-flex justify-content-center">My Orders</h1>
       <div>
         {orders.length > 0 ? (

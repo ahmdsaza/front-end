@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Axios } from "../../../API/axios";
 import { USER, ORDERSCOUNT } from "../../../API/Api";
 import { NavLink } from "react-router-dom";

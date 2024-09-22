@@ -6,6 +6,8 @@ import { Container } from "react-bootstrap";
 import TransformDated from "../../../helpers/TransformDated";
 import TransformTime from "../../../helpers/TransformTime";
 import "../CheckOut/thankyou.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 export default function OrderPage() {
   const { id } = useParams();
@@ -13,8 +15,6 @@ export default function OrderPage() {
   const [getOrders, setGetOrders] = useState([]);
   const [orderPrice, setOrderPrice] = useState([]);
   const [loading, setLoading] = useState(true);
-  let totalCartPrice = 0;
-  let totalPrice = 0;
 
   useEffect(() => {
     Axios.get(`${ORDERID}/${id}`)
@@ -27,74 +27,7 @@ export default function OrderPage() {
       .catch((err) => console.log(err));
   }, []);
 
-  // const showOrderItems = orders.map((item, key) => {
-  //   createAt = item.created_at;
-  //   return (
-  //     <div class="order-complete">
-  //       <div class="order-info">
-  //         <div class="order-info__item">
-  //           <label>Order Number</label>
-  //           <span>#{item.id}</span>
-  //         </div>
-  //         <div class="order-info__item">
-  //           <label>Date</label>
-  //           <span>
-  //             {createAt.slice(0, 10)} | {createAt.slice(11, 16)}
-  //           </span>
-  //         </div>
-  //         <div class="order-info__item">
-  //           <label>Tracking Number</label>
-  //           <span>{item.tracking_no}</span>
-  //         </div>
-  //         <div class="order-info__item">
-  //           <label>Paymetn Method</label>
-  //           <span>
-  //             {item.payment_mode == 0 ? (
-  //               <span>Cash on Delivery</span>
-  //             ) : item.payment_mode == 1 ? (
-  //               <span>Visa</span>
-  //             ) : item.payment_mode == 2 ? (
-  //               <span>Mada</span>
-  //             ) : (
-  //               <></>
-  //             )}
-  //           </span>
-  //         </div>
-  //         <div class="order-info__item">
-  //           <label>status</label>
-  //           <p className="d-flex gap-1 my-0">
-  //             {item.status === 0 ? (
-  //               <p className="bg-primary rounded-1 px-1 text-white">Pending</p>
-  //             ) : item.status === 1 ? (
-  //               <p className="bg-warning rounded-1 px-1 text-black">
-  //                 Awaiting Payment
-  //               </p>
-  //             ) : item.status === 2 ? (
-  //               <p className="bg-secondary rounded-1 px-1 text-white">
-  //                 Awaiting Shipment
-  //               </p>
-  //             ) : item.status === 3 ? (
-  //               <p className="bg-success rounded-1 px-1 text-white">
-  //                 Completed
-  //               </p>
-  //             ) : item.status === 4 ? (
-  //               <p className="bg-success rounded-1 px-1 text-white">Shipped</p>
-  //             ) : item.status === 5 ? (
-  //               <p className="bg-danger rounded-1 px-1 text-white">Cancelled</p>
-  //             ) : (
-  //               <p>Waiting</p>
-  //             )}
-  //           </p>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // });
-
   const showOrderProducts = getOrders.map((item, key) => {
-    totalCartPrice += item.price * item.qty;
-    totalPrice = totalCartPrice * 1.15;
-
     return (
       <>
         <tbody>
@@ -112,11 +45,8 @@ export default function OrderPage() {
             <td>${(item.price * item.qty).toFixed(2)}</td>
             {orders.status === 3 ? (
               <td>
-                <NavLink
-                  to={`../rate/${item.product_id}`}
-                  className="text-secondary mt-2"
-                >
-                  Rate product
+                <NavLink to={`../rate/${item.product_id}`} className="mx-2">
+                  <FontAwesomeIcon fontSize={"19px"} icon={faPenToSquare} />
                 </NavLink>
               </td>
             ) : (
@@ -127,24 +57,28 @@ export default function OrderPage() {
       </>
     );
   });
-  let vat = totalCartPrice * 0.15;
 
   let createAtDate = orders ? TransformDated(orders.created_at) : <></>;
   let createAtTime = orders ? TransformTime(orders.created_at) : <></>;
 
-  // console.log(orders);
-
   return (
     <Container>
-      <main class="pt-90">
-        <NavLink className="btn btn-primary" to="../orders">
-          {" "}
-          &lt;- Back to Orders
-        </NavLink>
-        <div class="mb-4 "></div>
-        <section class="shop-checkout container">
+      <main>
+        <section>
           <div class="order-complete">
-            <h1>Order Details</h1>
+            <NavLink
+              className="btn btn-primary mt-3"
+              style={{ width: "120px" }}
+              to="../orders"
+            >
+              <FontAwesomeIcon
+                style={{ transform: "scaleX(-1)" }}
+                icon={faArrowRight}
+                className="px-1"
+              />
+              Back
+            </NavLink>
+            <h1 className="text-center mt-3">Order Details</h1>
             <div class="checkout__totals-wrapper">
               <div class="order-complete">
                 <div class="order-info">
@@ -267,11 +201,11 @@ export default function OrderPage() {
                       <th>VAT</th>
                       <td>${orderPrice.vat}</td>
                     </tr>
-                    {orders.payment_mode === "0" ? (
+                    {orders.fees !== "0" ? (
                       <>
                         <tr>
                           <th>COD Fees</th>
-                          <td>$5.00</td>
+                          <td>${orderPrice.fees}</td>
                         </tr>
                       </>
                     ) : (

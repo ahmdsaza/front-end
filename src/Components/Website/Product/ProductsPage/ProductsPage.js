@@ -115,22 +115,20 @@ export default function ProductsPage() {
     );
 
     return (
-      <div>
-        <div className="card mt-3">
-          <div className="rate-div">
-            <div>
-              <img
-                width="50px"
-                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                alt={item.users[0].name}
-              />
-            </div>
-            <div>
-              <p className="fw-bold">{item.users[0].name}</p>
-              {showGoldStarsRate}
-              {showEmptyStarsRate}
-              <p>{item.description}</p>
-            </div>
+      <div className="card mt-3">
+        <div className="rate-div">
+          <div>
+            <img
+              width="50px"
+              src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+              alt={item.users[0].name}
+            />
+          </div>
+          <div>
+            <p className="fw-bold">{item.users[0].name}</p>
+            {showGoldStarsRate}
+            {showEmptyStarsRate}
+            <p>{item.description}</p>
           </div>
         </div>
       </div>
@@ -148,6 +146,11 @@ export default function ProductsPage() {
       <div className="product-div">
         <div class="product-img">
           <img src={item.images[0].image} alt="" />
+          <div className="sub-img">
+            <img src={item.images[1].image} alt="" />
+            <img src={item.images[2].image} alt="" />
+            {/* <img src={item.images[3].image} alt="" /> */}
+          </div>
         </div>
         <div class="product-side">
           <div class="product-description">
@@ -157,23 +160,25 @@ export default function ProductsPage() {
             <h1 className="product-title">{item.title}</h1>
             <p className="product-description">{item.description}</p>
           </div>
-          <div class="product-prices">
+          <div>
+            {showSize.length > 0 ? (
+              <div className="mx-4 my-1">
+                <Form.Select className="size" onClick={handleSize}>
+                  {showSize.map((item, key) => (
+                    <option key={key} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div class="product-prices mt-3">
             <span className="product-discount">${item.discount}</span>
             <span className="product-price">${item.price}</span>
           </div>{" "}
-          {showSize.length > 0 ? (
-            <>
-              <Form.Select className="size" onClick={handleSize}>
-                {showSize.map((item, key) => (
-                  <option key={key} value={item.id}>
-                    {item.name}
-                  </option>
-                ))}
-              </Form.Select>
-            </>
-          ) : (
-            <></>
-          )}
           <div class="cart-btn">
             <div className="count-div">
               <input
@@ -230,7 +235,7 @@ export default function ProductsPage() {
       {showRate.length > 0 ? (
         <div>
           <h1 className="text-center mt-3">Reviews</h1>
-          <div> {showRateData}</div>
+          <div className="mt-4"> {showRateData}</div>
         </div>
       ) : (
         <></>

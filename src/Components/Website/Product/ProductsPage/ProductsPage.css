@@ -8,6 +8,12 @@
     width: 100%;
     height: auto;
 }
+.sub-img {
+    display: flex;
+    gap: 10%;
+    margin-top: 2%;
+    width: 10rem;
+}
 .product-side {
     display: flex;
     flex-direction: column;
@@ -81,6 +87,7 @@
 }
 .rate-div {
     margin-left: 1rem;
+    min-height: 75px;
     width: 100%;
     display: flex;
     /* flex-direction: column; */

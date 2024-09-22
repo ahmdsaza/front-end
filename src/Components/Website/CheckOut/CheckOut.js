@@ -33,9 +33,8 @@ export default function CheckOut() {
     productsprice: "",
     vat: "",
     totalprice: "",
+    fees: "",
   });
-
-  // console.log(addressCall);
 
   const [addressForm, setAddressForm] = useState({
     firstname: "",
@@ -60,8 +59,6 @@ export default function CheckOut() {
       .then((data) => setAddressCall(data.data))
       .catch((err) => console.log(err));
   }, [count]);
-
-  // console.log(addressCall);
 
   let totalCartPrice = 0;
 
@@ -153,6 +150,8 @@ export default function CheckOut() {
     setAddressForm({ ...addressForm, [e.target.name]: e.target.value });
   }
 
+  let fees = 0;
+
   function handlePayment(e) {
     if (e.target.value == 0) {
       form.payment_mode = e.target.value;
@@ -160,6 +159,7 @@ export default function CheckOut() {
       form.productsprice = totalCartPrice.toFixed(2);
       form.vat = vat.toFixed(2);
       form.totalprice = (totalCartPrice + vat + 5).toFixed(2);
+      form.fees = "5.00";
       setSent(true);
     } else {
       form.payment_mode = e.target.value;
@@ -167,6 +167,7 @@ export default function CheckOut() {
       form.productsprice = totalCartPrice.toFixed(2);
       form.vat = vat.toFixed(2);
       form.totalprice = (totalCartPrice + vat).toFixed(2);
+      form.fees = "5.00";
       setSent(true);
     }
   }
@@ -299,7 +300,10 @@ export default function CheckOut() {
                   onClick={() => setOpen(!open)}
                   aria-expanded={open}
                 >
-                  <div className="d-flex justify-content-center align-items-center gap-2">
+                  <div
+                    className="d-flex justify-content-center align-items-center gap-2"
+                    style={{ cursor: "pointer" }}
+                  >
                     <h4 className="mt-2">Add a new address</h4>
                     <FontAwesomeIcon
                       fontSize={"19px"}
@@ -414,12 +418,6 @@ export default function CheckOut() {
                       </button>
                     </div>
                   </Form>
-                  {/* <div id="example-collapse-text">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life
-                    accusamus terry richardson ad squid. Nihil anim keffiyeh
-                    helvetica, craft beer labore wes anderson cred nesciunt
-                    sapiente ea proident.
-                  </div> */}
                 </Collapse>
               </>
             </div>

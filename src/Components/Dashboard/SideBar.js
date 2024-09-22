@@ -11,7 +11,6 @@ export default function SideBar() {
   // Menu Context
   const menu = useContext(MenuContextExport);
   const isOpen = menu.isOpen;
-  const setIsOpen = menu.setIsOpen;
 
   // User
   const [user, setUser] = useState("");
@@ -30,8 +29,7 @@ export default function SideBar() {
       <div
         style={{
           display: "flex",
-          minHeight: "400px",
-          // position: "sticky",
+          position: "sticky",
           minHeight: "100%",
           backgroundColor: "white",
         }}
@@ -108,54 +106,6 @@ export default function SideBar() {
           </Menu>
         </Sidebar>
       </div>
-
-      {/* <div
-        style={{
-          position: "fixed",
-          top: "70px",
-          left: "0",
-          width: "100%",
-          height: "100vh",
-          backgroundColor: "rgba( 0, 0, 0, 0.2)",
-          display: windowSize < "768" && isOpen ? "block" : "none",
-        }}
-      ></div>
-      <div
-        className="side-bar pt-3"
-        style={{
-          left: windowSize < "786" ? (isOpen ? 0 : "-100%") : 0,
-          width: isOpen ? "240px" : "fit-content",
-          position: windowSize < "768" ? "fixed" : "sticky",
-        }}
-      >
-        {links.map(
-          (link, key) =>
-            link.role.includes(user.role) && (
-              <NavLink
-                key={key}
-                to={link.path}
-                className="d-flex align-items-center gap-2 side-bar-link"
-              >
-                <i
-                  style={{
-                    padding: isOpen ? "10px 8px 10px 15px" : "10px 13px",
-                  }}
-                  class="material-icons"
-                >
-                  <span>{link.icons}</span>
-                </i>
-                <p
-                  className="m-0"
-                  style={{
-                    display: isOpen ? "block" : "none",
-                  }}
-                >
-                  {link.name}
-                </p>
-              </NavLink>
-            )
-        )}
-      </div> */}
     </>
   );
 }

@@ -27,7 +27,6 @@ export default function Rating() {
       .then((data) => setUser(data.data))
       .catch((err) => console.log(err));
   }, []);
-  // console.log(products[0].id);
 
   async function submitRate(e) {
     e.preventDefault();
@@ -42,7 +41,7 @@ export default function Rating() {
     try {
       if (user) {
         Axios.post(`${RATE}`, datarate)
-          .then(setAddRate("Rate add successfully"))
+          .then(setAddRate("Your rate add successfully"))
           .catch((err) => console.log(err));
       } else {
         alert("Some thing wrong try later");

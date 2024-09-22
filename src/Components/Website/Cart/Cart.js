@@ -75,10 +75,7 @@ export default function Cart() {
     }
 
     return (
-      <div
-        className="cardStyling w-100 d-flex flex-column align-items-center p-3"
-        key={key}
-      >
+      <div className="cardStyling w-100  p-3" key={key}>
         <div className="cart-card">
           <div className="cart-card-details-cart">
             <div className="cart-image-div">
@@ -151,36 +148,47 @@ export default function Cart() {
 
   return (
     <Container>
-      <h1 className="d-flex justify-content-center">Shopping Cart</h1>
-      {/* {showImage} */}
-      <div className="cardStyle d-flex flex-column align-items-center justify-content-center h-100 mt-4">
-        {carts.length > 0 ? (
-          showCart
-        ) : (
-          <div className="card w-100 d-flex flex-row justify-content-center p-3">
-            <h3>No Items in Cart</h3>
+      <div className="row px-md-4">
+        <div className="col-lg-8">
+          <h1 className="d-flex justify-content-center">Shopping Cart</h1>
+          {/* {showImage} */}
+          <div className="cardStyle d-flex flex-column align-items-center justify-content-center h-100 mt-4">
+            {carts.length > 0 ? (
+              showCart
+            ) : (
+              <div className="card w-100 d-flex flex-row justify-content-center p-3">
+                <h3>No Items in Cart</h3>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      {/* {showProducts} */}
-      {user && carts.length > 0 ? (
-        <div className=" justify-content-around mt-3">
-          <div className="total-amount">
-            <p className="before-vat">
-              Before VAT: ${totalCartPrice.toFixed(2)}
-            </p>
-            <p className="vat">VAT: ${vat.toFixed(2)}</p>
-            <p className="after-vat">Total Price: ${totalWithVat.toFixed(2)}</p>
-          </div>{" "}
-          <Link to="../checkout">
-            <button className="checkout-button mt-3">
-              <sapn className="checkout-span">Check Out</sapn>
-            </button>
-          </Link>
         </div>
-      ) : (
-        <p></p>
-      )}
+        {/* {showProducts} */}
+        <div className="col-lg-4">
+          {user && carts.length > 0 ? (
+            <div className="">
+              {" "}
+              <div className="d-flex flex-column align-items-end mt-3">
+                <div className="total-amount">
+                  <p className="before-vat">
+                    Before VAT: ${totalCartPrice.toFixed(2)}
+                  </p>
+                  <p className="vat">VAT: ${vat.toFixed(2)}</p>
+                  <p className="after-vat">
+                    Total Price: ${totalWithVat.toFixed(2)}
+                  </p>
+                </div>{" "}
+              </div>
+              <Link to="../checkout">
+                <button className="checkout-button mt-3">
+                  <sapn className="checkout-span">Check Out</sapn>
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <p></p>
+          )}
+        </div>
+      </div>
     </Container>
   );
 }

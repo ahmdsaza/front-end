@@ -9,6 +9,7 @@ import TransformTime from "../../../helpers/TransformTime";
 export default function ThankYou() {
   const [orders, setOrders] = useState([]);
   const [getOrders, setGetOrders] = useState([]);
+  const [orderPrice, setOrderPrice] = useState([]);
   const [loading, setLoading] = useState(true);
 
   let totalCartPrice = 0;
@@ -20,6 +21,7 @@ export default function ThankYou() {
       .then((data) => {
         setOrders(data.data[0]);
         setGetOrders(data.data[0].order_items);
+        setOrderPrice(data.data[0].payment[0]);
         setLoading(false);
       })
       .catch((err) => console.log(err));
@@ -87,6 +89,8 @@ export default function ThankYou() {
 
   let createAtDate = orders ? TransformDated(orders.created_at) : <></>;
   let createAtTime = orders ? TransformTime(orders.created_at) : <></>;
+
+  console.log(orders);
 
   return (
     <main class="pt-90">
@@ -232,11 +236,11 @@ export default function ThankYou() {
                     <th>VAT</th>
                     <td>${vat.toFixed(2)}</td>
                   </tr>
-                  {orders.payment_mode === "0" ? (
+                  {orders.fees !== "0" ? (
                     <>
                       <tr>
                         <th>COD Fees</th>
-                        <td>$5.00</td>
+                        <td>${orderPrice?.fees}</td>
                       </tr>
                     </>
                   ) : (

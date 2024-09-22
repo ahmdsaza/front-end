@@ -1,4 +1,7 @@
 .cardStyling {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 .cardStyle {
@@ -55,7 +58,7 @@
 
 .count-qty-div {
     display: flex;
-    width: 80%;
+    /* width: 80%; */
     border: 1px solid rgb(170, 170, 170);
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -65,7 +68,7 @@
 }
 
 .count-qty {
-    width: 3rem;
+    width: 100%;
     text-align: center;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -75,7 +78,7 @@
 }
 
 .total-amount {
-    width: 30%;
+    width: 100%;
     font-size: 1.5rem;
     border: 1px solid black;
     border-radius: 5px;
@@ -103,7 +106,7 @@
     }
     .count-qty-div {
         display: flex;
-        width: 80%;
+        width: 50%;
         border: 1px solid rgb(170, 170, 170);
         border-radius: 5px;
         -webkit-border-radius: 5px;
@@ -140,19 +143,15 @@
 @media (max-width: 768px) {
     .cart-card {
         height: 150px;
-        /* border: 1px solid black; */
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        /* flex-direction: row; */
         gap: 2rem;
     }
-
     .cart-product-price {
         padding-top: 0rem;
         font-size: 0.75rem;
     }
-
     .cart-image {
         object-fit: cover;
         max-width: 100px;
@@ -167,7 +166,7 @@
     }
     .count-qty-div {
         display: flex;
-        width: 100%;
+        width: 70%;
         border: 1px solid rgb(170, 170, 170);
         border-radius: 5px;
         -webkit-border-radius: 5px;

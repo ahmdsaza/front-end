@@ -207,7 +207,7 @@ label {
     }
 
     input {
-        margin: 5px 0;
+        /* margin: 5px 0; */
         min-height: 30px;
     }
 }
