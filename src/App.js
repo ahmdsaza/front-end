@@ -37,69 +37,76 @@ import Activity from "./Pages/Dashboard/Activity/Activity";
 import Rate from "./Pages/Dashboard/Rate/Rate";
 import RateEdit from "./Pages/Dashboard/Rate/RateEdit";
 import ReloadPage from "./Components/Website/CheckOut/ReloadPage";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className="App">
-      {/* Public Routes */}
-      <Routes>
-        <Route element={<Website />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/categories" element={<WebsiteCategoreis />} />
-          <Route path="/categories/:id" element={<CategoriesPage />} />
-          {/* <Route path="/products" element={<AllProducts />} /> */}
-          <Route path="products/:id" element={<ProductsPage />} />
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        {/* Public Routes */}
+        <Routes>
+          <Route element={<Website />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/categories" element={<WebsiteCategoreis />} />
+            <Route path="/categories/:id" element={<CategoriesPage />} />
+            {/* <Route path="/products" element={<AllProducts />} /> */}
+            <Route path="products/:id" element={<ProductsPage />} />
+            <Route
+              element={<RequireAuth allowedRole={["1996", "1995", "1999"]} />}
+            >
+              <Route path="cart" element={<Cart />} />
+              <Route path="checkout" element={<CheckOut />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="orders/:id" element={<OrderPage />} />
+              <Route path="rate/:id" element={<Rating />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="profile/edit/:id" element={<ProfileEdit />} />
+              <Route path="/reload" element={<ReloadPage />} />
+              <Route path="/thankyou" element={<ThankYou />} />
+            </Route>
+          </Route>
+          <Route element={<RequireBack />}>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+          </Route>
+          <Route path="/auth/google/callback" element={<GoogleCallback />} />
+          <Route path="/*" element={<Err404 />} />
+
+          {/* Protected Routes */}
           <Route
             element={<RequireAuth allowedRole={["1996", "1995", "1999"]} />}
           >
-            <Route path="cart" element={<Cart />} />
-            <Route path="checkout" element={<CheckOut />} />
-            <Route path="orders" element={<Orders />} />
-            <Route path="orders/:id" element={<OrderPage />} />
-            <Route path="rate/:id" element={<Rating />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="profile/edit/:id" element={<ProfileEdit />} />
-            <Route path="/reload" element={<ReloadPage />} />
-            <Route path="/thankyou" element={<ThankYou />} />
-          </Route>
-        </Route>
-        <Route element={<RequireBack />}>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-        </Route>
-        <Route path="/auth/google/callback" element={<GoogleCallback />} />
-        <Route path="/*" element={<Err404 />} />
+            <Route path="/dashboard" element={<Dashboard />}>
+              {/* Admin */}
+              <Route element={<RequireAuth allowedRole={["1995"]} />}>
+                <Route path="users" element={<Users />} />
+                <Route path="orders" element={<AllOrders />} />
+                <Route path="rate" element={<Rate />} />
+                <Route path="activity" element={<Activity />} />
+                <Route path="users/:id" element={<User />} />
+                <Route path="user/add" element={<AddUser />} />
+                <Route path="orders/:id" element={<DashboardOrdersPage />} />
+                <Route path="rate/:id" element={<RateEdit />} />
+              </Route>
 
-        {/* Protected Routes */}
-        <Route element={<RequireAuth allowedRole={["1996", "1995", "1999"]} />}>
-          <Route path="/dashboard" element={<Dashboard />}>
-            {/* Admin */}
-            <Route element={<RequireAuth allowedRole={["1995"]} />}>
-              <Route path="users" element={<Users />} />
-              <Route path="orders" element={<AllOrders />} />
-              <Route path="rate" element={<Rate />} />
-              <Route path="activity" element={<Activity />} />
-              <Route path="users/:id" element={<User />} />
-              <Route path="user/add" element={<AddUser />} />
-              <Route path="orders/:id" element={<DashboardOrdersPage />} />
-              <Route path="rate/:id" element={<RateEdit />} />
-            </Route>
-
-            {/* Categories Manager */}
-            <Route element={<RequireAuth allowedRole={["1999", "1995"]} />}>
-              {/* Categories*/}
-              <Route path="categories" element={<Categories />} />
-              <Route path="category/add" element={<AddCategory />} />
-              <Route path="categories/:id" element={<Category />} />
-              {/* Products */}
-              <Route path="products" element={<Products />} />
-              <Route path="product/add" element={<AddProduct />} />
-              <Route path="products/:id" element={<UpdateProduct />} />
+              {/* Categories Manager */}
+              <Route element={<RequireAuth allowedRole={["1999", "1995"]} />}>
+                {/* Categories*/}
+                <Route path="categories" element={<Categories />} />
+                <Route path="category/add" element={<AddCategory />} />
+                <Route path="categories/:id" element={<Category />} />
+                {/* Products */}
+                <Route path="products" element={<Products />} />
+                <Route path="product/add" element={<AddProduct />} />
+                <Route path="products/:id" element={<UpdateProduct />} />
+              </Route>
             </Route>
           </Route>
-        </Route>
-      </Routes>
-    </div>
+        </Routes>
+      </div>
+    </QueryClientProvider>
   );
 }
 
