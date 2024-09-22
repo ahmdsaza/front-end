@@ -11,6 +11,7 @@ export default function SideBar() {
   // Menu Context
   const menu = useContext(MenuContextExport);
   const isOpen = menu.isOpen;
+  const setIsOpen = menu.setIsOpen;
 
   // User
   const [user, setUser] = useState("");

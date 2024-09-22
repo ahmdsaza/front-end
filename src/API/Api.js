@@ -15,17 +15,8 @@ export const ORDER = "orders";
 export const ORDERID = "order";
 export const ALLORDERS = "get-order";
 
-// Showing Orders Status
+// Showing Orders
 export const ORDERSCOUNT = "get-order-count";
-export const ORDERSPENDINGCOUNT = "get-pending-order-count";
-export const ORDERSCOMPLETEDCOUNT = "get-completed-order-count";
-export const ORDERSCANCELLEDCOUNT = "get-cancelled-order-count";
-
-// Showing Orders Amount
-export const ORDERSAMOUNT = "get-orders-amount";
-export const ORDERSPENDINGAMOUNT = "get-pending-orders-amount";
-export const ORDERSCOMPLETEDAMOUNT = "get-completed-orders-amount";
-export const ORDERSCANCELLEDAMOUNT = "get-cancelled-orders-amount";
 
 // Google
 export const GOOGLE_CALL_BACK = "auth/google/callback";

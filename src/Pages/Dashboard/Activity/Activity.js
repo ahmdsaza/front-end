@@ -1,66 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../API/axios";
-import {
-  USER,
-  ORDERSCOUNT,
-  ORDERSPENDINGCOUNT,
-  ORDERSCOMPLETEDCOUNT,
-  ORDERSCANCELLEDCOUNT,
-  ORDERSAMOUNT,
-  ORDERSPENDINGAMOUNT,
-  ORDERSCOMPLETEDAMOUNT,
-  ORDERSCANCELLEDAMOUNT,
-} from "../../../API/Api";
+import { USER, ORDERSCOUNT } from "../../../API/Api";
 import { NavLink } from "react-router-dom";
 import "./activity.css";
 import { useQuery } from "react-query";
 
 export default function Activity() {
-  const { data: orderCount } = useQuery({
+  const { data: orders } = useQuery({
     queryFn: () => Axios.get(`${ORDERSCOUNT}`),
     queryKey: "ordercount",
-    staleTime: 60 * 1000,
-  });
-
-  const { data: ordersPending } = useQuery({
-    queryFn: () => Axios.get(`${ORDERSPENDINGCOUNT}`),
-    queryKey: "orderpending",
-    staleTime: 60 * 1000,
-  });
-
-  const { data: ordersCompleted } = useQuery({
-    queryFn: () => Axios.get(`${ORDERSCOMPLETEDCOUNT}`),
-    queryKey: "ordercompleted",
-    staleTime: 60 * 1000,
-  });
-
-  const { data: ordersCancelled } = useQuery({
-    queryFn: () => Axios.get(`${ORDERSCANCELLEDCOUNT}`),
-    queryKey: "ordercancelled",
-    staleTime: 60 * 1000,
-  });
-
-  const { data: ordersAmount } = useQuery({
-    queryFn: () => Axios.get(`${ORDERSAMOUNT}`),
-    queryKey: "ordersamount",
-    staleTime: 60 * 1000,
-  });
-
-  const { data: ordersPendingAmount } = useQuery({
-    queryFn: () => Axios.get(`${ORDERSPENDINGAMOUNT}`),
-    queryKey: "orderspendingamount",
-    staleTime: 60 * 1000,
-  });
-
-  const { data: ordersCompletedAmount } = useQuery({
-    queryFn: () => Axios.get(`${ORDERSCOMPLETEDAMOUNT}`),
-    queryKey: "orderscompletedamount",
-    staleTime: 60 * 1000,
-  });
-
-  const { data: ordersCancelledAmount } = useQuery({
-    queryFn: () => Axios.get(`${ORDERSCANCELLEDAMOUNT}`),
-    queryKey: "orderscancelledamount",
     staleTime: 60 * 1000,
   });
 
@@ -78,11 +26,6 @@ export default function Activity() {
           Welcome: {userName?.data.name}
         </h1>
       </div>
-      {/*<div>
-        <NavLink to={`../orders`} className="text-black">
-          Orders number: {orders}
-        </NavLink>
-      </div> */}
       <div className="my-3 mx-3">
         <div class="flex gap20 flex-wrap">
           <div class="">
@@ -94,8 +37,8 @@ export default function Activity() {
                       inventory_2
                     </i>
                     <div>
-                      <div class="body-text mb-2">Total Orders</div>
-                      <h4 className="fw-bold">{orderCount?.data}</h4>
+                      <div class="body-text mb-2">Orders</div>
+                      <h4 className="fw-bold">{orders?.data.orderscount}</h4>
                     </div>
                   </div>
                 </div>
@@ -113,7 +56,7 @@ export default function Activity() {
                     </span>
                     <div>
                       <div class="body-text mb-2">Total Amount</div>
-                      <h4 className="fw-bold">${ordersAmount?.data}</h4>
+                      <h4 className="fw-bold">${orders?.data.ordersamount}</h4>
                       <small style={{ position: "absolute" }}>
                         * With out Cancelled orders
                       </small>
@@ -131,7 +74,7 @@ export default function Activity() {
                     </i>
                     <div>
                       <div class="body-text mb-2">Pending Orders</div>
-                      <h4 className="fw-bold">{ordersPending?.data}</h4>
+                      <h4 className="fw-bold">{orders?.data.orderspending}</h4>
                     </div>
                   </div>
                 </div>
@@ -149,7 +92,9 @@ export default function Activity() {
                     </span>
                     <div>
                       <div class="body-text mb-2">Pending Orders Amount</div>
-                      <h4 className="fw-bold">${ordersPendingAmount?.data}</h4>
+                      <h4 className="fw-bold">
+                        ${orders?.data.orderspendingamount}
+                      </h4>
                     </div>
                   </div>
                 </div>
@@ -167,7 +112,7 @@ export default function Activity() {
                     </i>
                     <div>
                       <div class="body-text mb-2">Delivered Orders</div>
-                      <h4 className="fw-bold">{ordersCompleted?.data}</h4>
+                      <h4 className="fw-bold">{orders?.data.ordercompleted}</h4>
                     </div>
                   </div>
                 </div>
@@ -186,7 +131,7 @@ export default function Activity() {
                     <div>
                       <div class="body-text mb-2">Delivered Orders Amount</div>
                       <h4 className="fw-bold">
-                        ${ordersCompletedAmount?.data}
+                        ${orders?.data.ordercompletedamount}
                       </h4>
                     </div>
                   </div>
@@ -201,8 +146,10 @@ export default function Activity() {
                       inventory_2
                     </i>{" "}
                     <div>
-                      <div class="body-text mb-2">Canceled Orders</div>
-                      <h4 className="fw-bold">{ordersCancelled?.data}</h4>
+                      <div class="body-text mb-2">Cancelled Orders</div>
+                      <h4 className="fw-bold">
+                        {orders?.data.orderscancelled}
+                      </h4>
                     </div>
                   </div>
                 </div>
@@ -219,9 +166,9 @@ export default function Activity() {
                       payments
                     </span>
                     <div>
-                      <div class="body-text mb-2">Canceled Orders Amount</div>
+                      <div class="body-text mb-2">Cancelled Orders Amount</div>
                       <h4 className="fw-bold">
-                        ${ordersCancelledAmount?.data}
+                        ${orders?.data.orderscancelledamount}
                       </h4>
                     </div>
                   </div>
