@@ -165,25 +165,47 @@ export default function Cart() {
         {/* {showProducts} */}
         <div className="col-lg-4">
           {user && carts.length > 0 ? (
-            <div className="">
-              {" "}
-              <div className="d-flex flex-column align-items-end mt-3">
-                <div className="total-amount">
-                  <p className="before-vat">
-                    Before VAT: ${totalCartPrice.toFixed(2)}
-                  </p>
-                  <p className="vat">VAT: ${vat.toFixed(2)}</p>
-                  <p className="after-vat">
-                    Total Price: ${totalWithVat.toFixed(2)}
-                  </p>
-                </div>{" "}
+            <>
+              <div className="">
+                {" "}
+                {/* <div className="d-flex flex-column align-items-end mt-3">
+                  <div className="total-amount">
+                    <p className="before-vat">
+                      Before VAT: ${totalCartPrice.toFixed(2)}
+                    </p>
+                    <p className="vat">VAT: ${vat.toFixed(2)}</p>
+                    <p className="after-vat">
+                      Total Price: ${totalWithVat.toFixed(2)}
+                    </p>
+                  </div>{" "}
+                </div> */}
               </div>
-              <Link to="../checkout">
-                <button className="checkout-button mt-3">
-                  <sapn className="checkout-span">Check Out</sapn>
-                </button>
-              </Link>
-            </div>
+              <div class="col-lg-12 payment-summary">
+                <p class="fw-bold pt-lg-0 pt-4 pb-2">Cart Summary</p>
+                <div class="card px-md-3 px-2 pt-2">
+                  <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-between py-3">
+                      <small class="text-muted">Order price</small>
+                      <p>${totalCartPrice.toFixed(2)}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between pb-3 border-bottom">
+                      <small class="text-muted">VAT</small>
+                      <p>${vat.toFixed(2)}</p>
+                    </div>
+                    <div class="d-flex justify-content-between mt-3 mb-3">
+                      <p class="fw-bold">Total Amount</p>
+                      <p className="fw-bold">${totalWithVat.toFixed(2)}</p>
+                    </div>
+                  </div>
+                </div>
+                <Link to="../checkout">
+                  <button className="checkout-button mt-3">
+                    <sapn className="checkout-span">Check Out</sapn>
+                  </button>
+                </Link>
+              </div>
+            </>
           ) : (
             <p></p>
           )}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../API/axios";
 import { GETLASTORDER } from "../../../API/Api";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./thankyou.css";
 import TransformDated from "../../../helpers/TransformDated";
 import TransformTime from "../../../helpers/TransformTime";
@@ -75,7 +75,13 @@ export default function ThankYou() {
         <tbody>
           <tr>
             <td>
-              {item.product_title} ({item.size}) * {item.qty}
+              <NavLink
+                className="text-secondary"
+                to={`../products/${item.product_id}`}
+              >
+                {item.product_title}
+              </NavLink>{" "}
+              ({item.size}) * {item.qty}
             </td>
             <td>${item.price} </td>
             <td>${(item.price * item.qty).toFixed(2)}</td>
@@ -89,8 +95,6 @@ export default function ThankYou() {
 
   let createAtDate = orders ? TransformDated(orders.created_at) : <></>;
   let createAtTime = orders ? TransformTime(orders.created_at) : <></>;
-
-  console.log(orders);
 
   return (
     <main class="pt-90">

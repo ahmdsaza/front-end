@@ -264,18 +264,18 @@ export default function CheckOut() {
                   <small class="text-muted">Order price</small>
                   <p>${totalCartPrice.toFixed(2)}</p>
                 </div>
+                <div class="d-flex justify-content-between pb-3 ">
+                  <small class="text-muted">VAT</small>
+                  <p>${vat.toFixed(2)}</p>
+                </div>
                 {form.payment_mode === "0" ? (
-                  <div class="d-flex justify-content-between pb-3 ">
+                  <div class="d-flex justify-content-between pb-3 border-bottom">
                     <small class="text-muted">COD Fees</small>
                     <p>$5.00</p>
                   </div>
                 ) : (
                   <></>
                 )}
-                <div class="d-flex justify-content-between pb-3 border-bottom">
-                  <small class="text-muted">VAT</small>
-                  <p>${vat.toFixed(2)}</p>
-                </div>
                 <div class="d-flex justify-content-between mt-3 mb-3">
                   <p class="fw-bold">Total Amount</p>
                   {/* <p className="fw-bold">${totalWithVat.toFixed(2)}</p> */}
@@ -290,7 +290,7 @@ export default function CheckOut() {
             </div>
           </div>
           {/*Address*/}
-          <div class="col-lg-8 delivery px-md-3 px-1">
+          <div class="col-lg-8 delivery">
             <p class="pt-2 fw-bold pb-3 ps-2">Address</p>
             <div>{showAddress}</div>
             <div class="">

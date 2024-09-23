@@ -303,7 +303,6 @@ export default function UpdateProduct() {
             <Form.Label className="d-flex align-items-center">Name</Form.Label>
             <Form.Control
               className="col-2"
-              required
               name="name"
               value={sizes.name}
               onChange={handleSizesChange}
@@ -315,7 +314,6 @@ export default function UpdateProduct() {
             </Form.Label>
             <Form.Control
               className="col-2"
-              required
               name="quantity"
               value={sizes.quantity}
               onChange={handleSizesChange}
@@ -395,12 +393,7 @@ export default function UpdateProduct() {
         <div className="d-flex align-items-start flex-column gap-2">
           {imagesShow}
         </div>
-        <button
-          disabled={form.title.length > 1 ? false : true}
-          className="btn btn-primary"
-        >
-          Save
-        </button>
+        <button className="btn btn-primary">Save</button>
       </Form>
     </>
   );

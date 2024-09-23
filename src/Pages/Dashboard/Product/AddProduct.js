@@ -180,6 +180,7 @@ export default function AddProduct() {
     setSizes({ ...sizes, [e.target.name]: e.target.value });
   }
 
+  // Submit Add Sizes
   async function submitToSizes() {
     const data = {
       product_id: id,
@@ -195,6 +196,7 @@ export default function AddProduct() {
     }
   }
 
+  // Delete Size
   async function handleDeleteSize(item) {
     try {
       const res = await Axios.delete(`size-delete/${item}`);
@@ -204,6 +206,7 @@ export default function AddProduct() {
     }
   }
 
+  // Call Sizes
   useEffect(() => {
     Axios.get(`${SIZES}/${id}`)
       .then((data) => setShowSizes(data.data))
@@ -270,18 +273,6 @@ export default function AddProduct() {
             disabled={!sent}
           />
         </Form.Group>
-        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
-          <Form.Label>Quantity</Form.Label>
-          <Form.Control
-            required
-            name="qty"
-            value={form.qty}
-            onChange={handleChange}
-            type="text"
-            placeholder="Quantity..."
-            disabled={!sent}
-          />
-        </Form.Group> */}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
           <Form.Label>Price</Form.Label>
           <Form.Control

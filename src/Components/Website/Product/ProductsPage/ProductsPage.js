@@ -7,6 +7,7 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CartExport } from "../../../../Context/CartContext";
+import ImageGallery from "react-image-gallery";
 import "./ProductsPage.css";
 
 export default function ProductsPage() {
@@ -20,6 +21,7 @@ export default function ProductsPage() {
   const [showSize, setShowSize] = useState([]);
   const [showRateNumber, setShowRateNumber] = useState(0);
   const [sizeChoice, setSizeChoice] = useState();
+  const [images, setImages] = useState([]);
   const { setIsChange } = useContext(CartExport);
 
   // Call Rate
@@ -36,6 +38,11 @@ export default function ProductsPage() {
         setProducts(data.data);
         setShowRateNumber(data.data[0].rating);
         setShowSize(data.data[0].sizes);
+        setImages(
+          data.data[0].images.map((item) => {
+            return { original: item.image, thumbnail: item.image };
+          })
+        );
       })
       .catch((err) => console.log(err));
   }, [id, sizeChoice]);
@@ -144,13 +151,12 @@ export default function ProductsPage() {
 
     return (
       <div className="product-div">
-        <div class="product-img">
-          <img src={item.images[0].image} alt="" />
-          <div className="sub-img">
-            <img src={item.images[1].image} alt="" />
-            <img src={item.images[2].image} alt="" />
-            {/* <img src={item.images[3].image} alt="" /> */}
-          </div>
+        <div class="col-lg-6">
+          <ImageGallery
+            items={images}
+            showFullscreenButton={false}
+            showPlayButton={false}
+          />
         </div>
         <div class="product-side">
           <div class="product-description">
