@@ -3,7 +3,7 @@ import "./orders.css";
 import { Axios } from "../../../API/axios";
 import { ORDER } from "../../../API/Api";
 import { Container, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import PaginatedItems from "../../Dashboard/Pagination/Pagination";
 
 export default function Orders() {
@@ -51,13 +51,18 @@ export default function Orders() {
           </p>
         </div>
         <div className="">
-          <Link to={`./${items.id}`}>
-            <button>Open</button>
-          </Link>
+          <NavLink to={`./${items.id}`}>
+            <button className="btn btn-primary">Show</button>
+          </NavLink>
         </div>
       </div>
     </div>
   ));
+
+  function handlePagination(e) {
+    setLimit(e.target.value);
+    setPage(1);
+  }
 
   return (
     <Container className="mt-3">
@@ -74,7 +79,7 @@ export default function Orders() {
       <div className="d-flex align-items-center justify-content-end flex-wrap mt-3">
         <div>
           <Form.Select
-            onChange={(e) => setLimit(e.target.value)}
+            onChange={handlePagination}
             aria-label="Default select example"
           >
             <option value="5">5</option>
@@ -86,9 +91,7 @@ export default function Orders() {
           <PaginatedItems
             setPage={setPage}
             itemsPerPage={limit}
-            // data={data}
             total={total}
-            // typeName={typeName}
           />
         </div>
       </div>

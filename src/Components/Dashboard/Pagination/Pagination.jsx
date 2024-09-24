@@ -17,7 +17,7 @@ export default function PaginatedItems({ itemsPerPage, setPage, total }) {
         renderOnZeroPageCount={null}
         containerClassName="custom-pagination d-flex align-items-center justify-content-end"
         pageLinkClassName="pagination-tag-anchor mx-2 text-secondary rounded-circle"
-        activeLinkClassName="bg-dark text-white"
+        activeLinkClassName="bg-primary text-white"
         previousLinkClassName="previousClassNamea"
         nextLinkClassName="previousClassNamea"
       />

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import PaginatedItems from "../../Components/Dashboard/Pagination/Pagination";
 import { Axios } from "../../API/axios";
 import TransformDated from "../../helpers/TransformDated";
+import "./table.css";
 
 export default function TableShow(props) {
   const currentUser = props.currentUser || {
@@ -113,12 +114,18 @@ export default function TableShow(props) {
     </tr>
   ));
 
+  function handlePagination(e) {
+    props.setLimit(e.target.value);
+    props.setPage(1);
+  }
+
   // TransformDated("2024-02-07T11:16:32.000000Z");
 
   // Return Data
   return (
+    // <table>
     <>
-      <div className="col-3">
+      <div className="col-3 z-n1">
         <Form.Control
           type="search"
           className="my-2"
@@ -141,36 +148,38 @@ export default function TableShow(props) {
           }}
         />
       </div>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>id</th>
-            {headerShow}
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.loading ? (
-            <tr style={{ textAlign: "center" }}>
-              <td colSpan={12}>Loading...</td>
+      <div class=".table-responsive px-md-4 px-2 pt-3">
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>id</th>
+              {headerShow}
+              <th>Action</th>
             </tr>
-          ) : searchLoading ? (
-            <tr style={{ textAlign: "center" }}>
-              <td colSpan={12}>Searching...</td>
-            </tr>
-          ) : (
-            dataShow
-          )}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {props.loading ? (
+              <tr style={{ textAlign: "center" }}>
+                <td colSpan={12}>Loading...</td>
+              </tr>
+            ) : searchLoading ? (
+              <tr style={{ textAlign: "center" }}>
+                <td colSpan={12}>Searching...</td>
+              </tr>
+            ) : (
+              dataShow
+            )}
+          </tbody>
+        </Table>
+      </div>
       <div className="d-flex align-items-center justify-content-end flex-wrap">
         <div className="col-1">
           <Form.Select
-            onChange={(e) => props.setLimit(e.target.value)}
+            onChange={handlePagination}
             aria-label="Default select example"
           >
-            <option value="5">5</option>
-            <option value="15">15</option>
+            <option value="1">5</option>
+            <option value="2">15</option>
             <option value="25">25</option>
           </Form.Select>
         </div>
@@ -183,5 +192,6 @@ export default function TableShow(props) {
         />{" "}
       </div>
     </>
+    // </table>
   );
 }

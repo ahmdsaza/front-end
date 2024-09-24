@@ -33,6 +33,7 @@ export default function SideBar() {
           // position: "fixed",
           minHeight: "100%",
           backgroundColor: "white",
+          zIndex: "2",
         }}
       >
         <Sidebar collapsed={window.innerWidth > 768 ? !isOpen : isOpen}>

@@ -47,10 +47,7 @@ export default function Rate() {
               : items.description
             : items.description}
         </td>
-        <td className="d-flex gap-1">
-          {items.status === "1" ? <>Visable</> : <>Hidden</>}
-          {/* visable */}
-        </td>
+        {items.status === "1" ? <td>Visable</td> : <td>Hidden</td>}
         <td>
           {items.product_rate}
           <FontAwesomeIcon
@@ -77,6 +74,11 @@ export default function Rate() {
     );
   });
 
+  function handlePagination(e) {
+    setLimit(e.target.value);
+    setPage(1);
+  }
+
   return (
     <div className="bg-white w-100 p-2">
       <div className="d-flex align-items-center justify-content-between">
@@ -98,7 +100,7 @@ export default function Rate() {
       Add Order
     </Link> */}
       </div>
-      <Table striped bordered hover>
+      <Table striped bordered hover responsive className="z-n1">
         <thead>
           <tr>
             <th>Rate Id</th>
@@ -124,7 +126,7 @@ export default function Rate() {
       <div className="d-flex align-items-center justify-content-end flex-wrap">
         <div className="col-1">
           <Form.Select
-            onChange={(e) => setLimit(e.target.value)}
+            onChange={handlePagination}
             aria-label="Default select example"
           >
             <option value="5">5</option>
@@ -132,13 +134,7 @@ export default function Rate() {
             <option value="15">15</option>
           </Form.Select>
         </div>
-        <PaginatedItems
-          setPage={setPage}
-          itemsPerPage={limit}
-          // data={data}
-          total={total}
-          // typeName={typeName}
-        />{" "}
+        <PaginatedItems setPage={setPage} itemsPerPage={limit} total={total} />{" "}
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ export default function TopBar() {
     }
   }
   return (
-    <div className="top-bar">
+    <div className="top-bar z-3">
       <div className="d-flex align-items-center justify-content-between h-100">
         <div className="d-flex align-items-center gap-5">
           {/* <h3>E-Commerce</h3> */}

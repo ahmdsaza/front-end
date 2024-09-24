@@ -34,8 +34,6 @@ export default function AllOrders() {
     }
   }
 
-  // console.log(orders);
-
   const showTheOrder = orders.map((items, key) => {
     createAt = items.created_at;
 
@@ -99,6 +97,11 @@ export default function AllOrders() {
     );
   });
 
+  function handlePagination(e) {
+    setLimit(e.target.value);
+    setPage(1);
+  }
+
   return (
     <>
       <div className="bg-white w-100 p-2">
@@ -121,11 +124,8 @@ export default function AllOrders() {
               <option value="5">Cancelled</option>
             </Form.Select>
           </div>
-          {/* <Link className="btn btn-primary" to="/dashboard/product/add">
-          Add Order
-        </Link> */}
         </div>
-        <Table striped bordered hover>
+        <Table striped bordered hover responsive>
           <thead>
             <tr>
               <th>Order Id</th>
@@ -148,7 +148,7 @@ export default function AllOrders() {
         <div className="d-flex align-items-center justify-content-end flex-wrap">
           <div className="col-1">
             <Form.Select
-              onChange={(e) => setLimit(e.target.value)}
+              onChange={handlePagination}
               aria-label="Default select example"
             >
               <option value="5">5</option>
