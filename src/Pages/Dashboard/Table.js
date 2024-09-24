@@ -1,7 +1,12 @@
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Form, Table } from "react-bootstrap";
+import {
+  // Button,
+  //  Modal,
+  Form,
+  Table,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PaginatedItems from "../../Components/Dashboard/Pagination/Pagination";
 import { Axios } from "../../API/axios";
@@ -17,6 +22,11 @@ export default function TableShow(props) {
   const [date, setDate] = useState("");
   const [filtredData, setFilterdData] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const filtredDataByDate =
     date.length !== 0
@@ -54,6 +64,13 @@ export default function TableShow(props) {
 
   // Header Show
   const headerShow = props.header.map((item) => <th>{item.name}</th>);
+
+  // handle delete
+  function handleDeleteClose(data) {
+    // props.delete(data);
+    console.log(data);
+    // handleClose();
+  }
 
   // Body Show
   const dataShow = showWichData.map((item, key) => (
@@ -101,13 +118,15 @@ export default function TableShow(props) {
             <FontAwesomeIcon fontSize={"19px"} icon={faPenToSquare} />
           </Link>
           {currentUser.email !== item.email && (
-            <FontAwesomeIcon
-              onClick={() => props.delete(item.id)}
-              fontSize={"19px"}
-              color="red"
-              cursor={"pointer"}
-              icon={faTrash}
-            />
+            <>
+              <FontAwesomeIcon
+                onClick={(handleShow, () => handleDeleteClose(item.id))}
+                fontSize={"19px"}
+                color="red"
+                cursor={"pointer"}
+                icon={faTrash}
+              />
+            </>
           )}
         </div>
       </td>
@@ -123,7 +142,6 @@ export default function TableShow(props) {
 
   // Return Data
   return (
-    // <table>
     <>
       <div className="col-3 z-n1">
         <Form.Control
@@ -192,6 +210,5 @@ export default function TableShow(props) {
         />{" "}
       </div>
     </>
-    // </table>
   );
 }

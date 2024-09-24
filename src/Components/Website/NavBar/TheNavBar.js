@@ -86,8 +86,8 @@ export default function TheNavBar(props) {
   ));
 
   return (
-    <nav className="py-3">
-      <Container>
+    <Container>
+      <nav className="py-3">
         <div className="d-flex align-items-center justify-content-between flex-wrap">
           <Link className="col-3" to="/">
             <img
@@ -201,7 +201,7 @@ export default function TheNavBar(props) {
         ) : (
           <div onClick={() => setSearch("")}>{dataShow}</div>
         )}
-      </Container>
-    </nav>
+      </nav>
+    </Container>
   );
 }

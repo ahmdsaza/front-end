@@ -29,6 +29,7 @@ export const USERPROFILE = "profile-edit";
 // Category
 export const CATEGORIES = "categories";
 export const CATEGORY = "category";
+export const CATEGORYSHOW = "category-show";
 export const LatestSale = "latest-sale";
 export const Latest = "latest";
 export const TopRatedApi = "top-rated";

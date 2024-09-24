@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Axios } from "../../../API/axios";
-import { CATEGORY } from "../../../API/Api";
+import { CATEGORY, CATEGORYSHOW } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container } from "react-bootstrap";
+// import { Container } from "react-bootstrap";
 
 export default function Category() {
   const [title, setTitle] = useState("");
@@ -20,14 +20,15 @@ export default function Category() {
   // Get Data
   useEffect(() => {
     setLoading(true);
-    Axios.get(`${CATEGORY}/${id}`)
+    Axios.get(`${CATEGORYSHOW}/${id}`)
       .then((data) => {
         setTitle(data.data.title);
         setLoading(false);
       })
       .then(() => setDisable(false))
-      .catch(() => nav("/dashboard/categories/page/404", { replace: true }));
+      .catch(() => nav("../../page/404", { replace: true }));
   }, []);
+
   // Handle Submit
   async function HandleSubmit(e) {
     setLoading(true);

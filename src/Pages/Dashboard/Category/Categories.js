@@ -3,7 +3,7 @@ import { CATEGORIES, CATEGORY } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Link } from "react-router-dom";
 import TableShow from "../Table";
-import { Form } from "react-bootstrap";
+// import { Form } from "react-bootstrap";
 
 export default function Categories() {
   //States

@@ -292,6 +292,9 @@ export default function CheckOut() {
           {/*Address*/}
           <div class="col-lg-8 delivery">
             <p class="pt-2 fw-bold pb-3 ps-2">Address</p>
+            <small className="text-secondary">
+              * Make sure you choose an address
+            </small>
             <div>{showAddress}</div>
             <div class="">
               <>
