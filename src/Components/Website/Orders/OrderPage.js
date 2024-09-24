@@ -66,18 +66,20 @@ export default function OrderPage() {
       <main>
         <section>
           <div class="order-complete">
-            <NavLink
-              className="btn btn-primary mt-3"
-              style={{ width: "120px" }}
-              to="../orders"
-            >
-              <FontAwesomeIcon
-                style={{ transform: "scaleX(-1)" }}
-                icon={faArrowRight}
-                className="px-1"
-              />
-              Back
-            </NavLink>
+            <div>
+              <NavLink
+                className="col btn mt-3"
+                // style={{ width: "120px" }}
+                to="../orders"
+              >
+                <FontAwesomeIcon
+                  style={{ transform: "scaleX(-1)" }}
+                  icon={faArrowRight}
+                  className="px-2"
+                />
+                Back
+              </NavLink>
+            </div>
             <h1 className="text-center mt-3">Order Details</h1>
             <div class="checkout__totals-wrapper">
               <div class="order-complete">
@@ -180,9 +182,19 @@ export default function OrderPage() {
                       ) : (
                         <th>PRODUCT</th>
                       )}
-                      <th>SUBTOTAL</th>
-                      <th>TOTAL</th>
-                      {orders.status === 3 ? <th>Rate</th> : <></>}
+                      {orders.status === 3 ? (
+                        <>
+                          <th className="px-1">SUBTOTAL</th>
+                          <th>TOTAL</th>
+                          <th>Rate</th>
+                        </>
+                      ) : (
+                        <>
+                          {" "}
+                          <th>SUBTOTAL</th>
+                          <th>TOTAL</th>
+                        </>
+                      )}
                     </tr>
                   </thead>
                   {showOrderProducts}

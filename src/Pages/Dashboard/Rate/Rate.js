@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Axios } from "../../../API/axios";
-import { RATESSHOW, RATES } from "../../../API/Api";
+import { RATESSHOW } from "../../../API/Api";
 import { NavLink } from "react-router-dom";
 import { Form, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -36,10 +36,10 @@ export default function Rate() {
   const showTheRate = rate.map((items, key) => {
     return (
       <tr key={key}>
-        <td>#{items.id}</td>
-        <td>{items.products[0].id}</td>
-        <td>{items.products[0].title}</td>
-        <td>{items.users[0].name}</td>
+        <td>#{items?.id}</td>
+        <td>{items.products[0]?.id}</td>
+        <td>{items.products[0]?.title}</td>
+        <td>{items.users[0]?.name}</td>
         <td>
           {items.description != null
             ? items.description.length > 25
