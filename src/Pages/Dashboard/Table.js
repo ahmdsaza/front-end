@@ -2,9 +2,11 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import {
+  Button,
   // Button,
   //  Modal,
   Form,
+  Modal,
   Table,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -24,6 +26,7 @@ export default function TableShow(props) {
   const [searchLoading, setSearchLoading] = useState(false);
 
   const [show, setShow] = useState(false);
+  const [holdId, setHoldId] = useState();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -64,13 +67,6 @@ export default function TableShow(props) {
 
   // Header Show
   const headerShow = props.header.map((item) => <th>{item.name}</th>);
-
-  // handle delete
-  function handleDeleteClose(data) {
-    // props.delete(data);
-    console.log(data);
-    // handleClose();
-  }
 
   // Body Show
   const dataShow = showWichData.map((item, key) => (
@@ -120,7 +116,8 @@ export default function TableShow(props) {
           {currentUser.email !== item.email && (
             <>
               <FontAwesomeIcon
-                onClick={() => props.delete(item.id)}
+                onClick={() => handleDelete(item.id)}
+                // onClick={() => props.delete(item.id)}
                 fontSize={"19px"}
                 color="red"
                 cursor={"pointer"}
@@ -132,6 +129,20 @@ export default function TableShow(props) {
       </td>
     </tr>
   ));
+
+  // Handle delete
+  function handleDelete(data) {
+    setHoldId(data);
+    handleShow();
+  }
+
+  // Handle Colsw
+  function handleCloseModal(data) {
+    props.delete(data);
+    handleClose();
+  }
+
+  // console.log(holdId);
 
   function handlePagination(e) {
     props.setLimit(e.target.value);
@@ -196,8 +207,8 @@ export default function TableShow(props) {
             onChange={handlePagination}
             aria-label="Default select example"
           >
-            <option value="1">5</option>
-            <option value="2">15</option>
+            <option value="5">5</option>
+            <option value="15">15</option>
             <option value="25">25</option>
           </Form.Select>
         </div>
@@ -208,6 +219,25 @@ export default function TableShow(props) {
           total={props.total}
           typeName={props.typeName}
         />{" "}
+      </div>
+      <div>
+        {" "}
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Are you sure you want to delete?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            That will delete item and you can't recovery it
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button onClick={() => handleCloseModal(holdId)} variant="primary">
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

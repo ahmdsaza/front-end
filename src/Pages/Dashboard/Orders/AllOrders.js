@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Axios } from "../../../API/axios";
 import { ALLORDERS, ORDERID } from "../../../API/Api";
 import { Link } from "react-router-dom";
-import { Form, Table } from "react-bootstrap";
+import { Button, Form, Modal, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import PaginatedItems from "../../../Components/Dashboard/Pagination/Pagination";
@@ -15,6 +15,12 @@ export default function AllOrders() {
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useState(0);
   let createAt = 0;
+
+  const [show, setShow] = useState(false);
+  const [holdId, setHoldId] = useState();
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     Axios.get(`${ALLORDERS}?status=${status}&limit=${limit}&page=${page}`)
@@ -85,7 +91,7 @@ export default function AllOrders() {
               <FontAwesomeIcon icon={faEye} />
             </Link>
             <FontAwesomeIcon
-              onClick={() => handleDelete(items.id)}
+              onClick={() => handleDeleteCall(items.id)}
               fontSize={"19px"}
               color="red"
               cursor={"pointer"}
@@ -96,6 +102,18 @@ export default function AllOrders() {
       </tr>
     );
   });
+
+  // Handle delete
+  function handleDeleteCall(data) {
+    setHoldId(data);
+    handleShow();
+  }
+
+  // Handle Colse
+  function handleCloseModal(data) {
+    handleDelete(data);
+    handleClose();
+  }
 
   function handlePagination(e) {
     setLimit(e.target.value);
@@ -159,61 +177,28 @@ export default function AllOrders() {
           <PaginatedItems
             setPage={setPage}
             itemsPerPage={limit}
-            // data={data}
             total={total}
-            // typeName={typeName}
           />{" "}
         </div>
-        {/* <div class="wg-box">
-          <div class="wg-table table-all-user">
-            <div class="table-responsive">
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th>OrderNo</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Phone</th>
-                    <th class="text-center">Subtotal</th>
-                    <th class="text-center">Tax</th>
-                    <th class="text-center">Total</th>
-
-                    <th class="text-center">Status</th>
-                    <th class="text-center">Order Date</th>
-                    <th class="text-center">Total Items</th>
-                    <th class="text-center">Delivered On</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">Divyansh Kumar</td>
-                    <td class="text-center">1234567891</td>
-                    <td class="text-center">$172.00</td>
-                    <td class="text-center">$36.12</td>
-                    <td class="text-center">$208.12</td>
-
-                    <td class="text-center">ordered</td>
-                    <td class="text-center">2024-07-11 00:54:14</td>
-                    <td class="text-center">2</td>
-                    <td></td>
-                    <td class="text-center">
-                      <a href="order-details.html">
-                        <div class="list-icon-function view-icon">
-                          <div class="item eye">
-                            <i class="icon-eye"></i>
-                          </div>
-                        </div>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="divider"></div>
-          <div class="flex items-center justify-between flex-wrap gap10 wgp-pagination"></div>
-        </div> */}
+      </div>
+      <div>
+        {" "}
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Are you sure you want to delete?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            That will delete item and you can't recovery it
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button onClick={() => handleCloseModal(holdId)} variant="primary">
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

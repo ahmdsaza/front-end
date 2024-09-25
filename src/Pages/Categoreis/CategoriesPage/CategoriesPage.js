@@ -84,8 +84,6 @@ export default function CategoriesPage() {
     );
   });
 
-  console.log(categories);
-
   function handleInputChange(e) {
     const { value } = e.target;
     setSort(value.slice(4, 20));

@@ -46,7 +46,7 @@ export default function Products() {
     },
     {
       key: "created_at",
-      name: "created",
+      name: "create at",
     },
   ];
 
@@ -83,6 +83,7 @@ export default function Products() {
           typeName="title"
           searchLink={PRODUCT}
         />
+        
       </div>
     </div>
   );
