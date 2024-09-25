@@ -77,7 +77,7 @@ export default function ThankYou() {
             <td>
               <NavLink
                 className="text-secondary"
-                to={`../products/${item.product_id}`}
+                to={`../products/${item.product_slug}`}
               >
                 {item.product_title}
               </NavLink>{" "}

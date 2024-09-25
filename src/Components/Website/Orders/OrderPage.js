@@ -27,6 +27,8 @@ export default function OrderPage() {
       .catch((err) => console.log(err));
   }, []);
 
+  console.log(orders);
+
   const showOrderProducts = getOrders.map((item, key) => {
     return (
       <>
@@ -45,7 +47,7 @@ export default function OrderPage() {
             <td>${(item.price * item.qty).toFixed(2)}</td>
             {orders.status === 3 ? (
               <td>
-                <NavLink to={`../rate/${item.product_id}`} className="mx-2">
+                <NavLink to={`../rate/${item.product_slug}`} className="mx-2">
                   <FontAwesomeIcon fontSize={"19px"} icon={faPenToSquare} />
                 </NavLink>
               </td>

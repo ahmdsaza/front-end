@@ -51,7 +51,7 @@ export default function Orders() {
           </p>
         </div>
         <div className="">
-          <NavLink to={`./${items.id}`}>
+          <NavLink to={`./${items.slug}`}>
             <button className="btn btn-outline-primary">Show</button>
           </NavLink>
         </div>

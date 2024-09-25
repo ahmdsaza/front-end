@@ -38,6 +38,7 @@ export const categorry = "categorry";
 // Products
 export const PRODUCTS = "products";
 export const PRODUCT = "product";
+export const PRODUCTCATEGORY = "product-category";
 
 // Add Sizes
 export const SIZES = "sizes";

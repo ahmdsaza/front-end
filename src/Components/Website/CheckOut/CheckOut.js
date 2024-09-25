@@ -79,7 +79,7 @@ export default function CheckOut() {
             />
             <div class="ps-3 d-flex flex-column justify-content">
               <p class="pic fw-bold">
-                <NavLink to={`../products/${item.product.id}`}>
+                <NavLink to={`../products/${item.product.slug}`}>
                   <span class="ps-1 text-black">{item.product.title}</span>
                 </NavLink>
               </p>
@@ -412,6 +412,11 @@ export default function CheckOut() {
                             placeholder="zipcode..."
                           ></Form.Control>
                         </Form.Group>
+                      </div>
+                      <div>
+                        <small className="text-secondary">
+                          * Make sure you click save
+                        </small>
                       </div>
                       <button
                         onClick={() => setOpen(!open)}

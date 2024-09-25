@@ -33,6 +33,7 @@ export default function Rating() {
     const datarate = {
       user_id: user.id,
       product_id: products[0].id,
+      product_slug: products[0].slug,
       product_rate: rate * 1,
       description: description,
       status: 1,

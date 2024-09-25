@@ -69,7 +69,7 @@ export default function TheNavBar(props) {
 
   const dataShow = showWichData.map((item, key) => (
     <div key={item.id + key}>
-      <NavLink to={`./products/${item.id}`}>
+      <NavLink to={`./products/${item.slug}`}>
         <div className="search-abs">
           <div className="search-bar-data">
             <img

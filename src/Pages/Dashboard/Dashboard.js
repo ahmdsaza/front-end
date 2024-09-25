@@ -6,11 +6,13 @@ import SideBar from "../../Components/Dashboard/SideBar";
 
 export default function Dashboard() {
   return (
-    <div className="position-relative ">
+    <div className="position-relative">
       <TopBar />
       <div className="dashboard d-flex gap-1" style={{ marginTop: "70px" }}>
         <SideBar />
-        <Outlet />
+        <div className="container">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

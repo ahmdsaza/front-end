@@ -21,6 +21,7 @@ export default function ProductsPage() {
   const [showSize, setShowSize] = useState([]);
   const [showRateNumber, setShowRateNumber] = useState(0);
   const [sizeChoice, setSizeChoice] = useState();
+  const [checkQuantity, setCheckQuantity] = useState(0);
   const [images, setImages] = useState([]);
   const { setIsChange } = useContext(CartExport);
 
@@ -59,6 +60,7 @@ export default function ProductsPage() {
     const data = {
       user_id: user.id,
       product_id: products[0].id,
+      product_slug: products[0].slug,
       product_qty: count,
       product_image: products[0].id,
       product_size: sizeChoice == null ? showSize[0].id : sizeChoice,
@@ -203,7 +205,7 @@ export default function ProductsPage() {
                 className="minus"
                 type="button"
                 value=" + "
-                disabled={count === item.qty}
+                disabled={count === checkQuantity}
                 onClick={() => {
                   setCount((prev) => prev + 1);
 

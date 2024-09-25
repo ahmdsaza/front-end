@@ -51,7 +51,7 @@ export default function CategoriesPage() {
 
     return (
       <div key={key}>
-        <NavLink to={`../products/${item.id}`} className="text-black">
+        <NavLink to={`../products/${item.slug}`} className="text-black">
           <div className="crd1">
             <div className="products-in-crd">
               <img
@@ -83,6 +83,8 @@ export default function CategoriesPage() {
       </div>
     );
   });
+
+  console.log(categories);
 
   function handleInputChange(e) {
     const { value } = e.target;

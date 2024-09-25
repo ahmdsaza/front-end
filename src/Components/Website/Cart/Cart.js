@@ -86,7 +86,7 @@ export default function Cart() {
           </div>
           <div className="col-4">
             <Link
-              to={`../products/${item.product?.id}`}
+              to={`../products/${item.product?.slug}`}
               className="text-black fw-bold fs-4"
             >
               <p className="">

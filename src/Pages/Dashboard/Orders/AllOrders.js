@@ -81,7 +81,7 @@ export default function AllOrders() {
         )}
         <td key={key + 1}>
           <div className="d-flex align-items-center gap-2">
-            <Link to={`${items.id}`}>
+            <Link to={`${items.slug}`}>
               <FontAwesomeIcon icon={faEye} />
             </Link>
             <FontAwesomeIcon

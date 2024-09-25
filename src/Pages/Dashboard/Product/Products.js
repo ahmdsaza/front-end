@@ -63,25 +63,27 @@ export default function Products() {
   // Code
   return (
     <div className="bg-white w-100 p-2">
-      <div className="d-flex align-items-center justify-content-between">
-        <h1>Product Page</h1>
-        <Link className="btn btn-primary" to="/dashboard/product/add">
-          Add Product
-        </Link>
+      <div className="col-10 col-md-12">
+        <div className="d-flex align-items-center justify-content-between">
+          <h1>Product Page</h1>
+          <Link className="btn btn-primary" to="/dashboard/product/add">
+            Add Product
+          </Link>
+        </div>
+        <TableShow
+          limit={limit}
+          page={page}
+          header={header}
+          data={products}
+          delete={handleDelete}
+          setPage={setPage}
+          setLimit={setLimit}
+          loading={loading}
+          total={total}
+          typeName="title"
+          searchLink={PRODUCT}
+        />
       </div>
-      <TableShow
-        limit={limit}
-        page={page}
-        header={header}
-        data={products}
-        delete={handleDelete}
-        setPage={setPage}
-        setLimit={setLimit}
-        loading={loading}
-        total={total}
-        typeName="title"
-        searchLink={PRODUCT}
-      />
     </div>
   );
 }

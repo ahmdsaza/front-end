@@ -100,25 +100,6 @@ export default function DashboardOrdersPage() {
                 </div>
               </Form.Group>
             </Form>
-
-            {/* <p className="d-flex gap-1 my-0">
-              Status:{" "}
-              {item.status === 0 ? (
-                <p>Pending</p>
-              ) : item.status === 1 ? (
-                <p>Awaiting Payment</p>
-              ) : item.status === 2 ? (
-                <p>Awaiting Shipment</p>
-              ) : item.status === 3 ? (
-                <p>Completed</p>
-              ) : item.status === 4 ? (
-                <p>Shipped</p>
-              ) : item.status === 5 ? (
-                <p>Cancelled</p>
-              ) : (
-                <p>Waiting</p>
-              )}
-            </p> */}
             <p>
               Order date: {createAt.slice(0, 10)} | {createAt.slice(11, 16)}
             </p>
@@ -136,17 +117,12 @@ export default function DashboardOrdersPage() {
 
     return (
       <div className="w-100">
-        <div className="card flex-row gap-4 align-items-center justify-content-between px-4">
-          <img
-            src={item.product_image}
-            width="150px"
-            alt={item.product_title}
-          />
+        <div className="card flex-row gap-4 align-items-center justify-content-around px-4">
           <div>
             <div className="d-flex gap-1 ">
               <NavLink
                 className="text-black"
-                to={`../../products/${item.product_id}`}
+                to={`../../products/${item.product_slug}`}
               >
                 <p>{item.product_title}</p>
               </NavLink>

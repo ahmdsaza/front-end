@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Axios } from "../../../API/axios";
-import { CATEGORIES, PRODUCT, SIZES } from "../../../API/Api";
+import { CATEGORIES, PRODUCT, PRODUCTCATEGORY, SIZES } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -58,7 +58,7 @@ export default function UpdateProduct() {
 
   // Get Data
   useEffect(() => {
-    Axios.get(`${PRODUCT}/${id}`)
+    Axios.get(`${PRODUCTCATEGORY}/${id}`)
       .then((data) => {
         setForm(data.data[0]);
         setImagesFromServer(data.data[0].images);

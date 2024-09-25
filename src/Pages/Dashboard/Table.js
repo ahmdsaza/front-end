@@ -120,7 +120,7 @@ export default function TableShow(props) {
           {currentUser.email !== item.email && (
             <>
               <FontAwesomeIcon
-                onClick={(handleShow, () => handleDeleteClose(item.id))}
+                onClick={() => props.delete(item.id)}
                 fontSize={"19px"}
                 color="red"
                 cursor={"pointer"}
