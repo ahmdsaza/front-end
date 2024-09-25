@@ -10,7 +10,7 @@ export default function Dashboard() {
       <TopBar />
       <div className="dashboard d-flex gap-1" style={{ marginTop: "70px" }}>
         <SideBar />
-        <div className="container">
+        <div className="col-9 col-md">
           <Outlet />
         </div>
       </div>
