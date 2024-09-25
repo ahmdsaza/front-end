@@ -56,13 +56,30 @@ export default function SaleProducts(props) {
             {showEmptyStars}
             <small className="mx-1 fw-bold">({props.ratings_number})</small>
             <div className="d-flex align-items-center gap-3">
-              <h5 className="m-0 text-primary">{props.discount}$</h5>
+              {/* <h5 className="m-0 text-primary">{props.discount}$</h5>
               <h6
                 className="m-0"
                 style={{ color: "gray", textDecoration: "line-through" }}
               >
                 {props.price}$
-              </h6>
+              </h6> */}
+              {props.discount > 0 ? (
+                <>
+                  {" "}
+                  <h5 className="m-0 text-black">{props.discount}$</h5>
+                  <h6
+                    className="m-0"
+                    style={{ color: "gray", textDecoration: "line-through" }}
+                  >
+                    {props.price}$
+                  </h6>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <h5 className="m-0 text-black">{props.price}$</h5>
+                </>
+              )}
             </div>
           </div>
           <div className="border p-2 rounded">

@@ -58,10 +58,17 @@ export default function Cart() {
   }
 
   const showCart = carts.map((item, key) => {
-    totalCartPrice += item.product?.discount * item?.product_qty;
-    itemPrice = item.product?.discount.slice(0, 5);
-    descPrice = itemPrice * item.product_qty;
-    tot = descPrice.toFixed(2);
+    if (item.product?.discount > 0) {
+      totalCartPrice += item.product?.discount * item?.product_qty;
+      itemPrice = item.product?.discount.slice(0, 5);
+      descPrice = itemPrice * item.product_qty;
+      tot = descPrice.toFixed(2);
+    } else {
+      totalCartPrice += item.product?.price * item?.product_qty;
+      itemPrice = item.product?.price.slice(0, 5);
+      descPrice = itemPrice * item.product_qty;
+      tot = descPrice.toFixed(2);
+    }
 
     // Handle Delete
     async function handleDelete(id) {

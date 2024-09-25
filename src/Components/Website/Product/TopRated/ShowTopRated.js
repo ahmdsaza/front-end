@@ -17,7 +17,7 @@ export default function ShowTopRated() {
 
   const productsShow = products.map((product) => (
     <SaleProducts
-      id={product.id}
+      id={product.slug}
       title={product.title}
       description={product.description}
       discount={product.discount}

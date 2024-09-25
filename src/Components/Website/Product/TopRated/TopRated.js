@@ -17,7 +17,7 @@ export default function TopRated(props) {
   return (
     <NavLink
       className="col-lg-3 col-md-6 col-12 text-black"
-      to={`products/${props.id}`}
+      to={`products/${props.slug}`}
     >
       <div className="cards">
         <div>

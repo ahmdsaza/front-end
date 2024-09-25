@@ -184,8 +184,16 @@ export default function ProductsPage() {
             )}
           </div>
           <div class="product-prices mt-3">
-            <span className="product-discount">${item.discount}</span>
-            <span className="product-price">${item.price}</span>
+            {item.discount > 0 ? (
+              <>
+                <span className="product-discount">${item.discount}</span>
+                <span className="product-price">${item.price}</span>
+              </>
+            ) : (
+              <>
+                <span className="product-discount">${item.price}</span>
+              </>
+            )}
           </div>{" "}
           <div class="cart-btn">
             <div className="count-div">
