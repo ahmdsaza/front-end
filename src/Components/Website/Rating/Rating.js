@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./rating.css";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { PRODUCT, USER, RATE } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Container } from "react-bootstrap";
@@ -13,6 +13,8 @@ export default function Rating() {
   const [err, setErr] = useState("");
   const [addRate, setAddRate] = useState("");
   const [description, setDescription] = useState("");
+
+  const nav = useNavigate();
 
   // Get Product by id
   useEffect(() => {
@@ -43,6 +45,11 @@ export default function Rating() {
       if (user) {
         Axios.post(`${RATE}`, datarate)
           .then(setAddRate("Your rate add successfully"))
+          .then(
+            setTimeout(() => {
+              nav("../");
+            }, 3000)
+          )
           .catch((err) => console.log(err));
       } else {
         alert("Some thing wrong try later");
@@ -54,9 +61,11 @@ export default function Rating() {
 
   const showData = products.map((item, key) => (
     <Container key={item.id + key}>
-      <div className="product-div">
-        <div class="product-img-rate">
-          <img src={item.images[0].image} alt="" />
+      <div className="row">
+        <div className="col">
+          <div class="product-img-rate">
+            <img src={item.images[0].image} alt="" />
+          </div>
         </div>
         <div class="product-side">
           <div class="product-description">

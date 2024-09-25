@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import PaginatedItems from "../../../Components/Dashboard/Pagination/Pagination";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
+import TableShow2 from "../Table2";
 
 export default function Rate() {
   const [rate, setRate] = useState([]);
@@ -24,6 +25,35 @@ export default function Rate() {
       .catch((err) => console.log(err));
   }, [limit, page, status]);
 
+  const header = [
+    {
+      key: "product_id",
+      name: "Product id",
+    },
+    {
+      key: "title",
+      name: "Title",
+    },
+    {
+      key: "description",
+      name: "Description",
+    },
+    {
+      key: "product_rate",
+      name: "Rate",
+    },
+    {
+      key: "status",
+      name: "Status",
+    },
+    {
+      key: "created_at",
+      name: "create at",
+    },
+  ];
+
+  // console.log(rate);
+
   async function handleDelete(id) {
     try {
       const res = await Axios.delete(`${RATESSHOW}/${id}`);
@@ -33,46 +63,46 @@ export default function Rate() {
     }
   }
 
-  const showTheRate = rate.map((items, key) => {
-    return (
-      <tr key={key}>
-        <td>#{items?.id}</td>
-        <td>{items.products[0]?.id}</td>
-        <td>{items.products[0]?.title}</td>
-        <td>{items.users[0]?.name}</td>
-        <td>
-          {items.description != null
-            ? items.description.length > 25
-              ? items.description.slice(0, 25) + "..."
-              : items.description
-            : items.description}
-        </td>
-        {items.status === "1" ? <td>Visable</td> : <td>Hidden</td>}
-        <td>
-          {items.product_rate}
-          <FontAwesomeIcon
-            className="mx-1"
-            icon={solid}
-            style={{ color: "FFC100" }}
-          />
-        </td>
-        <td key={key + 1}>
-          <div className="d-flex align-items-center gap-2">
-            <NavLink to={`${items.id}`}>
-              <FontAwesomeIcon icon={faEye} />
-            </NavLink>
-            <FontAwesomeIcon
-              onClick={() => handleDelete(items.id)}
-              fontSize={"19px"}
-              color="red"
-              cursor={"pointer"}
-              icon={faTrash}
-            />
-          </div>
-        </td>
-      </tr>
-    );
-  });
+  // const showTheRate = rate.map((items, key) => {
+  //   return (
+  //     <tr key={key}>
+  //       <td>#{items?.id}</td>
+  //       <td>{items.products[0]?.id}</td>
+  //       <td>{items.products[0]?.title}</td>
+  //       <td>{items.users[0]?.name}</td>
+  //       <td>
+  //         {items.description != null
+  //           ? items.description.length > 25
+  //             ? items.description.slice(0, 25) + "..."
+  //             : items.description
+  //           : items.description}
+  //       </td>
+  //       {items.status === "1" ? <td>Visable</td> : <td>Hidden</td>}
+  //       <td>
+  //         {items.product_rate}
+  //         <FontAwesomeIcon
+  //           className="mx-1"
+  //           icon={solid}
+  //           style={{ color: "FFC100" }}
+  //         />
+  //       </td>
+  //       <td key={key + 1}>
+  //         <div className="d-flex align-items-center gap-2">
+  //           <NavLink to={`${items.id}`}>
+  //             <FontAwesomeIcon icon={faEye} />
+  //           </NavLink>
+  //           <FontAwesomeIcon
+  //             onClick={() => handleDelete(items.id)}
+  //             fontSize={"19px"}
+  //             color="red"
+  //             cursor={"pointer"}
+  //             icon={faTrash}
+  //           />
+  //         </div>
+  //       </td>
+  //     </tr>
+  //   );
+  // });
 
   function handlePagination(e) {
     setLimit(e.target.value);
@@ -100,7 +130,19 @@ export default function Rate() {
       Add Order
     </Link> */}
       </div>
-      <Table striped bordered hover responsive className="z-n1">
+      <TableShow2
+        limit={limit}
+        page={page}
+        header={header}
+        data={rate}
+        delete={handleDelete}
+        setPage={setPage}
+        setLimit={setLimit}
+        // loading={loading}
+        total={total}
+        typeName="title"
+      />
+      {/* <Table striped bordered hover responsive className="z-n1">
         <thead>
           <tr>
             <th>Rate Id</th>
@@ -122,8 +164,8 @@ export default function Rate() {
             </div>
           )}
         </tbody>
-      </Table>
-      <div className="d-flex align-items-center justify-content-end flex-wrap">
+      </Table> */}
+      {/* <div className="d-flex align-items-center justify-content-end flex-wrap">
         <div className="col-1">
           <Form.Select
             onChange={handlePagination}
@@ -135,7 +177,7 @@ export default function Rate() {
           </Form.Select>
         </div>
         <PaginatedItems setPage={setPage} itemsPerPage={limit} total={total} />{" "}
-      </div>
+      </div> */}
     </div>
   );
 }
