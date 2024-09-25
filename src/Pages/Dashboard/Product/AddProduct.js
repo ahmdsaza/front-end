@@ -12,7 +12,7 @@ export default function AddProduct() {
     title: "",
     description: "",
     price: "",
-    discount: "",
+    discount: "0",
     About: "",
   });
 
@@ -32,6 +32,8 @@ export default function AddProduct() {
     quantity: "",
     product_id: id,
   });
+
+  // console.log(sizes);
 
   // Use State
   const [images, setImages] = useState([]);
@@ -191,6 +193,8 @@ export default function AddProduct() {
     try {
       Axios.post(`${SIZES}/add`, data).catch((err) => console.log(err));
       setCount((prev) => !prev);
+      sizes.name = "";
+      sizes.quantity = "";
     } catch (err) {
       console.log(err);
     }
@@ -231,6 +235,8 @@ export default function AddProduct() {
       </div>
     </div>
   ));
+
+  // console.log(sizes);
 
   return (
     <>
@@ -288,7 +294,7 @@ export default function AddProduct() {
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
           <Form.Label>Discount</Form.Label>
           <Form.Control
-            required
+            // required
             name="discount"
             value={form.discount}
             onChange={handleChange}
@@ -314,36 +320,35 @@ export default function AddProduct() {
           controlId="exampleForm.ControlInput5"
         >
           <Form.Label>Sizes</Form.Label>
-          <div className="d-flex col-4 gap-2">
-            <Form.Label className="d-flex align-items-center">Name</Form.Label>
-            <Form.Control
-              className="col-2"
-              required
-              name="name"
-              value={sizes.name}
-              onChange={handleSizesChange}
-              type="text"
-              placeholder="Name..."
-              disabled={!sent}
-            />
-            <Form.Label className="d-flex align-items-center">
-              Quantity
-            </Form.Label>
-            <Form.Control
-              className="col-2"
-              required
-              name="quantity"
-              value={sizes.quantity}
-              onChange={handleSizesChange}
-              type="text"
-              placeholder="Quantity..."
-              disabled={!sent}
-            />
-            <div onClick={submitToSizes} className="btn btn-primary">
-              Add
+          <div className="col">
+            <div className="d-flex col-4 gap-2">
+              <Form.Control
+                className="col-2"
+                required={showSizes.length > 0 ? false : true}
+                name="name"
+                value={sizes.name}
+                onChange={handleSizesChange}
+                type="text"
+                placeholder="Name..."
+                disabled={!sent}
+              />
+              <Form.Control
+                className="col-2"
+                required={showSizes.length > 0 ? false : true}
+                name="quantity"
+                value={sizes.quantity}
+                onChange={handleSizesChange}
+                type="text"
+                placeholder="Quantity..."
+                disabled={!sent}
+              />
+              <div onClick={submitToSizes} className="btn btn-primary">
+                Add
+              </div>
             </div>
           </div>
         </Form.Group>{" "}
+        {sizesShow}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
           <Form.Label>Images</Form.Label>
           <Form.Control
@@ -355,7 +360,6 @@ export default function AddProduct() {
             disabled={!sent}
           />
         </Form.Group>
-        {sizesShow}
         <div
           onClick={handleOpenImage}
           className="d-flex align-items-center justify-content-center gap-2 py-3 rounded mb-2 w-100 flex-column"

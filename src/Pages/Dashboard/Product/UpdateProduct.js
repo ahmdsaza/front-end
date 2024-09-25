@@ -229,29 +229,23 @@ export default function UpdateProduct() {
 
   // Mapping Sizes
   const sizesShow = showSizes.map((item, key) => (
-    <div className="border p-2 w-100">
-      <div className="d-flex align-items-center justify-content-between">
-        <div className="d-flex align-items-center justify-content-start gap-2">
-          <div>
+    <div className="border p-2 w-75">
+      <div className="row">
+        <div className="col">
+          <div className="d-flex align-items-center gap-2">
             <label>Name:</label>
             <input type="text" className="mb-1" value={item.name} />
           </div>
-          <div>
-            <p className="mb-1">Quantity:</p>
+          <div className="d-flex align-items-center gap-2">
+            <label>Quantity:</label>
             <input type="text" className="mb-1" value={item.quantity} />
           </div>
         </div>
-        <div className=" d-flex gap-2">
-          <div>
-            <Button onClick={() => handleDeleteSize(item.id)} variant="danger">
-              Edit
-            </Button>
-          </div>
-          <div>
-            <Button onClick={() => handleDeleteSize(item.id)} variant="danger">
-              Delete
-            </Button>
-          </div>
+
+        <div className="col col-md-2">
+          <Button onClick={() => handleDeleteSize(item.id)} variant="danger">
+            Delete
+          </Button>
         </div>
       </div>
     </div>
@@ -299,29 +293,28 @@ export default function UpdateProduct() {
         </Form.Group>
         <Form.Group>
           <Form.Label>Sizes</Form.Label>
-          <div className="d-flex col-4 gap-2">
-            <Form.Label className="d-flex align-items-center">Name</Form.Label>
-            <Form.Control
-              className="col-2"
-              name="name"
-              value={sizes.name}
-              onChange={handleSizesChange}
-              type="text"
-              placeholder="Name..."
-            />
-            <Form.Label className="d-flex align-items-center">
-              Quantity
-            </Form.Label>
-            <Form.Control
-              className="col-2"
-              name="quantity"
-              value={sizes.quantity}
-              onChange={handleSizesChange}
-              type="text"
-              placeholder="Quantity..."
-            />
-            <div onClick={submitToSizes} className="btn btn-primary">
-              Add
+          <div className="col">
+            <div className="d-flex col-4 gap-2">
+              <Form.Control
+                className="col-2"
+                name="name"
+                value={sizes.name}
+                onChange={handleSizesChange}
+                type="text"
+                placeholder="Name..."
+              />
+
+              <Form.Control
+                className="col-2"
+                name="quantity"
+                value={sizes.quantity}
+                onChange={handleSizesChange}
+                type="text"
+                placeholder="Quantity..."
+              />
+              <div onClick={submitToSizes} className="btn btn-primary">
+                Add
+              </div>
             </div>
           </div>
         </Form.Group>

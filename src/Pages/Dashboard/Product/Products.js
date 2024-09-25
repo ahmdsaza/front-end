@@ -63,7 +63,7 @@ export default function Products() {
   // Code
   return (
     <div className="bg-white w-100 p-2">
-      <div className="col-10 col-md-12">
+      <div className="">
         <div className="d-flex align-items-center justify-content-between">
           <h1>Product Page</h1>
           <Link className="btn btn-primary" to="/dashboard/product/add">
@@ -83,7 +83,6 @@ export default function Products() {
           typeName="title"
           searchLink={PRODUCT}
         />
-        
       </div>
     </div>
   );
