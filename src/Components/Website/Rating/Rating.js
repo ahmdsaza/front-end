@@ -74,8 +74,16 @@ export default function Rating() {
             <p className="product-description">{item.description}</p>
           </div>
           <div class="product-prices">
-            <span className="product-discount">${item.discount}</span>
-            <span className="product-price">${item.price}</span>
+            {item.discount > 0 ? (
+              <>
+                <span className="product-discount">${item.discount}</span>
+                <span className="product-price">${item.price}</span>
+              </>
+            ) : (
+              <>
+                <span className="product-discount">${item.price}</span>
+              </>
+            )}
           </div>
         </div>
       </div>

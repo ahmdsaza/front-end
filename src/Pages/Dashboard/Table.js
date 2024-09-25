@@ -1,14 +1,7 @@
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  // Button,
-  //  Modal,
-  Form,
-  Modal,
-  Table,
-} from "react-bootstrap";
+import { Button, Form, Modal, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PaginatedItems from "../../Components/Dashboard/Pagination/Pagination";
 import { Axios } from "../../API/axios";
@@ -141,8 +134,6 @@ export default function TableShow(props) {
     props.delete(data);
     handleClose();
   }
-
-  // console.log(holdId);
 
   function handlePagination(e) {
     props.setLimit(e.target.value);

@@ -36,22 +36,23 @@ export default function RateEdit() {
     }
   }
 
-  console.log(rate);
-
   const showRate = rate.map((item, key) => {
     return (
       <div className="change-font" key={key}>
+        <div className="row">
+          <div className="col">
+            <div className="col">Rate id: #{item?.id}</div>
+            <div className="col">Username: {item?.users[0]?.name}</div>
+          </div>
+        </div>
         <div className="d-flex justify-content-between align-items-center mt-3">
           <div>
-            <p>Rate id: #{item.id}</p>
-            <td>Username: {item.users[0].name}</td>
-            <p>Product: {item.products[0].title}</p>
-            <p>Description: {item.description}</p>
+            <p>Rate id: #{item?.id}</p>
+            <td>Username: {item?.users[0]?.name}</td>
+            <p>Product: {item?.products?.title}</p>
+            <p>Description: {item?.description}</p>
           </div>
           <div>
-            {/* <Link to={`../order/${item.id}`}>
-              <FontAwesomeIcon icon={faPenToSquare} />
-            </Link> */}
             <Form onSubmit={HandleSubmit}>
               <Form.Group
                 className="mb-3"

@@ -27,8 +27,6 @@ export default function OrderPage() {
       .catch((err) => console.log(err));
   }, []);
 
-  // console.log(orders.totalprice);
-
   const showOrderProducts = getOrders.map((item, key) => {
     return (
       <>
@@ -227,9 +225,7 @@ export default function OrderPage() {
                     )}
                     <tr>
                       <th>TOTAL</th>
-                      <td>
-                        ${orders.totalprice * 1 + orders.payment[0]?.fees * 1}
-                      </td>
+                      <td>${orders?.totalprice * 1 + orderPrice?.fees * 1}</td>
                     </tr>
                   </tbody>
                 </table>
