@@ -16,12 +16,15 @@ import { CartExport } from "../../../Context/CartContext";
 export default function CheckOut() {
   const [carts, setCarts] = useState([]);
   const [sent, setSent] = useState(false);
+  const [saveAddress, setSaveAddress] = useState();
   const [count, setCount] = useState(false);
   const [errCall, setErrorCall] = useState("");
   const [addressCall, setAddressCall] = useState([]);
   const [totalPriceState, setTotalPriceState] = useState("");
   const [open, setOpen] = useState(false);
   const { setIsChange } = useContext(CartExport);
+
+  // console.log(saveAddress);
 
   let descPrice = 0;
   let itemPrice = 0;
@@ -64,10 +67,17 @@ export default function CheckOut() {
   let totalCartPrice = 0;
 
   const showCheckOut = carts.map((item) => {
-    totalCartPrice += item.product.discount * item.product_qty;
-    itemPrice = item.product.discount.slice(0, 5);
-    descPrice = itemPrice * item.product_qty;
-    tot = descPrice.toFixed(2);
+    if (item.product?.discount > 0) {
+      totalCartPrice += item.product?.discount * item?.product_qty;
+      itemPrice = item.product?.discount.slice(0, 5);
+      descPrice = itemPrice * item.product_qty;
+      tot = descPrice.toFixed(2);
+    } else {
+      totalCartPrice += item.product?.price * item?.product_qty;
+      itemPrice = item.product?.price.slice(0, 5);
+      descPrice = itemPrice * item.product_qty;
+      tot = descPrice.toFixed(2);
+    }
 
     return (
       <tr class="border-bottom">
@@ -98,7 +108,12 @@ export default function CheckOut() {
         <td>
           <div class="d-flex">
             <p class="pe-3">
-              <span class="text-muted">${item.product.discount}</span>
+              <span class="text-muted">
+                $
+                {item.product.discount > 0
+                  ? item.product.discount
+                  : item.product.price}
+              </span>
             </p>
             <p class="fw-bold">Total: ${tot}</p>
           </div>
@@ -140,7 +155,9 @@ export default function CheckOut() {
     e.preventDefault();
     try {
       const res = await Axios.post(`${ADDRESSADD}`, addressForm);
+      setSaveAddress(res.data.id);
       setCount((prev) => !prev);
+      form.address_id = res.data.id;
     } catch (err) {
       // setLoading(false);
       console.log(err);
@@ -268,16 +285,22 @@ export default function CheckOut() {
                 <div class="d-flex justify-content-between pb-3 ">
                   <small class="text-muted">VAT</small>
                   <p>${vat.toFixed(2)}</p>
+                </div>{" "}
+                <div class="d-flex justify-content-between pb-3 ">
+                  <small class="text-muted">Shipping (SMSA)</small>
+                  <p>FREE</p>
                 </div>
                 {form.payment_mode === "0" ? (
-                  <div class="d-flex justify-content-between pb-3 border-bottom">
-                    <small class="text-muted">COD Fees</small>
-                    <p>$5.00</p>
-                  </div>
+                  <>
+                    <div class="d-flex justify-content-between pb-3 ">
+                      <small class="text-muted">COD Fees</small>
+                      <p>$5.00</p>
+                    </div>
+                  </>
                 ) : (
                   <></>
                 )}
-                <div class="d-flex justify-content-between mt-3 mb-3">
+                <div class="d-flex justify-content-between mb-3 border-top">
                   <p class="fw-bold">Total Amount</p>
                   {/* <p className="fw-bold">${totalWithVat.toFixed(2)}</p> */}
                   <p className="fw-bold">
