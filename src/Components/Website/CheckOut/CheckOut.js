@@ -54,6 +54,7 @@ export default function CheckOut() {
       .catch((err) => console.log(err));
   }, []);
 
+  // Import Address
   useEffect(() => {
     Axios.get(`${ADDRESS}`)
       .then((data) => setAddressCall(data.data))
@@ -158,7 +159,7 @@ export default function CheckOut() {
       setTotalPriceState((totalCartPrice + vat + 5).toFixed(2));
       form.productsprice = totalCartPrice.toFixed(2);
       form.vat = vat.toFixed(2);
-      form.totalprice = (totalCartPrice + vat + 5).toFixed(2);
+      form.totalprice = (totalCartPrice + vat).toFixed(2);
       form.fees = "5.00";
       setSent(true);
     } else {
@@ -167,7 +168,7 @@ export default function CheckOut() {
       form.productsprice = totalCartPrice.toFixed(2);
       form.vat = vat.toFixed(2);
       form.totalprice = (totalCartPrice + vat).toFixed(2);
-      form.fees = "5.00";
+      form.fees = "0.00";
       setSent(true);
     }
   }

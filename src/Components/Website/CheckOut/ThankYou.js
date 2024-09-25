@@ -151,7 +151,7 @@ export default function ThankYou() {
                   </span>
                 </div>
                 <div class="order-info__item">
-                  <label>status</label>
+                  <label>Status</label>
                   <p className="d-flex gap-1 my-0">
                     {orders.status === 0 ? (
                       <p className="bg-primary rounded-1 px-1 text-white">
@@ -238,9 +238,9 @@ export default function ThankYou() {
                   </tr>
                   <tr>
                     <th>VAT</th>
-                    <td>${vat.toFixed(2)}</td>
+                    <td>${vat?.toFixed(2)}</td>
                   </tr>
-                  {orders.fees !== "0" ? (
+                  {orderPrice?.fees !== "0.00" ? (
                     <>
                       <tr>
                         <th>COD Fees</th>
@@ -255,8 +255,8 @@ export default function ThankYou() {
                     <td>
                       $
                       {orders.payment_mode === "0"
-                        ? (totalPrice + 5).toFixed(2)
-                        : totalPrice.toFixed(2)}
+                        ? orders.totalprice * 1 + orderPrice?.fees * 1
+                        : orders.totalprice}
                     </td>
                   </tr>
                 </tbody>

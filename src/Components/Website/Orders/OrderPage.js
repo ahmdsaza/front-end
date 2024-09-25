@@ -27,7 +27,7 @@ export default function OrderPage() {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(orders);
+  // console.log(orders.totalprice);
 
   const showOrderProducts = getOrders.map((item, key) => {
     return (
@@ -37,7 +37,7 @@ export default function OrderPage() {
             <td>
               <NavLink
                 className="text-secondary"
-                to={`../products/${item.product_id}`}
+                to={`../products/${item.product_slug}`}
               >
                 {item.product_title}
               </NavLink>
@@ -227,7 +227,9 @@ export default function OrderPage() {
                     )}
                     <tr>
                       <th>TOTAL</th>
-                      <td>${orderPrice.total_price}</td>
+                      <td>
+                        ${orders.totalprice * 1 + orders.payment[0]?.fees * 1}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
