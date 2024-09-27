@@ -54,7 +54,9 @@ function App() {
             {/* <Route path="/products" element={<AllProducts />} /> */}
             <Route path="products/:id" element={<ProductsPage />} />
             <Route
-              element={<RequireAuth allowedRole={["1996", "1995", "1999"]} />}
+              element={
+                <RequireAuth allowedRole={["1996", "1995", "1999", "2001"]} />
+              }
             >
               <Route path="cart" element={<Cart />} />
               <Route path="checkout" element={<CheckOut />} />
