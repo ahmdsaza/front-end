@@ -38,45 +38,48 @@ export default function RateEdit() {
 
   const showRate = rate.map((item, key) => {
     return (
-      <div className="change-font" key={key}>
+      <div className="change-font px-3" key={key}>
+        {/* <div className="d-flex justify-content-between align-items-center mt-3"> */}
         <div className="row">
-          <div className="col">
-            <div className="col">Rate id: #{item?.id}</div>
-            <div className="col">Username: {item?.users[0]?.name}</div>
+          <div className="col-8">
+            <div className="col col-md-3">
+              <Form onSubmit={HandleSubmit}>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput3"
+                >
+                  <Form.Label>Status:</Form.Label>{" "}
+                  <div className="d-flex gap-1">
+                    <Form.Select
+                      value={status}
+                      onChange={(e) => setStatus(e.target.value)}
+                    >
+                      <option value="1">Visible</option>
+                      <option value="2">Hidden</option>
+                    </Form.Select>
+                    <button className="btn btn-primary">
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </button>
+                  </div>
+                </Form.Group>
+              </Form>
+            </div>
           </div>
-        </div>
-        <div className="d-flex justify-content-between align-items-center mt-3">
-          <div>
-            <p>Rate id: #{item?.id}</p>
-            <td>Username: {item?.users[0]?.name}</td>
-            <p>Product: {item?.products?.title}</p>
-            <p>Description: {item?.description}</p>
-          </div>
-          <div>
-            <Form onSubmit={HandleSubmit}>
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlInput3"
+          <div className="border rounded">
+            <div className="col-8">
+              <p className="text-black fs-5">Rate id: #{item?.id}</p>
+              <p className="text-black fs-5">
+                Username: {item?.users[0]?.name}
+              </p>
+              <NavLink
+                className="text-black fs-5"
+                to={`../../products/${item?.products?.slug}`}
               >
-                <Form.Label>Status:</Form.Label>{" "}
-                <div className="d-flex gap-1">
-                  <Form.Select
-                    required
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value)}
-                  >
-                    <option disabled value="">
-                      Select Status
-                    </option>
-                    <option value="1">Visible</option>
-                    <option value="2">Hidden</option>
-                  </Form.Select>
-                  <button className="btn btn-primary">
-                    <FontAwesomeIcon icon={faPenToSquare} />
-                  </button>
-                </div>
-              </Form.Group>
-            </Form>
+                Product: {item?.products?.title}
+              </NavLink>
+              <p className="text-black fs-5">Description:</p>
+              <p className="text-black fs-4">{item?.description}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -84,8 +87,12 @@ export default function RateEdit() {
   });
 
   return (
-    <Container>
-      <NavLink to="../rate">Back to Rates</NavLink>
+    <Container className="bg-white h-100">
+      <div className="py-3">
+        <NavLink to="../rate">
+          <button className="btn btn-outline-primary">Back to Rates</button>
+        </NavLink>
+      </div>
       <div>{showRate}</div>
     </Container>
   );

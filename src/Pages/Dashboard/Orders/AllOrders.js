@@ -188,7 +188,7 @@ export default function AllOrders() {
             <Modal.Title>Are you sure you want to delete?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            That will delete item and you can't recovery it
+            This will delete item and you can't recovery it
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>

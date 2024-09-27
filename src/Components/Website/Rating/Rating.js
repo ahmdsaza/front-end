@@ -13,6 +13,7 @@ export default function Rating() {
   const [err, setErr] = useState("");
   const [addRate, setAddRate] = useState("");
   const [description, setDescription] = useState("");
+  const [sent, setSent] = useState(false);
 
   const nav = useNavigate();
 
@@ -45,11 +46,7 @@ export default function Rating() {
       if (user) {
         Axios.post(`${RATE}`, datarate)
           .then(setAddRate("Your rate add successfully"))
-          .then(
-            setTimeout(() => {
-              nav("../");
-            }, 3000)
-          )
+          .then(setSent("true"))
           .catch((err) => console.log(err));
       } else {
         alert("Some thing wrong try later");
@@ -154,6 +151,7 @@ export default function Rating() {
         />
         <button
           onClick={submitRate}
+          disabled={sent}
           className="align-self-center btn btn-primary"
         >
           Send rate

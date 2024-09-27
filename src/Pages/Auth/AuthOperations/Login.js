@@ -4,8 +4,9 @@ import { baseURL, LOGIN } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
 import { Form } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import googleIcon from "../../../Assets/Logo-google-icon-PNG.png";
+import TheNavBar from "./../../../Components/Website/NavBar/TheNavBar";
 
 export default function Login() {
   // States
@@ -21,7 +22,7 @@ export default function Login() {
   const cookie = Cookie();
 
   // Navigate
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // Err
   const [err, setErr] = useState("");
@@ -47,9 +48,8 @@ export default function Login() {
       const res = await axios.post(`${baseURL}/${LOGIN}`, form);
       setLoading(false);
       const token = res.data.token;
-      // const role = res.data.user.role;
-      // const go = role === "1995" ? "users" : "writer";
       cookie.set("e-commerce", token);
+      console.log(token);
       window.location.pathname = `/`;
     } catch (err) {
       setLoading(false);
@@ -62,61 +62,55 @@ export default function Login() {
   }
   return (
     <>
+      <TheNavBar />
       {loading && <LoadingSubmit />}
-      <div className="container">
+      <div className="container text-center">
         <div className="row" style={{ height: "100vh" }}>
-          <Form className="form" onSubmit={handleSubmit}>
-            <div className="custom-form">
-              <h1 className="mb-5">Login</h1>
-              <Form.Group
-                className="form-custom"
-                controlId="exampleForm.ControlInput1"
-              >
-                <Form.Control
-                  ref={focus}
-                  value={form.email}
-                  onChange={handleChange}
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email.."
-                  required
-                />
-                <Form.Label>Email:</Form.Label>
-              </Form.Group>
-              <Form.Group
-                className="form-custom"
-                controlId="exampleForm.ControlInput2"
-              >
-                <Form.Control
-                  value={form.password}
-                  onChange={handleChange}
-                  type="password"
-                  name="password"
-                  placeholder="Enter your password.."
-                  minLength="6"
-                  required
-                />
-                <Form.Label>Password:</Form.Label>
-              </Form.Group>
-              <button className="btn btn-primary">Login</button>
-              <div className="google-btn">
-                <NavLink to={`/login-google`}>
-                  <div className="google-icon-wrapper">
-                    <img
-                      className="google-icon"
-                      src={googleIcon}
-                      alt="sign in google"
-                    />
-                  </div>
-                  <p className="btn-text">
-                    <b>Sign in with google</b>
-                  </p>
-                </NavLink>
+          <div className="col-md-6 mx-auto">
+            <Form
+              className="card px-2 align-items-center"
+              onSubmit={handleSubmit}
+            >
+              <div className="custom-form">
+                <h1 className="mb-5">Login</h1>
+                <Form.Group
+                  className="form-custom"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Control
+                    ref={focus}
+                    value={form.email}
+                    onChange={handleChange}
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email.."
+                    required
+                  />
+                  <Form.Label>Email:</Form.Label>
+                </Form.Group>
+                <Form.Group
+                  className="form-custom"
+                  controlId="exampleForm.ControlInput2"
+                >
+                  <Form.Control
+                    value={form.password}
+                    onChange={handleChange}
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password.."
+                    minLength="6"
+                    required
+                  />
+                  <Form.Label>Password:</Form.Label>
+                </Form.Group>
+                <button className="btn btn-primary">Login</button>
+                <div>
+                  <Link to="../register">You don't have an account?</Link>
+                </div>
+                {err !== "" && <span className="error">{err}</span>}
               </div>
-              <Link to="../register">You don't have an account?</Link>
-              {err !== "" && <span className="error">{err}</span>}
-            </div>
-          </Form>
+            </Form>
+          </div>
         </div>
       </div>
     </>

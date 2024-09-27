@@ -185,7 +185,7 @@ export default function TheNavBar(props) {
                   </>
                 ) : (
                   <Dropdown.Item>
-                    <NavLink to="login" style={{ color: "black" }}>
+                    <NavLink to="../login" style={{ color: "black" }}>
                       Login / Register
                     </NavLink>
                   </Dropdown.Item>
