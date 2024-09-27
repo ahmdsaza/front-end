@@ -130,18 +130,6 @@ export default function Rate() {
       Add Order
     </Link> */}
       </div>
-      {/* <TableShow2
-        limit={limit}
-        page={page}
-        header={header}
-        data={rate}
-        delete={handleDelete}
-        setPage={setPage}
-        setLimit={setLimit}
-        // loading={loading}
-        total={total}
-        typeName="title"
-      /> */}
       <Table striped bordered hover responsive className="z-n1">
         <thead>
           <tr>
@@ -155,15 +143,16 @@ export default function Rate() {
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
-          {rate.length > 0 ? (
-            showTheRate
-          ) : (
-            <div className="d-flex justify-content-center align-items-center">
-              <h3>No Reviews yet</h3>
-            </div>
-          )}
-        </tbody>
+
+        {rate.length > 0 ? (
+          <tbody>{showTheRate}</tbody>
+        ) : (
+          <tbody className="d-flex justify-content-center align-items-center ">
+            <tr className="fs-3">
+              <th>No Reviews yet</th>
+            </tr>
+          </tbody>
+        )}
       </Table>
       <div className="d-flex align-items-center justify-content-end flex-wrap">
         <div className="col-1">

@@ -40,68 +40,71 @@ export default function SideBar() {
           <Menu>
             <MenuItem
               component={<Link to={`./activity`} />}
-              icon={<i class="material-icons">dashboard</i>}
+              icon={<i className="material-icons">dashboard</i>}
               label="Dashboard"
             >
               Dashboard
             </MenuItem>
-            <SubMenu icon={<i class="material-icons">group</i>} label="Users">
+            <SubMenu
+              icon={<i className="material-icons">group</i>}
+              label="Users"
+            >
               <MenuItem
-                icon={<i class="material-icons">group</i>}
+                icon={<i className="material-icons">group</i>}
                 component={<Link to={`./users`} />}
               >
                 Users
               </MenuItem>
               <MenuItem
-                icon={<i class="material-icons">add</i>}
+                icon={<i className="material-icons">add</i>}
                 component={<Link to={`./user/add`} />}
               >
                 Add User
               </MenuItem>
             </SubMenu>
             <SubMenu
-              icon={<i class="material-icons">inventory_2</i>}
+              icon={<i className="material-icons">inventory_2</i>}
               label="Category"
             >
               <MenuItem
-                icon={<i class="material-icons">inventory_2</i>}
+                icon={<i className="material-icons">inventory_2</i>}
                 component={<Link to={`./categories`} />}
               >
                 Categories
               </MenuItem>
               <MenuItem
                 component={<Link to={`./category/add`} />}
-                icon={<i class="material-icons">add</i>}
+                icon={<i className="material-icons">add</i>}
               >
                 Add Category
               </MenuItem>
             </SubMenu>
             <SubMenu
-              icon={<i class="material-icons">local_shipping</i>}
+              icon={<i className="material-icons">local_shipping</i>}
               label="Products"
             >
               <MenuItem
                 component={<Link to={`./products`} />}
-                icon={<i class="material-icons">local_shipping</i>}
+                icon={<i className="material-icons">local_shipping</i>}
               >
                 Products
               </MenuItem>
               <MenuItem
                 component={<Link to={`./product/add`} />}
-                icon={<i class="material-icons">add</i>}
+                icon={<i className="material-icons">add</i>}
               >
                 Add Product
               </MenuItem>
             </SubMenu>
             <MenuItem
               component={<Link to={`./orders`} />}
-              icon={<i class="material-icons">list_alt</i>}
+              icon={<i className="material-icons">list_alt</i>}
             >
               Orders
             </MenuItem>
             <MenuItem
               component={<Link to={`./rate`} />}
-              icon={<i class="material-icons">list_alt</i>}
+              icon={<i className="material-icons">list_alt</i>}
             >
               Reviews
             </MenuItem>

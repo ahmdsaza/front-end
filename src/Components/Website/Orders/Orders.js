@@ -21,8 +21,8 @@ export default function Orders() {
       .catch((err) => console.log(err));
   }, [limit, page]);
 
-  const showTheOrder = orders.map((items) => (
-    <div className="mt-2">
+  const showTheOrder = orders.map((items, index) => (
+    <div className="mt-2" key={index}>
       <div className="card d-flex flex-row align-items-center justify-content-between px-3">
         <div className="mt-3 py-2">
           <p>Order Number: #{items.id}</p>
@@ -50,7 +50,7 @@ export default function Orders() {
             )}
           </p>
         </div>
-        <div className="">
+        <div>
           <NavLink to={`./${items.slug}`}>
             <button className="btn btn-outline-primary">Show</button>
           </NavLink>

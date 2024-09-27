@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./rating.css";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PRODUCT, USER, RATE } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Container } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Rating() {
   const { id } = useParams();
@@ -45,11 +47,15 @@ export default function Rating() {
     try {
       if (user) {
         Axios.post(`${RATE}`, datarate)
-          .then(setAddRate("Your rate add successfully"))
+          .then(toast.success("Your rate add successfully"), {
+            autoClose: 2000,
+          })
           .then(setSent("true"))
           .catch((err) => console.log(err));
       } else {
-        alert("Some thing wrong try later");
+        toast.error("Some thing wrong try later", {
+          autoClose: 2000,
+        });
       }
     } catch (err) {
       console.log(err);
@@ -60,17 +66,17 @@ export default function Rating() {
     <Container key={item.id + key}>
       <div className="row">
         <div className="col">
-          <div class="product-img-rate">
+          <div className="product-img-rate">
             <img src={item.images[0].image} alt="" />
           </div>
         </div>
-        <div class="product-side">
-          <div class="product-description">
+        <div className="product-side">
+          <div className="product-description">
             <span className="product-category">{item.category.title}</span>
             <h1 className="product-title">{item.title}</h1>
             <p className="product-description">{item.description}</p>
           </div>
-          <div class="product-prices">
+          <div className="product-prices">
             {item.discount > 0 ? (
               <>
                 <span className="product-discount">${item.discount}</span>
@@ -89,9 +95,10 @@ export default function Rating() {
 
   return (
     <div className="d-flex flex-column">
+      <ToastContainer />
       <div>{showData}</div>
       <form className="d-flex flex-column align-items-center">
-        <div class="rate">
+        <div className="rate">
           <input
             type="radio"
             id="star5"

@@ -11,11 +11,11 @@ export default function ReloadPage() {
   }, []);
   return (
     <div>
-      <div class="container1">
+      <div className="container1">
         <span style={{ textAlign: "center", padding: "0 10px" }}>
           <h4>Please wait while we are processing your payment.</h4>
         </span>
-        <div class="box">
+        <div className="box">
           <span></span>
           <span></span>
           <span></span>

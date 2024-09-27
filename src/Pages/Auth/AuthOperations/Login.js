@@ -4,8 +4,7 @@ import { baseURL, LOGIN } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
 import { Form } from "react-bootstrap";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import googleIcon from "../../../Assets/Logo-google-icon-PNG.png";
+import { NavLink } from "react-router-dom";
 import TheNavBar from "./../../../Components/Website/NavBar/TheNavBar";
 
 export default function Login() {
@@ -20,9 +19,6 @@ export default function Login() {
 
   // Cookies
   const cookie = Cookie();
-
-  // Navigate
-  const navigate = useNavigate();
 
   // Err
   const [err, setErr] = useState("");
@@ -62,10 +58,10 @@ export default function Login() {
   }
   return (
     <>
-      <TheNavBar />
       {loading && <LoadingSubmit />}
+      <TheNavBar />
       <div className="container text-center">
-        <div className="row" style={{ height: "100vh" }}>
+        <div className="row" style={{ height: "75vh" }}>
           <div className="col-md-6 mx-auto">
             <Form
               className="card px-2 align-items-center"
@@ -105,7 +101,7 @@ export default function Login() {
                 </Form.Group>
                 <button className="btn btn-primary">Login</button>
                 <div>
-                  <Link to="../register">You don't have an account?</Link>
+                  <NavLink to="../register">You don't have an account?</NavLink>
                 </div>
                 {err !== "" && <span className="error">{err}</span>}
               </div>

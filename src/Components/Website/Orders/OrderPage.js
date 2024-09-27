@@ -5,9 +5,9 @@ import { Axios } from "../../../API/axios";
 import { Container } from "react-bootstrap";
 import TransformDated from "../../../helpers/TransformDated";
 import TransformTime from "../../../helpers/TransformTime";
-import "../CheckOut/thankyou.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import "../CheckOut/thankyou.css";
 
 export default function OrderPage() {
   const { id } = useParams();
@@ -30,7 +30,7 @@ export default function OrderPage() {
   const showOrderProducts = getOrders.map((item, key) => {
     return (
       <>
-        <tbody>
+        <tbody key={key}>
           <tr>
             <td>
               <NavLink
@@ -65,7 +65,7 @@ export default function OrderPage() {
     <Container>
       <main>
         <section>
-          <div class="order-complete">
+          <div className="order-complete">
             <div>
               <NavLink
                 className="col btn mt-3"
@@ -81,24 +81,24 @@ export default function OrderPage() {
               </NavLink>
             </div>
             <h1 className="text-center mt-3">Order Details</h1>
-            <div class="checkout__totals-wrapper">
-              <div class="order-complete">
-                <div class="order-info">
-                  <div class="order-info__item">
+            <div className="checkout__totals-wrapper">
+              <div className="order-complete">
+                <div className="order-info">
+                  <div className="order-info__item">
                     <label>Order Number</label>
                     <span>#{orders.id}</span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>Date</label>
                     <span>
                       {createAtDate} | {createAtTime}
                     </span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>Tracking Number</label>
                     <span>{orders.tracking_no}</span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>Paymetn Method</label>
                     <span>
                       {orders.payment_mode === "0" ? (
@@ -112,7 +112,7 @@ export default function OrderPage() {
                       )}
                     </span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>status</label>
                     <p className="d-flex gap-1 my-0">
                       {orders.status === 0 ? (
@@ -145,34 +145,34 @@ export default function OrderPage() {
                     </p>
                   </div>
                 </div>
-                <div class="order-info mt-3">
-                  <div class="order-info__item">
+                <div className="order-info mt-3">
+                  <div className="order-info__item">
                     <label>Full name:</label>
                     <span>
                       {orders.firstname} {orders.lastname}
                     </span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>City:</label>
                     <span>{orders.city}</span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>Address:</label>
                     <span>{orders.address}</span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>Zipcode:</label>
                     <span>{orders.zipcode}</span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>Phone:</label>
                     <span>{orders.phone}</span>
                   </div>
                 </div>
               </div>
-              <div class="checkout__totals">
+              <div className="checkout__totals">
                 <h3>Order Details</h3>
-                <table class="checkout-cart-items">
+                <table className="checkout-cart-items">
                   <thead>
                     <tr>
                       {loading ? (
@@ -199,7 +199,7 @@ export default function OrderPage() {
                   </thead>
                   {showOrderProducts}
                 </table>
-                <table class="checkout-totals">
+                <table className="checkout-totals">
                   <tbody>
                     <tr>
                       <th>SUBTOTAL</th>

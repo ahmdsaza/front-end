@@ -27,44 +27,6 @@ export default function ThankYou() {
       .catch((err) => console.log(err));
   }, []);
 
-  // const showOrderItems = orders.map((item, key) => {
-  //   createAt = item.created_at;
-  //   return (
-  //     <div class="order-complete">
-  //       <div class="order-info">
-  //         <div class="order-info__item">
-  //           <label>Order Number</label>
-  //           <span>#{item.id}</span>
-  //         </div>
-  //         <div class="order-info__item">
-  //           <label>Date</label>
-  //           <span>
-  //             {createAt.slice(0, 10)} | {createAt.slice(11, 16)}
-  //           </span>
-  //         </div>
-  //         <div class="order-info__item">
-  //           <label>Tracking Number</label>
-  //           <span>{item.tracking_no}</span>
-  //         </div>
-  //         <div class="order-info__item">
-  //           <label>Paymetn Method</label>
-  //           <span>
-  //             {item.payment_mode === 0 ? (
-  //               <span>Cash on Delivery</span>
-  //             ) : item.payment_mode === 1 ? (
-  //               <span>Visa</span>
-  //             ) : item.payment_mode === 2 ? (
-  //               <span>Mada</span>
-  //             ) : (
-  //               <></>
-  //             )}
-  //           </span>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // });
-
   const showOrderProducts = getOrders.map((item, key) => {
     itemqty = item.price * item.qty;
     totalCartPrice += item.price * item.qty;
@@ -97,12 +59,12 @@ export default function ThankYou() {
   let createAtTime = orders ? TransformTime(orders.created_at) : <></>;
 
   return (
-    <main class="pt-90">
-      <div class="mb-4 pb-4"></div>
-      <section class="shop-checkout container">
-        <h2 class="page-title">Order Received</h2>
-        <div class="order-complete">
-          <div class="order-complete__message">
+    <main className="pt-90">
+      <div className="mb-4 pb-4"></div>
+      <section className="shop-checkout container">
+        <h2 className="page-title">Order Received</h2>
+        <div className="order-complete">
+          <div className="order-complete__message">
             <svg
               width="80"
               height="80"
@@ -119,24 +81,24 @@ export default function ThankYou() {
             <h3>Your order is completed!</h3>
             <p>Thank you. Your order has been received.</p>
           </div>
-          <div class="checkout__totals-wrapper">
-            <div class="order-complete">
-              <div class="order-info">
-                <div class="order-info__item">
+          <div className="checkout__totals-wrapper">
+            <div className="order-complete">
+              <div className="order-info">
+                <div className="order-info__item">
                   <label>Order Number</label>
                   <span>#{orders.id}</span>
                 </div>
-                <div class="order-info__item">
+                <div className="order-info__item">
                   <label>Date</label>
                   <span>
                     {createAtTime} | {createAtDate}
                   </span>
                 </div>
-                <div class="order-info__item">
+                <div className="order-info__item">
                   <label>Tracking Number</label>
                   <span>{orders.tracking_no}</span>
                 </div>
-                <div class="order-info__item">
+                <div className="order-info__item">
                   <label>Paymetn Method</label>
                   <span>
                     {orders.payment_mode === "0" ? (
@@ -150,7 +112,7 @@ export default function ThankYou() {
                     )}
                   </span>
                 </div>
-                <div class="order-info__item">
+                <div className="order-info__item">
                   <label>Status</label>
                   <p className="d-flex gap-1 my-0">
                     {orders.status === 0 ? (
@@ -183,34 +145,34 @@ export default function ThankYou() {
                   </p>
                 </div>
               </div>
-              <div class="order-info mt-3">
-                <div class="order-info__item">
+              <div className="order-info mt-3">
+                <div className="order-info__item">
                   <label>Full name:</label>
                   <span>
                     {orders.firstname} {orders.lastname}
                   </span>
                 </div>
-                <div class="order-info__item">
+                <div className="order-info__item">
                   <label>City:</label>
                   <span>{orders.city}</span>
                 </div>
-                <div class="order-info__item">
+                <div className="order-info__item">
                   <label>Address:</label>
                   <span>{orders.address}</span>
                 </div>
-                <div class="order-info__item">
+                <div className="order-info__item">
                   <label>Zipcode:</label>
                   <span>{orders.zipcode}</span>
                 </div>
-                <div class="order-info__item">
+                <div className="order-info__item">
                   <label>Phone:</label>
                   <span>{orders.phone}</span>
                 </div>
               </div>
             </div>
-            <div class="checkout__totals">
+            <div className="checkout__totals">
               <h3>Order Details</h3>
-              <table class="checkout-cart-items">
+              <table className="checkout-cart-items">
                 <thead>
                   <tr>
                     {loading ? (
@@ -226,7 +188,7 @@ export default function ThankYou() {
                 </thead>
                 {showOrderProducts}
               </table>
-              <table class="checkout-totals">
+              <table className="checkout-totals">
                 <tbody>
                   <tr>
                     <th>SUBTOTAL</th>

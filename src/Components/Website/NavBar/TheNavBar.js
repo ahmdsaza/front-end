@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Axios } from "../../../API/axios";
 import { PRODUCT, LOGOUT, USER, CARTLENGTH } from "../../../API/Api";
 // import SkeletonShow from "../Skeleton/SkeletonShow";
 import Cookie from "cookie-universal";
-import "./TheNavBar.css";
 import { CartExport } from "../../../Context/CartContext";
+import "./TheNavBar.css";
 
 export default function TheNavBar(props) {
   const [name, setName] = useState("");
@@ -68,7 +68,7 @@ export default function TheNavBar(props) {
   }
 
   const dataShow = showWichData.map((item, key) => (
-    <div key={item.id + key}>
+    <div key={key}>
       <NavLink to={`./products/${item.slug}`}>
         <div className="search-abs">
           <div className="search-bar-data">
@@ -87,15 +87,15 @@ export default function TheNavBar(props) {
 
   return (
     <Container>
-      <nav className="py-3">
+      <div className="py-3">
         <div className="d-flex align-items-center justify-content-between flex-wrap">
-          <Link className="col-3" to="/">
+          <NavLink className="col-3" to="/">
             <img
               width="200px"
               src={require("../../../Assets/Orange and Gray Tag Cart Virtual Shop Logo.png")}
               alt="logo"
             />
-          </Link>
+          </NavLink>
           <div className="col-3 d-flex align-items-center justify-content-end gap-2 order-md-3 order-1">
             <div className="d-flex gap-2">
               {/* <img
@@ -119,13 +119,13 @@ export default function TheNavBar(props) {
               <div className="d-flex">
                 {name ? (
                   <>
-                    <Link to="/cart">
+                    <NavLink to="/cart">
                       <img
                         width="30px"
                         src={require("../../../Assets/shopping-cart.png")}
                         alt="Cart"
                       />
-                    </Link>
+                    </NavLink>
                     <span>{cartLength}</span>
                   </>
                 ) : (
@@ -180,7 +180,7 @@ export default function TheNavBar(props) {
                       <NavLink to="/orders" style={{ color: "black" }}>
                         My Orders
                       </NavLink>
-                    </Dropdown.Item>{" "}
+                    </Dropdown.Item>
                     <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                   </>
                 ) : (
@@ -201,7 +201,7 @@ export default function TheNavBar(props) {
         ) : (
           <div onClick={() => setSearch("")}>{dataShow}</div>
         )}
-      </nav>
+      </div>
     </Container>
   );
 }

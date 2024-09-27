@@ -59,7 +59,9 @@ export default function TableShow(props) {
   }, [search, date]);
 
   // Header Show
-  const headerShow = props.header.map((item) => <th>{item.name}</th>);
+  const headerShow = props.header.map((item, index) => (
+    <th key={index}>{item.name}</th>
+  ));
 
   // Body Show
   const dataShow = showWichData.map((item, key) => (
@@ -168,7 +170,7 @@ export default function TableShow(props) {
           }}
         />
       </div>
-      <div class=".table-responsive px-md-4 px-2 pt-3">
+      <div className=".table-responsive px-md-4 px-2 pt-3">
         <Table striped bordered hover responsive>
           <thead>
             <tr>

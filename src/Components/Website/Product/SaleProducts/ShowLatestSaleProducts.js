@@ -15,11 +15,11 @@ export default function ShowLatestSaleProducts() {
       .finally(() => setLoading(false));
   }, []);
 
-  const productsShow = products.map((product) => (
+  const productsShow = products.map((product, index) => (
     <SaleProducts
       id={product.slug}
       title={product.title}
-      // description={product.description}
+      description={product.description}
       discount={product.discount}
       sale
       img={product.images[0].image}
@@ -27,6 +27,7 @@ export default function ShowLatestSaleProducts() {
       rating={product.rating}
       ratings_number={product.ratings_number}
       col="3"
+      key={index}
     />
   ));
   return (

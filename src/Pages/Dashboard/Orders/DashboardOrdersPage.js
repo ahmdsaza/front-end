@@ -7,9 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import Form from "react-bootstrap/Form";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import "./dashboardorder.css";
 import TransformDated from "../../../helpers/TransformDated";
 import TransformTime from "../../../helpers/TransformTime";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./dashboardorder.css";
 
 export default function DashboardOrdersPage() {
   const { id } = useParams();
@@ -18,12 +20,6 @@ export default function DashboardOrdersPage() {
   const [status, setStatus] = useState("");
   const [orderPrice, setOrderPrice] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  let totalCartPrice = 0;
-  let createAt = 0;
-  let itemqty = 0;
-  let itemqtyfixed = 0;
-  let totalPrice = 0;
 
   useEffect(() => {
     Axios.get(`${ORDERID}/${id}`)
@@ -35,7 +31,7 @@ export default function DashboardOrdersPage() {
         setLoading(false);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   async function HandleSubmit(e) {
     // setLoading(true);
@@ -44,7 +40,9 @@ export default function DashboardOrdersPage() {
       const res = await Axios.post(`${ORDER}/edit/${id}`, {
         status: status,
       });
-      alert("Status Changed successfully");
+      toast.success("Status Changed successfully", {
+        autoClose: 2000,
+      });
     } catch (err) {
       // setLoading(false);
       console.log(err);
@@ -78,7 +76,7 @@ export default function DashboardOrdersPage() {
     <Container>
       <main>
         <section>
-          <div class="order-complete">
+          <div className="order-complete">
             <div>
               <NavLink className="col btn mt-3" to="../orders">
                 <FontAwesomeIcon
@@ -90,24 +88,24 @@ export default function DashboardOrdersPage() {
               </NavLink>
             </div>
             <h1 className="text-center mt-3">Order Details</h1>
-            <div class="checkout__totals-wrapper">
-              <div class="order-complete">
-                <div class="order-info">
-                  <div class="order-info__item">
+            <div className="checkout__totals-wrapper">
+              <div className="order-complete">
+                <div className="order-info">
+                  <div className="order-info__item">
                     <label>Order Number</label>
                     <span>#{orders?.id}</span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>Date</label>
                     <span>
                       {createAtDate} | {createAtTime}
                     </span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>Tracking Number</label>
                     <span>{orders?.tracking_no}</span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>Paymetn Method</label>
                     <span>
                       {orders?.payment_mode === "0" ? (
@@ -122,7 +120,7 @@ export default function DashboardOrdersPage() {
                     </span>
                   </div>
                   <p className="text-secondary mt-4">Status:</p>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <Form onSubmit={HandleSubmit}>
                       <Form.Group controlId="exampleForm.ControlInput3">
                         <div className="d-flex gap-1">
@@ -150,34 +148,34 @@ export default function DashboardOrdersPage() {
                     </Form>
                   </div>
                 </div>
-                <div class="order-info mt-3">
-                  <div class="order-info__item">
+                <div className="order-info mt-3">
+                  <div className="order-info__item">
                     <label>Full name:</label>
                     <span>
                       {orders?.firstname} {orders.lastname}
                     </span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>City:</label>
                     <span>{orders?.city}</span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>Address:</label>
                     <span>{orders?.address}</span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>Zipcode:</label>
                     <span>{orders?.zipcode}</span>
                   </div>
-                  <div class="order-info__item">
+                  <div className="order-info__item">
                     <label>Phone:</label>
                     <span>{orders?.phone}</span>
                   </div>
                 </div>
               </div>
-              <div class="checkout__totals">
+              <div className="checkout__totals">
                 <h3>Order Details</h3>
-                <table class="checkout-cart-items">
+                <table className="checkout-cart-items">
                   <thead>
                     <tr>
                       {loading ? (
@@ -193,7 +191,7 @@ export default function DashboardOrdersPage() {
                   </thead>
                   {showOrderProducts}
                 </table>
-                <table class="checkout-totals">
+                <table className="checkout-totals">
                   <tbody>
                     <tr>
                       <th>SUBTOTAL</th>
@@ -228,6 +226,7 @@ export default function DashboardOrdersPage() {
           </div>
         </section>
       </main>
+      <ToastContainer />
     </Container>
   );
 }

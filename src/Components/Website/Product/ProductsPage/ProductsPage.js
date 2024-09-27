@@ -8,6 +8,8 @@ import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CartExport } from "../../../../Context/CartContext";
 import ImageGallery from "react-image-gallery";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./ProductsPage.css";
 
 export default function ProductsPage() {
@@ -71,17 +73,20 @@ export default function ProductsPage() {
         Axios.post(`${CART}`, data)
           .then(
             setAddtoCart("Product add to cart successfully"),
-            setIsChange((prev) => !prev)
+            setIsChange((prev) => !prev),
+            toast.success("Product add to cart successfully", {
+              autoClose: 2000,
+            })
           )
           .catch((err) => {
             if (err.response.status === 420) {
-              setErr(err.response.data.error);
+              toast.error(err.response.data.error);
             } else {
-              setErr("Something went worng");
+              toast.error("Something went worng");
             }
           });
       } else {
-        alert("Login To add Products to Cart");
+        toast.error("Login to add Products to Cart");
       }
     } catch (err) {
       console.log(err);
@@ -101,7 +106,7 @@ export default function ProductsPage() {
     <FontAwesomeIcon key={index} icon={regularStar} />
   ));
 
-  const showRateData = showRate.map((item) => {
+  const showRateData = showRate.map((item, index) => {
     const roundStarsRate = Math.round(item.product_rate);
     const starsRate = Math.min(roundStarsRate, 5);
     const showGoldStarsRate = Array.from({ length: starsRate }).map(
@@ -124,7 +129,7 @@ export default function ProductsPage() {
     );
 
     return (
-      <div className="card mt-3">
+      <div className="card mt-3" key={index}>
         <div className="rate-div">
           <div>
             <img
@@ -152,16 +157,16 @@ export default function ProductsPage() {
     ));
 
     return (
-      <div className="product-div">
-        <div class="col-lg-6">
+      <div className="product-div" key={key}>
+        <div className="col-lg-6">
           <ImageGallery
             items={images}
             showFullscreenButton={false}
             showPlayButton={false}
           />
         </div>
-        <div class="product-side">
-          <div class="product-description">
+        <div className="product-side">
+          <div className="product-description">
             {showGoldStars}
             {showEmptyStars}
             <span className="product-category">{item.category.title}</span>
@@ -183,7 +188,7 @@ export default function ProductsPage() {
               <></>
             )}
           </div>
-          <div class="product-prices mt-3">
+          <div className="product-prices mt-3">
             {item.discount > 0 ? (
               <>
                 <span className="product-discount">${item.discount}</span>
@@ -195,7 +200,7 @@ export default function ProductsPage() {
               </>
             )}
           </div>{" "}
-          <div class="cart-btn">
+          <div className="cart-btn">
             <div className="count-div">
               <input
                 className="sum"
@@ -225,7 +230,7 @@ export default function ProductsPage() {
               Add to cart
             </button>
           </div>
-          {err ? (
+          {/* {err ? (
             <div className="d-flex justify-content-center">
               <span className="d-flex alert alert-danger mt-2 justify-content-center ">
                 {err}
@@ -239,7 +244,7 @@ export default function ProductsPage() {
             </div>
           ) : (
             <></>
-          )}
+          )} */}
         </div>
       </div>
     );
@@ -248,6 +253,7 @@ export default function ProductsPage() {
   return (
     <Container>
       {showData}
+      <ToastContainer />
       {showRate.length > 0 ? (
         <div>
           <h1 className="text-center mt-3">Reviews</h1>

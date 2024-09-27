@@ -66,7 +66,7 @@ export default function CheckOut() {
 
   let totalCartPrice = 0;
 
-  const showCheckOut = carts.map((item) => {
+  const showCheckOut = carts.map((item, index) => {
     if (item.product?.discount > 0) {
       totalCartPrice += item.product?.discount * item?.product_qty;
       itemPrice = item.product?.discount.slice(0, 5);
@@ -80,48 +80,48 @@ export default function CheckOut() {
     }
 
     return (
-      <tr class="border-bottom">
+      <tr className="border-bottom" key={index}>
         <td>
-          <div class="d-flex align-items-center">
+          <div className="d-flex align-items-center">
             <img
               className="pic"
               src={item.images[0].image}
               alt={item.product.title}
             />
-            <div class="ps-3 d-flex flex-column justify-content">
-              <p class="pic fw-bold">
+            <div className="ps-3 d-flex flex-column justify-content">
+              <p className="pic fw-bold">
                 <NavLink to={`../products/${item.product.slug}`}>
-                  <span class="ps-1 text-black">{item.product.title}</span>
+                  <span className="ps-1 text-black">{item.product.title}</span>
                 </NavLink>
               </p>
-              {/* <small class="d-flex">
-                <span class="text-muted">Color:</span>
-                <span class="fw-bold">Red/White</span>
+              {/* <small className="d-flex">
+                <span className="text-muted">Color:</span>
+                <span className="fw-bold">Red/White</span>
               </small> */}
-              <small class="">
-                <span class="text-muted">Size:</span>
-                <span class="fw-bold">{item.sizes[0].name}</span>
+              <small className="">
+                <span className="text-muted">Size:</span>
+                <span className="fw-bold">{item.sizes[0].name}</span>
               </small>
             </div>
           </div>
         </td>
         <td>
-          <div class="d-flex">
-            <p class="pe-3">
-              <span class="text-muted">
+          <div className="d-flex">
+            <p className="pe-3">
+              <span className="text-muted">
                 $
                 {item.product.discount > 0
                   ? item.product.discount
                   : item.product.price}
               </span>
             </p>
-            <p class="fw-bold">Total: ${tot}</p>
+            <p className="fw-bold">Total: ${tot}</p>
           </div>
         </td>
         <td>
-          <div class="d-flex align-items-center">
-            <span class="pe-3 text-muted">Quantity:</span>
-            <span class="pe-3">{item.product_qty}</span>
+          <div className="d-flex align-items-center">
+            <span className="pe-3 text-muted">Quantity:</span>
+            <span className="pe-3">{item.product_qty}</span>
           </div>
         </td>
       </tr>
@@ -204,8 +204,8 @@ export default function CheckOut() {
     }
   }
 
-  const showAddress = addressCall.map((item) => (
-    <>
+  const showAddress = addressCall.map((item, index) => (
+    <div key={index}>
       <div className="d-flex border rounded justify-content-around">
         <input
           name="address"
@@ -213,7 +213,7 @@ export default function CheckOut() {
           onClick={handleAddress}
           value={item.id}
         />
-        <div class="col-lg-10 delivery py-1">
+        <div className="col-lg-10 delivery py-1">
           <div className="name">
             <span>
               First name:{" "}
@@ -251,57 +251,57 @@ export default function CheckOut() {
           />
         </div>
       </div>
-    </>
+    </div>
   ));
 
   return (
     <Container>
-      <div class="containers mt-4 p-0">
-        <div class="row px-md-4 px-2 pt-4">
+      <div className="containers mt-4 p-0">
+        <div className="row px-md-4 px-2 pt-4">
           {/*Show orders*/}
-          <div class="col-lg-8">
+          <div className="col-lg-8">
             {carts.length > 1 ? (
-              <p class="pb-2 fw-bold">Orders list</p>
+              <p className="pb-2 fw-bold">Orders list</p>
             ) : (
-              <p class="pb-2 fw-bold">Order list</p>
+              <p className="pb-2 fw-bold">Order list</p>
             )}
-            <div class="card">
-              <div class="table-responsive px-md-4 px-2 pt-3">
-                <table class="table table-borderless">
+            <div className="card">
+              <div className="table-responsive px-md-4 px-2 pt-3">
+                <table className="table table-borderless">
                   <tbody>{showCheckOut}</tbody>
                 </table>
               </div>
             </div>
           </div>
           {/*Payment summary*/}
-          <div class="col-lg-4 payment-summary">
-            <p class="fw-bold pt-lg-0 pt-4 pb-2">Payment Summary</p>
-            <div class="card px-md-3 px-2 pt-2">
-              <div class="d-flex flex-column">
-                <div class="d-flex justify-content-between py-3">
-                  <small class="text-muted">Order price</small>
+          <div className="col-lg-4 payment-summary">
+            <p className="fw-bold pt-lg-0 pt-4 pb-2">Payment Summary</p>
+            <div className="card px-md-3 px-2 pt-2">
+              <div className="d-flex flex-column">
+                <div className="d-flex justify-content-between py-3">
+                  <small className="text-muted">Order price</small>
                   <p>${totalCartPrice.toFixed(2)}</p>
                 </div>
-                <div class="d-flex justify-content-between pb-3 ">
-                  <small class="text-muted">VAT</small>
+                <div className="d-flex justify-content-between pb-3 ">
+                  <small className="text-muted">VAT</small>
                   <p>${vat.toFixed(2)}</p>
                 </div>{" "}
-                <div class="d-flex justify-content-between pb-3 ">
-                  <small class="text-muted">Shipping (SMSA)</small>
+                <div className="d-flex justify-content-between pb-3 ">
+                  <small className="text-muted">Shipping (SMSA)</small>
                   <p>FREE</p>
                 </div>
                 {form.payment_mode === "0" ? (
                   <>
-                    <div class="d-flex justify-content-between pb-3 ">
-                      <small class="text-muted">COD Fees</small>
+                    <div className="d-flex justify-content-between pb-3 ">
+                      <small className="text-muted">COD Fees</small>
                       <p>$5.00</p>
                     </div>
                   </>
                 ) : (
                   <></>
                 )}
-                <div class="d-flex justify-content-between mb-3 border-top">
-                  <p class="fw-bold">Total Amount</p>
+                <div className="d-flex justify-content-between mb-3 border-top">
+                  <p className="fw-bold">Total Amount</p>
                   {/* <p className="fw-bold">${totalWithVat.toFixed(2)}</p> */}
                   <p className="fw-bold">
                     $
@@ -314,13 +314,13 @@ export default function CheckOut() {
             </div>
           </div>
           {/*Address*/}
-          <div class="col-lg-8 delivery">
-            <p class="pt-2 fw-bold pb-3 ps-2">Address</p>
+          <div className="col-lg-8 delivery">
+            <p className="pt-2 fw-bold pb-3 ps-2">Address</p>
             <small className="text-secondary">
               * Make sure you choose an address
             </small>
             <div>{showAddress}</div>
-            <div class="">
+            <div className="">
               <>
                 <div
                   className="border rounded "
@@ -347,7 +347,7 @@ export default function CheckOut() {
                           className="mb-3"
                           controlId="exampleForm.ControlInput0"
                         >
-                          <Form.Label for="f-name">First name:</Form.Label>
+                          <Form.Label>First name:</Form.Label>
                           <Form.Control
                             required
                             name="firstname"
@@ -379,8 +379,8 @@ export default function CheckOut() {
                           controlId="exampleForm.ControlInput0"
                         >
                           <Form.Label>Phone number:</Form.Label>
-                          <p class="input-group">
-                            <span class="input-group-text">+966</span>
+                          <p className="input-group">
+                            <span className="input-group-text">+966</span>
                             <Form.Control
                               required
                               name="phone"
@@ -407,7 +407,7 @@ export default function CheckOut() {
                           />
                         </Form.Group>
                       </div>
-                      <div class="address-info">
+                      <div className="address-info">
                         <Form.Group
                           className="mb-3"
                           controlId="exampleForm.ControlInput1"
@@ -455,14 +455,14 @@ export default function CheckOut() {
             </div>
           </div>
           {/*Payment method*/}
-          <div class="col-lg-4">
-            <p class="pt-4 fw-bold pb-3">Payment Method</p>
-            <div class="card p-3 mb-2">
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="fw-bold">
-                  <div class="d-flex gap-2">
+          <div className="col-lg-4">
+            <p className="pt-4 fw-bold pb-3">Payment Method</p>
+            <div className="card p-3 mb-2">
+              <div className="d-flex align-items-center justify-content-between">
+                <div className="fw-bold">
+                  <div className="d-flex gap-2">
                     <img
-                      class=""
+                      className=""
                       src="https://www.mada.com.sa/sites/mada/themes/custom/mada_theme/images/logo.svg"
                       width="45px"
                       alt=""
@@ -470,10 +470,10 @@ export default function CheckOut() {
                     Mada
                   </div>
                 </div>
-                <div class="d-flex align-items-center">
-                  <div class="form-check form-switch">
+                <div className="d-flex align-items-center">
+                  <div className="form-check form-switch">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       name="payment"
                       type="radio"
                       id="SwitchCheck"
@@ -484,10 +484,10 @@ export default function CheckOut() {
                 </div>
               </div>
             </div>
-            <div class="card p-3 mb-2">
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="fw-bold">
-                  <div class="d-flex gap-2">
+            <div className="card p-3 mb-2">
+              <div className="d-flex align-items-center justify-content-between">
+                <div className="fw-bold">
+                  <div className="d-flex gap-2">
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Old_Visa_Logo.svg/2560px-Old_Visa_Logo.svg.png"
                       alt=""
@@ -496,10 +496,10 @@ export default function CheckOut() {
                     VISA
                   </div>
                 </div>
-                <div class="d-flex align-items-center">
-                  <div class="form-check form-switch">
+                <div className="d-flex align-items-center">
+                  <div className="form-check form-switch">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       name="payment"
                       type="radio"
                       id="SwitchCheck"
@@ -510,8 +510,8 @@ export default function CheckOut() {
                 </div>
               </div>
             </div>
-            <div class="card p-3 mb-2">
-              <div class="d-flex align-items-center justify-content-between">
+            <div className="card p-3 mb-2">
+              <div className="d-flex align-items-center justify-content-between">
                 <div>
                   <div className="d-flex align-items-center">
                     <img
@@ -519,17 +519,17 @@ export default function CheckOut() {
                       alt=""
                       width="45px"
                     />
-                    <p class="fw-bold">Cash on Delivery</p>
+                    <p className="fw-bold">Cash on Delivery</p>
                   </div>
-                  <small class="text-muted">
+                  <small className="text-muted">
                     Fees added for cash on delivery
                   </small>
                 </div>
-                <div class="d-flex align-items-center">
-                  <p class="pe-3">+$5.00</p>
-                  <div class="form-check form-switch">
+                <div className="d-flex align-items-center">
+                  <p className="pe-3">+$5.00</p>
+                  <div className="form-check form-switch">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       name="payment"
                       type="radio"
                       id="SwitchCheck"
@@ -542,7 +542,7 @@ export default function CheckOut() {
             </div>
             <button
               disabled={!sent}
-              class="checkout-button"
+              className="checkout-button"
               onClick={handleSubmit}
             >
               Check Out

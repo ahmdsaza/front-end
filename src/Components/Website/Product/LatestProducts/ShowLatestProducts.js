@@ -15,7 +15,7 @@ export default function ShowLatestProducts() {
       .finally(() => setLoading(false));
   }, []);
 
-  const productsShow = products.map((product, key) => (
+  const productsShow = products.map((product, index) => (
     <SaleProducts
       id={product.slug}
       title={product.title}
@@ -26,6 +26,7 @@ export default function ShowLatestProducts() {
       price={product.price}
       rating={product.rating}
       ratings_number={product.ratings_number}
+      key={index}
       col="3"
     />
   ));

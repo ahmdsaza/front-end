@@ -168,21 +168,21 @@ export default function Cart() {
           </div>
         </div>
         <div className="col-lg-4">
-          <div class="col-lg-12 payment-summary">
-            <p class="fw-bold pt-lg-0 pt-4 pb-2">Cart Summary</p>
-            <div class="card px-md-3 px-2 pt-2">
-              <div class="d-flex flex-column">
-                <div class="d-flex justify-content-between py-3">
-                  <small class="text-muted">Order price</small>
+          <div className="col-lg-12 payment-summary">
+            <p className="fw-bold pt-lg-0 pt-4 pb-2">Cart Summary</p>
+            <div className="card px-md-3 px-2 pt-2">
+              <div className="d-flex flex-column">
+                <div className="d-flex justify-content-between py-3">
+                  <small className="text-muted">Order price</small>
                   <p>${totalCartPrice?.toFixed(2)}</p>
                 </div>
 
-                <div class="d-flex justify-content-between pb-3 border-bottom">
-                  <small class="text-muted">VAT</small>
+                <div className="d-flex justify-content-between pb-3 border-bottom">
+                  <small className="text-muted">VAT</small>
                   <p>${vat.toFixed(2)}</p>
                 </div>
-                <div class="d-flex justify-content-between mt-3 mb-3">
-                  <p class="fw-bold">Total Amount</p>
+                <div className="d-flex justify-content-between mt-3 mb-3">
+                  <p className="fw-bold">Total Amount</p>
                   <p className="fw-bold">${totalWithVat?.toFixed(2)}</p>
                 </div>
               </div>
@@ -190,7 +190,7 @@ export default function Cart() {
             {carts.length > 0 ? (
               <Link to="../checkout">
                 <button className="checkout-button mt-3">
-                  <sapn className="checkout-span">Check Out</sapn>
+                  <div className="checkout-span">Check Out</div>
                 </button>
               </Link>
             ) : (
