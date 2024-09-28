@@ -23,8 +23,6 @@ export default function ProductsPage() {
   const [showSize, setShowSize] = useState([]);
   const [showRateNumber, setShowRateNumber] = useState(0);
   const [sizeChoice, setSizeChoice] = useState();
-  const [sizeChoiceQuantity, setSizeChoiceQuantity] = useState();
-  const [checkQuantity, setCheckQuantity] = useState(0);
   const [images, setImages] = useState([]);
   const { setIsChange } = useContext(CartExport);
 
@@ -73,7 +71,6 @@ export default function ProductsPage() {
       if (user) {
         Axios.post(`${CART}`, data)
           .then(
-            setAddtoCart("Product add to cart successfully"),
             setIsChange((prev) => !prev),
             toast.success("Product add to cart successfully", {
               autoClose: 2000,
@@ -96,6 +93,7 @@ export default function ProductsPage() {
 
   function handleSize(e) {
     setSizeChoice(e.target.value);
+    setCount(1);
   }
 
   const roundStars = Math.round(showRateNumber);
@@ -149,8 +147,6 @@ export default function ProductsPage() {
       </div>
     );
   });
-
-  // console.log(sizeChoice);
 
   const findSizeQuantity = showSize?.find((item) => {
     return item.id == sizeChoice;
@@ -241,21 +237,6 @@ export default function ProductsPage() {
               Add to cart
             </button>
           </div>
-          {/* {err ? (
-            <div className="d-flex justify-content-center">
-              <span className="d-flex alert alert-danger mt-2 justify-content-center ">
-                {err}
-              </span>
-            </div>
-          ) : addtocart !== "" ? (
-            <div className="d-flex justify-content-center">
-              <span className="d-flex alert alert-success mt-2 justify-content-center ">
-                {addtocart}
-              </span>
-            </div>
-          ) : (
-            <></>
-          )} */}
         </div>
       </div>
     );
@@ -268,7 +249,7 @@ export default function ProductsPage() {
       {showRate.length > 0 ? (
         <div>
           <h1 className="text-center mt-3">Reviews</h1>
-          <div className="mt-4"> {showRateData}</div>
+          <div className="mt-4">{showRateData}</div>
         </div>
       ) : (
         <></>
