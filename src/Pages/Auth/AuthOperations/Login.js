@@ -62,9 +62,9 @@ export default function Login() {
       <TheNavBar />
       <div className="container text-center">
         <div className="row" style={{ height: "75vh" }}>
-          <div className="col-md-6 mx-auto">
+          <div className="col-md-6">
             <Form
-              className="card px-2 align-items-center"
+              className="card px-2 align-items-center py-4"
               onSubmit={handleSubmit}
             >
               <div className="custom-form">

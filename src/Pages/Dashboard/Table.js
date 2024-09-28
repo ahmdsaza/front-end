@@ -103,7 +103,7 @@ export default function TableShow(props) {
           {currentUser && item[item2.key] === currentUser.email && " ( You ) "}
         </td>
       ))}
-      <td key={key + 1}>
+      <td>
         <div className="d-flex align-items-center gap-2">
           <Link to={`${item.id}`}>
             <FontAwesomeIcon fontSize={"19px"} icon={faPenToSquare} />

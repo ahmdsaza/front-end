@@ -30,40 +30,27 @@
 .search-bar-data {
     font-size: 1rem;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     height: 100px;
     padding: 0.5rem;
-    width: 100%;
     color: black;
     display: flex;
     gap: 1rem;
-    z-index: -1;
 }
 
 .search-bar {
-    margin-right: 30px;
+    max-height: 250px;
 }
 
 .search-abs {
-    /* position: absolute; */
     margin-left: 75%;
-    width: 15%;
+    width: 25%;
     background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-}
-
-.search-title,
-.search-price {
-    color: black;
+    border-bottom: 1px solid black;
 }
 
 .search-img {
-    width: 55px;
+    width: 60px;
     height: 90px;
     object-fit: cover;
 }
@@ -71,10 +58,9 @@
 @media (max-width: 1686px) {
     .search-abs {
         margin-left: 70%;
-        width: 20%;
+        width: 30%;
         background-color: white;
-        border: 1px solid black;
-        border-radius: 5px;
+        border-bottom: 1px solid black;
     }
 }
 
@@ -83,8 +69,7 @@
         margin-left: 70%;
         width: 30%;
         background-color: white;
-        border: 1px solid black;
-        border-radius: 5px;
+        border-bottom: 1px solid black;
     }
 }
 
@@ -93,7 +78,6 @@
         margin: auto;
         width: 80%;
         background-color: white;
-        border: 1px solid black;
-        border-radius: 5px;
+        border-bottom: 1px solid black;
     }
 }
