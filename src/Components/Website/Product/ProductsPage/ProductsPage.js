@@ -23,6 +23,7 @@ export default function ProductsPage() {
   const [showSize, setShowSize] = useState([]);
   const [showRateNumber, setShowRateNumber] = useState(0);
   const [sizeChoice, setSizeChoice] = useState();
+  const [sizeChoiceQuantity, setSizeChoiceQuantity] = useState();
   const [checkQuantity, setCheckQuantity] = useState(0);
   const [images, setImages] = useState([]);
   const { setIsChange } = useContext(CartExport);
@@ -149,6 +150,12 @@ export default function ProductsPage() {
     );
   });
 
+  // console.log(sizeChoice);
+
+  const findSizeQuantity = showSize?.find((item) => {
+    return item.id == sizeChoice;
+  });
+
   const showData = products.map((item, key) => {
     showSize.map((item) => (
       <option key={key} name="name" value={item.id} onChange={handleSize}>
@@ -218,7 +225,11 @@ export default function ProductsPage() {
                 className="minus"
                 type="button"
                 value=" + "
-                disabled={count === checkQuantity}
+                disabled={
+                  sizeChoice == null
+                    ? count === showSize[0].quantity
+                    : count === findSizeQuantity.quantity
+                }
                 onClick={() => {
                   setCount((prev) => prev + 1);
 
