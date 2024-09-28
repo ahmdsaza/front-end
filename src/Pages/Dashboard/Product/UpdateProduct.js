@@ -231,7 +231,7 @@ export default function UpdateProduct() {
   const sizesShow = showSizes.map((item, key) => (
     <div className="border p-2 w-75">
       <div className="row">
-        <div className="col">
+        <div className="col col-sm-8">
           <div className="d-flex align-items-center gap-2">
             <label>Name:</label>
             <input type="text" className="mb-1" value={item.name} />
