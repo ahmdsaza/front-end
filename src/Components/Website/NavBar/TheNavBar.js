@@ -15,6 +15,7 @@ export default function TheNavBar(props) {
   const [searchData, setSearchData] = useState([]);
   const [cartLength, setCartLength] = useState();
   const [searchLoading, setSearchLoading] = useState(false);
+  const [searchTitle, setSearchTitle] = useState("");
   const showEmpty = [];
 
   const { isChange } = useContext(CartExport);
@@ -78,7 +79,9 @@ export default function TheNavBar(props) {
               alt={item.title}
             />
             <p className="search-title">{item.title}</p>
-            <p className="search-price">${item.discount}</p>
+            <p className="search-price">
+              ${item.discount > 0 ? item.discount : item.price}
+            </p>
           </div>
         </div>
       </NavLink>
@@ -96,7 +99,7 @@ export default function TheNavBar(props) {
               alt="logo"
             />
           </NavLink>
-          <div className="col-3 d-flex align-items-center justify-content-end gap-2 order-md-3 order-1">
+          <div className="col-6 d-flex align-items-center justify-content-end gap-2 col-md-3 order-1">
             <div className="d-flex gap-2">
               {/* <img
                   width="25px"
@@ -110,7 +113,9 @@ export default function TheNavBar(props) {
                   className="search-bar"
                   aria-label="Search here..."
                   placeholder="Search..."
+                  value={searchTitle}
                   onChange={(e) => {
+                    setSearchTitle(e.target.value);
                     setSearch(e.target.value);
                     setSearchLoading(true);
                   }}
@@ -194,14 +199,22 @@ export default function TheNavBar(props) {
             </Dropdown>
           </div>
         </div>
-        {searchLoading ? (
-          <tr style={{ textAlign: "center" }}>
-            <td colSpan={12}>Searching...</td>
-          </tr>
-        ) : (
-          <div onClick={() => setSearch("")}>{dataShow}</div>
-        )}
       </div>
+      {searchLoading ? (
+        <tr style={{ textAlign: "center" }}>
+          <td colSpan={12}>Searching...</td>
+        </tr>
+      ) : (
+        <div
+          onClick={() => {
+            setSearch("");
+            setSearchTitle("");
+          }}
+          className="search-bar position-sticky overflow-y-scroll"
+        >
+          {dataShow}
+        </div>
+      )}
     </Container>
   );
 }
