@@ -17,7 +17,7 @@ export default function WebsiteCategoreis() {
   }, []);
 
   const showCategories = categories.map((item) => (
-    <div className="col-md-2">
+    <div className="">
       <div className="m-1 bg-white border d-flex align-items-center justify-content-center gap-3 p-1 rounded h-100">
         <Link to={`${item.id}`}>
           <img
@@ -25,7 +25,7 @@ export default function WebsiteCategoreis() {
             src={item.image}
             alt={item.title}
           />
-          <p className="catTitle d-flex my-1  justify-content-center">
+          <p className="catTitle d-flex my-1  justify-content-center text-black">
             {item.title}
           </p>
         </Link>

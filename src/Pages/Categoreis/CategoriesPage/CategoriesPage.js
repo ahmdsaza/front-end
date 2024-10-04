@@ -61,12 +61,32 @@ export default function CategoriesPage() {
               />
               {showGoldStars}
               {showEmptyStars}
+              <small>({item.ratings_number})</small>
               <div className="products-info">
                 <p className="products-title">{item.title}</p>
+                <hr />
                 <div className="products-icon">
                   <div className="prod-price">
-                    <div className="products-price">${item.price}</div>
-                    <div className="products-discount">${item.discount}</div>
+                    {item.discount > 0 ? (
+                      <>
+                        {" "}
+                        <h5 className="m-0 text-black">{item.discount}$</h5>
+                        <h6
+                          className="m-0"
+                          style={{
+                            color: "gray",
+                            textDecoration: "line-through",
+                          }}
+                        >
+                          {item.price}$
+                        </h6>
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <h5 className="m-0 text-black">{item.price}$</h5>
+                      </>
+                    )}
                   </div>
                   <div>
                     <img

@@ -7,6 +7,10 @@ import { PRODUCT, LOGOUT, USER, CARTLENGTH } from "../../../API/Api";
 // import SkeletonShow from "../Skeleton/SkeletonShow";
 import Cookie from "cookie-universal";
 import { CartExport } from "../../../Context/CartContext";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Offcanvas from "react-bootstrap/Offcanvas";
 import "./TheNavBar.css";
 
 export default function TheNavBar(props) {
@@ -90,7 +94,97 @@ export default function TheNavBar(props) {
 
   return (
     <Container>
-      <div className="py-3">
+      <Navbar expand="xl" className="mb-3" collapseOnSelect>
+        <Container fluid>
+          <Navbar.Brand href="#">
+            <NavLink
+              to={"../"}
+              className="d-flex align-items-end text-black text-decoration-none gap-2"
+            >
+              <img
+                width="200px"
+                src={require("../../../Assets/Orange and Gray Tag Cart Virtual Shop Logo.png")}
+                alt="logo"
+              />{" "}
+            </NavLink>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Offcanvas placement="end">
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title>Ahmed Store</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav className="justify-content-end flex-grow-1 pe-3">
+                <Nav.Link href="#" collapseOnSelect>
+                  <NavLink
+                    to={"../"}
+                    className="text-black text-decoration-none"
+                  >
+                    Home
+                  </NavLink>
+                </Nav.Link>
+                <Nav.Link href="#" collapseOnSelect>
+                  <NavLink
+                    to={"../Categories"}
+                    className="text-black text-decoration-none"
+                  >
+                    Categories
+                  </NavLink>
+                </Nav.Link>
+              </Nav>
+              {/* <Form className="d-flex">
+                <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                />
+                <Button variant="outline-success">Search</Button>
+              </Form> */}
+
+              <Form.Control
+                type="search"
+                className="search-bar"
+                aria-label="Search here..."
+                placeholder="Search..."
+                value={searchTitle}
+                onChange={(e) => {
+                  setSearchTitle(e.target.value);
+                  setSearch(e.target.value);
+                  setSearchLoading(true);
+                }}
+              />
+              <NavDropdown title={name.name} className="m-2 fs-5">
+                <NavDropdown.Item href="#" collapseOnSelect>
+                  <NavLink to={"../profile"} className="text-black">
+                    {" "}
+                    Profile
+                  </NavLink>
+                </NavDropdown.Item>
+                {name.role === "1995" && (
+                  <NavDropdown.Item>
+                    <NavLink to="/dashboard/activity" className="text-black">
+                      Dashboard
+                    </NavLink>
+                  </NavDropdown.Item>
+                )}
+                <NavDropdown.Item href="#" collapseOnSelect>
+                  <NavLink to={"../orders"} className="text-black">
+                    {" "}
+                    My orders
+                  </NavLink>
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#" collapseOnSelect>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
+      </Navbar>
+
+      {/* <div className="py-3">
         <div className="d-flex align-items-center justify-content-between flex-wrap">
           <NavLink className="col-3" to="/">
             <img
@@ -101,12 +195,6 @@ export default function TheNavBar(props) {
           </NavLink>
           <div className="col-6 d-flex align-items-center justify-content-end gap-2 col-md-3 order-1">
             <div className="d-flex gap-2">
-              {/* <img
-                  width="25px"
-                  height="25px"
-                  src={require("../../../Assets/search-icon.png")}
-                  alt="Cart"
-                /> */}
               <div>
                 <Form.Control
                   type="search"
@@ -214,7 +302,7 @@ export default function TheNavBar(props) {
         >
           {dataShow}
         </div>
-      )}
+      )} */}
     </Container>
   );
 }

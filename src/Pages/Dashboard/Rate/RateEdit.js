@@ -6,6 +6,8 @@ import { Container } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function RateEdit() {
   const { id } = useParams();
@@ -28,8 +30,9 @@ export default function RateEdit() {
       const res = await Axios.post(`${RATESSHOW}/edit/${id}`, {
         status: status,
       });
-      alert("Status Changed successfully");
-      console.log(status);
+      toast.success("Status Changed successfully", {
+        autoClose: 2000,
+      });
     } catch (err) {
       // setLoading(false);
       console.log(err);
@@ -89,11 +92,17 @@ export default function RateEdit() {
   return (
     <Container className="bg-white h-100">
       <div className="py-3">
-        <NavLink to="../rate">
-          <button className="btn btn-outline-primary">Back to Rates</button>
+        <NavLink to="../rate" className="col btn mt-3">
+          <FontAwesomeIcon
+            style={{ transform: "scaleX(-1)" }}
+            icon={faArrowRight}
+            className="px-2"
+          />
+          Back
         </NavLink>
       </div>
       <div>{showRate}</div>
+      <ToastContainer />
     </Container>
   );
 }

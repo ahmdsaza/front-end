@@ -4,6 +4,7 @@ import { Axios } from "../../../API/axios";
 import { USER, USERPROFILE } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function ProfileEdit() {
   const [name, setName] = useState("");
@@ -31,15 +32,16 @@ export default function ProfileEdit() {
         name: name,
         email: email,
       });
-      window.location.pathname = "../profile";
+      alert("Edit save successfully");
+      nav("../profile");
     } catch (err) {
       console.log(err);
     }
   }
   return (
     <div className="row">
-      <div className="col col-md-4">
-        <h1 className="text-center">Edit Profile</h1>
+      <h1 className="text-center">Edit Profile</h1>
+      <div className="card col-10 col-md-4 p-3">
         <Form className="bg-white px-3" onSubmit={HandleSubmit}>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>User Name:</Form.Label>
@@ -68,6 +70,7 @@ export default function ProfileEdit() {
             </NavLink>
           </div>
         </Form>
+        <ToastContainer />
       </div>
     </div>
   );
