@@ -17,6 +17,9 @@ small {
 .cart {
     line-height: 1;
 }
+.order-list:has(+ :not(div)) {
+    border-bottom: 1px solid #838383;
+}
 .icon {
     background-color: #eee;
     width: 40px;

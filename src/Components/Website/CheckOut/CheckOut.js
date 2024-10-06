@@ -12,6 +12,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink, useNavigate } from "react-router-dom";
 import { CartExport } from "../../../Context/CartContext";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function CheckOut() {
   const [carts, setCarts] = useState([]);
@@ -80,7 +81,7 @@ export default function CheckOut() {
     }
 
     return (
-      <tr className="border-bottom" key={index}>
+      <tr className="order-list" key={index}>
         <td>
           <div className="d-flex align-items-center">
             <img
@@ -141,8 +142,20 @@ export default function CheckOut() {
       nav("/reload");
     } catch (err) {
       // setLoading(false);
-      if (err.response.data.message === "The address id field is required.") {
-        setErrorCall("Please choose address");
+      if (
+        err.response.data.message ===
+        "The address id field is required. (and 5 more errors)"
+      ) {
+        toast.error("Please choose address", {
+          autoClose: 2000,
+        });
+      } else if (
+        err.response.data.message ===
+        "The payment mode field is required. (and 4 more errors)"
+      ) {
+        toast.error("Please choose payment method", {
+          autoClose: 2000,
+        });
       } else {
         console.log(err);
       }
@@ -191,7 +204,8 @@ export default function CheckOut() {
   }
 
   function handleAddress(e) {
-    form.address_id = e.target.value;
+    form.address_id = e;
+    setSaveAddress(e);
     setSent(true);
   }
 
@@ -206,13 +220,20 @@ export default function CheckOut() {
 
   const showAddress = addressCall.map((item, index) => (
     <div key={index}>
-      <div className="d-flex border rounded justify-content-around">
-        <input
+      <div
+        className="d-flex rounded justify-content-around"
+        style={{
+          border:
+            saveAddress === item.id ? "2px solid #4379F2" : "1px solid #F5F5F5",
+        }}
+        onClick={() => handleAddress(item.id)}
+      >
+        {/* <input
           name="address"
           type="radio"
-          onClick={handleAddress}
+          // onClick={() => handleAddress(item.id)}
           value={item.id}
-        />
+        /> */}
         <div className="col-lg-10 delivery py-1">
           <div className="name">
             <span>
@@ -241,7 +262,6 @@ export default function CheckOut() {
             color={"#4379F2"}
             icon={faPenToSquare}
           />
-
           <FontAwesomeIcon
             onClick={() => handleDelete(item.id)}
             fontSize={"19px"}
@@ -541,7 +561,7 @@ export default function CheckOut() {
               </div>
             </div>
             <button
-              disabled={!sent}
+              // disabled={!sent}
               className="checkout-button"
               onClick={handleSubmit}
             >
@@ -559,6 +579,7 @@ export default function CheckOut() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </Container>
   );
 }
