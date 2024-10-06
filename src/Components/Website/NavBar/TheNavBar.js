@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Dropdown, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { Axios } from "../../../API/axios";
@@ -72,10 +72,15 @@ export default function TheNavBar(props) {
     }
   }
 
+  function handleClickSearch() {
+    setSearch("");
+    setSearchTitle("");
+  }
+
   const dataShow = showWichData.map((item, key) => (
-    <div key={key}>
+    <div key={key} className="searchbar-div" onClick={handleClickSearch}>
       <NavLink to={`./products/${item.slug}`}>
-        <div className="search-abs">
+        <div className="searchBar">
           <div className="search-bar-data">
             <img
               src={item.images[0].image}
@@ -154,35 +159,69 @@ export default function TheNavBar(props) {
                   setSearchLoading(true);
                 }}
               />
-              <NavDropdown title={name.name} className="m-2 fs-5">
-                <NavDropdown.Item href="#" collapseOnSelect>
-                  <NavLink to={"../profile"} className="text-black">
-                    {" "}
-                    Profile
-                  </NavLink>
-                </NavDropdown.Item>
-                {name.role === "1995" && (
-                  <NavDropdown.Item>
-                    <NavLink to="/dashboard/activity" className="text-black">
-                      Dashboard
+              <div className="d-flex">
+                {name ? (
+                  <Nav.Link className="m-2" href="#" collapseOnSelect>
+                    <NavLink to="/cart">
+                      <img
+                        width="30px"
+                        src={require("../../../Assets/shopping-cart.png")}
+                        alt="Cart"
+                      />
+                    </NavLink>
+                    <span>{cartLength}</span>
+                  </Nav.Link>
+                ) : (
+                  <></>
+                )}
+              </div>
+              {/* <NavDropdown> */}
+              {/* <NavDropdown.Item>{dataShow}</NavDropdown.Item> */}
+              {/* </NavDropdown> */}
+              {name ? (
+                <NavDropdown title={name.name} className="m-2 fs-5">
+                  <NavDropdown.Item href="#" collapseOnSelect>
+                    <NavLink to={"../profile"} className="text-black">
+                      {" "}
+                      Profile
                     </NavLink>
                   </NavDropdown.Item>
-                )}
-                <NavDropdown.Item href="#" collapseOnSelect>
-                  <NavLink to={"../orders"} className="text-black">
-                    {" "}
-                    My orders
-                  </NavLink>
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#" collapseOnSelect>
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown>
+                  {name.role === "1995" && (
+                    <NavDropdown.Item>
+                      <NavLink to="/dashboard/activity" className="text-black">
+                        Dashboard
+                      </NavLink>
+                    </NavDropdown.Item>
+                  )}
+                  <NavDropdown.Item href="#" collapseOnSelect>
+                    <NavLink to={"../orders"} className="text-black">
+                      {" "}
+                      My orders
+                    </NavLink>
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item
+                    href="#"
+                    collapseOnSelect
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <NavDropdown title="Login/Register" className="m-2">
+                  <NavDropdown.Item>
+                    <NavLink to="../login" style={{ color: "black" }}>
+                      Login / Register
+                    </NavLink>
+                  </NavDropdown.Item>
+                </NavDropdown>
+              )}
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
+      <div className="navbarsearch">{dataShow}</div>
 
       {/* <div className="py-3">
         <div className="d-flex align-items-center justify-content-between flex-wrap">

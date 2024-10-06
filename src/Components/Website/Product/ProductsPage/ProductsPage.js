@@ -16,9 +16,7 @@ export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const { id } = useParams();
   const [count, setCount] = useState(1);
-  const [addtocart, setAddtoCart] = useState("");
   const [user, setUser] = useState("");
-  const [err, setErr] = useState("");
   const [showRate, setShowRate] = useState([]);
   const [showSize, setShowSize] = useState([]);
   const [showRateNumber, setShowRateNumber] = useState(0);
@@ -128,20 +126,24 @@ export default function ProductsPage() {
     );
 
     return (
-      <div className="card mt-3" key={index}>
-        <div className="rate-div">
-          <div>
-            <img
-              width="50px"
-              src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-              alt={item.users[0].name}
-            />
-          </div>
-          <div>
-            <p className="fw-bold">{item.users[0].name}</p>
-            {showGoldStarsRate}
-            {showEmptyStarsRate}
-            <p>{item.description}</p>
+      <div className="row">
+        <div className="col col-md-8">
+          <div className="card mt-3" key={index}>
+            <div className="rate-div">
+              <div>
+                <img
+                  width="50px"
+                  src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                  alt={item.users[0].name}
+                />
+              </div>
+              <div>
+                <p className="fw-bold">{item.users[0].name}</p>
+                {showGoldStarsRate}
+                {showEmptyStarsRate}
+                <p>{item.description}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -149,7 +151,7 @@ export default function ProductsPage() {
   });
 
   const findSizeQuantity = showSize?.find((item) => {
-    return item.id == sizeChoice;
+    return item.id === sizeChoice * 1;
   });
 
   const showData = products.map((item, key) => {
@@ -249,7 +251,7 @@ export default function ProductsPage() {
       {showRate.length > 0 ? (
         <div>
           <h1 className="text-center mt-3">Reviews</h1>
-          <div className="mt-4">{showRateData}</div>
+          <div className="mt-4 mx-auto">{showRateData}</div>
         </div>
       ) : (
         <></>
