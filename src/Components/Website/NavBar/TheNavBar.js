@@ -11,6 +11,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import profileIcon from "../../../Assets/profile.png";
 import "./TheNavBar.css";
 
 export default function TheNavBar(props) {
@@ -75,18 +76,19 @@ export default function TheNavBar(props) {
   function handleClickSearch() {
     setSearch("");
     setSearchTitle("");
+    window.scrollTo(0, 0);
   }
 
   const dataShow = showWichData.map((item, key) => (
-    <div key={key} className="searchbar-div" onClick={handleClickSearch}>
+    <div key={key} onClick={handleClickSearch}>
       <NavLink to={`./products/${item.slug}`}>
-        <div className="searchBar">
-          <div className="search-bar-data">
-            <img
-              src={item.images[0].image}
-              className="search-img"
-              alt={item.title}
-            />
+        <div className="search-bar-data">
+          <img
+            src={item.images[0].image}
+            className="search-img"
+            alt={item.title}
+          />
+          <div>
             <p className="search-title">{item.title}</p>
             <p className="search-price">
               ${item.discount > 0 ? item.discount : item.price}
@@ -137,16 +139,6 @@ export default function TheNavBar(props) {
                   </NavLink>
                 </Nav.Link>
               </Nav>
-              {/* <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-              </Form> */}
-
               <Form.Control
                 type="search"
                 className="search-bar"
@@ -175,47 +167,59 @@ export default function TheNavBar(props) {
                   <></>
                 )}
               </div>
-              {/* <NavDropdown> */}
-              {/* <NavDropdown.Item>{dataShow}</NavDropdown.Item> */}
-              {/* </NavDropdown> */}
               {name ? (
-                <NavDropdown title={name.name} className="m-2 fs-5">
-                  <NavDropdown.Item href="#" collapseOnSelect>
-                    <NavLink to={"../profile"} className="text-black">
-                      {" "}
-                      Profile
-                    </NavLink>
-                  </NavDropdown.Item>
-                  {name.role === "1995" && (
-                    <NavDropdown.Item>
-                      <NavLink to="/dashboard/activity" className="text-black">
-                        Dashboard
+                <div className="d-flex">
+                  {" "}
+                  {/* <img
+                    className="mt-2"
+                    style={{ marginLeft: "1rem" }}
+                    src={profileIcon}
+                    width="30px"
+                    height="30px"
+                  /> */}
+                  <NavDropdown title={name.name} className="m-2 fs-5">
+                    <NavDropdown.Item href="#" collapseOnSelect>
+                      <NavLink to={"../profile"} className="text-black d-block">
+                        {" "}
+                        Profile
                       </NavLink>
                     </NavDropdown.Item>
-                  )}
-                  <NavDropdown.Item href="#" collapseOnSelect>
-                    <NavLink to={"../orders"} className="text-black">
-                      {" "}
-                      My orders
-                    </NavLink>
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item
-                    href="#"
-                    collapseOnSelect
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
+                    {name.role === "1995" && (
+                      <NavDropdown.Item>
+                        <NavLink
+                          to="/dashboard/activity"
+                          className="text-black d-block"
+                        >
+                          Dashboard
+                        </NavLink>
+                      </NavDropdown.Item>
+                    )}
+                    <NavDropdown.Item href="#" collapseOnSelect>
+                      <NavLink to={"../orders"} className="text-black d-block">
+                        {" "}
+                        My orders
+                      </NavLink>
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item
+                      href="#"
+                      collapseOnSelect
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </div>
               ) : (
-                <NavDropdown title="Login/Register" className="m-2">
-                  <NavDropdown.Item>
-                    <NavLink to="../login" style={{ color: "black" }}>
-                      Login / Register
-                    </NavLink>
-                  </NavDropdown.Item>
-                </NavDropdown>
+                <>
+                  <NavDropdown className="m-2">
+                    <NavDropdown.Item>
+                      <NavLink className="m-2 text-black" to="../login">
+                        Login / Register
+                      </NavLink>
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </>
               )}
             </Offcanvas.Body>
           </Navbar.Offcanvas>

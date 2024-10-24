@@ -126,7 +126,7 @@ export default function ProductsPage() {
     );
 
     return (
-      <div className="row">
+      <div className="row m-0">
         <div className="col col-md-8">
           <div className="card mt-3" key={index}>
             <div className="rate-div">
@@ -141,7 +141,7 @@ export default function ProductsPage() {
                 <p className="fw-bold">{item.users[0].name}</p>
                 {showGoldStarsRate}
                 {showEmptyStarsRate}
-                <p>{item.description}</p>
+                <p className="col-10">{item.description}</p>
               </div>
             </div>
           </div>

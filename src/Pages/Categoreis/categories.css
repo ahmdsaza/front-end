@@ -76,10 +76,10 @@
     display: flex;
     justify-content: space-around;
 }
-.test {
+.pagination-display {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .page {
     margin-top: 1rem;

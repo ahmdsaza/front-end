@@ -122,7 +122,7 @@ export default function AllOrders() {
 
   return (
     <>
-      <div className="bg-white w-100 p-2">
+      <div className="bg-white p-2">
         <div className="d-flex align-items-center justify-content-between">
           <h1>Orders Page</h1>
           <div className="col-6">
@@ -163,7 +163,7 @@ export default function AllOrders() {
             )}
           </tbody>
         </Table>
-        <div className="d-flex align-items-center justify-content-end flex-wrap">
+        <div className="d-flex justify-content-end flex-wrap mt-3">
           <div className="col-1">
             <Form.Select
               onChange={handlePagination}

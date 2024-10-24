@@ -65,10 +65,10 @@ function App() {
               <Route path="rate/:id" element={<Rating />} />
               <Route path="profile" element={<Profile />} />
               <Route path="profile/edit/:id" element={<ProfileEdit />} />
-              <Route path="/reload" element={<ReloadPage />} />
               <Route path="/thankyou" element={<ThankYou />} />
             </Route>
           </Route>
+          <Route path="/reload" element={<ReloadPage />} />
           <Route element={<RequireBack />}>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>

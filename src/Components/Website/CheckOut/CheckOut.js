@@ -32,13 +32,18 @@ export default function CheckOut() {
   let tot = 0;
 
   const [form, setForm] = useState({
-    address_id: addressCall,
+    address_id: "",
     payment_mode: "",
     productsprice: "",
     vat: "",
     totalprice: "",
     fees: "",
   });
+
+  if (saveAddress == null) {
+    form.address_id = addressCall[addressCall.length - 1]?.id;
+  }
+  console.log(form);
 
   const [addressForm, setAddressForm] = useState({
     firstname: "",
@@ -139,6 +144,7 @@ export default function CheckOut() {
     try {
       const res = await Axios.post(`${ORDERS}`, form);
       setIsChange((prev) => !prev);
+      window.scrollTo(0, 0);
       nav("/reload");
     } catch (err) {
       // setLoading(false);
@@ -218,22 +224,20 @@ export default function CheckOut() {
     }
   }
 
+  // console.log(addressCall[0]?.id);
+
   const showAddress = addressCall.map((item, index) => (
     <div key={index}>
       <div
         className="d-flex rounded justify-content-around"
         style={{
           border:
-            saveAddress === item.id ? "2px solid #4379F2" : "1px solid #F5F5F5",
+            (saveAddress || addressCall[addressCall.length - 1]?.id) === item.id
+              ? "2px solid #4379F2"
+              : "1px solid #F5F5F5",
         }}
         onClick={() => handleAddress(item.id)}
       >
-        {/* <input
-          name="address"
-          type="radio"
-          // onClick={() => handleAddress(item.id)}
-          value={item.id}
-        /> */}
         <div className="col-lg-10 delivery py-1">
           <div className="name">
             <span>

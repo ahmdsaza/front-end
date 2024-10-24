@@ -65,6 +65,7 @@ export default function Login() {
           <div className="col-md-6">
             <Form
               className="card px-2 align-items-center py-4"
+              style={{ backgroundColor: "#F4F6FF" }}
               onSubmit={handleSubmit}
             >
               <div className="custom-form">

@@ -39,6 +39,7 @@ export default function SaleProducts(props) {
                 backgroundImage: `url('${props.img}')`,
                 backgroundPosition: "center",
                 backgroundSize: "cover",
+                backgroundPosition: "top",
                 height: "200px",
                 width: "100%",
               }}

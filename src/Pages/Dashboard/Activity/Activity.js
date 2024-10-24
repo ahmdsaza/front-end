@@ -29,7 +29,7 @@ export default function Activity() {
 
       <div className="my-3 mx-3">
         <div className="flex gap20 flex-wrap">
-          <div className="">
+          <div>
             <NavLink className="text-black" to="../orders">
               <div className="wg-chart-default mb-20">
                 <div className="flex align-items-center justify-content-between">

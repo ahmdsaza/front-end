@@ -110,7 +110,7 @@ export default function Rate() {
   }
 
   return (
-    <div className="bg-white w-100 p-2">
+    <div className="bg-white w-100 p-3">
       <div className="d-flex align-items-center justify-content-between">
         <h1>Rate Page</h1>
         <div className="col-6">

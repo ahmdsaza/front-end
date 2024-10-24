@@ -134,7 +134,7 @@ export default function CategoriesPage() {
           </Form.Select>
         </div>
         <div className="crd">{showData}</div>
-        <div className="test">
+        <div className="pagination-display">
           <div className="">
             <Form.Select
               onChange={(e) => setLimit(e.target.value)}
