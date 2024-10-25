@@ -40,7 +40,7 @@ export const PRODUCTS = "products";
 export const PRODUCT = "product";
 export const PRODUCTCATEGORY = "product-category";
 
-// Add Sizes
+// Sizes
 export const SIZES = "sizes";
 
 // Cart
