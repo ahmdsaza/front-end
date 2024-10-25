@@ -212,13 +212,19 @@ export default function TheNavBar(props) {
                 </div>
               ) : (
                 <>
-                  <NavDropdown className="m-2">
-                    <NavDropdown.Item>
-                      <NavLink className="m-2 text-black" to="../login">
-                        Login / Register
-                      </NavLink>
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                  {/* <NavDropdown className="m-2">
+                    <NavDropdown.Item> */}
+                  <NavLink
+                    className="my-2 text-black"
+                    to="../login"
+                    style={{
+                      marginLeft: window.innerWidth > 1200 ? "10px" : "0px",
+                    }}
+                  >
+                    Login / Register
+                  </NavLink>
+                  {/* </NavDropdown.Item>
+                  </NavDropdown> */}
                 </>
               )}
             </Offcanvas.Body>

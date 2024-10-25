@@ -224,8 +224,6 @@ export default function CheckOut() {
     }
   }
 
-  // console.log(addressCall[0]?.id);
-
   const showAddress = addressCall.map((item, index) => (
     <div key={index}>
       <div
