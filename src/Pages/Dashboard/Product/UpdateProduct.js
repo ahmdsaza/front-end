@@ -5,6 +5,7 @@ import { CATEGORIES, PRODUCT, PRODUCTCATEGORY, SIZES } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { Collapse } from "react-bootstrap";
 
 export default function UpdateProduct() {
   const [form, setForm] = useState({
@@ -22,6 +23,12 @@ export default function UpdateProduct() {
     quantity: "",
   });
 
+  const [updateSize, setUpdateSize] = useState({
+    id: "",
+    name: "",
+    quantity: "",
+  });
+
   // Use States
   const [images, setImages] = useState([]);
   const [imagesFromServer, setImagesFromServer] = useState([]);
@@ -30,6 +37,7 @@ export default function UpdateProduct() {
   const [categories, setCategories] = useState([]); // Categories UseState
   const [showSizes, setShowSizes] = useState([]);
   const [count, setCount] = useState(false);
+  const [open, setOpen] = useState(false);
   const { id } = useParams();
   const nav = useNavigate();
 
@@ -173,6 +181,7 @@ export default function UpdateProduct() {
     </div>
   ));
 
+  // Show Image From Server
   const imagesFromServerShow = imagesFromServer.map((img, key) => (
     <div key={key} className="border p-2 col-2 position-relative">
       <div className="d-flex align-items-center justify-content-start gap-2">
@@ -192,12 +201,14 @@ export default function UpdateProduct() {
     </div>
   ));
 
+  // Call Sizes
   useEffect(() => {
     Axios.get(`${SIZES}/${id}`)
       .then((data) => setShowSizes(data.data))
       .catch((err) => console.log(err));
   }, [count]);
 
+  // Handle Delete Sizes
   async function handleDeleteSize(item) {
     try {
       const res = await Axios.delete(`size-delete/${item}`);
@@ -212,6 +223,7 @@ export default function UpdateProduct() {
     setSizes({ ...sizes, [e.target.name]: e.target.value });
   }
 
+  // Create Sizes
   async function submitToSizes() {
     const data = {
       product_id: id,
@@ -227,25 +239,67 @@ export default function UpdateProduct() {
     }
   }
 
+  function handleUpdateSizeChange(e) {
+    setUpdateSize({ ...updateSize, [e.target.name]: e.target.value });
+  }
+
+  function openHandleUpdateSize(dataId, dataTitle, dataQuantity) {
+    updateSize.id = dataId;
+    updateSize.name = dataTitle;
+    updateSize.quantity = dataQuantity;
+    setOpen(!open);
+  }
+
+  async function handleUpdateSize() {
+    // e.preventDefault();
+    const dataInf = {
+      name: updateSize.name,
+      quantity: updateSize.quantity * 1,
+    };
+    try {
+      Axios.put(`${SIZES}/edit/${updateSize.id}`, dataInf).catch((err) =>
+        console.log(err)
+      );
+      setCount((prev) => !prev);
+      setOpen(!open);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   // Mapping Sizes
   const sizesShow = showSizes.map((item, key) => (
-    <div className="border p-2 w-75">
+    <div className="border p-2 w-75" key={key}>
       <div className="row">
         <div className="col col-sm-8">
           <div className="d-flex align-items-center gap-2">
             <label>Name:</label>
-            <input type="text" className="mb-1" value={item.name} />
+            {/* <input type="text" className="mb-1" value={item.name} /> */}
+            <p>{item.name}</p>
           </div>
           <div className="d-flex align-items-center gap-2">
             <label>Quantity:</label>
-            <input type="text" className="mb-1" value={item.quantity} />
+            {/* <input type="text" className="mb-1" value={item.quantity} /> */}
+            <p>{item.quantity}</p>
           </div>
         </div>
 
-        <div className="col col-md-2">
-          <Button onClick={() => handleDeleteSize(item.id)} variant="danger">
-            Delete
-          </Button>
+        <div className="d-flex col col-md-2 gap-2">
+          <div>
+            <Button onClick={() => handleDeleteSize(item.id)} variant="danger">
+              Delete
+            </Button>
+          </div>
+          <div>
+            <Button
+              onClick={() =>
+                openHandleUpdateSize(item.id, item.name, item.quantity)
+              }
+              variant="primary"
+            >
+              Update
+            </Button>
+          </div>
         </div>
       </div>
     </div>
@@ -319,6 +373,47 @@ export default function UpdateProduct() {
           </div>
         </Form.Group>
         {sizesShow}
+        <Collapse in={open}>
+          <div className="col-8">
+            <div className="name">
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput0"
+              >
+                <Form.Label>Size:</Form.Label>
+                <Form.Control
+                  required
+                  name="name"
+                  value={updateSize.name}
+                  onChange={handleUpdateSizeChange}
+                  placeholder={sizes.id}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Quantity:</Form.Label>
+                <Form.Control
+                  required
+                  name="quantity"
+                  value={updateSize.quantity}
+                  onChange={handleUpdateSizeChange}
+                  type="text"
+                  placeholder="Quantity..."
+                />
+              </Form.Group>
+            </div>
+            <div className="d-flex gap-2">
+              <div onClick={handleUpdateSize} className="btn btn-primary">
+                Save
+              </div>
+              <div onClick={() => setOpen(!open)} className="btn btn-danger">
+                close
+              </div>
+            </div>
+          </div>
+        </Collapse>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
           <Form.Label>Price</Form.Label>
           <Form.Control
