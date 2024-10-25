@@ -4,7 +4,7 @@ import { Axios } from "../../../API/axios";
 import { CATEGORIES, PRODUCT, SIZES } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Collapse } from "react-bootstrap";
 
 export default function AddProduct() {
   const [form, setForm] = useState({
@@ -33,6 +33,12 @@ export default function AddProduct() {
     product_id: id,
   });
 
+  const [updateSize, setUpdateSize] = useState({
+    id: "",
+    name: "",
+    quantity: "",
+  });
+
   // console.log(sizes);
 
   // Use State
@@ -42,6 +48,7 @@ export default function AddProduct() {
   const [count, setCount] = useState(false);
   const [categories, setCategories] = useState([]); // Categories UseState
   const [showSizes, setShowSizes] = useState([]);
+  const [open, setOpen] = useState(false);
   const nav = useNavigate();
 
   // Ref
@@ -200,6 +207,34 @@ export default function AddProduct() {
     }
   }
 
+  function handleUpdateSizeChange(e) {
+    setUpdateSize({ ...updateSize, [e.target.name]: e.target.value });
+  }
+
+  function openHandleUpdateSize(dataId, dataTitle, dataQuantity) {
+    updateSize.id = dataId;
+    updateSize.name = dataTitle;
+    updateSize.quantity = dataQuantity;
+    setOpen(!open);
+  }
+
+  async function handleUpdateSize() {
+    // e.preventDefault();
+    const dataInf = {
+      name: updateSize.name,
+      quantity: updateSize.quantity * 1,
+    };
+    try {
+      Axios.put(`${SIZES}/edit/${updateSize.id}`, dataInf).catch((err) =>
+        console.log(err)
+      );
+      setCount((prev) => !prev);
+      setOpen(!open);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   // Delete Size
   async function handleDeleteSize(item) {
     try {
@@ -219,19 +254,38 @@ export default function AddProduct() {
 
   // Mapping Sizes
   const sizesShow = showSizes.map((item, key) => (
-    <div className="border p-2 w-100">
-      <div className="d-flex align-items-center justify-content-between">
-        <div className="d-flex align-items-center justify-content-start gap-2">
-          <div>
-            <p className="mb-1">Name: {item.name}</p>
+    <div className="border p-2 w-75" key={key}>
+      <div className="row">
+        <div className="col col-sm-8">
+          <div className="d-flex align-items-center gap-2">
+            <label>Name:</label>
+            {/* <input type="text" className="mb-1" value={item.name} /> */}
+            <p>{item.name}</p>
           </div>
-          <div>
-            <p className="mb-1">Quantity: {item.quantity}</p>
+          <div className="d-flex align-items-center gap-2">
+            <label>Quantity:</label>
+            {/* <input type="text" className="mb-1" value={item.quantity} /> */}
+            <p>{item.quantity}</p>
           </div>
         </div>
-        <Button onClick={() => handleDeleteSize(item.id)} variant="danger">
-          Delete
-        </Button>
+
+        <div className="d-flex col col-md-2 gap-2">
+          <div>
+            <Button onClick={() => handleDeleteSize(item.id)} variant="danger">
+              Delete
+            </Button>
+          </div>
+          <div>
+            <Button
+              onClick={() =>
+                openHandleUpdateSize(item.id, item.name, item.quantity)
+              }
+              variant="primary"
+            >
+              Edit
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   ));
@@ -342,13 +396,57 @@ export default function AddProduct() {
                 placeholder="Quantity..."
                 disabled={!sent}
               />
-              <div onClick={submitToSizes} className="btn btn-primary">
+              <div
+                onClick={submitToSizes}
+                className={sent ? "btn btn-primary" : "btn btn-secondary"}
+              >
                 Add
               </div>
             </div>
           </div>
         </Form.Group>{" "}
         {sizesShow}
+        <Collapse in={open}>
+          <div className="col-8">
+            <div className="name">
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput0"
+              >
+                <Form.Label>Size:</Form.Label>
+                <Form.Control
+                  required
+                  name="name"
+                  value={updateSize.name}
+                  onChange={handleUpdateSizeChange}
+                  placeholder={sizes.id}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Quantity:</Form.Label>
+                <Form.Control
+                  required
+                  name="quantity"
+                  value={updateSize.quantity}
+                  onChange={handleUpdateSizeChange}
+                  type="text"
+                  placeholder="Quantity..."
+                />
+              </Form.Group>
+            </div>
+            <div className="d-flex gap-2">
+              <div onClick={handleUpdateSize} className="btn btn-primary">
+                Save
+              </div>
+              <div onClick={() => setOpen(!open)} className="btn btn-danger">
+                close
+              </div>
+            </div>
+          </div>
+        </Collapse>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
           <Form.Label>Images</Form.Label>
           <Form.Control
