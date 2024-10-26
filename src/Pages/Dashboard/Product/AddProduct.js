@@ -271,7 +271,11 @@ export default function AddProduct() {
 
         <div className="d-flex col col-md-2 gap-2">
           <div>
-            <Button onClick={() => handleDeleteSize(item.id)} variant="danger">
+            <Button
+              disabled={item.id === updateSize.id && open}
+              onClick={() => handleDeleteSize(item.id)}
+              variant="danger"
+            >
               Delete
             </Button>
           </div>
@@ -289,8 +293,6 @@ export default function AddProduct() {
       </div>
     </div>
   ));
-
-  // console.log(sizes);
 
   return (
     <>
