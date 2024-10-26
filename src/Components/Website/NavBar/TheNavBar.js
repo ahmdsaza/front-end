@@ -151,8 +151,8 @@ export default function TheNavBar(props) {
                   setSearchLoading(true);
                 }}
               />
-              <div className="d-flex">
-                {name ? (
+              {name ? (
+                <div className="d-flex">
                   <Nav.Link className="m-2" href="#" collapseOnSelect>
                     <NavLink to="/cart">
                       <img
@@ -162,14 +162,7 @@ export default function TheNavBar(props) {
                       />
                     </NavLink>
                     <span>{cartLength}</span>
-                  </Nav.Link>
-                ) : (
-                  <></>
-                )}
-              </div>
-              {name ? (
-                <div className="d-flex">
-                  {" "}
+                  </Nav.Link>{" "}
                   {/* <img
                     className="mt-2"
                     style={{ marginLeft: "1rem" }}
@@ -211,21 +204,15 @@ export default function TheNavBar(props) {
                   </NavDropdown>
                 </div>
               ) : (
-                <>
-                  {/* <NavDropdown className="m-2">
-                    <NavDropdown.Item> */}
-                  <NavLink
-                    className="my-2 text-black"
-                    to="../login"
-                    style={{
-                      marginLeft: window.innerWidth > 1200 ? "10px" : "0px",
-                    }}
-                  >
-                    Login / Register
-                  </NavLink>
-                  {/* </NavDropdown.Item>
-                  </NavDropdown> */}
-                </>
+                <NavLink
+                  className="my-2 text-black"
+                  to="../login"
+                  style={{
+                    marginLeft: window.innerWidth > 1200 ? "10px" : "0px",
+                  }}
+                >
+                  Login / Register
+                </NavLink>
               )}
             </Offcanvas.Body>
           </Navbar.Offcanvas>
