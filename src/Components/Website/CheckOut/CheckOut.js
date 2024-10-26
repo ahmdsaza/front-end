@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { CARTS, ORDERS, ADDRESS, ADDRESSADD } from "../../../API/Api";
+import { CARTS, ORDERS, ADDRESS } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import Form from "react-bootstrap/Form";
 import { Container, Collapse } from "react-bootstrap";
@@ -23,9 +23,8 @@ export default function CheckOut() {
   const [addressCall, setAddressCall] = useState([]);
   const [totalPriceState, setTotalPriceState] = useState("");
   const [open, setOpen] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
   const { setIsChange } = useContext(CartExport);
-
-  // console.log(saveAddress);
 
   let descPrice = 0;
   let itemPrice = 0;
@@ -43,7 +42,7 @@ export default function CheckOut() {
   if (saveAddress == null) {
     form.address_id = addressCall[addressCall.length - 1]?.id;
   }
-  console.log(form);
+  // console.log(form);
 
   const [addressForm, setAddressForm] = useState({
     firstname: "",
@@ -53,6 +52,18 @@ export default function CheckOut() {
     city: "",
     zipcode: "",
   });
+
+  const [updateAddressForm, setUpdateAddressForm] = useState({
+    id: "",
+    firstname: "",
+    lastname: "",
+    phone: "",
+    address: "",
+    city: "",
+    zipcode: "",
+  });
+
+  // console.log(addressCall);
 
   const nav = useNavigate();
 
@@ -173,7 +184,7 @@ export default function CheckOut() {
     // setLoading(true);
     e.preventDefault();
     try {
-      const res = await Axios.post(`${ADDRESSADD}`, addressForm);
+      const res = await Axios.post(`${ADDRESS}/add`, addressForm);
       setSaveAddress(res.data.id);
       setCount((prev) => !prev);
       form.address_id = res.data.id;
@@ -186,8 +197,6 @@ export default function CheckOut() {
   function handleAddressForm(e) {
     setAddressForm({ ...addressForm, [e.target.name]: e.target.value });
   }
-
-  let fees = 0;
 
   function handlePayment(e) {
     if (e.target.value == 0) {
@@ -220,6 +229,47 @@ export default function CheckOut() {
       const res = await Axios.delete(`${ADDRESS}/delete/${id}`);
       setAddressCall((prev) => prev.filter((item) => item.id !== id));
     } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function handleAddressUpdate(
+    id,
+    firstname,
+    lastname,
+    phone,
+    address,
+    city,
+    zipcode
+  ) {
+    updateAddressForm.id = id;
+    updateAddressForm.firstname = firstname;
+    updateAddressForm.lastname = lastname;
+    updateAddressForm.phone = phone;
+    updateAddressForm.address = address;
+    updateAddressForm.city = city;
+    updateAddressForm.zipcode = zipcode;
+    setOpenUpdate((prev) => !prev);
+  }
+
+  function handleUpdateAddressForm(e) {
+    setUpdateAddressForm({
+      ...updateAddressForm,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  async function handleUpdateAddressSubmit(e) {
+    // setLoading(true);
+    e.preventDefault();
+    try {
+      const res = await Axios.put(
+        `${ADDRESS}/edit/${updateAddressForm?.id}`,
+        updateAddressForm
+      );
+      setCount(!count);
+    } catch (err) {
+      // setLoading(false);
       console.log(err);
     }
   }
@@ -258,10 +308,22 @@ export default function CheckOut() {
             <span>Zipcode: {item.zipcode}</span>
           </div>
         </div>
-        <div className="py-3">
+        <div className="d-flex py-3 gap-3">
           <FontAwesomeIcon
+            onClick={() =>
+              handleAddressUpdate(
+                item.id,
+                item.firstname,
+                item.lastname,
+                item.phone,
+                item.address,
+                item.city,
+                item.zipcode
+              )
+            }
             fontSize={"19px"}
             color={"#4379F2"}
+            cursor={"pointer"}
             icon={faPenToSquare}
           />
           <FontAwesomeIcon
@@ -313,12 +375,10 @@ export default function CheckOut() {
                   <p>FREE</p>
                 </div>
                 {form.payment_mode === "0" ? (
-                  <>
-                    <div className="d-flex justify-content-between pb-3 ">
-                      <small className="text-muted">COD Fees</small>
-                      <p>$5.00</p>
-                    </div>
-                  </>
+                  <div className="d-flex justify-content-between pb-3 ">
+                    <small className="text-muted">COD Fees</small>
+                    <p>$5.00</p>
+                  </div>
                 ) : (
                   <></>
                 )}
@@ -342,139 +402,245 @@ export default function CheckOut() {
               * Make sure you choose an address
             </small>
             <div>{showAddress}</div>
-            <div className="">
-              <>
-                <div
-                  className="border rounded "
-                  onClick={() => setOpen(!open)}
-                  aria-expanded={open}
-                >
-                  <div
-                    className="d-flex justify-content-center align-items-center gap-2"
-                    style={{ cursor: "pointer" }}
-                  >
-                    <h4 className="mt-2">Add a new address</h4>
-                    <FontAwesomeIcon
-                      fontSize={"19px"}
-                      color={"#4379F2"}
-                      icon={faPlus}
-                    />
-                  </div>
-                </div>
-                <Collapse in={open}>
-                  <Form onSubmit={handleAddressSubmit}>
-                    <div>
-                      <div className="name">
-                        <Form.Group
-                          className="mb-3"
-                          controlId="exampleForm.ControlInput0"
-                        >
-                          <Form.Label>First name:</Form.Label>
-                          <Form.Control
-                            required
-                            name="firstname"
-                            value={addressForm.firstname}
-                            onChange={handleAddressForm}
-                            // disabled={!sent}
-                            placeholder="First name..."
-                          ></Form.Control>
-                        </Form.Group>
-                        <Form.Group
-                          className="mb-3"
-                          controlId="exampleForm.ControlInput1"
-                        >
-                          <Form.Label>Last name:</Form.Label>
-                          <Form.Control
-                            required
-                            name="lastname"
-                            value={addressForm.lastname}
-                            onChange={handleAddressForm}
-                            type="text"
-                            placeholder="Last name..."
-                            // disabled={!sent}
-                          />
-                        </Form.Group>
-                      </div>
-                      <div className="name">
-                        <Form.Group
-                          className="mb-3"
-                          controlId="exampleForm.ControlInput0"
-                        >
-                          <Form.Label>Phone number:</Form.Label>
-                          <p className="input-group">
-                            <span className="input-group-text">+966</span>
-                            <Form.Control
-                              required
-                              name="phone"
-                              value={addressForm.phone}
-                              onChange={handleAddressForm}
-                              maxLength={9}
-                              placeholder="Phone..."
-                            />
-                          </p>
-                        </Form.Group>
-                        <Form.Group
-                          className="mb-3"
-                          controlId="exampleForm.ControlInput1"
-                        >
-                          <Form.Label>City:</Form.Label>
-                          <Form.Control
-                            required
-                            name="city"
-                            value={addressForm.city}
-                            onChange={handleAddressForm}
-                            type="text"
-                            placeholder="City..."
-                            // disabled={!sent}
-                          />
-                        </Form.Group>
-                      </div>
-                      <div className="address-info">
-                        <Form.Group
-                          className="mb-3"
-                          controlId="exampleForm.ControlInput1"
-                        >
-                          <Form.Label>Address:</Form.Label>
-                          <Form.Control
-                            required
-                            name="address"
-                            value={addressForm.address}
-                            onChange={handleAddressForm}
-                            type="text"
-                            placeholder="Address..."
-                            // disabled={!sent}
-                          />
-                        </Form.Group>
-                        <Form.Group
-                          className="mb-3"
-                          controlId="exampleForm.ControlInput0"
-                        >
-                          <Form.Label>zipcode:</Form.Label>
-                          <Form.Control
-                            required
-                            name="zipcode"
-                            value={addressForm.zipcode}
-                            onChange={handleAddressForm}
-                            placeholder="zipcode..."
-                          ></Form.Control>
-                        </Form.Group>
-                      </div>
-                      <div>
-                        <small className="text-secondary">
-                          * Make sure you click save
-                        </small>
-                      </div>
-                      <button
-                        onClick={() => setOpen(!open)}
-                        className="btn btn-primary"
-                      >
-                        Save
-                      </button>
-                    </div>
-                  </Form>
-                </Collapse>
-              </>
+            <div
+              className="border rounded "
+              onClick={() => setOpen(!open)}
+              aria-expanded={open}
+            >
+              <div
+                className="d-flex justify-content-center align-items-center gap-2"
+                style={{ cursor: "pointer" }}
+              >
+                <h4 className="mt-2">Add a new address</h4>
+                <FontAwesomeIcon
+                  fontSize={"19px"}
+                  color={"#4379F2"}
+                  icon={faPlus}
+                />
+              </div>
             </div>
+            {/*Add Address*/}
+            <Collapse in={open}>
+              <Form onSubmit={handleAddressSubmit}>
+                <div className="name">
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput0"
+                  >
+                    <Form.Label>First name:</Form.Label>
+                    <Form.Control
+                      required
+                      name="firstname"
+                      value={addressForm.firstname}
+                      onChange={handleAddressForm}
+                      // disabled={!sent}
+                      placeholder="First name..."
+                    ></Form.Control>
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Last name:</Form.Label>
+                    <Form.Control
+                      required
+                      name="lastname"
+                      value={addressForm.lastname}
+                      onChange={handleAddressForm}
+                      type="text"
+                      placeholder="Last name..."
+                      // disabled={!sent}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="name">
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput0"
+                  >
+                    <Form.Label>Phone number:</Form.Label>
+                    <p className="input-group">
+                      <span className="input-group-text">+966</span>
+                      <Form.Control
+                        required
+                        name="phone"
+                        value={addressForm.phone}
+                        onChange={handleAddressForm}
+                        maxLength={9}
+                        placeholder="Phone..."
+                      />
+                    </p>
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>City:</Form.Label>
+                    <Form.Control
+                      required
+                      name="city"
+                      value={addressForm.city}
+                      onChange={handleAddressForm}
+                      type="text"
+                      placeholder="City..."
+                      // disabled={!sent}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="address-info">
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Address:</Form.Label>
+                    <Form.Control
+                      required
+                      name="address"
+                      value={addressForm.address}
+                      onChange={handleAddressForm}
+                      type="text"
+                      placeholder="Address..."
+                      // disabled={!sent}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput0"
+                  >
+                    <Form.Label>zipcode:</Form.Label>
+                    <Form.Control
+                      required
+                      name="zipcode"
+                      value={addressForm.zipcode}
+                      onChange={handleAddressForm}
+                      placeholder="zipcode..."
+                    ></Form.Control>
+                  </Form.Group>
+                </div>
+                <div>
+                  <small className="text-secondary">
+                    * Make sure you click save
+                  </small>
+                </div>
+                <button
+                  onClick={() => setOpen(!open)}
+                  className="btn btn-primary"
+                >
+                  Save
+                </button>
+              </Form>
+            </Collapse>
+            {/*Edit Collapse*/}
+            <Collapse in={openUpdate}>
+              <Form onSubmit={handleUpdateAddressSubmit}>
+                <div className="name">
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput0"
+                  >
+                    <Form.Label>First name:</Form.Label>
+                    <Form.Control
+                      required
+                      name="firstname"
+                      value={updateAddressForm.firstname}
+                      onChange={handleUpdateAddressForm}
+                      // disabled={!sent}
+                      placeholder="First name..."
+                    ></Form.Control>
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Last name:</Form.Label>
+                    <Form.Control
+                      required
+                      name="lastname"
+                      value={updateAddressForm.lastname}
+                      onChange={handleUpdateAddressForm}
+                      type="text"
+                      placeholder="Last name..."
+                      // disabled={!sent}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="name">
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput0"
+                  >
+                    <Form.Label>Phone number:</Form.Label>
+                    <p className="input-group">
+                      <span className="input-group-text">+966</span>
+                      <Form.Control
+                        required
+                        name="phone"
+                        value={updateAddressForm.phone}
+                        onChange={handleUpdateAddressForm}
+                        maxLength={9}
+                        placeholder="Phone..."
+                      />
+                    </p>
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>City:</Form.Label>
+                    <Form.Control
+                      required
+                      name="city"
+                      value={updateAddressForm.city}
+                      onChange={handleUpdateAddressForm}
+                      type="text"
+                      placeholder="City..."
+                      // disabled={!sent}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="address-info">
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Address:</Form.Label>
+                    <Form.Control
+                      required
+                      name="address"
+                      value={updateAddressForm.address}
+                      onChange={handleUpdateAddressForm}
+                      type="text"
+                      placeholder="Address..."
+                      // disabled={!sent}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput0"
+                  >
+                    <Form.Label>zipcode:</Form.Label>
+                    <Form.Control
+                      required
+                      name="zipcode"
+                      value={updateAddressForm.zipcode}
+                      onChange={handleUpdateAddressForm}
+                      placeholder="zipcode..."
+                    ></Form.Control>
+                  </Form.Group>
+                </div>
+                <div>
+                  <small className="text-secondary">
+                    * Make sure you click save
+                  </small>
+                </div>
+                <button
+                  onClick={() => setOpenUpdate(!openUpdate)}
+                  className="btn btn-primary"
+                >
+                  Edit
+                </button>
+              </Form>
+            </Collapse>
           </div>
           {/*Payment method*/}
           <div className="col-lg-4">
