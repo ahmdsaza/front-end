@@ -61,6 +61,7 @@ export default function AddProduct() {
   // Handle Focus
   useEffect(() => {
     focus.current.focus();
+    document.title = `Ahmed store | Add product`;
   }, []);
 
   function handleOpenImage() {

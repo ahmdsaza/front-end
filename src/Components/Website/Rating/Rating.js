@@ -24,6 +24,7 @@ export default function Rating() {
     Axios.get(`${PRODUCT}/${id}`)
       .then((data) => setProducts(data.data))
       .catch((err) => console.log(err));
+    document.title = `Ahmed store | Rating`;
   }, [id]);
 
   // Get User

@@ -10,6 +10,7 @@ export default function Products() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
+  const [count, setCount] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function Products() {
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
-  }, [limit, page]);
+  }, [limit, page, count]);
 
   // Import Table Header
   const header = [
@@ -41,6 +42,10 @@ export default function Products() {
       name: "Price",
     },
     {
+      key: "discount",
+      name: "Discount",
+    },
+    {
       key: "rating",
       name: "Rating",
     },
@@ -55,6 +60,7 @@ export default function Products() {
     try {
       const res = await Axios.delete(`${PRODUCT}/${id}`);
       setProducts((prev) => prev.filter((item) => item.id !== id));
+      setCount((prev) => !prev);
     } catch (err) {
       console.log(err);
     }
@@ -81,6 +87,7 @@ export default function Products() {
           loading={loading}
           total={total}
           typeName="title"
+          title="Products"
           searchLink={PRODUCT}
         />
       </div>

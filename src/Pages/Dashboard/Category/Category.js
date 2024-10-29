@@ -24,6 +24,7 @@ export default function Category() {
       .then((data) => {
         setTitle(data.data.title);
         setLoading(false);
+        document.title = `Ahmed store | Edit category`;
       })
       .then(() => setDisable(false))
       .catch(() => nav("../../page/404", { replace: true }));

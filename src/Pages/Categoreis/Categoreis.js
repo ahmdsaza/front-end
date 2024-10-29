@@ -13,6 +13,7 @@ export default function WebsiteCategoreis() {
   useEffect(() => {
     Axios.get(`${CATEGORIES}`)
       .then((res) => setCategories(res.data))
+      .then((document.title = "Ahmed store | Categories"))
       .finally(() => setLoading(false));
   }, []);
 

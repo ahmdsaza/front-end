@@ -71,6 +71,7 @@ export default function CheckOut() {
   useEffect(() => {
     Axios.get(`${CARTS}`)
       .then((data) => setCarts(data.data))
+      .then((document.title = "Ahmed store | Check Out"))
       .catch((err) => console.log(err));
   }, []);
 
@@ -349,7 +350,7 @@ export default function CheckOut() {
             ) : (
               <p className="pb-2 fw-bold">Order list</p>
             )}
-            <div className="card">
+            <div className="card" style={{ height: "350px" }}>
               <div className="table-responsive px-md-4 px-2 pt-3">
                 <table className="table table-borderless">
                   <tbody>{showCheckOut}</tbody>
@@ -460,10 +461,13 @@ export default function CheckOut() {
                   >
                     <Form.Label>Phone number:</Form.Label>
                     <p className="input-group">
-                      <span className="input-group-text">+966</span>
+                      <span className="input-group-text number-style">
+                        +966
+                      </span>
                       <Form.Control
                         required
                         name="phone"
+                        className="phone-number"
                         value={addressForm.phone}
                         onChange={handleAddressForm}
                         maxLength={9}
@@ -571,7 +575,9 @@ export default function CheckOut() {
                   >
                     <Form.Label>Phone number:</Form.Label>
                     <p className="input-group">
-                      <span className="input-group-text">+966</span>
+                      <span className="input-group-text number-style">
+                        +966
+                      </span>
                       <Form.Control
                         required
                         name="phone"

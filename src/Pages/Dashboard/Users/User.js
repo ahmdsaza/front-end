@@ -25,6 +25,7 @@ export default function User() {
         setEmail(data.data.email);
         setRole(data.data.role);
         setLoading(false);
+        document.title = "Ahmed store | Edit user";
       })
       .then(() => setDisable(false))
       .catch(() => nav("/dashboard/users/page/404", { replace: true }));

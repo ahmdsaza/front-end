@@ -11,6 +11,7 @@ export default function Categories() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
+  const [count, setCount] = useState(false);
   const [loading, setLoading] = useState(false);
 
   // Get All Categories
@@ -50,6 +51,7 @@ export default function Categories() {
     try {
       const res = await Axios.delete(`${CATEGORY}/${id}`);
       setCategories((prev) => prev.filter((item) => item.id !== id));
+      setCount((prev) => !prev);
     } catch (err) {
       console.log(err);
     }
@@ -75,6 +77,7 @@ export default function Categories() {
         loading={loading}
         total={total}
         typeName="title"
+        title="Categories"
         searchLink={CATEGORY}
       />
     </div>

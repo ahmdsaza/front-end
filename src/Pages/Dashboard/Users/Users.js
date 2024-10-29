@@ -12,6 +12,7 @@ export default function Users() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
+  const [count, setCount] = useState(false);
   const [loading, setLoading] = useState(false);
 
   // Current User
@@ -28,7 +29,7 @@ export default function Users() {
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
-  }, [limit, page]);
+  }, [limit, page, count]);
 
   const header = [
     {
@@ -54,6 +55,7 @@ export default function Users() {
     try {
       const res = await Axios.delete(`${USER}/${id}`);
       setUsers((prev) => prev.filter((item) => item.id !== id));
+      setCount((prev) => !prev);
     } catch (err) {
       console.log(err);
     }
@@ -80,6 +82,7 @@ export default function Users() {
         loading={loading}
         total={total}
         typeName="name"
+        title="Users"
         searchLink={USER}
       />
     </div>

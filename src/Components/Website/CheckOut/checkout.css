@@ -107,6 +107,9 @@ input:focus {
     -moz-box-shadow: 9px 13px 25px 0px rgba(0, 0, 0, 0.18);
     box-shadow: 9px 13px 25px 0px rgba(0, 0, 0, 0.18);
 }
+.number-style {
+    margin-top: 5px;
+}
 
 @keyframes slideUp {
     0% {

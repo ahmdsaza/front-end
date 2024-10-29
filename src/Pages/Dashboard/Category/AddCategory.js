@@ -9,6 +9,10 @@ export default function AddCategory() {
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    document.title = `Ahmed store | Add category`;
+  });
+
   // Ref
   const focus = useRef();
 

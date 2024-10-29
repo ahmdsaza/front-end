@@ -38,12 +38,18 @@ export default function ProductsPage() {
         setProducts(data.data);
         setShowRateNumber(data.data[0].rating);
         setShowSize(data.data[0].sizes);
+        document.title = `Ahmed store | ${data.data[0]?.title}`;
         setImages(
           data.data[0].images.map((item) => {
-            return { original: item.image, thumbnail: item.image };
+            return {
+              original: item.image,
+              thumbnail: item.image,
+              originalHeight: window.innerWidth > 786 ? 600 : 400,
+            };
           })
         );
       })
+      // .then((document.title = `${products[0]?.title}`))
       .catch((err) => console.log(err));
   }, [id, sizeChoice]);
 

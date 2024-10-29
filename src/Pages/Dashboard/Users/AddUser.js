@@ -17,6 +17,7 @@ export default function AddUser() {
   // Handle Focus
   useEffect(() => {
     focus.current.focus();
+    document.title = `Ahmed store | Add user`;
   }, []);
 
   // Handle Submit

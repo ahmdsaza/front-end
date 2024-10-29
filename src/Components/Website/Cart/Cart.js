@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Axios } from "../../../API/axios";
 import { CARTS, USER, UPDATEQTY } from "../../../API/Api";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { CartExport } from "../../../Context/CartContext";
@@ -22,6 +22,7 @@ export default function Cart() {
   useEffect(() => {
     Axios.get(`${CARTS}`)
       .then((data) => setCarts(data.data))
+      .then((document.title = "Ahmed store | Cart"))
       .catch((err) => console.log(err));
   }, []);
 
@@ -82,26 +83,31 @@ export default function Cart() {
     }
 
     return (
-      <div className="cardStyling py-3 w-100 table-responsive" key={key}>
-        <div className="row col-md-8 px-3">
+      <table className="cardStyling py-3 w-100 table-responsive" key={key}>
+        <tr className="row col-md">
           <div className="col-6">
-            <img
-              className="cart-image"
-              src={item.images[0]?.image}
-              alt={item.product?.title}
-            />
-          </div>
-          <div className="col-4">
-            <Link
+            <NavLink
               to={`../products/${item.product?.slug}`}
               className="text-black fw-bold fs-4"
             >
-              <p className="">
+              <img
+                className="cart-image"
+                src={item.images[0]?.image}
+                alt={item.product?.title}
+              />
+            </NavLink>
+          </div>
+          <div className="col-4">
+            <NavLink
+              to={`../products/${item.product?.slug}`}
+              className="text-black fw-bold fs-4"
+            >
+              <p>
                 {item.product?.title.length > 14
-                  ? item.product?.title.slice(0, 10) + "..."
+                  ? item.product?.title.slice(0, 14) + "..."
                   : item.product?.title}
               </p>
-            </Link>
+            </NavLink>
             <div className="d-flex gap-1">
               <p>Price: </p>
               <p>${itemPrice}</p>
@@ -142,8 +148,8 @@ export default function Cart() {
               icon={faTrash}
             />
           </div>
-        </div>
-      </div>
+        </tr>
+      </table>
     );
   });
 
@@ -157,14 +163,35 @@ export default function Cart() {
       <div className="row px-md-4">
         <div className="col-lg-8">
           <h1 className="d-flex justify-content-center">Shopping Cart</h1>
-          <div className="cardStyle d-flex flex-column align-items-center justify-content-center h-100 mt-4">
-            {carts?.length > 0 ? (
-              showCart
-            ) : (
-              <div className="card w-100 d-flex flex-row justify-content-center p-3">
-                <h3>No Items in Cart</h3>
+          <div>
+            <div
+              className="card"
+              style={{ height: carts?.length > 0 ?? "400px" }}
+            >
+              <div className="table-responsive px-md-4 px-2 pt-3">
+                <table className="table table-borderless">
+                  {carts?.length > 0 ? (
+                    <tbody>{showCart}</tbody>
+                  ) : (
+                    <div className="text-center">
+                      <h3>No Items in Cart</h3>
+                    </div>
+                  )}
+                </table>
               </div>
-            )}
+            </div>
+            {/* <div
+              className="cardStyle d-flex flex-column align-items-center justify-content-center h-100 mt-4"
+              style={{ height: "300px" }}
+            >
+              {carts?.length > 0 ? (
+                showCart
+              ) : (
+                <div className="card w-100 d-flex flex-row justify-content-center p-3">
+                  <h3>No Items in Cart</h3>
+                </div>
+              )}
+            </div> */}
           </div>
         </div>
         <div className="col-lg-4">
@@ -188,11 +215,11 @@ export default function Cart() {
               </div>
             </div>
             {carts.length > 0 ? (
-              <Link to="../checkout">
+              <NavLink to="../checkout">
                 <button className="checkout-button mt-3">
                   <div className="checkout-span">Check Out</div>
                 </button>
-              </Link>
+              </NavLink>
             ) : (
               <></>
             )}

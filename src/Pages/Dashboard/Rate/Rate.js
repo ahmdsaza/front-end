@@ -14,6 +14,7 @@ export default function Rate() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
+  const [count, setCount] = useState(false);
   const [status, setStatus] = useState("");
 
   useEffect(() => {
@@ -21,9 +22,10 @@ export default function Rate() {
       .then((data) => {
         setRate(data.data.data);
         setTotal(data.data.total);
+        document.title = `Ahmed store | Rates`;
       })
       .catch((err) => console.log(err));
-  }, [limit, page, status]);
+  }, [limit, page, status, count]);
 
   // const header = [
   //   {
@@ -58,6 +60,7 @@ export default function Rate() {
     try {
       const res = await Axios.delete(`${RATESSHOW}/${id}`);
       setRate((prev) => prev.filter((item) => item.id !== id));
+      setCount((prev) => !prev);
     } catch (err) {
       console.log(err);
     }

@@ -22,6 +22,7 @@ export default function ThankYou() {
         setOrders(data.data[0]);
         setGetOrders(data.data[0].order_items);
         setOrderPrice(data.data[0].payment[0]);
+        document.title = "Ahmed store | Thank you";
         setLoading(false);
       })
       .catch((err) => console.log(err));
@@ -33,23 +34,21 @@ export default function ThankYou() {
     totalPrice = totalCartPrice * 1.15;
 
     return (
-      <>
-        <tbody>
-          <tr>
-            <td>
-              <NavLink
-                className="text-secondary"
-                to={`../products/${item.product_slug}`}
-              >
-                {item.product_title}
-              </NavLink>{" "}
-              ({item.size}) * {item.qty}
-            </td>
-            <td>${item.price} </td>
-            <td>${(item.price * item.qty).toFixed(2)}</td>
-          </tr>
-        </tbody>
-      </>
+      <tbody>
+        <tr>
+          <td>
+            <NavLink
+              className="text-secondary"
+              to={`../products/${item.product_slug}`}
+            >
+              {item.product_title}
+            </NavLink>{" "}
+            ({item.size}) * {item.qty}
+          </td>
+          <td>${item.price} </td>
+          <td>${(item.price * item.qty).toFixed(2)}</td>
+        </tr>
+      </tbody>
     );
   });
 
@@ -83,7 +82,7 @@ export default function ThankYou() {
           </div>
           <div className="checkout__totals-wrapper">
             <div className="order-complete">
-              <div className="order-info">
+              <div className="order-info bg-white">
                 <div className="order-info__item">
                   <label>Order Number</label>
                   <span>#{orders.id}</span>
@@ -145,7 +144,7 @@ export default function ThankYou() {
                   </p>
                 </div>
               </div>
-              <div className="order-info mt-3">
+              <div className="order-info mt-3 bg-white">
                 <div className="order-info__item">
                   <label>Full name:</label>
                   <span>
@@ -170,7 +169,7 @@ export default function ThankYou() {
                 </div>
               </div>
             </div>
-            <div className="checkout__totals">
+            <div className="checkout__totals bg-white">
               <h3>Order Details</h3>
               <table className="checkout-cart-items">
                 <thead>

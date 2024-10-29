@@ -19,6 +19,7 @@ export default function RateEdit() {
       .then((data) => {
         setRate(data.data);
         setStatus(data.data[0].status);
+        document.title = `Ahmed store | Edit rate`;
       })
       .catch((err) => console.log(err));
   }, []);

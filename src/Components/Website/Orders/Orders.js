@@ -17,6 +17,7 @@ export default function Orders() {
       .then((data) => {
         setOrders(data.data.data);
         setTotal(data.data.total);
+        document.title = "Ahmed store | Orders";
       })
       .catch((err) => console.log(err));
   }, [limit, page]);

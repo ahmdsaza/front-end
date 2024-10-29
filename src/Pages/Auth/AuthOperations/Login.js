@@ -34,6 +34,7 @@ export default function Login() {
   // Handle Focus
   useEffect(() => {
     focus.current.focus();
+    document.title = `Ahmed store | Login`;
   }, []);
 
   // Handle Submit

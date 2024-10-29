@@ -38,6 +38,7 @@ export default function Register() {
   // Handle Focus
   useEffect(() => {
     focus.current.focus();
+    document.title = `Ahmed store | Register`;
   }, []);
 
   // Handle Submit

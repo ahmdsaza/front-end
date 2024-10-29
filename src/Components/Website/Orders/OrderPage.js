@@ -22,6 +22,7 @@ export default function OrderPage() {
         setOrders(data.data[0]);
         setGetOrders(data.data[0].order_items);
         setOrderPrice(data.data[0].payment[0]);
+        document.title = `Ahmed store | Order #${data.data[0]?.id}`;
         setLoading(false);
       })
       .catch((err) => console.log(err));

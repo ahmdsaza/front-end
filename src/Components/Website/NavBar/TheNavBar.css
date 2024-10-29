@@ -29,7 +29,7 @@
 
 .search-bar-data {
     position: relative;
-    left: -100px;
+    /* left: -100px; */
     font-size: 1rem;
     align-items: center;
     height: 100px;
@@ -59,13 +59,6 @@
     width: 30%;
 }
 
-/* .search-abs {
-    margin-left: 75%;
-    width: 25%;
-    background-color: white;
-    border-bottom: 1px solid black;
-} */
-
 .search-img {
     width: 60px;
     height: 90px;
@@ -75,8 +68,16 @@
 .navbarsearch {
     position: absolute;
     margin-left: auto;
-    right: 20%;
+    height: 250px;
+    top: 8%;
+    right: 25%;
     z-index: 3;
+    overflow: auto;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
 }
 
 @media (max-width: 1686px) {

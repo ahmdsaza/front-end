@@ -14,6 +14,7 @@ export default function AllOrders() {
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useState(0);
+  const [count, setCount] = useState(false);
   let createAt = 0;
 
   const [show, setShow] = useState(false);
@@ -27,14 +28,16 @@ export default function AllOrders() {
       .then((data) => {
         setOrders(data.data.data);
         setTotal(data.data.total);
+        document.title = "Ahmed store | Orders";
       })
       .catch((err) => console.log(err));
-  }, [limit, page, status]);
+  }, [limit, page, status, count]);
 
   async function handleDelete(id) {
     try {
       const res = await Axios.delete(`${ORDERID}/${id}`);
       setOrders((prev) => prev.filter((item) => item.id !== id));
+      setCount((prev) => !prev);
     } catch (err) {
       console.log(err);
     }
@@ -188,7 +191,7 @@ export default function AllOrders() {
             <Modal.Title>Are you sure you want to delete?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            This will delete item and you can't recovery it
+            This will delete the item and you can't recovery it
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>

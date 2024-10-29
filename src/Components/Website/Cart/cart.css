@@ -1,8 +1,9 @@
 .cardStyling {
+    height: 250px;
     width: 100%;
-    display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+.cardStyling:has(+ :not(div)) {
+    border-bottom: 1px solid #838383;
 }
 .cardStyle {
     border: 1px solid rgba(0, 0, 0, 0.5);
@@ -12,15 +13,6 @@
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
-.cart-card {
-    height: 250px;
-    /* border: 1px solid black; */
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    /* flex-direction: row; */
-    gap: 2rem;
-}
 
 .cart-card-details-cart {
     display: flex;
@@ -29,10 +21,10 @@
 }
 
 .cart-image {
+    height: 200px;
+    width: 150px;
     object-fit: cover;
-    max-width: 150px;
-    height: 250px;
-    width: auto;
+    object-position: top;
     /* width: 30%; */
 }
 

@@ -9,6 +9,7 @@ export default function Profile() {
   useEffect(() => {
     Axios.get(`${USER}`)
       .then((data) => setUser(data.data))
+      .then((document.title = "Ahmed store | Profile"))
       .catch((err) => console.log(err));
   }, []);
 

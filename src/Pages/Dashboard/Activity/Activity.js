@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Axios } from "../../../API/axios";
 import { USER, ORDERSCOUNT } from "../../../API/Api";
 import { NavLink } from "react-router-dom";
@@ -18,6 +18,10 @@ export default function Activity() {
     queryKey: "user",
     staleTime: Infinity,
   });
+
+  useEffect(() => {
+    document.title = `Ahmed store | Dashboard`;
+  }, []);
 
   return (
     <div>

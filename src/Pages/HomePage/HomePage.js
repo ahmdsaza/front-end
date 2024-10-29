@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Home.css";
 import Landing from "../../Components/Website/Landing/Landing";
 // import TopRated from "../../Components/Website/Product/TopRated";
@@ -8,6 +8,9 @@ import ShowLatestSaleProducts from "../../Components/Website/Product/SaleProduct
 import ShowLatestProducts from "../../Components/Website/Product/LatestProducts/ShowLatestProducts";
 
 export default function HomePage() {
+  useEffect(() => {
+    document.title = "Ahmed store";
+  }, []);
   return (
     <div>
       <Landing />

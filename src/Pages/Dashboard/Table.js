@@ -21,6 +21,10 @@ export default function TableShow(props) {
   const [show, setShow] = useState(false);
   const [holdId, setHoldId] = useState();
 
+  useEffect(() => {
+    document.title = `Ahmed store | ${props.title}`;
+  });
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -95,6 +99,12 @@ export default function TableShow(props) {
             )
           ) : item2.key === "price" ? (
             "$" + item[item2.key]
+          ) : item2.key === "discount" ? (
+            item[item2.key] > 0 ? (
+              "$" + item[item2.key]
+            ) : (
+              item[item2.key]
+            )
           ) : item2.key === "rating" ? (
             item[item2.key].slice(0, 1)
           ) : (
@@ -220,7 +230,7 @@ export default function TableShow(props) {
             <Modal.Title>Are you sure you want to delete?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            That will delete item and you can't recovery it
+            This will delete the item and you can't recovery it
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>

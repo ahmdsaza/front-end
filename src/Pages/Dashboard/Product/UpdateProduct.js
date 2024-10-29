@@ -25,7 +25,7 @@ export default function UpdateProduct() {
 
   const [updateSize, setUpdateSize] = useState({
     id: "",
-    name: "",
+    title: "",
     quantity: "",
   });
 
@@ -70,6 +70,7 @@ export default function UpdateProduct() {
       .then((data) => {
         setForm(data.data[0]);
         setImagesFromServer(data.data[0].images);
+        document.title = `Ahmed store | Edit product`;
       })
       .catch((err) => console.log(err));
   }, []);
@@ -386,9 +387,8 @@ export default function UpdateProduct() {
               >
                 <Form.Label>Size:</Form.Label>
                 <Form.Control
-                  required
-                  name="name"
-                  value={updateSize.name}
+                  name="title"
+                  value={updateSize.title}
                   onChange={handleUpdateSizeChange}
                   placeholder={sizes.id}
                 ></Form.Control>
@@ -399,7 +399,6 @@ export default function UpdateProduct() {
               >
                 <Form.Label>Quantity:</Form.Label>
                 <Form.Control
-                  required
                   name="quantity"
                   value={updateSize.quantity}
                   onChange={handleUpdateSizeChange}
