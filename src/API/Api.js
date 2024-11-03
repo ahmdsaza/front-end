@@ -14,6 +14,7 @@ export const LOGOUT = "logout";
 export const ORDER = "orders";
 export const ORDERID = "order";
 export const ALLORDERS = "get-order";
+export const LASTORDERS = "last-order";
 
 // Showing Orders
 export const ORDERSCOUNT = "get-order-count";
