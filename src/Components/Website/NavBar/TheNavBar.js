@@ -163,13 +163,6 @@ export default function TheNavBar(props) {
                     </NavLink>
                     <span>{cartLength}</span>
                   </Nav.Link>{" "}
-                  {/* <img
-                    className="mt-2"
-                    style={{ marginLeft: "1rem" }}
-                    src={profileIcon}
-                    width="30px"
-                    height="30px"
-                  /> */}
                   <NavDropdown title={name.name} className="m-2 fs-5">
                     <NavDropdown.Item href="#" collapseOnSelect>
                       <NavLink to={"../profile"} className="text-black d-block">
@@ -204,15 +197,14 @@ export default function TheNavBar(props) {
                   </NavDropdown>
                 </div>
               ) : (
-                <NavLink
-                  className="my-2 text-black"
-                  to="../login"
-                  style={{
-                    marginLeft: window.innerWidth > 1200 ? "10px" : "0px",
-                  }}
-                >
-                  Login / Register
-                </NavLink>
+                <NavDropdown className="mx-4">
+                  <NavDropdown.Item>
+                    <NavLink to={"../login"} className="text-black d-block">
+                      {" "}
+                      Login / Register{" "}
+                    </NavLink>
+                  </NavDropdown.Item>
+                </NavDropdown>
               )}
             </Offcanvas.Body>
           </Navbar.Offcanvas>

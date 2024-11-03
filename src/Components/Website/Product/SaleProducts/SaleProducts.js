@@ -17,10 +17,10 @@ export default function SaleProducts(props) {
   return (
     <NavLink
       to={`products/${props.id}`}
-      className={`col-lg-${props.col} col-md-6 col-12`}
+      className={`col-lg-${props.col} col-md-6 col-12 my-2`}
       key={props.index}
     >
-      <div className="cards">
+      <div className="cards bg-white">
         <div>
           <div className="px-5 py-5 position-relative">
             {props.discount > 0 && (
@@ -37,7 +37,6 @@ export default function SaleProducts(props) {
               alt=""
               style={{
                 backgroundImage: `url('${props.img}')`,
-                backgroundPosition: "center",
                 backgroundSize: "cover",
                 backgroundPosition: "top",
                 height: "200px",

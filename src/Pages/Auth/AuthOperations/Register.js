@@ -4,7 +4,10 @@ import { baseURL, REGISTER } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
 import { Form } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
+import {
+  NavLink,
+  // useNavigate
+} from "react-router-dom";
 import TheNavBar from "./../../../Components/Website/NavBar/TheNavBar";
 
 export default function Register() {
@@ -22,7 +25,7 @@ export default function Register() {
   const cookie = Cookie();
 
   // Navigate
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Err
   const [err, setErr] = useState("");

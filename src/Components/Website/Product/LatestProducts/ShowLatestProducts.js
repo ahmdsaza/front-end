@@ -32,9 +32,9 @@ export default function ShowLatestProducts() {
   ));
   return (
     <Container>
-      <div className="card-style">
+      <div>
         <h1 className="d-flex justify-content-center">Latest Products</h1>
-        <div className="d-flex align-items-stretch justify-content-center flex-wrap mt-5 row-gap-2 m-3">
+        <div className="d-flex align-items-stretch justify-content-center flex-wrap mt-5 row-gap-2 ">
           {loading ? (
             <>
               <SkeletonShow

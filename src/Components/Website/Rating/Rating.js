@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./rating.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { PRODUCT, USER, RATE } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import { Container } from "react-bootstrap";
@@ -12,12 +12,8 @@ export default function Rating() {
   const [rate, setRate] = useState(5);
   const [user, setUser] = useState("");
   const [products, setProducts] = useState([]);
-  const [err, setErr] = useState("");
-  const [addRate, setAddRate] = useState("");
   const [description, setDescription] = useState("");
   const [sent, setSent] = useState(false);
-
-  const nav = useNavigate();
 
   // Get Product by id
   useEffect(() => {
@@ -165,21 +161,6 @@ export default function Rating() {
           Send rate
         </button>
       </form>
-      {err ? (
-        <div className="d-flex justify-content-center">
-          <span className="d-flex alert alert-danger mt-2 justify-content-center ">
-            {err}
-          </span>
-        </div>
-      ) : addRate !== "" ? (
-        <div className="d-flex justify-content-center">
-          <span className="d-flex alert alert-success mt-2 justify-content-center ">
-            {addRate}
-          </span>
-        </div>
-      ) : (
-        <></>
-      )}
     </div>
   );
 }

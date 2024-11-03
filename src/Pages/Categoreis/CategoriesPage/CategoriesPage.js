@@ -50,7 +50,7 @@ export default function CategoriesPage() {
     ));
 
     return (
-      <div key={key}>
+      <div key={key} className="bg-white">
         <NavLink to={`../products/${item.slug}`} className="text-black">
           <div className="crd1">
             <div className="products-in-crd">
