@@ -1,17 +1,3 @@
-.username {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    padding: 24px 50px 24px 50px;
-    border-radius: 14px;
-    background: white;
-    margin: auto;
-    box-shadow: 0px 4px 24px 2px rgba(20, 25, 38, 0.05);
-}
 .wg-chart-default {
     display: -webkit-box;
     display: -moz-box;
@@ -24,6 +10,41 @@
     border-radius: 14px;
     background: white;
     box-shadow: 0px 4px 24px 2px rgba(20, 25, 38, 0.05);
+}
+.wg-chart-default-orders {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    gap: 20px;
+    height: 400px;
+    flex-direction: column;
+    padding: 24px 20px 24px 20px;
+    border-radius: 14px;
+    background: white;
+    box-shadow: 0px 4px 24px 2px rgba(20, 25, 38, 0.05);
+    -webkit-border-radius: 14px;
+    -moz-border-radius: 14px;
+    -ms-border-radius: 14px;
+    -o-border-radius: 14px;
+}
+.wg-chart-default-products {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    padding: 24px 20px 24px 10px;
+    border-radius: 14px;
+    background: white;
+    box-shadow: 0px 4px 24px 2px rgba(20, 25, 38, 0.05);
+    -webkit-border-radius: 14px;
+    -moz-border-radius: 14px;
+    -ms-border-radius: 14px;
+    -o-border-radius: 14px;
 }
 .w-half {
     width: 100% !important;
@@ -43,4 +64,12 @@
 }
 .gap14 {
     gap: 14px !important;
+}
+.card-styling {
+    height: 80px;
+    width: 100%;
+    overflow: auto;
+}
+.card-styling:has(+ :not(div)) {
+    border-bottom: 1px solid black;
 }
