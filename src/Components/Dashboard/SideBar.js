@@ -103,6 +103,25 @@ export default function SideBar() {
                 Add Product
               </MenuItem>
             </SubMenu>
+            <SubMenu
+              icon={<i className="material-icons">list_alt</i>}
+              label="Coupons"
+            >
+              <MenuItem
+                icon={<i className="material-icons">inventory_2</i>}
+                component={<Link to={`./coupon`} />}
+                onClick={() => setIsOpen((prev) => !prev)}
+              >
+                Coupons
+              </MenuItem>
+              <MenuItem
+                component={<Link to={`./coupon/add`} />}
+                icon={<i className="material-icons">add</i>}
+                onClick={() => setIsOpen((prev) => !prev)}
+              >
+                Add Coupons
+              </MenuItem>
+            </SubMenu>
             <MenuItem
               component={<Link to={`./orders`} />}
               icon={<i className="material-icons">list_alt</i>}

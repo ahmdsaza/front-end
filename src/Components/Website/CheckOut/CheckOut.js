@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { CARTS, ORDERS, ADDRESS } from "../../../API/Api";
+import { CARTS, ORDERS, ADDRESS, COUPON } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import Form from "react-bootstrap/Form";
-import { Container, Collapse } from "react-bootstrap";
+import { Container, Collapse, Button } from "react-bootstrap";
+import resetIcon from "../../../Assets/resetIcon.png";
 import "./checkout.css";
 import {
   faPenToSquare,
@@ -16,15 +17,20 @@ import { ToastContainer, toast } from "react-toastify";
 
 export default function CheckOut() {
   const [carts, setCarts] = useState([]);
-  const [sent, setSent] = useState(false);
   const [saveAddress, setSaveAddress] = useState();
   const [count, setCount] = useState(false);
+  const [coupon, setCoupon] = useState("");
+  const [couponCheckCall, setCouponCheckCall] = useState();
+  const [count2, setCount2] = useState(false);
   const [errCall, setErrorCall] = useState("");
   const [addressCall, setAddressCall] = useState([]);
   const [totalPriceState, setTotalPriceState] = useState("");
   const [open, setOpen] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const { setIsChange } = useContext(CartExport);
+
+  // Navigat
+  const nav = useNavigate();
 
   let descPrice = 0;
   let itemPrice = 0;
@@ -62,10 +68,6 @@ export default function CheckOut() {
     city: "",
     zipcode: "",
   });
-
-  // console.log(addressCall);
-
-  const nav = useNavigate();
 
   // Import Cart
   useEffect(() => {
@@ -199,30 +201,54 @@ export default function CheckOut() {
     setAddressForm({ ...addressForm, [e.target.name]: e.target.value });
   }
 
+  async function handleCheckCoupon(e) {
+    try {
+      const res = Axios.get(`${COUPON}/check/${e}`).then((data) => {
+        setCouponCheckCall(data.data.percent);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    setCount2((prev) => !prev);
+    handleUpdatePrice();
+  }
+
+  useEffect(() => {
+    Axios.get(`${COUPON}/check/${couponCheckCall}`).then(
+      (data) => {
+        setCouponCheckCall(data.percent);
+      },
+      [count2]
+    );
+  });
+
+  let calc = totalWithVat * (couponCheckCall / 100);
+
   function handlePayment(e) {
     if (e.target.value == 0) {
       form.payment_mode = e.target.value;
-      setTotalPriceState((totalCartPrice + vat + 5).toFixed(2));
+      setTotalPriceState(
+        (totalWithVat - (couponCheckCall != 1 ? calc : 0) + 5).toFixed(2)
+      );
       form.productsprice = totalCartPrice.toFixed(2);
       form.vat = vat.toFixed(2);
-      form.totalprice = (totalCartPrice + vat).toFixed(2);
+      form.totalprice = (totalWithVat + 5).toFixed(2);
       form.fees = "5.00";
-      setSent(true);
     } else {
       form.payment_mode = e.target.value;
-      setTotalPriceState((totalCartPrice + vat).toFixed(2));
+      setTotalPriceState(
+        (totalWithVat - (couponCheckCall != 1 ? calc : 0)).toFixed(2)
+      );
       form.productsprice = totalCartPrice.toFixed(2);
       form.vat = vat.toFixed(2);
-      form.totalprice = (totalCartPrice + vat).toFixed(2);
+      form.totalprice = totalWithVat.toFixed(2);
       form.fees = "0.00";
-      setSent(true);
     }
   }
 
   function handleAddress(e) {
     form.address_id = e;
     setSaveAddress(e);
-    setSent(true);
   }
 
   async function handleDelete(id) {
@@ -339,6 +365,30 @@ export default function CheckOut() {
     </div>
   ));
 
+  // console.log(couponCheckCall);
+
+  function handleUpdatePrice(e) {
+    // if (couponCheckCall != 1) {
+
+    if (form.payment_mode == 0) {
+      setTotalPriceState((totalWithVat - calc + 5).toFixed(2));
+    } else {
+      setTotalPriceState((totalWithVat - totalWithVat * calc).toFixed(2));
+    }
+    // }
+  }
+
+  function handleResetCoupon() {
+    setCoupon("");
+    setCouponCheckCall(0);
+    setCount2((prev) => !prev);
+    if (form.payment_mode == 0) {
+      setTotalPriceState((totalWithVat + 5).toFixed(2));
+    } else {
+      setTotalPriceState(totalWithVat.toFixed(2));
+    }
+  }
+
   return (
     <Container>
       <div className="containers mt-4 p-0">
@@ -371,6 +421,19 @@ export default function CheckOut() {
                   <small className="text-muted">VAT</small>
                   <p>${vat.toFixed(2)}</p>
                 </div>{" "}
+                {couponCheckCall > 0 ? (
+                  <div className="d-flex justify-content-between pb-3">
+                    <small className="text-muted">Discount</small>
+                    <p className="d-flex gap-2 align-items-end">
+                      <small className="text-secondary">
+                        %{couponCheckCall}
+                      </small>
+                      ${(totalWithVat * (couponCheckCall / 100)).toFixed(2)}
+                    </p>
+                  </div>
+                ) : (
+                  <></>
+                )}
                 <div className="d-flex justify-content-between pb-3 ">
                   <small className="text-muted">Shipping (SMSA)</small>
                   <p>FREE</p>
@@ -393,6 +456,50 @@ export default function CheckOut() {
                       : totalPriceState}
                   </p>
                 </div>
+                {/* <div className="d-flex justify-content-between mt-3 mb-3">
+                  <p className="fw-bold">Total Amount</p>
+                  <p className="fw-bold">
+                    $
+                    {couponCheckCall > 1
+                      ? totalWithVat?.toFixed(2) -
+                        ((totalWithVat * couponCheckCall) / 100).toFixed(2)
+                      : totalWithVat?.toFixed(2)}
+                  </p>
+                </div> */}
+                <div className="d-flex align-items-center justify-content-between mb-3">
+                  <div className="d-flex gap-3">
+                    <p className="fw-bold">Coupon:</p>
+                    <input
+                      disabled={count2}
+                      className="fw-bold rounded border"
+                      type="text"
+                      value={coupon}
+                      onChange={(e) => setCoupon(e.target.value)}
+                    />
+                  </div>
+                  <div className="d-flex gap-1 col">
+                    <Button
+                      disabled={coupon.length < 1 || count2}
+                      onClick={() => handleCheckCoupon(coupon)}
+                    >
+                      Active
+                    </Button>
+                    <Button
+                      disabled={coupon.length < 1}
+                      className="btn btn-secondary"
+                      onClick={() => handleResetCoupon()}
+                    >
+                      <img src={resetIcon} width="25" />
+                    </Button>
+                  </div>
+                </div>
+                {couponCheckCall != 0 && !couponCheckCall ? (
+                  <div className="alert alert-danger">
+                    The coupon may not existed or expired
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
           </div>
@@ -734,6 +841,7 @@ export default function CheckOut() {
                 </div>
               </div>
             </div>
+
             <button
               // disabled={!sent}
               className="checkout-button"

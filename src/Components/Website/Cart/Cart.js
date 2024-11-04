@@ -1,16 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { Axios } from "../../../API/axios";
-import { CARTS, USER, UPDATEQTY } from "../../../API/Api";
+import { CARTS, UPDATEQTY, COUPON } from "../../../API/Api";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { CartExport } from "../../../Context/CartContext";
+import resetIcon from "../../../Assets/resetIcon.png";
 import "./cart.css";
 
 export default function Cart() {
   const [carts, setCarts] = useState([]);
-  const [user, setUser] = useState("");
+  const [coupon, setCoupon] = useState("");
+  const [couponCheckCall, setCouponCheckCall] = useState(1);
+  const [count, setCount] = useState(false);
   let totalCartPrice = 0;
   let itemPrice = 0;
   let descPrice = 0;
@@ -23,12 +26,6 @@ export default function Cart() {
     Axios.get(`${CARTS}`)
       .then((data) => setCarts(data.data))
       .then((document.title = "Ahmed store | Cart"))
-      .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    Axios.get(`${USER}`)
-      .then((data) => setUser(data.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -156,7 +153,22 @@ export default function Cart() {
   let vat = totalCartPrice * 0.15;
   let totalWithVat = totalCartPrice + vat;
 
-  // console.log(carts);
+  function handleCheckCoupon(couponCheck) {
+    Axios.get(`${COUPON}/check/${couponCheck}`)
+      .then((data) => {
+        setCouponCheckCall(data?.data.percent);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setCount((prev) => !prev);
+  }
+
+  function handleResetCoupon() {
+    setCoupon("");
+    setCouponCheckCall(1);
+    setCount((prev) => !prev);
+  }
 
   return (
     <Container>
@@ -180,18 +192,6 @@ export default function Cart() {
                 </table>
               </div>
             </div>
-            {/* <div
-              className="cardStyle d-flex flex-column align-items-center justify-content-center h-100 mt-4"
-              style={{ height: "300px" }}
-            >
-              {carts?.length > 0 ? (
-                showCart
-              ) : (
-                <div className="card w-100 d-flex flex-row justify-content-center p-3">
-                  <h3>No Items in Cart</h3>
-                </div>
-              )}
-            </div> */}
           </div>
         </div>
         <div className="col-lg-4">
@@ -204,14 +204,68 @@ export default function Cart() {
                   <p>${totalCartPrice?.toFixed(2)}</p>
                 </div>
 
-                <div className="d-flex justify-content-between pb-3 border-bottom">
+                <div
+                  className={`d-flex justify-content-between pb-3 ${
+                    couponCheckCall > 1 ? "" : "border-bottom"
+                  } `}
+                >
                   <small className="text-muted">VAT</small>
                   <p>${vat.toFixed(2)}</p>
                 </div>
+                {couponCheckCall > 1 ? (
+                  <div className="d-flex justify-content-between pb-3 border-bottom">
+                    <small className="text-muted">Discount</small>
+                    <p>
+                      ${(totalWithVat * (couponCheckCall / 100)).toFixed(2)}
+                    </p>
+                  </div>
+                ) : (
+                  <></>
+                )}
                 <div className="d-flex justify-content-between mt-3 mb-3">
                   <p className="fw-bold">Total Amount</p>
-                  <p className="fw-bold">${totalWithVat?.toFixed(2)}</p>
+                  <p className="fw-bold">
+                    $
+                    {couponCheckCall > 1
+                      ? totalWithVat?.toFixed(2) -
+                        ((totalWithVat * couponCheckCall) / 100).toFixed(2)
+                      : totalWithVat?.toFixed(2)}
+                  </p>
                 </div>
+                <div className="d-flex align-items-center justify-content-between mb-3">
+                  <div className="d-flex gap-3">
+                    <p className="fw-bold">Coupon:</p>
+                    <input
+                      disabled={count}
+                      className="fw-bold rounded border"
+                      type="text"
+                      value={coupon}
+                      onChange={(e) => setCoupon(e.target.value)}
+                    />
+                  </div>
+                  <div className="d-flex gap-1 col">
+                    <Button
+                      disabled={coupon.length < 1 || count}
+                      onClick={() => handleCheckCoupon(coupon)}
+                    >
+                      Active
+                    </Button>
+                    <Button
+                      disabled={coupon.length < 1}
+                      className="btn btn-secondary"
+                      onClick={() => handleResetCoupon()}
+                    >
+                      <img src={resetIcon} width="25" />
+                    </Button>
+                  </div>
+                </div>
+                {couponCheckCall != 1 && !couponCheckCall ? (
+                  <div className="alert alert-danger">
+                    The coupon may not existed or expired
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
             {carts.length > 0 ? (

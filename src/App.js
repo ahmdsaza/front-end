@@ -38,6 +38,9 @@ import Rate from "./Pages/Dashboard/Rate/Rate";
 import RateEdit from "./Pages/Dashboard/Rate/RateEdit";
 import ReloadPage from "./Components/Website/CheckOut/ReloadPage";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Coupon from "./Pages/Dashboard/Coupon/Coupon";
+import AddCoupon from "./Pages/Dashboard/Coupon/AddCoupon";
+import EditCoupon from "./Pages/Dashboard/Coupon/EditCoupon";
 
 const queryClient = new QueryClient();
 
@@ -91,6 +94,9 @@ function App() {
                 <Route path="user/add" element={<AddUser />} />
                 <Route path="orders/:id" element={<DashboardOrdersPage />} />
                 <Route path="rate/:id" element={<RateEdit />} />
+                <Route path="coupon" element={<Coupon />} />
+                <Route path="coupon/add" element={<AddCoupon />} />
+                <Route path="coupon/:id" element={<EditCoupon />} />
               </Route>
 
               {/* Categories Manager */}

@@ -19,6 +19,9 @@ export const LASTORDERS = "last-order";
 // Showing Orders
 export const ORDERSCOUNT = "get-order-count";
 
+// Coupons
+export const COUPON = "coupon";
+
 // Google
 export const GOOGLE_CALL_BACK = "auth/google/callback";
 
