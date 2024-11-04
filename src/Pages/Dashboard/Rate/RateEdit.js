@@ -91,18 +91,20 @@ export default function RateEdit() {
   });
 
   return (
-    <Container className="bg-white h-100">
-      <div className="py-3">
-        <NavLink to="../rate" className="col btn mt-3">
-          <FontAwesomeIcon
-            style={{ transform: "scaleX(-1)" }}
-            icon={faArrowRight}
-            className="px-2"
-          />
-          Back
-        </NavLink>
+    <Container className=" h-100">
+      <div className="bg-white">
+        <div className="py-3">
+          <NavLink to="../rate" className="col btn mt-3">
+            <FontAwesomeIcon
+              style={{ transform: "scaleX(-1)" }}
+              icon={faArrowRight}
+              className="px-2"
+            />
+            Back
+          </NavLink>
+        </div>
+        <div>{showRate}</div>
       </div>
-      <div>{showRate}</div>
       <ToastContainer />
     </Container>
   );

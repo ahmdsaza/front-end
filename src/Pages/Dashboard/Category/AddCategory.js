@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import { Axios } from "../../../API/axios";
 import { CATEGORY } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
+import { useNavigate } from "react-router-dom";
 
 export default function AddCategory() {
   const [title, setTitle] = useState("");
@@ -12,6 +13,9 @@ export default function AddCategory() {
   useEffect(() => {
     document.title = `Ahmed store | Add category`;
   });
+
+  // Navigate
+  const nav = useNavigate();
 
   // Ref
   const focus = useRef();
@@ -31,7 +35,7 @@ export default function AddCategory() {
 
     try {
       const res = await Axios.post(`${CATEGORY}/add`, form);
-      window.location.pathname = "/dashboard/categories";
+      nav("/dashboard/categories");
       console.log(res);
     } catch (err) {
       setLoading(false);

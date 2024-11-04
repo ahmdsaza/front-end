@@ -122,7 +122,6 @@ export default function TableShow(props) {
             <>
               <FontAwesomeIcon
                 onClick={() => handleDelete(item.id)}
-                // onClick={() => props.delete(item.id)}
                 fontSize={"19px"}
                 color="red"
                 cursor={"pointer"}
@@ -141,7 +140,7 @@ export default function TableShow(props) {
     handleShow();
   }
 
-  // Handle Colsw
+  // Handle Colse
   function handleCloseModal(data) {
     props.delete(data);
     handleClose();

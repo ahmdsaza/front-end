@@ -17,7 +17,9 @@ export default function SaleProducts(props) {
   return (
     <NavLink
       to={`products/${props.id}`}
-      className={`col-lg-${props.col} col-md-6 col-12 my-2`}
+      className={`col-12 ${
+        window.innerWidth > 1400 ? "col-xl-3" : "col-xl-4"
+      } col-lg-5 col-md-6  my-2`}
       key={props.index}
     >
       <div className="cards bg-white">

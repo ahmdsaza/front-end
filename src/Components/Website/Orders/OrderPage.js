@@ -59,14 +59,14 @@ export default function OrderPage() {
     );
   });
 
-  let createAtDate = orders ? TransformDated(orders.created_at) : <></>;
-  let createAtTime = orders ? TransformTime(orders.created_at) : <></>;
+  let createAtDate = orders ? TransformDated(orders?.created_at) : <></>;
+  let createAtTime = orders ? TransformTime(orders?.created_at) : <></>;
 
   return (
     <Container>
       <main>
         <section>
-          <div className="order-complete">
+          <div className="order-complete bg-white">
             <div>
               <NavLink
                 className="col btn mt-3"

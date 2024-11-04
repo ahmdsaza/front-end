@@ -163,7 +163,7 @@ export default function TheNavBar(props) {
                     </NavLink>
                     <span>{cartLength}</span>
                   </Nav.Link>{" "}
-                  <NavDropdown title={name.name} className="m-2 fs-5">
+                  <NavDropdown title={name?.name} className="m-2 fs-5">
                     <NavDropdown.Item href="#" collapseOnSelect>
                       <NavLink to={"../profile"} className="text-black d-block">
                         {" "}

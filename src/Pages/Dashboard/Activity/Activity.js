@@ -66,8 +66,8 @@ export default function Activity() {
           <div>
             <NavLink className="text-black" to="../orders">
               <div className="wg-chart-default mb-20">
-                <div className="flex align-items-center justify-content-between">
-                  <div className="flex align-items-center gap14">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap14">
                     <i
                       className="material-icons mt-3"
                       style={{ color: "#4379F2" }}
@@ -230,14 +230,14 @@ export default function Activity() {
             </NavLink>
           </div>
 
-          <div className="col-12 col-md-4">
+          <div className="col-12 col-md">
             <div className="d-flex">
               <div className="col d-flex gap20">
                 <div className="col-5 col-md">
                   <NavLink className="text-black" to="../users">
                     <div className="wg-chart-default mb-20">
-                      <div className="flex align-items-center justify-content-between">
-                        <div className="flex align-items-center gap14">
+                      <div className="flex items-center justify-content-between">
+                        <div className="flex items-center gap14">
                           <i
                             className="material-icons mt-3"
                             style={{ color: "#4379F2" }}

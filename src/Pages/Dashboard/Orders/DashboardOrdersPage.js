@@ -77,9 +77,9 @@ export default function DashboardOrdersPage() {
     <Container>
       <main>
         <section>
-          <div className="order-complete">
+          <div className="order-complete bg-white mt-3">
             <div>
-              <NavLink className="col btn mt-3" to="../orders">
+              <NavLink className="col btn " to="../orders">
                 <FontAwesomeIcon
                   style={{ transform: "scaleX(-1)" }}
                   icon={faArrowRight}

@@ -189,7 +189,7 @@ export default function ProductsPage() {
   });
 
   const findSizeQuantity = showSize?.find((item) => {
-    return item.id === sizeChoice * 1;
+    return item?.id === sizeChoice * 1;
   });
 
   const showData = products.map((item, key) => {
@@ -263,8 +263,8 @@ export default function ProductsPage() {
                 value=" + "
                 disabled={
                   sizeChoice == null
-                    ? count === showSize[0].quantity
-                    : count === findSizeQuantity.quantity
+                    ? count === showSize[0]?.quantity
+                    : count === findSizeQuantity?.quantity
                 }
                 onClick={() => {
                   setCount((prev) => prev + 1);
