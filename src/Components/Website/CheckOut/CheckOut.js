@@ -20,7 +20,8 @@ export default function CheckOut() {
   const [saveAddress, setSaveAddress] = useState();
   const [count, setCount] = useState(false);
   const [coupon, setCoupon] = useState("");
-  const [couponCheckCall, setCouponCheckCall] = useState();
+  const [couponCheckCall, setCouponCheckCall] = useState([]);
+  const [couponCheck, setCouponCheck] = useState(0);
   const [count2, setCount2] = useState(false);
   const [errCall, setErrorCall] = useState("");
   const [addressCall, setAddressCall] = useState([]);
@@ -42,13 +43,13 @@ export default function CheckOut() {
     productsprice: "",
     vat: "",
     totalprice: "",
+    coupon_id: "",
     fees: "",
   });
 
   if (saveAddress == null) {
     form.address_id = addressCall[addressCall.length - 1]?.id;
   }
-  // console.log(form);
 
   const [addressForm, setAddressForm] = useState({
     firstname: "",
@@ -171,7 +172,7 @@ export default function CheckOut() {
         });
       } else if (
         err.response.data.message ===
-        "The payment mode field is required. (and 4 more errors)"
+        "The payment mode field is required. (and 5 more errors)"
       ) {
         toast.error("Please choose payment method", {
           autoClose: 2000,
@@ -203,48 +204,34 @@ export default function CheckOut() {
 
   async function handleCheckCoupon(e) {
     try {
-      const res = Axios.get(`${COUPON}/check/${e}`).then((data) => {
-        setCouponCheckCall(data.data.percent);
+      const res = await Axios.get(`${COUPON}/check/${e}`).then((data) => {
+        setCouponCheckCall(data.data);
+        setCount2((prev) => !prev);
+        handleUpdatePrice(data.data.percent);
+        data.data.percent > 0 ? setCouponCheck(1) : setCouponCheck(2);
       });
     } catch (err) {
       console.log(err);
     }
-    setCount2((prev) => !prev);
-    handleUpdatePrice();
   }
 
-  useEffect(() => {
-    Axios.get(`${COUPON}/check/${couponCheckCall}`).then(
-      (data) => {
-        setCouponCheckCall(data.percent);
-      },
-      [count2]
-    );
-  });
-
-  let calc = totalWithVat * (couponCheckCall / 100);
+  let calc = totalWithVat * (couponCheckCall?.percent / 100);
 
   function handlePayment(e) {
-    if (e.target.value == 0) {
-      form.payment_mode = e.target.value;
-      setTotalPriceState(
-        (totalWithVat - (couponCheckCall != 1 ? calc : 0) + 5).toFixed(2)
-      );
-      form.productsprice = totalCartPrice.toFixed(2);
-      form.vat = vat.toFixed(2);
-      form.totalprice = (totalWithVat + 5).toFixed(2);
-      form.fees = "5.00";
-    } else {
-      form.payment_mode = e.target.value;
-      setTotalPriceState(
-        (totalWithVat - (couponCheckCall != 1 ? calc : 0)).toFixed(2)
-      );
-      form.productsprice = totalCartPrice.toFixed(2);
-      form.vat = vat.toFixed(2);
-      form.totalprice = totalWithVat.toFixed(2);
-      form.fees = "0.00";
-    }
+    form.payment_mode = e.target.value;
+    form.productsprice = totalCartPrice.toFixed(2);
+    form.vat = vat.toFixed(2);
+    form.coupon_id = couponCheckCall?.id ? couponCheckCall?.id : 0;
+    form.fees = e.target.value === "0" ? "5.00" : "0.00";
+    setTotalPriceState(
+      (
+        (couponCheckCall?.percent > 0 && couponCheckCall !== undefined
+          ? totalWithVat - calc
+          : totalWithVat) + parseFloat(form.fees)
+      ).toFixed(2)
+    );
   }
+  form.totalprice = parseFloat(totalPriceState);
 
   function handleAddress(e) {
     form.address_id = e;
@@ -365,28 +352,23 @@ export default function CheckOut() {
     </div>
   ));
 
-  // console.log(couponCheckCall);
-
-  function handleUpdatePrice(e) {
-    // if (couponCheckCall != 1) {
-
-    if (form.payment_mode == 0) {
-      setTotalPriceState((totalWithVat - calc + 5).toFixed(2));
-    } else {
-      setTotalPriceState((totalWithVat - totalWithVat * calc).toFixed(2));
-    }
-    // }
+  async function handleUpdatePrice(e) {
+    setTotalPriceState(
+      (
+        (e > 0 ? totalWithVat - totalWithVat * (e / 100) : totalWithVat) +
+        (form.payment_mode === "0" ? 5 : 0)
+      ).toFixed(2)
+    );
   }
 
   function handleResetCoupon() {
     setCoupon("");
     setCouponCheckCall(0);
     setCount2((prev) => !prev);
-    if (form.payment_mode == 0) {
-      setTotalPriceState((totalWithVat + 5).toFixed(2));
-    } else {
-      setTotalPriceState(totalWithVat.toFixed(2));
-    }
+    setTotalPriceState(
+      (totalWithVat + (form.payment_mode === "0" ? 5 : 0)).toFixed(2)
+    );
+    setCouponCheck(0);
   }
 
   return (
@@ -400,7 +382,10 @@ export default function CheckOut() {
             ) : (
               <p className="pb-2 fw-bold">Order list</p>
             )}
-            <div className="card" style={{ height: "350px" }}>
+            <div
+              className="card"
+              style={{ height: carts.length > 1 ? "350px" : "200px" }}
+            >
               <div className="table-responsive px-md-4 px-2 pt-3">
                 <table className="table table-borderless">
                   <tbody>{showCheckOut}</tbody>
@@ -421,14 +406,18 @@ export default function CheckOut() {
                   <small className="text-muted">VAT</small>
                   <p>${vat.toFixed(2)}</p>
                 </div>{" "}
-                {couponCheckCall > 0 ? (
+                {couponCheckCall?.percent > 0 ? (
                   <div className="d-flex justify-content-between pb-3">
                     <small className="text-muted">Discount</small>
                     <p className="d-flex gap-2 align-items-end">
                       <small className="text-secondary">
-                        %{couponCheckCall}
+                        %{couponCheckCall?.percent}
                       </small>
-                      ${(totalWithVat * (couponCheckCall / 100)).toFixed(2)}
+                      $
+                      {(
+                        totalWithVat *
+                        (couponCheckCall?.percent / 100)
+                      ).toFixed(2)}
                     </p>
                   </div>
                 ) : (
@@ -456,16 +445,6 @@ export default function CheckOut() {
                       : totalPriceState}
                   </p>
                 </div>
-                {/* <div className="d-flex justify-content-between mt-3 mb-3">
-                  <p className="fw-bold">Total Amount</p>
-                  <p className="fw-bold">
-                    $
-                    {couponCheckCall > 1
-                      ? totalWithVat?.toFixed(2) -
-                        ((totalWithVat * couponCheckCall) / 100).toFixed(2)
-                      : totalWithVat?.toFixed(2)}
-                  </p>
-                </div> */}
                 <div className="d-flex align-items-center justify-content-between mb-3">
                   <div className="d-flex gap-3">
                     <p className="fw-bold">Coupon:</p>
@@ -493,7 +472,7 @@ export default function CheckOut() {
                     </Button>
                   </div>
                 </div>
-                {couponCheckCall != 0 && !couponCheckCall ? (
+                {couponCheck == 2 ? (
                   <div className="alert alert-danger">
                     The coupon may not existed or expired
                   </div>

@@ -14,6 +14,7 @@ export default function OrderPage() {
   const [orders, setOrders] = useState([]);
   const [getOrders, setGetOrders] = useState([]);
   const [orderPrice, setOrderPrice] = useState([]);
+  const [coupon, setCoupon] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function OrderPage() {
         setOrders(data.data[0]);
         setGetOrders(data.data[0].order_items);
         setOrderPrice(data.data[0].payment[0]);
+        setCoupon(data.data[0].coupon[0]);
         document.title = `Ahmed store | Order #${data.data[0]?.id}`;
         setLoading(false);
       })
@@ -212,8 +214,26 @@ export default function OrderPage() {
                     </tr>
                     <tr>
                       <th>VAT</th>
-                      <td>${orderPrice.vat}</td>
+                      <td>${orderPrice?.vat}</td>
                     </tr>
+                    {coupon?.id > 0 ? (
+                      <tr>
+                        <th>Discount</th>
+                        <td className="d-flex gap-2 align-items-end">
+                          $
+                          {(
+                            (parseFloat(orderPrice?.productsprice) +
+                              parseFloat(orderPrice?.vat)) *
+                            (coupon?.percent / 100)
+                          ).toFixed(2)}
+                          <small className="text-secondary">
+                            %{coupon?.percent}
+                          </small>
+                        </td>
+                      </tr>
+                    ) : (
+                      <></>
+                    )}
                     {orders.fees !== "0" ? (
                       <>
                         <tr>
@@ -226,7 +246,7 @@ export default function OrderPage() {
                     )}
                     <tr>
                       <th>TOTAL</th>
-                      <td>${orders?.totalprice * 1 + orderPrice?.fees * 1}</td>
+                      <td>${orders?.totalprice}</td>
                     </tr>
                   </tbody>
                 </table>

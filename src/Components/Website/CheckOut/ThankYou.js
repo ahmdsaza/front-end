@@ -10,6 +10,7 @@ export default function ThankYou() {
   const [orders, setOrders] = useState([]);
   const [getOrders, setGetOrders] = useState([]);
   const [orderPrice, setOrderPrice] = useState([]);
+  const [coupon, setCoupon] = useState([]);
   const [loading, setLoading] = useState(true);
 
   let totalCartPrice = 0;
@@ -22,6 +23,7 @@ export default function ThankYou() {
         setOrders(data.data[0]);
         setGetOrders(data.data[0].order_items);
         setOrderPrice(data.data[0].payment[0]);
+        setCoupon(data.data[0].coupon[0]);
         document.title = "Ahmed store | Thank you";
         setLoading(false);
       })
@@ -201,6 +203,23 @@ export default function ThankYou() {
                     <th>VAT</th>
                     <td>${vat?.toFixed(2)}</td>
                   </tr>
+                  {coupon?.id > 0 ? (
+                    <tr>
+                      <th>Discount</th>
+                      <td className="d-flex gap-2 align-items-end">
+                        - $
+                        {(
+                          (coupon?.percent / 100) *
+                          (totalCartPrice + vat)
+                        ).toFixed(2)}
+                        <small className="text-secondary">
+                          %{coupon?.percent}
+                        </small>
+                      </td>
+                    </tr>
+                  ) : (
+                    <></>
+                  )}
                   {orderPrice?.fees !== "0.00" ? (
                     <>
                       <tr>
@@ -213,12 +232,7 @@ export default function ThankYou() {
                   )}
                   <tr>
                     <th>TOTAL</th>
-                    <td>
-                      $
-                      {orders.payment_mode === "0"
-                        ? orders.totalprice * 1 + orderPrice?.fees * 1
-                        : orders.totalprice}
-                    </td>
+                    <td>${orders.totalprice}</td>
                   </tr>
                 </tbody>
               </table>

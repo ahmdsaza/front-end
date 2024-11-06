@@ -218,7 +218,7 @@ export default function DashboardOrdersPage() {
                     )}
                     <tr>
                       <th>TOTAL</th>
-                      <td>${orders?.totalprice * 1 + orderPrice?.fees * 1}</td>
+                      <td>${orders?.totalprice}</td>
                     </tr>
                   </tbody>
                 </table>
