@@ -68,7 +68,7 @@ export default function OrderPage() {
     <Container>
       <main>
         <section>
-          <div className="order-complete bg-white">
+          <div className="order-complete">
             <div>
               <NavLink
                 className="col btn mt-3"
@@ -86,7 +86,7 @@ export default function OrderPage() {
             <h1 className="text-center mt-3">Order Details</h1>
             <div className="checkout__totals-wrapper">
               <div className="order-complete">
-                <div className="order-info">
+                <div className="order-info bg-white">
                   <div className="order-info__item">
                     <label>Order Number</label>
                     <span>#{orders.id}</span>
@@ -148,7 +148,7 @@ export default function OrderPage() {
                     </p>
                   </div>
                 </div>
-                <div className="order-info mt-3">
+                <div className="order-info mt-3 bg-white">
                   <div className="order-info__item">
                     <label>Full name:</label>
                     <span>
@@ -173,7 +173,7 @@ export default function OrderPage() {
                   </div>
                 </div>
               </div>
-              <div className="checkout__totals">
+              <div className="checkout__totals bg-white">
                 <h3>Order Details</h3>
                 <table className="checkout-cart-items">
                   <thead>

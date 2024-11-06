@@ -28,18 +28,16 @@ export default function AddProduct() {
   const [id, setId] = useState();
 
   const [sizes, setSizes] = useState({
-    name: "",
+    title: "",
     quantity: "",
     product_id: id,
   });
 
   const [updateSize, setUpdateSize] = useState({
     id: "",
-    name: "",
+    title: "",
     quantity: "",
   });
-
-  // console.log(sizes);
 
   // Use State
   const [images, setImages] = useState([]);
@@ -194,14 +192,14 @@ export default function AddProduct() {
   async function submitToSizes() {
     const data = {
       product_id: id,
-      name: sizes.name,
+      title: sizes.title,
       quantity: sizes.quantity * 1,
     };
 
     try {
       Axios.post(`${SIZES}/add`, data).catch((err) => console.log(err));
       setCount((prev) => !prev);
-      sizes.name = "";
+      sizes.title = "";
       sizes.quantity = "";
     } catch (err) {
       console.log(err);
@@ -214,15 +212,14 @@ export default function AddProduct() {
 
   function openHandleUpdateSize(dataId, dataTitle, dataQuantity) {
     updateSize.id = dataId;
-    updateSize.name = dataTitle;
+    updateSize.title = dataTitle;
     updateSize.quantity = dataQuantity;
     setOpen(!open);
   }
 
   async function handleUpdateSize() {
-    // e.preventDefault();
     const dataInf = {
-      name: updateSize.name,
+      title: updateSize.title,
       quantity: updateSize.quantity * 1,
     };
     try {
@@ -261,7 +258,7 @@ export default function AddProduct() {
           <div className="d-flex align-items-center gap-2">
             <label>Name:</label>
             {/* <input type="text" className="mb-1" value={item.name} /> */}
-            <p>{item.name}</p>
+            <p>{item.title}</p>
           </div>
           <div className="d-flex align-items-center gap-2">
             <label>Quantity:</label>
@@ -283,7 +280,7 @@ export default function AddProduct() {
           <div>
             <Button
               onClick={() =>
-                openHandleUpdateSize(item.id, item.name, item.quantity)
+                openHandleUpdateSize(item.id, item.title, item.quantity)
               }
               variant="primary"
             >
@@ -382,8 +379,8 @@ export default function AddProduct() {
               <Form.Control
                 className="col-2"
                 required={showSizes.length > 0 ? false : true}
-                name="name"
-                value={sizes.name}
+                name="title"
+                value={sizes.title}
                 onChange={handleSizesChange}
                 type="text"
                 placeholder="Name..."
@@ -418,11 +415,11 @@ export default function AddProduct() {
               >
                 <Form.Label>Size:</Form.Label>
                 <Form.Control
-                  required
-                  name="name"
-                  value={updateSize.name}
+                  // required
+                  name="title"
+                  value={updateSize.title}
                   onChange={handleUpdateSizeChange}
-                  placeholder={sizes.id}
+                  placeholder="Size..."
                 ></Form.Control>
               </Form.Group>
               <Form.Group
@@ -431,7 +428,7 @@ export default function AddProduct() {
               >
                 <Form.Label>Quantity:</Form.Label>
                 <Form.Control
-                  required
+                  // required
                   name="quantity"
                   value={updateSize.quantity}
                   onChange={handleUpdateSizeChange}

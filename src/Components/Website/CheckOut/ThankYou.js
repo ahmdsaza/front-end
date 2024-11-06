@@ -204,19 +204,27 @@ export default function ThankYou() {
                     <td>${vat?.toFixed(2)}</td>
                   </tr>
                   {coupon?.id > 0 ? (
-                    <tr>
-                      <th>Discount</th>
-                      <td className="d-flex gap-2 align-items-end">
-                        - $
-                        {(
-                          (coupon?.percent / 100) *
-                          (totalCartPrice + vat)
-                        ).toFixed(2)}
-                        <small className="text-secondary">
-                          %{coupon?.percent}
-                        </small>
-                      </td>
-                    </tr>
+                    <>
+                      <tr>
+                        <th>Before Discount</th>
+                        <td className="d-flex gap-2 align-items-center">
+                          ${(totalCartPrice + vat).toFixed(2)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Discount</th>
+                        <td className="d-flex gap-2 align-items-center">
+                          - $
+                          {(
+                            (coupon?.percent / 100) *
+                            (totalCartPrice + vat)
+                          ).toFixed(2)}
+                          <small className="text-secondary">
+                            {coupon?.title} (%{coupon?.percent})
+                          </small>
+                        </td>
+                      </tr>
+                    </>
                   ) : (
                     <></>
                   )}
@@ -224,7 +232,7 @@ export default function ThankYou() {
                     <>
                       <tr>
                         <th>COD Fees</th>
-                        <td>${orderPrice?.fees}</td>
+                        <td>+${orderPrice?.fees}</td>
                       </tr>
                     </>
                   ) : (

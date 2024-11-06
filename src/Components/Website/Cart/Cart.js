@@ -115,7 +115,7 @@ export default function Cart() {
             </div>
             <div className=" d-flex gap-1">
               <p>Size: </p>
-              <p>{item.sizes[0]?.name}</p>
+              <p>{item.sizes[0]?.title}</p>
             </div>
             <div className="d-flex border w-50 rounded">
               <input
@@ -232,7 +232,7 @@ export default function Cart() {
                       : totalWithVat?.toFixed(2)}
                   </p>
                 </div>
-                <div className="d-flex align-items-center justify-content-between mb-3">
+                {/* <div className="d-flex align-items-center justify-content-between mb-3">
                   <div className="d-flex gap-3">
                     <p className="fw-bold">Coupon:</p>
                     <input
@@ -265,7 +265,7 @@ export default function Cart() {
                   </div>
                 ) : (
                   <></>
-                )}
+                )} */}
               </div>
             </div>
             {carts.length > 0 ? (

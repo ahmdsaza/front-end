@@ -228,7 +228,7 @@ export default function UpdateProduct() {
   async function submitToSizes() {
     const data = {
       product_id: id,
-      name: sizes.name,
+      title: sizes.title,
       quantity: sizes.quantity * 1,
     };
 
@@ -246,7 +246,7 @@ export default function UpdateProduct() {
 
   function openHandleUpdateSize(dataId, dataTitle, dataQuantity) {
     updateSize.id = dataId;
-    updateSize.name = dataTitle;
+    updateSize.title = dataTitle;
     updateSize.quantity = dataQuantity;
     setOpen(!open);
   }
@@ -254,7 +254,7 @@ export default function UpdateProduct() {
   async function handleUpdateSize() {
     // e.preventDefault();
     const dataInf = {
-      name: updateSize.name,
+      title: updateSize.title,
       quantity: updateSize.quantity * 1,
     };
     try {
@@ -276,7 +276,7 @@ export default function UpdateProduct() {
           <div className="d-flex align-items-center gap-2">
             <label>Name:</label>
             {/* <input type="text" className="mb-1" value={item.name} /> */}
-            <p>{item.name}</p>
+            <p>{item.title}</p>
           </div>
           <div className="d-flex align-items-center gap-2">
             <label>Quantity:</label>
@@ -298,7 +298,7 @@ export default function UpdateProduct() {
           <div>
             <Button
               onClick={() =>
-                openHandleUpdateSize(item.id, item.name, item.quantity)
+                openHandleUpdateSize(item.id, item.title, item.quantity)
               }
               variant="primary"
             >
@@ -390,7 +390,7 @@ export default function UpdateProduct() {
                   name="title"
                   value={updateSize.title}
                   onChange={handleUpdateSizeChange}
-                  placeholder={sizes.id}
+                  placeholder="Title..."
                 ></Form.Control>
               </Form.Group>
               <Form.Group

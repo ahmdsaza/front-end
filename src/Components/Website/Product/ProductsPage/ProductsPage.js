@@ -222,7 +222,7 @@ export default function ProductsPage() {
                 <Form.Select className="size" onClick={handleSize}>
                   {showSize.map((item, key) => (
                     <option key={key} value={item.id}>
-                      {item.name}
+                      {item.title}
                     </option>
                   ))}
                 </Form.Select>
