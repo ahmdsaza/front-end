@@ -3,12 +3,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { baseURL, REGISTER } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
+import LoginIcon from "../../../Assets/Login-icon.png";
 import { Form } from "react-bootstrap";
 import {
   NavLink,
   // useNavigate
 } from "react-router-dom";
 import TheNavBar from "./../../../Components/Website/NavBar/TheNavBar";
+import "./Auth.css";
 
 export default function Register() {
   // States
@@ -69,14 +71,15 @@ export default function Register() {
       <TheNavBar />
       {loading && <LoadingSubmit />}
       <div className="container text-center">
-        <div className="row" style={{ height: "100vh" }}>
-          <div className="col-md-6 mx-auto">
+        <div className="row card-design">
+          <div className="col-md-6 col-xl-4">
             <Form
-              className="card px-2 align-items-center"
+              className="form-design px-2 align-items-center py-4"
               onSubmit={handleSubmit}
             >
+              <img className="cart-img" src={LoginIcon} alt="Login icon" />
               <div className="custom-form">
-                <h1 className="mb-3">Register</h1>
+                <h1 className="mb-5">Register</h1>
                 <Form.Group
                   className="form-custom"
                   controlId="exampleForm.ControlInput1"
@@ -122,12 +125,11 @@ export default function Register() {
                   <Form.Label>Password:</Form.Label>
                 </Form.Group>
                 <div>
-                  <button className="btn btn-primary">Register</button>
+                  <button className="button-4">Register</button>
                 </div>
-                <div className="my-2">
-                  <NavLink to="/login" className="fs-6">
-                    You already have an account ? Back to Login
-                  </NavLink>
+                <div className="mt-3">
+                  <p>You already have an account?</p>
+                  <NavLink to="/login">Back to Login</NavLink>
                 </div>
                 {err !== "" && <span className="error my-2">{err}</span>}
               </div>

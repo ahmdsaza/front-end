@@ -6,6 +6,9 @@ import Cookie from "cookie-universal";
 import { Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import TheNavBar from "./../../../Components/Website/NavBar/TheNavBar";
+import LoginIcon from "../../../Assets/Login-icon.png";
+import Footer from "../../../Components/Website/Footer/Footer";
+import "./Auth.css";
 
 export default function Login() {
   // States
@@ -62,13 +65,13 @@ export default function Login() {
       {loading && <LoadingSubmit />}
       <TheNavBar />
       <div className="container text-center">
-        <div className="row" style={{ height: "75vh" }}>
-          <div className="col-md-6">
+        <div className="row card-design">
+          <div className="col-md-6 col-xl-4">
             <Form
-              className="card px-2 align-items-center py-4"
-              style={{ backgroundColor: "#F4F6FF" }}
+              className="form-design px-2 align-items-center py-4"
               onSubmit={handleSubmit}
             >
+              <img className="cart-img" src={LoginIcon} alt="Login icon" />
               <div className="custom-form">
                 <h1 className="mb-5">Login</h1>
                 <Form.Group
@@ -101,9 +104,10 @@ export default function Login() {
                   />
                   <Form.Label>Password:</Form.Label>
                 </Form.Group>
-                <button className="btn btn-primary">Login</button>
-                <div>
-                  <NavLink to="../register">You don't have an account?</NavLink>
+                <button className="button-4">Login</button>
+                <div className="d-flex gap-2 justify-content-center mt-3">
+                  <p>You don't have an account?</p>
+                  <NavLink to="../register">Sign Up</NavLink>
                 </div>
                 {err !== "" && <span className="error">{err}</span>}
               </div>
@@ -111,6 +115,7 @@ export default function Login() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

@@ -1,10 +1,5 @@
-.pat {
-    background-color: #e5e5f7;
-    opacity: 0.8;
-    background: repeating-linear-gradient(45deg, #444cf7, #444cf7 5px, #e5e5f7 5px, #e5e5f7 25px);
-}
 .custom-form {
-    width: 50%;
+    width: 80%;
 }
 
 .form-custom {
@@ -15,6 +10,9 @@
 .form-custom input {
     display: block;
 }
+.form-custom input {
+    border: 1px black solid;
+}
 
 .form-custom input:focus:not(:valid) {
     border-bottom: 3px solid rgb(81, 81, 255, 0.5);
@@ -24,7 +22,7 @@
     position: absolute;
     top: -20px;
     font-size: 13px;
-    color: gray;
+    color: black;
     font-weight: bold;
     transition: 0.3s;
     -webkit-transition: 0.3s;
@@ -32,10 +30,89 @@
     -ms-transition: 0.3s;
     -o-transition: 0.3s;
 }
+.card-design {
+    height: 75vh;
+}
+.form-design {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow:
+        rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+.cart-img {
+    width: 150px;
+}
+/* New Design*/
+.button-4 {
+    appearance: none;
+    background-color: #fafbfc;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow:
+        rgba(27, 31, 35, 0.04) 0 1px 0,
+        rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292e;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+}
+
+.button-4:hover {
+    background-color: #f3f4f6;
+    text-decoration: none;
+    transition-duration: 0.1s;
+}
+
+.button-4:disabled {
+    background-color: #fafbfc;
+    border-color: rgba(27, 31, 35, 0.15);
+    color: #959da5;
+    cursor: default;
+}
+
+.button-4:active {
+    background-color: #edeff2;
+    box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+    transition: none 0s;
+}
+
+.button-4:focus {
+    outline: 1px transparent;
+}
+
+.button-4:before {
+    display: none;
+}
+
+.button-4:-webkit-details-marker {
+    display: none;
+}
 
 @media (max-width: 992px) {
     .custom-form {
-        width: 100%;
+        width: 90%;
     }
     .form-custom input {
         width: 100%;
