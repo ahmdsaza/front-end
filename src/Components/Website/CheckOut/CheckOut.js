@@ -24,6 +24,7 @@ export default function CheckOut() {
   const [couponCheck, setCouponCheck] = useState(0);
   const [count2, setCount2] = useState(false);
   const [errCall, setErrorCall] = useState("");
+  const [checkLowestPrice, setCheckLowestPrice] = useState("");
   const [addressCall, setAddressCall] = useState([]);
   const [totalPriceState, setTotalPriceState] = useState("");
   const [open, setOpen] = useState(false);
@@ -121,7 +122,7 @@ export default function CheckOut() {
               </small> */}
               <small className="">
                 <span className="text-muted">Size:</span>
-                <span className="fw-bold">{item.sizes[0].name}</span>
+                <span className="fw-bold">{item.sizes[0].title}</span>
               </small>
             </div>
           </div>
@@ -177,6 +178,12 @@ export default function CheckOut() {
         toast.error("Please choose payment method", {
           autoClose: 2000,
         });
+      } else if (
+        err.response.data.message === "The address id field is required."
+      ) {
+        toast.error("Please choose payment method", {
+          autoClose: 2000,
+        });
       } else {
         console.log(err);
       }
@@ -205,10 +212,23 @@ export default function CheckOut() {
   async function handleCheckCoupon(e) {
     try {
       const res = await Axios.get(`${COUPON}/check/${e}`).then((data) => {
-        setCouponCheckCall(data.data);
         setCount2((prev) => !prev);
-        handleUpdatePrice(data.data.percent);
-        data.data.percent > 0 ? setCouponCheck(1) : setCouponCheck(2);
+        let calcuStart =
+          new Date(data.data.start_date).getTime() - new Date().getTime();
+        let calcuExpire =
+          new Date(data.data.expire_date) - new Date().getTime();
+        let lowestPrice = data.data.lowest_price < totalWithVat;
+        if (calcuStart < 0 && calcuExpire > 0 && lowestPrice) {
+          setCouponCheckCall(data.data);
+          handleUpdatePrice(data.data.percent);
+        } else {
+          if (data.data.lowest_price > 0) {
+            setCheckLowestPrice(data.data.lowest_price);
+            setCouponCheck(3);
+          } else {
+            setCouponCheck(2);
+          }
+        }
       });
     } catch (err) {
       console.log(err);
@@ -291,7 +311,7 @@ export default function CheckOut() {
   const showAddress = addressCall.map((item, index) => (
     <div key={index}>
       <div
-        className="d-flex rounded justify-content-around"
+        className="d-flex rounded justify-content-around bg-white"
         style={{
           border:
             (saveAddress || addressCall[addressCall.length - 1]?.id) === item.id
@@ -362,12 +382,12 @@ export default function CheckOut() {
   }
 
   function handleResetCoupon() {
-    setCoupon("");
-    setCouponCheckCall(0);
     setCount2((prev) => !prev);
     setTotalPriceState(
       (totalWithVat + (form.payment_mode === "0" ? 5 : 0)).toFixed(2)
     );
+    setCoupon("");
+    setCouponCheckCall(0);
     setCouponCheck(0);
   }
 
@@ -437,7 +457,6 @@ export default function CheckOut() {
                 )}
                 <div className="d-flex justify-content-between mb-3 border-top">
                   <p className="fw-bold">Total Amount</p>
-                  {/* <p className="fw-bold">${totalWithVat.toFixed(2)}</p> */}
                   <p className="fw-bold">
                     $
                     {totalPriceState == ""
@@ -464,7 +483,7 @@ export default function CheckOut() {
                       Active
                     </Button>
                     <Button
-                      disabled={coupon.length < 1}
+                      // disabled={coupon.length < 1 && count}
                       className="btn btn-secondary"
                       onClick={() => handleResetCoupon()}
                     >
@@ -475,6 +494,13 @@ export default function CheckOut() {
                 {couponCheck == 2 ? (
                   <div className="alert alert-danger">
                     The coupon may not existed or expired
+                  </div>
+                ) : (
+                  <></>
+                )}
+                {couponCheck == 3 ? (
+                  <div className="alert alert-danger">
+                    Lowest price for coupon is {checkLowestPrice}
                   </div>
                 ) : (
                   <></>
@@ -490,7 +516,7 @@ export default function CheckOut() {
             </small>
             <div>{showAddress}</div>
             <div
-              className="border rounded "
+              className="border rounded bg-white"
               onClick={() => setOpen(!open)}
               aria-expanded={open}
             >
