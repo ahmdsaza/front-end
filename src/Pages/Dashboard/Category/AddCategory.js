@@ -36,7 +36,6 @@ export default function AddCategory() {
     try {
       const res = await Axios.post(`${CATEGORY}/add`, form);
       nav("/dashboard/categories");
-      console.log(res);
     } catch (err) {
       setLoading(false);
       console.log(err);

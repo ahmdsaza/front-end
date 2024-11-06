@@ -152,7 +152,11 @@ export default function TheNavBar(props) {
                 }}
               />
               {name ? (
-                <div className="d-flex">
+                <div
+                  className={`${
+                    window.innerWidth > 1200 ? "d-flex" : ""
+                  } gap-2`}
+                >
                   <Nav.Link className="m-2" href="#" collapseOnSelect>
                     <NavLink to="/cart">
                       <img

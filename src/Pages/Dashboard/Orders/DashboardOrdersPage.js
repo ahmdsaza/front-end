@@ -77,7 +77,7 @@ export default function DashboardOrdersPage() {
     <Container>
       <main>
         <section>
-          <div className="order-complete bg-white mt-3">
+          <div className="order-complete mt-3">
             <div>
               <NavLink className="col btn " to="../orders">
                 <FontAwesomeIcon
@@ -90,7 +90,7 @@ export default function DashboardOrdersPage() {
             </div>
             <h1 className="text-center mt-3">Order Details</h1>
             <div className="checkout__totals-wrapper">
-              <div className="order-complete">
+              <div className="order-complete bg-white">
                 <div className="order-info">
                   <div className="order-info__item">
                     <label>Order Number</label>
@@ -174,7 +174,7 @@ export default function DashboardOrdersPage() {
                   </div>
                 </div>
               </div>
-              <div className="checkout__totals">
+              <div className="checkout__totals bg-white">
                 <h3>Order Details</h3>
                 <table className="checkout-cart-items">
                   <thead>

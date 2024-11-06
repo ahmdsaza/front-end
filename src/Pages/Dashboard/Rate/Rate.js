@@ -150,11 +150,9 @@ export default function Rate() {
         {rate.length > 0 ? (
           <tbody>{showTheRate}</tbody>
         ) : (
-          <tbody className="d-flex justify-content-center align-items-center ">
-            <tr className="fs-3">
-              <th>No Reviews yet</th>
-            </tr>
-          </tbody>
+          <div className="d-flex justify-content-center align-items-center">
+            <h3>No Reviews yet</h3>
+          </div>
         )}
       </Table>
       <div className="d-flex align-items-center justify-content-end flex-wrap">
