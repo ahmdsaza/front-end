@@ -49,7 +49,6 @@ export default function Login() {
       setLoading(false);
       const token = res.data.token;
       cookie.set("e-commerce", token);
-      console.log(token);
       window.location.pathname = `/`;
     } catch (err) {
       setLoading(false);
