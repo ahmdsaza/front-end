@@ -110,7 +110,7 @@ export default function ProductsPage() {
     try {
       if (user) {
         const res = await Axios.post(`${CART}`, data)
-          .then(setIsChange((prev) => !prev))
+          // .then(setIsChange((prev) => !prev))
           .catch((err) => {
             if (err.response.status === 420) {
               toast.error(err.response.data.error);
@@ -126,9 +126,15 @@ export default function ProductsPage() {
           autoClose: 2000,
         });
       }
+      setTimeout(updateCartCount, 1800);
     } catch (err) {
       console.log(err);
     }
+  }
+
+  function updateCartCount() {
+    setIsChange((prev) => !prev);
+    console.log("Hello after 3sec");
   }
 
   function handleSize(e) {
