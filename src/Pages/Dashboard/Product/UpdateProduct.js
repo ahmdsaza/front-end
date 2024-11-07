@@ -356,8 +356,8 @@ export default function UpdateProduct() {
             <div className="d-flex col-4 gap-2">
               <Form.Control
                 className="col-2"
-                name="name"
-                value={sizes.name}
+                name="title"
+                value={sizes.title}
                 onChange={handleSizesChange}
                 type="text"
                 placeholder="Name..."
