@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./orders.css";
 import { Axios } from "../../../API/axios";
-import { ORDER } from "../../../API/Api";
+import { ALLORDERS } from "../../../API/Api";
 import { Container, Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import PaginatedItems from "../../Dashboard/Pagination/Pagination";
@@ -11,16 +11,17 @@ export default function Orders() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
+  const [status, setStatus] = useState(0);
 
   useEffect(() => {
-    Axios.get(`${ORDER}?limit=${limit}&page=${page}`)
+    Axios.get(`${ALLORDERS}?status=${status}&limit=${limit}&page=${page}`)
       .then((data) => {
         setOrders(data.data.data);
         setTotal(data.data.total);
         document.title = "Ahmed store | Orders";
       })
       .catch((err) => console.log(err));
-  }, [limit, page]);
+  }, [limit, page, status]);
 
   const showTheOrder = orders.map((items, index) => (
     <div className="mt-2" key={index}>
@@ -67,7 +68,27 @@ export default function Orders() {
 
   return (
     <Container className="mt-3">
-      <h1 className="d-flex justify-content-center">My Orders</h1>
+      <div className="d-flex align-items-center justify-content-between">
+        <div></div>
+        <h1>Orders Page</h1>
+        <div className="col-6">
+          <Form.Select
+            onChange={(e) => {
+              setStatus(e.target.value);
+            }}
+            aria-label="Default select example"
+            className={window.innerWidth > 768 ? "w-25" : ""}
+          >
+            <option value="0">All</option>
+            <option value="00">Pending</option>
+            <option value="1">Awaiting Payment</option>
+            <option value="2">Awaiting Shipment</option>
+            <option value="3">Completed</option>
+            <option value="4">Shipped</option>
+            <option value="5">Cancelled</option>
+          </Form.Select>
+        </div>
+      </div>
       <div>
         {orders.length > 0 ? (
           showTheOrder

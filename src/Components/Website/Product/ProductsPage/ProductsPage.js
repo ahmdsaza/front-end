@@ -103,15 +103,14 @@ export default function ProductsPage() {
       product_size: sizeChoice == null ? showSize[0].id : sizeChoice,
     };
 
+    const checkSize = showSize.find((item) => {
+      return (sizeChoice == null ? showSize[0].id : sizeChoice) == item.id;
+    });
+
     try {
       if (user) {
         Axios.post(`${CART}`, data)
-          .then(
-            setIsChange((prev) => !prev),
-            toast.success("Product add to cart successfully", {
-              autoClose: 2000,
-            })
-          )
+          .then(setIsChange((prev) => !prev))
           .catch((err) => {
             if (err.response.status === 420) {
               toast.error(err.response.data.error);
@@ -121,6 +120,11 @@ export default function ProductsPage() {
           });
       } else {
         toast.error("Login to add Products to Cart");
+      }
+      if (checkSize.quantity >= count) {
+        toast.success("Product add to cart successfully", {
+          autoClose: 2000,
+        });
       }
     } catch (err) {
       console.log(err);

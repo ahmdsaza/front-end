@@ -198,9 +198,9 @@ export default function AddProduct() {
 
     try {
       Axios.post(`${SIZES}/add`, data).catch((err) => console.log(err));
-      setCount((prev) => !prev);
       sizes.title = "";
       sizes.quantity = "";
+      setCount((prev) => !prev);
     } catch (err) {
       console.log(err);
     }

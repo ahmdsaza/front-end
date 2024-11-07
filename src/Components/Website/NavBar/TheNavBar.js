@@ -11,8 +11,9 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import profileIcon from "../../../Assets/profile.png";
 import "./TheNavBar.css";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function TheNavBar(props) {
   const [name, setName] = useState("");
@@ -167,7 +168,10 @@ export default function TheNavBar(props) {
                     </NavLink>
                     <span>{cartLength}</span>
                   </Nav.Link>{" "}
-                  <NavDropdown title={name?.name} className="m-2 fs-5">
+                  <NavDropdown
+                    title={<FontAwesomeIcon icon={faUser} />}
+                    className="m-2 fs-5"
+                  >
                     <NavDropdown.Item href="#" collapseOnSelect>
                       <NavLink to={"../profile"} className="text-black d-block">
                         {" "}
@@ -201,10 +205,12 @@ export default function TheNavBar(props) {
                   </NavDropdown>
                 </div>
               ) : (
-                <NavDropdown className="mx-4">
+                <NavDropdown
+                  title={<FontAwesomeIcon icon={faUser} />}
+                  className="m-2 fs-5"
+                >
                   <NavDropdown.Item>
                     <NavLink to={"../login"} className="text-black d-block">
-                      {" "}
                       Login / Register{" "}
                     </NavLink>
                   </NavDropdown.Item>

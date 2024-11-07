@@ -164,24 +164,21 @@ export default function CheckOut() {
       nav("/reload");
     } catch (err) {
       // setLoading(false);
-      if (
-        err.response.data.message ===
-        "The address id field is required. (and 5 more errors)"
-      ) {
-        toast.error("Please choose address", {
-          autoClose: 2000,
-        });
-      } else if (
-        err.response.data.message ===
-        "The payment mode field is required. (and 5 more errors)"
-      ) {
+      // if (
+      //   err.response.data.message ===
+      //   "The address id field is required. (and 5 more errors)"
+      // ) {
+      //   toast.error("Please choose address", {
+      //     autoClose: 2000,
+      //  } else });
+      if (err.response.data.message === "The payment mode field is required.") {
         toast.error("Please choose payment method", {
           autoClose: 2000,
         });
       } else if (
         err.response.data.message === "The address id field is required."
       ) {
-        toast.error("Please choose payment method", {
+        toast.error("Please choose address", {
           autoClose: 2000,
         });
       } else {
@@ -222,7 +219,7 @@ export default function CheckOut() {
           setCouponCheckCall(data.data);
           handleUpdatePrice(data.data.percent);
         } else {
-          if (data.data.lowest_price > 0) {
+          if (data.data.lowest_price > totalWithVat) {
             setCheckLowestPrice(data.data.lowest_price);
             setCouponCheck(3);
           } else {

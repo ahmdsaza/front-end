@@ -47,9 +47,8 @@ export default function EditCoupon() {
     form.append("start_date", startDate);
     form.append("expire_date", expireDate);
     try {
-      const res = await Axios.post(`${COUPON}/add`, form);
+      const res = await Axios.post(`${COUPON}/edit/${id}`, form);
       nav("/dashboard/coupon");
-      console.log(res);
     } catch (err) {
       setLoading(false);
       console.log(err);

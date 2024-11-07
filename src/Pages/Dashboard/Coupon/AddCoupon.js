@@ -33,7 +33,6 @@ export default function AddCoupon() {
     try {
       const res = await Axios.post(`${COUPON}/add`, form);
       nav("/dashboard/coupon");
-      console.log(res);
     } catch (err) {
       setLoading(false);
       console.log(err);
