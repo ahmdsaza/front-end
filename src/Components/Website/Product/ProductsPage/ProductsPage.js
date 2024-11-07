@@ -109,7 +109,7 @@ export default function ProductsPage() {
 
     try {
       if (user) {
-        Axios.post(`${CART}`, data)
+        const res = await Axios.post(`${CART}`, data)
           .then(setIsChange((prev) => !prev))
           .catch((err) => {
             if (err.response.status === 420) {
