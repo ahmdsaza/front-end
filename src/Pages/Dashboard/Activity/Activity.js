@@ -284,7 +284,7 @@ export default function Activity() {
                 <div>
                   <div className="d-flex justify-content-center align-items-center gap-3">
                     <i className="material-icons" style={{ color: "#4379F2" }}>
-                      inventory_2
+                      list_alt
                     </i>
                     <h3>Last Orders</h3>
                   </div>

@@ -16,10 +16,6 @@ export default function EditCoupon() {
   // Navigate
   const nav = useNavigate();
 
-  useEffect(() => {
-    document.title = `Ahmed store | Add Coupon`;
-  });
-
   const { id } = useParams();
 
   useEffect(() => {
@@ -59,6 +55,7 @@ export default function EditCoupon() {
     <>
       {loading && <LoadingSubmit />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={HandleSubmit}>
+        <h1>Edit Coupon</h1>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Title</Form.Label>
           <Form.Control

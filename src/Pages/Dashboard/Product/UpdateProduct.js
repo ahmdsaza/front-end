@@ -314,6 +314,7 @@ export default function UpdateProduct() {
     <>
       {loading && <LoadingSubmit />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={handleEdit}>
+        <h1>Edit Product</h1>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
           <Form.Label>Category</Form.Label>
           <Form.Select
