@@ -164,21 +164,24 @@ export default function CheckOut() {
       nav("/reload");
     } catch (err) {
       // setLoading(false);
-      // if (
-      //   err.response.data.message ===
-      //   "The address id field is required. (and 5 more errors)"
-      // ) {
-      //   toast.error("Please choose address", {
-      //     autoClose: 2000,
-      //  } else });
-      if (err.response.data.message === "The payment mode field is required.") {
-        toast.error("Please choose payment method", {
-          autoClose: 2000,
-        });
-      } else if (
+      if (
+        err.response.data.message ===
+          "The address id field is required. (and 6 more errors)" ||
+        err.response.data.message === "Server Error" ||
+        err.response.data.message ===
+          `Attempt to read property "firstname" on null` ||
         err.response.data.message === "The address id field is required."
       ) {
         toast.error("Please choose address", {
+          autoClose: 2000,
+        });
+      } else if (
+        err.response.data.message ===
+          "The payment mode field is required. (and 5 more errors)" ||
+        err.response.data.message ===
+          "The payment mode field is required. (and 6 more errors)"
+      ) {
+        toast.error("Please choose payment method", {
           autoClose: 2000,
         });
       } else {
@@ -215,16 +218,16 @@ export default function CheckOut() {
         let calcuExpire =
           new Date(data.data.expire_date) - new Date().getTime();
         let lowestPrice = data.data.lowest_price < totalWithVat;
-        if (calcuStart < 0 && calcuExpire > 0 && lowestPrice) {
-          setCouponCheckCall(data.data);
-          handleUpdatePrice(data.data.percent);
-        } else {
-          if (data.data.lowest_price > totalWithVat) {
+        if (calcuStart < 0 && calcuExpire > 0) {
+          if (lowestPrice) {
+            setCouponCheckCall(data.data);
+            handleUpdatePrice(data.data.percent);
+          } else {
             setCheckLowestPrice(data.data.lowest_price);
             setCouponCheck(3);
-          } else {
-            setCouponCheck(2);
           }
+        } else {
+          setCouponCheck(2);
         }
       });
     } catch (err) {
@@ -484,7 +487,7 @@ export default function CheckOut() {
                       className="btn btn-secondary"
                       onClick={() => handleResetCoupon()}
                     >
-                      <img src={resetIcon} width="25" />
+                      <i className="material-icons">restart_alt</i>
                     </Button>
                   </div>
                 </div>

@@ -1,10 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { baseURL, LOGIN } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
 import { Form } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { LoginExport } from "../../../Context/LoginContext";
 import TheNavBar from "./../../../Components/Website/NavBar/TheNavBar";
 import LoginIcon from "../../../Assets/Login-icon.png";
 import Footer from "../../../Components/Website/Footer/Footer";
@@ -17,6 +18,9 @@ export default function Login() {
     password: "",
   });
 
+  // Login Export
+  const { setIsChangeLogin } = useContext(LoginExport);
+
   // Loading
   const [loading, setLoading] = useState(false);
 
@@ -28,6 +32,9 @@ export default function Login() {
 
   // Ref
   const focus = useRef();
+
+  // Nav
+  const nav = useNavigate();
 
   // Handle Form Change
   function handleChange(e) {
@@ -49,6 +56,7 @@ export default function Login() {
       setLoading(false);
       const token = res.data.token;
       cookie.set("e-commerce", token);
+      // setIsChangeLogin((prev) => !prev);
       window.location.pathname = `/`;
     } catch (err) {
       setLoading(false);

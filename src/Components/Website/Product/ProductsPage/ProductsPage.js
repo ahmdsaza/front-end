@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
-import { PRODUCT, CART, USER, RATES } from "../../../../API/Api";
+import { PRODUCT, CART, USER, RATES, CARTS } from "../../../../API/Api";
 import { NavLink, useParams } from "react-router-dom";
 import { Container, Form } from "react-bootstrap";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
@@ -18,8 +18,10 @@ export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const { id } = useParams();
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(80);
+  const [ring, setRing] = useState(false);
   const [user, setUser] = useState("");
+  const [carts, setCarts] = useState([]);
   const [showRate, setShowRate] = useState([]);
   const [showSize, setShowSize] = useState([]);
   const [showRateNumber, setShowRateNumber] = useState(0);
@@ -46,12 +48,12 @@ export default function ProductsPage() {
     },
   };
 
-  // Call Rate
+  // Call cart
   useEffect(() => {
-    Axios.get(`${RATES}/${id}`)
-      .then((data) => setShowRate(data.data))
+    Axios.get(`${CARTS}`)
+      .then((data) => setCarts(data.data))
       .catch((err) => console.log(err));
-  }, [id]);
+  }, [ring]);
 
   // Get Product by id
   useEffect(() => {
@@ -70,11 +72,13 @@ export default function ProductsPage() {
             };
           })
         );
+        setCount(1);
       })
       // .then((document.title = `${products[0]?.title}`))
       .catch((err) => console.log(err));
   }, [id, sizeChoice]);
 
+  // Related Projects
   useEffect(() => {
     Axios.get(`${PRODUCT}/showRelated/${id}`)
       .then((data) => {
@@ -84,51 +88,19 @@ export default function ProductsPage() {
       .catch((err) => console.log(err));
   }, [id]);
 
+  // Call Rate
+  useEffect(() => {
+    Axios.get(`${RATES}/${id}`)
+      .then((data) => setShowRate(data.data))
+      .catch((err) => console.log(err));
+  }, [id]);
+
   // Get User
   useEffect(() => {
     Axios.get(`${USER}`)
       .then((data) => setUser(data.data))
       .catch((err) => console.log(err));
   }, []);
-
-  async function submitToCart(e) {
-    e.preventDefault();
-    const data = {
-      user_id: user.id,
-      product_id: products[0].id,
-      product_slug: products[0].slug,
-      product_qty: count,
-      product_image: products[0].id,
-      product_size: sizeChoice == null ? showSize[0].id : sizeChoice,
-    };
-
-    const checkSize = showSize.find((item) => {
-      return (sizeChoice == null ? showSize[0].id : sizeChoice) == item.id;
-    });
-
-    try {
-      if (user) {
-        const res = await Axios.post(`${CART}`, data)
-          .then(setTimeout(updateCartCount, 3000))
-          .catch((err) => {
-            if (err.response.status === 420) {
-              toast.error(err.response.data.error);
-            } else {
-              toast.error("Something went worng");
-            }
-          });
-      } else {
-        toast.error("Login to add Products to Cart");
-      }
-      if (checkSize.quantity >= count) {
-        toast.success("Product add to cart successfully", {
-          autoClose: 2000,
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   function updateCartCount() {
     setIsChange((prev) => !prev);
@@ -196,7 +168,7 @@ export default function ProductsPage() {
   });
 
   const findSizeQuantity = showSize?.find((item) => {
-    return item?.id === sizeChoice * 1;
+    return item?.id === sizeChoice ? sizeChoice * 1 : showSize[0].id;
   });
 
   const showData = products.map((item, key) => {
@@ -226,7 +198,7 @@ export default function ProductsPage() {
           <div>
             {showSize.length > 0 ? (
               <div className="mx-4 my-1">
-                <Form.Select className="size" onClick={handleSize}>
+                <Form.Select className="size" onChange={handleSize}>
                   {showSize.map((item, key) => (
                     <option key={key} value={item.id}>
                       {item.title}
@@ -288,6 +260,15 @@ export default function ProductsPage() {
       </div>
     );
   });
+
+  const callCartQuantity = carts.find(
+    (item) =>
+      item.product_size == (sizeChoice == null ? showSize[0]?.id : sizeChoice)
+  );
+
+  const sizeQuantity = callCartQuantity?.sizes[0]?.quantity;
+  const calculateQuantity = callCartQuantity?.product_qty + count;
+  const cartQuantity = callCartQuantity?.product_qty;
 
   const showRelatedProduct = relatedProducts.map((item, key) => {
     const roundStarsRelated = Math.round(item.rating);
@@ -381,6 +362,71 @@ export default function ProductsPage() {
       </NavLink>
     );
   });
+
+  async function submitToCart(e) {
+    e.preventDefault();
+    const data = {
+      user_id: user.id,
+      product_id: products[0].id,
+      product_slug: products[0].slug,
+      product_qty: count,
+      product_image: products[0].id,
+      product_size: sizeChoice == null ? showSize[0].id : sizeChoice,
+    };
+    setRing((prev) => !prev);
+
+    try {
+      if (user) {
+        if (callCartQuantity) {
+          if (sizeQuantity >= calculateQuantity) {
+            const res = await Axios.post(`${CART}`, data)
+              .then(setTimeout(updateCartCount, 3000))
+              .catch((err) => {
+                if (err.response.status === 420) {
+                  toast.error(err.response.data.error);
+                } else {
+                  toast.error("Something went worng");
+                }
+              });
+          } else {
+            toast.error(`There is only ${sizeQuantity} pices`);
+          }
+          if (
+            sizeQuantity >= calculateQuantity &&
+            sizeQuantity > cartQuantity &&
+            sizeQuantity > 0
+          ) {
+            toast.success("Product add to cart successfully", {
+              autoClose: 2000,
+            });
+          }
+        } else {
+          if (findSizeQuantity?.quantity > 0) {
+            const res = await Axios.post(`${CART}`, data)
+              .then(
+                setTimeout(updateCartCount, 3000),
+                toast.success("Product add to cart successfully", {
+                  autoClose: 2000,
+                })
+              )
+              .catch((err) => {
+                if (err.response.status === 420) {
+                  toast.error(err.response.data.error);
+                } else {
+                  toast.error("Something went worng");
+                }
+              });
+          } else {
+            toast.error(`There is only ${findSizeQuantity?.quantity} pices`);
+          }
+        }
+      } else {
+        toast.error("Login to add Products to Cart");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <Container>
