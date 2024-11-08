@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 export const baseURL = `https://ahmed-saud-e-commerce-back-end-efc619c22ed8.herokuapp.com/api`;
-// export const baseURL = `http://192.168.0.113:80/api`;
-=======
- export const baseURL = `https://ahmed-saud-e-commerce-back-end-efc619c22ed8.herokuapp.com/api`;
 //export const baseURL = `http://192.168.0.113:80/api`;
->>>>>>> dee20ea7f736b467bfe7c34da0b2a02bf73978d1
 
 // export const baseURL = `https://ahmedsaud.me/api`;
 
