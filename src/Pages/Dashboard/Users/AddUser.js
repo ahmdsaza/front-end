@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import { Axios } from "../../../API/axios";
 import { USER } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
+import { Link } from "react-router-dom";
 
 export default function AddUser() {
   const [name, setName] = useState("");
@@ -41,6 +42,12 @@ export default function AddUser() {
     <>
       {loading && <LoadingSubmit />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={HandleSubmit}>
+        <div className="d-flex align-items-center justify-content-between">
+          <h1>Add User</h1>
+          <Link to="../users">
+            <div className="btn btn-primary">Back to users</div>
+          </Link>
+        </div>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>User Name</Form.Label>
           <Form.Control

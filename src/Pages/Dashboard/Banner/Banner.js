@@ -20,7 +20,9 @@ export default function Banner() {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    Axios.get(`${BANNER}`).then((data) => setBanners(data.data));
+    Axios.get(`${BANNER}/showindashboard`).then((data) =>
+      setBanners(data.data)
+    );
   }, [limit, page, status, count]);
 
   useEffect(() => {
@@ -50,6 +52,8 @@ export default function Banner() {
             {items?.url}
           </NavLink>
         </td>
+        <td>{items.description}</td>
+        <td>{items.status == 1 ? "Visible" : "Hidden"}</td>
         <td key={key + 1}>
           <div className="d-flex align-items-center gap-2">
             <NavLink to={`${items.id}`}>

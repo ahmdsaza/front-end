@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import { Axios } from "../../../API/axios";
 import { CATEGORIES, PRODUCT, SIZES } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Collapse } from "react-bootstrap";
 
 export default function AddProduct() {
@@ -296,6 +296,12 @@ export default function AddProduct() {
     <>
       {loading && <LoadingSubmit />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={handleEdit}>
+        <div className="d-flex align-items-center justify-content-between">
+          <h1>Add product</h1>
+          <Link to="../products">
+            <div className="btn btn-primary">Back to products</div>
+          </Link>
+        </div>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
           <Form.Label>Category</Form.Label>
           <Form.Select

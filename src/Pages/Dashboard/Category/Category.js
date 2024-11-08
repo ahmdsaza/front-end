@@ -3,10 +3,11 @@ import Form from "react-bootstrap/Form";
 import { Axios } from "../../../API/axios";
 import { CATEGORY, CATEGORYSHOW } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 // import { Container } from "react-bootstrap";
 
 export default function Category() {
+  const [idNumber, setIdNumber] = useState("");
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [disable, setDisable] = useState(true);
@@ -22,6 +23,7 @@ export default function Category() {
     setLoading(true);
     Axios.get(`${CATEGORYSHOW}/${id}`)
       .then((data) => {
+        setIdNumber(data.data.id);
         setTitle(data.data.title);
         setLoading(false);
         document.title = `Ahmed store | Edit category`;
@@ -49,7 +51,12 @@ export default function Category() {
     <>
       {loading && <LoadingSubmit />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={HandleSubmit}>
-        <h1>Edit Category</h1>
+        <div className="d-flex align-items-center justify-content-between">
+          <h1>Edit category #{idNumber}</h1>
+          <Link to="../categories">
+            <div className="btn btn-primary">Back to category</div>
+          </Link>
+        </div>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Title</Form.Label>
           <Form.Control

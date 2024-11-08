@@ -14,3 +14,20 @@
 .img-div {
     width: 100%;
 }
+.landing-style {
+    width: 1296px;
+    height: 500px;
+}
+
+@media (max-width: 992px) {
+    .landing-style {
+        width: 1296px;
+        height: 300px;
+    }
+}
+@media (max-width: 768px) {
+    .landing-style {
+        width: 1296px;
+        height: 200px;
+    }
+}

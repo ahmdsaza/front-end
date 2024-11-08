@@ -179,7 +179,7 @@ export default function TableShow(props) {
           }}
         />
       </div>
-      <div className=".table-responsive px-md-4 px-2 pt-3">
+      <div className="table-responsive px-md-4 px-2 pt-3">
         <Table striped bordered hover responsive>
           <thead>
             <tr>

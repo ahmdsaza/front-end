@@ -4,7 +4,7 @@ import { USER, ORDERSCOUNT, LASTORDERS } from "../../../API/Api";
 import { NavLink } from "react-router-dom";
 import "./activity.css";
 import { useQuery } from "react-query";
-import { Container } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 
 export default function Activity() {
   const [lastOrders, setLastOrders] = useState([]);
@@ -35,24 +35,41 @@ export default function Activity() {
   }, []);
 
   const showOrders = lastOrders.map((item, key) => (
-    <table className="card-styling table-responsive" key={key}>
-      <tr className="d-flex gap20 col-md">
-        <NavLink
-          className="col text-black d-flex gap20"
-          to={`../orders/${item?.slug}`}
-        >
-          <td className="col-2">#{item.id}</td>
-          <td className="col">Username: {item?.users[0].name}</td>
-          <td className="col-2">Price: ${item?.totalprice}</td>
-          <td className="col">
-            Date:{" "}
-            {(item?.updated_at).slice(0, 10) +
-              " | " +
-              (item?.updated_at).slice(11, 16)}
-          </td>
-        </NavLink>
-      </tr>
-    </table>
+    // <table className="card-styling table-responsive" >
+    <tr>
+      <NavLink
+        className="text-black d-flex gap-4"
+        key={key}
+        to={`../orders/${item?.slug}`}
+      >
+        <td className="col-">#{item.id}</td>
+        <td className="col-2">{item?.users[0].name}</td>
+        <td className="col-2">${item?.totalprice}</td>
+        <td className="col-1">
+          {item?.status === 0 ? (
+            <p>Pending</p>
+          ) : item?.status === 1 ? (
+            <p>Awaiting Payment</p>
+          ) : item?.status === 2 ? (
+            <p>Awaiting Shipment</p>
+          ) : item?.status === 3 ? (
+            <p>Completed</p>
+          ) : item?.status === 4 ? (
+            <p>Shipped</p>
+          ) : item?.status === 5 ? (
+            <p>Cancelled</p>
+          ) : (
+            <p>Waiting</p>
+          )}
+        </td>
+        <td className="col-">
+          {(item?.updated_at).slice(0, 10) +
+            " | " +
+            (item?.updated_at).slice(11, 16)}
+        </td>
+      </NavLink>
+    </tr>
+    // </table>
   ));
 
   return (
@@ -291,14 +308,14 @@ export default function Activity() {
                   <div
                     className="card"
                     style={{
-                      height: "300px",
+                      maxHeight: "300px",
                       maxWidth: window.innerWidth > 768 ? "500px" : "300px",
                     }}
                   >
                     <div className="table-responsive rounded">
-                      <table className="table table-borderless">
+                      <Table striped hover>
                         <tbody>{showOrders}</tbody>
-                      </table>
+                      </Table>
                     </div>
                   </div>
                 </div>

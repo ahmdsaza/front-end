@@ -14,22 +14,26 @@ export default function Landing() {
     Axios.get(`${BANNER}`).then((data) => setBanners(data.data));
   }, []);
 
-  const showBanners = banners.map((item, key) => (
-    // <div>
-    <Carousel.Item key={key}>
-      <NavLink to={`${item.url}`}>
-        <img
-          className="d-block w-100 object-fit-cover"
-          width="1296px"
-          height="500px"
-          src={item.image}
-          alt="First slide"
-        />
-        {/* <Carousel.Caption>{item.url}</Carousel.Caption> */}
-      </NavLink>
-    </Carousel.Item>
-    // </div>
-  ));
+  let callDescription = "";
+  const showBanners = banners.map((item, key) => {
+    callDescription = item.description;
+    return (
+      // <div>
+      <Carousel.Item key={key}>
+        <NavLink to={`${item.url}`}>
+          <img
+            className="landing-style d-block w-100 object-fit-cover"
+            src={item.image}
+            alt="First slide"
+          />
+          <Carousel.Caption>
+            {callDescription.length > 1 ? item.description : <></>}
+          </Carousel.Caption>
+        </NavLink>
+      </Carousel.Item>
+      // </div>
+    );
+  });
 
   return (
     <Container className="my-4">

@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import { Axios } from "../../../API/axios";
 import { CATEGORY } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AddCategory() {
   const [title, setTitle] = useState("");
@@ -46,6 +46,12 @@ export default function AddCategory() {
     <>
       {loading && <LoadingSubmit />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={HandleSubmit}>
+        <div className="d-flex align-items-center justify-content-between">
+          <h1>Add category</h1>
+          <Link to="../categories">
+            <div className="btn btn-primary">Back to category</div>
+          </Link>
+        </div>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Title</Form.Label>
           <Form.Control

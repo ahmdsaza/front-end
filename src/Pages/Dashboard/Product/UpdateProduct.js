@@ -30,6 +30,7 @@ export default function UpdateProduct() {
   });
 
   // Use States
+  const [idNumber, setIdNumber] = useState([]);
   const [images, setImages] = useState([]);
   const [imagesFromServer, setImagesFromServer] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -68,6 +69,7 @@ export default function UpdateProduct() {
   useEffect(() => {
     Axios.get(`${PRODUCTCATEGORY}/${id}`)
       .then((data) => {
+        setIdNumber(data?.data[0]?.id);
         setForm(data.data[0]);
         setImagesFromServer(data.data[0].images);
         document.title = `Ahmed store | Edit product`;
@@ -314,7 +316,7 @@ export default function UpdateProduct() {
     <>
       {loading && <LoadingSubmit />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={handleEdit}>
-        <h1>Edit Product</h1>
+        <h1>Edit Product #{idNumber}</h1>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput0">
           <Form.Label>Category</Form.Label>
           <Form.Select

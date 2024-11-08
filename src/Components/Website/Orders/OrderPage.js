@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { ORDERID } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
-import { Container } from "react-bootstrap";
+import { Container, Button, Form, Modal, Table } from "react-bootstrap";
 import TransformDated from "../../../helpers/TransformDated";
 import TransformTime from "../../../helpers/TransformTime";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+
 import "../CheckOut/thankyou.css";
 
 export default function OrderPage() {
@@ -15,7 +16,12 @@ export default function OrderPage() {
   const [getOrders, setGetOrders] = useState([]);
   const [orderPrice, setOrderPrice] = useState([]);
   const [coupon, setCoupon] = useState([]);
+  const [count, setCount] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     Axios.get(`${ORDERID}/${id}`)
@@ -28,7 +34,7 @@ export default function OrderPage() {
         setLoading(false);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [count]);
 
   const showOrderProducts = getOrders.map((item, key) => {
     return (
@@ -60,6 +66,24 @@ export default function OrderPage() {
       </>
     );
   });
+
+  function handleCancelCall() {
+    handleShow();
+  }
+
+  function handleCloseModal() {
+    handleCancel();
+    handleClose();
+  }
+
+  async function handleCancel() {
+    try {
+      const res = await Axios.post(`${ORDERID}/cancel/${id}`);
+      setCount((prev) => !prev);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   let createAtDate = orders ? TransformDated(orders?.created_at) : <></>;
   let createAtTime = orders ? TransformTime(orders?.created_at) : <></>;
@@ -252,9 +276,30 @@ export default function OrderPage() {
                 </table>
               </div>
             </div>
+            {orders.status == 5 ? (
+              <></>
+            ) : (
+              <Button onClick={handleCancelCall} className="btn btn-danger">
+                Cancel Order
+              </Button>
+            )}
           </div>
         </section>
       </main>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure you want to delete?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to cancel the order?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button onClick={() => handleCloseModal()} variant="primary">
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

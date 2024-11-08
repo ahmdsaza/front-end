@@ -174,13 +174,16 @@ export default function Cart() {
     <Container>
       <div className="row px-md-4">
         <div className="col-lg-8">
-          <h1 className="d-flex justify-content-center">Shopping Cart</h1>
+          <h1 className="d-flex justify-content-center">
+            Shopping Cart
+            {carts?.length > 0 ? <p> ({carts?.length})</p> : <></>}
+          </h1>
           <div>
             <div
               className="card"
               style={{ height: carts?.length > 0 ?? "400px" }}
             >
-              <div className="table-responsive px-md-4 px-2 pt-3">
+              <div className="cart-body table-responsive px-md-4 px-2 pt-3">
                 <table className="table table-borderless">
                   {carts?.length > 0 ? (
                     <tbody>{showCart}</tbody>

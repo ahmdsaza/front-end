@@ -3,9 +3,10 @@ import Form from "react-bootstrap/Form";
 import { Axios } from "../../../API/axios";
 import { USER } from "../../../API/Api";
 import LoadingSubmit from "../../../Components/Loading/Loading";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function User() {
+  const [idNumber, setIdNumber] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
@@ -21,6 +22,7 @@ export default function User() {
     setLoading(true);
     Axios.get(`${USER}/${id}`)
       .then((data) => {
+        setIdNumber(data.data.id);
         setName(data.data.name);
         setEmail(data.data.email);
         setRole(data.data.role);
@@ -50,7 +52,12 @@ export default function User() {
     <>
       {loading && <LoadingSubmit />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={HandleSubmit}>
-        <h1>Edit User</h1>
+        <div className="d-flex align-items-center justify-content-between">
+          <h1>Edit User #{idNumber}</h1>
+          <Link to="../users">
+            <div className="btn btn-primary">Back to users</div>
+          </Link>
+        </div>{" "}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>User Name</Form.Label>
           <Form.Control

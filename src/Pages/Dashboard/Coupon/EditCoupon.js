@@ -3,9 +3,11 @@ import { COUPON } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import Form from "react-bootstrap/Form";
 import LoadingSubmit from "../../../Components/Loading/Loading";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { NavLink } from "react-bootstrap";
 
 export default function EditCoupon() {
+  const [idNumber, setIdNumber] = useState("");
   const [title, setTitle] = useState("");
   const [percent, setPercent] = useState("");
   const [lowestPrice, setLowestPrice] = useState("");
@@ -22,6 +24,7 @@ export default function EditCoupon() {
     setLoading(true);
     Axios.get(`${COUPON}/${id}`)
       .then((data) => {
+        setIdNumber(data.data.id);
         setTitle(data.data.title);
         setPercent(data.data.percent);
         setLowestPrice(data.data.lowest_price);
@@ -55,7 +58,12 @@ export default function EditCoupon() {
     <>
       {loading && <LoadingSubmit />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={HandleSubmit}>
-        <h1>Edit Coupon</h1>
+        <div className="d-flex align-items-center justify-content-between">
+          <h1>Edit Coupon #{idNumber}</h1>
+          <Link to="../coupon">
+            <div className="btn btn-primary">Back to coupon</div>
+          </Link>
+        </div>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Title</Form.Label>
           <Form.Control
@@ -92,16 +100,16 @@ export default function EditCoupon() {
             required
             value={startDate}
             onChange={(e) => setStartSate(e.target.value)}
-            type="date"
+            type="datetime-local"
           ></Form.Control>
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
-          <Form.Label>Expire Date</Form.Label>
+          <Form.Label>Expire date</Form.Label>
           <Form.Control
             required
             value={expireDate}
             onChange={(e) => setExpireDate(e.target.value)}
-            type="date"
+            type="datetime-local"
           ></Form.Control>
         </Form.Group>
         <button

@@ -3,7 +3,7 @@ import { COUPON } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import Form from "react-bootstrap/Form";
 import LoadingSubmit from "../../../Components/Loading/Loading";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AddCoupon() {
   const [title, setTitle] = useState("");
@@ -43,6 +43,12 @@ export default function AddCoupon() {
     <>
       {loading && <LoadingSubmit />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={HandleSubmit}>
+        <div className="d-flex align-items-center justify-content-between">
+          <h1>Add coupon</h1>
+          <Link to="../coupon">
+            <div className="btn btn-primary">Back to coupon</div>
+          </Link>
+        </div>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Title</Form.Label>
           <Form.Control
@@ -79,7 +85,7 @@ export default function AddCoupon() {
             required
             value={startDate}
             onChange={(e) => setStartSate(e.target.value)}
-            type="date"
+            type="datetime-local"
           ></Form.Control>
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
@@ -88,7 +94,7 @@ export default function AddCoupon() {
             required
             value={expireDate}
             onChange={(e) => setExpireDate(e.target.value)}
-            type="date"
+            type="datetime-local"
           ></Form.Control>
         </Form.Group>
         <button
