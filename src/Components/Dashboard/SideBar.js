@@ -104,11 +104,11 @@ export default function SideBar() {
               </MenuItem>
             </SubMenu>
             <SubMenu
-              icon={<i className="material-icons">list_alt</i>}
+              icon={<i className="material-icons">percent</i>}
               label="Coupons"
             >
               <MenuItem
-                icon={<i className="material-icons">inventory_2</i>}
+                icon={<i className="material-icons">percent</i>}
                 component={<Link to={`./coupon`} />}
                 onClick={() => setIsOpen((prev) => !prev)}
               >
@@ -122,6 +122,25 @@ export default function SideBar() {
                 Add Coupons
               </MenuItem>
             </SubMenu>
+            <SubMenu
+              icon={<i className="material-icons">image</i>}
+              label="Banners"
+            >
+              <MenuItem
+                icon={<i className="material-icons">image</i>}
+                component={<Link to={`./banner`} />}
+                onClick={() => setIsOpen((prev) => !prev)}
+              >
+                Banners
+              </MenuItem>
+              <MenuItem
+                component={<Link to={`./banner/add`} />}
+                icon={<i className="material-icons">add_photo_alternate</i>}
+                onClick={() => setIsOpen((prev) => !prev)}
+              >
+                Add Banners
+              </MenuItem>
+            </SubMenu>
             <MenuItem
               component={<Link to={`./orders`} />}
               icon={<i className="material-icons">list_alt</i>}
@@ -131,7 +150,7 @@ export default function SideBar() {
             </MenuItem>
             <MenuItem
               component={<Link to={`./rate`} />}
-              icon={<i className="material-icons">list_alt</i>}
+              icon={<span class="material-icons">star_rate</span>}
               onClick={() => setIsOpen((prev) => !prev)}
             >
               Reviews

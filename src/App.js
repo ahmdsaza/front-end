@@ -41,6 +41,9 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import Coupon from "./Pages/Dashboard/Coupon/Coupon";
 import AddCoupon from "./Pages/Dashboard/Coupon/AddCoupon";
 import EditCoupon from "./Pages/Dashboard/Coupon/EditCoupon";
+import Banner from "./Pages/Dashboard/Banner/Banner";
+import AddBanner from "./Pages/Dashboard/Banner/AddBanner";
+import EditBanner from "./Pages/Dashboard/Banner/EditBanner";
 
 const queryClient = new QueryClient();
 
@@ -97,6 +100,9 @@ function App() {
                 <Route path="coupon" element={<Coupon />} />
                 <Route path="coupon/add" element={<AddCoupon />} />
                 <Route path="coupon/:id" element={<EditCoupon />} />
+                <Route path="banner" element={<Banner />} />
+                <Route path="banner/add" element={<AddBanner />} />
+                <Route path="banner/:id" element={<EditBanner />} />
               </Route>
 
               {/* Categories Manager */}

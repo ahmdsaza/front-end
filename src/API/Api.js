@@ -42,6 +42,9 @@ export const PRODUCTS = "products";
 export const PRODUCT = "product";
 export const PRODUCTCATEGORY = "product-category";
 
+// Banner
+export const BANNER = "banner";
+
 // Add Sizes
 export const SIZES = "sizes";
 
