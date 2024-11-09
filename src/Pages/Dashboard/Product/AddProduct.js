@@ -240,7 +240,7 @@ export default function AddProduct() {
       Axios.put(`${SIZES}/edit/${updateSize.id}`, dataInf).catch((err) =>
         console.log(err)
       );
-      updateSizeFunction();
+      setTimeout(updateSizeFunction, 1300);
       setOpen(!open);
     } catch (err) {
       console.log(err);

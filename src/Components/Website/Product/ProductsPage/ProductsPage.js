@@ -63,6 +63,7 @@ export default function ProductsPage() {
         setShowRateNumber(data.data[0].rating);
         setShowSize(data.data[0].sizes);
         document.title = `Ahmed store | ${data.data[0]?.title}`;
+        window.scrollTo(0, 0);
         setImages(
           data.data[0].images.map((item) => {
             return {

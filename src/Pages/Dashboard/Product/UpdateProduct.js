@@ -370,7 +370,7 @@ export default function UpdateProduct() {
                 value={sizes.title}
                 onChange={handleSizesChange}
                 type="text"
-                placeholder="Name..."
+                placeholder="Size..."
               />
 
               <Form.Control
