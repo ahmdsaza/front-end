@@ -73,6 +73,16 @@ export default function AddProduct() {
       .catch((err) => console.log(err));
   }, []);
 
+  // Call Sizes
+  useEffect(() => {
+    Axios.get(`${SIZES}/${id}`)
+      .then((data) => {
+        setShowSizes(data.data);
+        console.log("call");
+      })
+      .catch((err) => console.log(err));
+  }, [count]);
+
   // Handle Submit Form
   async function handleSubmitForm() {
     try {
@@ -200,10 +210,14 @@ export default function AddProduct() {
       Axios.post(`${SIZES}/add`, data).catch((err) => console.log(err));
       sizes.title = "";
       sizes.quantity = "";
-      setCount((prev) => !prev);
+      setTimeout(updateSizeFunction, 1300);
     } catch (err) {
       console.log(err);
     }
+  }
+
+  function updateSizeFunction() {
+    setCount((prev) => !prev);
   }
 
   function handleUpdateSizeChange(e) {
@@ -226,7 +240,7 @@ export default function AddProduct() {
       Axios.put(`${SIZES}/edit/${updateSize.id}`, dataInf).catch((err) =>
         console.log(err)
       );
-      setCount((prev) => !prev);
+      updateSizeFunction();
       setOpen(!open);
     } catch (err) {
       console.log(err);
@@ -242,13 +256,6 @@ export default function AddProduct() {
       console.log(err);
     }
   }
-
-  // Call Sizes
-  useEffect(() => {
-    Axios.get(`${SIZES}/${id}`)
-      .then((data) => setShowSizes(data.data))
-      .catch((err) => console.log(err));
-  }, [count]);
 
   // Mapping Sizes
   const sizesShow = showSizes.map((item, key) => (

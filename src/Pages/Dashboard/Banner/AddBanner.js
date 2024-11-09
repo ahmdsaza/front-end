@@ -9,7 +9,7 @@ export default function AddBanner() {
   const [url, setUrl] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState(0);
+  const [status, setStatus] = useState(1);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

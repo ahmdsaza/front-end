@@ -380,7 +380,7 @@ export default function ProductsPage() {
         if (callCartQuantity) {
           if (sizeQuantity >= calculateQuantity) {
             const res = await Axios.post(`${CART}`, data)
-              .then(setTimeout(updateCartCount, 3000))
+              .then(setTimeout(updateCartCount, 1000))
               .catch((err) => {
                 if (err.response.status === 420) {
                   toast.error(err.response.data.error);
@@ -404,7 +404,7 @@ export default function ProductsPage() {
           if (findSizeQuantity?.quantity > 0) {
             const res = await Axios.post(`${CART}`, data)
               .then(
-                setTimeout(updateCartCount, 3000),
+                setTimeout(updateCartCount, 1000),
                 toast.success("Product add to cart successfully", {
                   autoClose: 2000,
                 })

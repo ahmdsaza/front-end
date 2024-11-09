@@ -207,7 +207,10 @@ export default function UpdateProduct() {
   // Call Sizes
   useEffect(() => {
     Axios.get(`${SIZES}/${id}`)
-      .then((data) => setShowSizes(data.data))
+      .then((data) => {
+        setShowSizes(data.data);
+        console.log("Call");
+      })
       .catch((err) => console.log(err));
   }, [count]);
 
@@ -236,7 +239,7 @@ export default function UpdateProduct() {
 
     try {
       Axios.post(`${SIZES}/add`, data).catch((err) => console.log(err));
-      setCount((prev) => !prev);
+      setTimeout(updateSizeFunction, 2500);
     } catch (err) {
       console.log(err);
     }
@@ -263,11 +266,15 @@ export default function UpdateProduct() {
       Axios.put(`${SIZES}/edit/${updateSize.id}`, dataInf).catch((err) =>
         console.log(err)
       );
-      setCount((prev) => !prev);
+      setTimeout(updateSizeFunction, 1300);
       setOpen(!open);
     } catch (err) {
       console.log(err);
     }
+  }
+
+  function updateSizeFunction() {
+    setCount((prev) => !prev);
   }
 
   // Mapping Sizes

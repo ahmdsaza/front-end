@@ -7,6 +7,7 @@ import TransformDated from "../../../helpers/TransformDated";
 import TransformTime from "../../../helpers/TransformTime";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
 
 import "../CheckOut/thankyou.css";
 
@@ -79,6 +80,9 @@ export default function OrderPage() {
   async function handleCancel() {
     try {
       const res = await Axios.post(`${ORDERID}/cancel/${id}`);
+      toast.success("Order cancelled successfully", {
+        autoClose: 2000,
+      });
       setCount((prev) => !prev);
     } catch (err) {
       console.log(err);
@@ -300,6 +304,7 @@ export default function OrderPage() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <ToastContainer />
     </Container>
   );
 }

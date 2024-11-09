@@ -169,8 +169,12 @@ export default function CheckOut() {
           "The address id field is required. (and 6 more errors)" ||
         err.response.data.message === "Server Error" ||
         err.response.data.message ===
+          "The address id field is required. (and 5 more errors)" ||
+        err.response.data.message ===
           `Attempt to read property "firstname" on null` ||
-        err.response.data.message === "The address id field is required."
+        err.response.data.message === "The address id field is required." ||
+        err.response.data.message ===
+          `Attempt to read property "firstname" on null`
       ) {
         toast.error("Please choose address", {
           autoClose: 2000,
@@ -179,7 +183,9 @@ export default function CheckOut() {
         err.response.data.message ===
           "The payment mode field is required. (and 5 more errors)" ||
         err.response.data.message ===
-          "The payment mode field is required. (and 6 more errors)"
+          "The payment mode field is required. (and 6 more errors)" ||
+        err.response.data.message ===
+          "The payment mode field is required. (and 4 more errors)"
       ) {
         toast.error("Please choose payment method", {
           autoClose: 2000,
