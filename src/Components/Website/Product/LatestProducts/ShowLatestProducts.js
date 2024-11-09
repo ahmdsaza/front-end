@@ -22,7 +22,11 @@ export default function ShowLatestProducts() {
       description={product.description}
       discount={product.discount}
       sale
-      img={product.images[0].image}
+      img={
+        product?.images[1]?.image
+          ? product?.images[1]?.image
+          : product?.images[0]?.image
+      }
       price={product.price}
       rating={product.rating}
       ratings_number={product.ratings_number}

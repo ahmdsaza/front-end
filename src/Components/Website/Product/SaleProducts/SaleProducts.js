@@ -47,8 +47,8 @@ export default function SaleProducts(props) {
             ></div>
           </div>
           <h4
-            className="text-truncate text-black d-flex justify-content-center"
-            style={{ color: "gray" }}
+            className=".text-truncate text-black d-flex justify-content-center"
+            style={{ color: "gray", maxWidth: "300px" }}
           >
             {props.title}
           </h4>

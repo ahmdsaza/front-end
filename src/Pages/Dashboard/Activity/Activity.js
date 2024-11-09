@@ -44,7 +44,7 @@ export default function Activity() {
       >
         <td className="col-">#{item.id}</td>
         <td className="col-2">{item?.users[0].name}</td>
-        <td className="col-2">${item?.totalprice}</td>
+        <td className="col-1">${item?.totalprice}</td>
         <td className="col-1">
           {item?.status === 0 ? (
             <p>Pending</p>

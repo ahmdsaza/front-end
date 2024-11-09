@@ -99,6 +99,7 @@ export default function AddProduct() {
     e.preventDefault();
     try {
       const res = await Axios.post(`${PRODUCT}/edit/${id}`, form);
+      window.scrollTo(0, 0);
       nav("/dashboard/products");
     } catch (err) {
       setLoading(false);

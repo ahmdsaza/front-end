@@ -50,57 +50,148 @@ export default function CategoriesPage() {
     ));
 
     return (
-      <div key={key} className="bg-white">
-        <NavLink to={`../products/${item.slug}`} className="text-black">
-          <div className="crd1">
-            <div className="products-in-crd">
-              <img
-                className="products-image"
-                src={item.images[0].image}
-                alt="Just an img"
-              />
+      // <div key={key} className="bg-white">
+      //   <NavLink to={`../products/${item.slug}`} className="text-black">
+      //     <div className="crd1">
+      //       <div className="products-in-crd">
+      //         <img
+      //           className="products-image"
+      //           src={item.images[0].image}
+      //           alt="Just an img"
+      //         />
+      //         {showGoldStars}
+      //         {showEmptyStars}
+      //         <small>({item.ratings_number})</small>
+      //         <div className="products-info">
+      //           <h4
+      //             className=".text-truncate text-black d-flex justify-content-center"
+      //             style={{
+      //               color: "gray",
+      //               maxWidth: "300px",
+      //               maxHeight: "200px",
+      //             }}
+      //           >
+      //             {item.title}
+      //           </h4>
+      //           <hr />
+      //           <div className="products-icon">
+      //             <div className="prod-price">
+      //               {item.discount > 0 ? (
+      //                 <>
+      //                   {" "}
+      //                   <h5 className="m-0 text-black">{item.discount}$</h5>
+      //                   <h6
+      //                     className="m-0"
+      //                     style={{
+      //                       color: "gray",
+      //                       textDecoration: "line-through",
+      //                     }}
+      //                   >
+      //                     {item.price}$
+      //                   </h6>
+      //                 </>
+      //               ) : (
+      //                 <>
+      //                   {" "}
+      //                   <h5 className="m-0 text-black">{item.price}$</h5>
+      //                 </>
+      //               )}
+      //             </div>
+      //             <div>
+      //               <img
+      //                 src={require("../../../Assets/shopping-cart.png")}
+      //                 alt="cart"
+      //                 width="20px"
+      //               />
+      //             </div>
+      //           </div>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   </NavLink>
+      // </div>
+      <NavLink
+        to={`../products/${item.slug}`}
+        className={`col-12 ${
+          window.innerWidth > 1400 ? "col-xl-3" : "col-xl-4"
+        } col-lg-5 col-md-6  my-2`}
+        key={item.index}
+      >
+        <div className="cards bg-white">
+          <div>
+            <div className="px-5 py-5 position-relative">
+              {item.discount > 0 && (
+                <p
+                  className="m-0 position-absolute top-0 start-0 bg-primary rounded-circle text-white text-uppercase d-inline-block
+                  text-center"
+                  style={{ width: "50px", height: "50px", lineHeight: "50px" }}
+                >
+                  Sale
+                </p>
+              )}
+              <div
+                className="w-100"
+                alt=""
+                style={{
+                  backgroundImage: `url('${item?.images[0]?.image}')`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "top",
+                  height: "200px",
+                  width: "100%",
+                }}
+              ></div>
+            </div>
+            <h4
+              className=".text-truncate text-black d-flex justify-content-center"
+              style={{ color: "gray", maxWidth: "300px" }}
+            >
+              {item.title}
+            </h4>
+          </div>
+          <div className="d-flex align-items-center justify-content-between pt-4 border-top">
+            <div className="text-black">
               {showGoldStars}
               {showEmptyStars}
-              <small>({item.ratings_number})</small>
-              <div className="products-info">
-                <p className="products-title">{item.title}</p>
-                <hr />
-                <div className="products-icon">
-                  <div className="prod-price">
-                    {item.discount > 0 ? (
-                      <>
-                        {" "}
-                        <h5 className="m-0 text-black">{item.discount}$</h5>
-                        <h6
-                          className="m-0"
-                          style={{
-                            color: "gray",
-                            textDecoration: "line-through",
-                          }}
-                        >
-                          {item.price}$
-                        </h6>
-                      </>
-                    ) : (
-                      <>
-                        {" "}
-                        <h5 className="m-0 text-black">{item.price}$</h5>
-                      </>
-                    )}
-                  </div>
-                  <div>
-                    <img
-                      src={require("../../../Assets/shopping-cart.png")}
-                      alt="cart"
-                      width="20px"
-                    />
-                  </div>
-                </div>
+              <small className="mx-1 fw-bold">({item.ratings_number})</small>
+              <div className="d-flex align-items-center gap-3">
+                {/* <h5 className="m-0 text-primary">{item.discount}$</h5>
+              <h6
+                className="m-0"
+                style={{ color: "gray", textDecoration: "line-through" }}
+              >
+                {item.price}$
+              </h6> */}
+                {item.discount > 0 ? (
+                  <>
+                    {" "}
+                    <h5 className="m-0 text-black">{item.discount}$</h5>
+                    <h6
+                      className="m-0"
+                      style={{ color: "gray", textDecoration: "line-through" }}
+                    >
+                      {item.price}$
+                    </h6>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <h5 className="m-0 text-black">{item.price}$</h5>
+                  </>
+                )}
               </div>
             </div>
+            <div className="border p-2 rounded">
+              {/* <Link to={`products/${item.id}`}> */}
+              <img
+                src={require("../../../Assets/shopping-cart.png")}
+                alt="cart"
+                width="20px"
+              />
+              {/* </Link> */}
+            </div>
           </div>
-        </NavLink>
-      </div>
+        </div>
+      </NavLink>
     );
   });
 
@@ -133,7 +224,9 @@ export default function CategoriesPage() {
             </option>
           </Form.Select>
         </div>
-        <div className="crd">{showData}</div>
+        <div className="d-flex justify-content-center flex-wrap">
+          {showData}
+        </div>
         <div className="pagination-display">
           <div className="">
             <Form.Select

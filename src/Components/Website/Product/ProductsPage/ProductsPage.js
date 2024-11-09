@@ -288,7 +288,7 @@ export default function ProductsPage() {
         className="d-flex flex-wrap mt-4"
         key={key}
       >
-        <div className="cards bg-white">
+        <div className="cards bg-white" style={{ height: "450px" }}>
           <div>
             <div className="px-5 py-5 position-relative">
               {item.discount > 0 && (
@@ -317,7 +317,7 @@ export default function ProductsPage() {
               ></div>
             </div>
             <h4
-              className="text-truncate text-black d-flex justify-content-center"
+              className=".text-truncate text-black d-flex justify-content-center"
               style={{ color: "gray" }}
             >
               {item.title}
