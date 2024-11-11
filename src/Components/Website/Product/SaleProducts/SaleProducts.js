@@ -19,12 +19,12 @@ export default function SaleProducts(props) {
       to={`products/${props.id}`}
       className={`col-12 ${
         window.innerWidth > 1400 ? "col-xl-3" : "col-xl-4"
-      } col-lg-5 col-md-6  my-2`}
+      } col-lg-5 col-md-6 my-2`}
       key={props.index}
     >
-      <div className="cards bg-white">
+      <div className="cards rounded-3 bg-white">
         <div>
-          <div className="px-5 py-5 position-relative">
+          <div className="p-2 position-relative">
             {props.discount > 0 && (
               <p
                 className="m-0 position-absolute top-0 start-0 bg-primary rounded-circle text-white text-uppercase d-inline-block
@@ -34,26 +34,29 @@ export default function SaleProducts(props) {
                 Sale
               </p>
             )}
-            <div
-              className="w-100"
-              alt=""
-              style={{
-                backgroundImage: `url('${props.img}')`,
-                backgroundSize: "cover",
-                backgroundPosition: "top",
-                height: "200px",
-                width: "100%",
-              }}
-            ></div>
+            <div>
+              <img
+                src={props.img}
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "top",
+                  height: "300px",
+                  width: "270px",
+                  borderRadius: "5px",
+                }}
+                alt={props.title}
+                loading="lazy"
+              />
+            </div>
           </div>
           <h4
-            className=".text-truncate text-black d-flex justify-content-center"
+            className="mx-2 text-black d-flex"
             style={{ color: "gray", maxWidth: "300px" }}
           >
             {props.title}
           </h4>
         </div>
-        <div className="d-flex align-items-center justify-content-between pt-4 border-top">
+        <div className="d-flex align-items-center justify-content-between p-2 border-top">
           <div className="text-black">
             {showGoldStars}
             {showEmptyStars}

@@ -58,12 +58,12 @@ export default function Cart() {
   const showCart = carts.map((item, key) => {
     if (item.product?.discount > 0) {
       totalCartPrice += item.product?.discount * item?.product_qty;
-      itemPrice = item.product?.discount.slice(0, 5);
+      itemPrice = item.product?.discount * 1;
       descPrice = itemPrice * item.product_qty;
       tot = descPrice.toFixed(2);
     } else {
       totalCartPrice += item.product?.price * item?.product_qty;
-      itemPrice = item.product?.price.slice(0, 5);
+      itemPrice = item.product?.price * 1;
       descPrice = itemPrice * item.product_qty;
       tot = descPrice.toFixed(2);
     }
@@ -82,32 +82,32 @@ export default function Cart() {
     return (
       <table className="cardStyling py-3 w-100 table-responsive" key={key}>
         <tr className="row col-md">
-          <div className="col-6">
+          <div className="col">
             <NavLink
               to={`../products/${item.product?.slug}`}
               className="text-black fw-bold fs-4"
             >
               <img
                 className="cart-image"
-                src={item.images[0]?.image}
+                src={
+                  item?.images[1]?.image
+                    ? item?.images[1]?.image
+                    : item?.images[0]?.image
+                }
                 alt={item.product?.title}
               />
             </NavLink>
           </div>
-          <div className="col-4">
+          <div className="col">
             <NavLink
               to={`../products/${item.product?.slug}`}
-              className="text-black fw-bold fs-4"
+              className=" text-black fw-bold fs-4"
             >
-              <p>
-                {item.product?.title.length > 14
-                  ? item.product?.title.slice(0, 14) + "..."
-                  : item.product?.title}
-              </p>
+              <p>{item.product?.title}</p>
             </NavLink>
             <div className="d-flex gap-1">
               <p>Price: </p>
-              <p>${itemPrice}</p>
+              <p>${itemPrice.toFixed(2)}</p>
             </div>
             <div className=" d-flex gap-1">
               <p>Total: </p>

@@ -44,7 +44,7 @@ export default function Banner() {
       <tr key={key}>
         <td>#{items?.id}</td>
         <td>
-          <img src={items?.image} width="150px" />
+          <img src={items?.image} width="150px" alt="Banner" />
         </td>
         <td>
           <NavLink className="text-black" to={"../../" + items?.url}>

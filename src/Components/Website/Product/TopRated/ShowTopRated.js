@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Axios } from "../../../../API/axios";
 import { TopRatedApi } from "../../../../API/Api";
 import SkeletonShow from "../../Skeleton/SkeletonShow";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import SaleProducts from "../SaleProducts/SaleProducts";
+import { NavLink } from "react-router-dom";
 
 export default function ShowTopRated() {
   const [products, setProducts] = useState([]);
@@ -36,8 +37,17 @@ export default function ShowTopRated() {
   ));
   return (
     <Container>
-      <h1 className="d-flex justify-content-center">Top Rated</h1>
-      <div className="d-flex align-items-stretch justify-content-center flex-wrap mt-5 row-gap-2">
+      <div className="d-flex justify-content-between align-items-center">
+        <Button>
+          <NavLink to={`../all-top-rated`} className="text-white">
+            {" "}
+            See All
+          </NavLink>
+        </Button>
+        <h1>Top Rated</h1>
+        <div></div>
+      </div>
+      <div className="d-flex align-items-stretch justify-content-center flex-wrap row-gap-2">
         {loading ? (
           <>
             <SkeletonShow

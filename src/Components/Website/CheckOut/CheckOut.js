@@ -113,7 +113,7 @@ export default function CheckOut() {
             <div className="ps-3 d-flex flex-column justify-content">
               <p className="pic fw-bold">
                 <NavLink to={`../products/${item.product.slug}`}>
-                  <span className="ps-1 text-black">{item.product.title}</span>
+                  <span className="text-black">{item.product.title}</span>
                 </NavLink>
               </p>
               {/* <small className="d-flex">
@@ -164,29 +164,11 @@ export default function CheckOut() {
       nav("/reload");
     } catch (err) {
       // setLoading(false);
-      if (
-        err.response.data.message ===
-          "The address id field is required. (and 6 more errors)" ||
-        err.response.data.message === "Server Error" ||
-        err.response.data.message ===
-          "The address id field is required. (and 5 more errors)" ||
-        err.response.data.message ===
-          `Attempt to read property "firstname" on null` ||
-        err.response.data.message === "The address id field is required." ||
-        err.response.data.message ===
-          `Attempt to read property "firstname" on null`
-      ) {
+      if (err.response.data.message.includes(`address`)) {
         toast.error("Please choose address", {
           autoClose: 2000,
         });
-      } else if (
-        err.response.data.message ===
-          "The payment mode field is required. (and 5 more errors)" ||
-        err.response.data.message ===
-          "The payment mode field is required. (and 6 more errors)" ||
-        err.response.data.message ===
-          "The payment mode field is required. (and 4 more errors)"
-      ) {
+      } else if (err.response.data.message.includes(`payment`)) {
         toast.error("Please choose payment method", {
           autoClose: 2000,
         });

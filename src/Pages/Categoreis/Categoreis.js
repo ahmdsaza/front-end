@@ -25,6 +25,7 @@ export default function WebsiteCategoreis() {
             className="category-products-image"
             src={item.image}
             alt={item.title}
+            loading="lazy"
           />
           <p className="catTitle d-flex my-1  justify-content-center text-black">
             {item.title}

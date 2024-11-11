@@ -85,12 +85,21 @@ export default function TheNavBar(props) {
       <NavLink to={`./products/${item.slug}`}>
         <div className="search-bar-data">
           <img
-            src={item.images[0].image}
+            src={
+              item?.images[1]?.image
+                ? item?.images[1]?.image
+                : item?.images[0]?.image
+            }
             className="search-img"
             alt={item.title}
+            loading="lazy"
           />
           <div>
-            <p className="search-title">{item.title}</p>
+            <p className="search-title">
+              {item.title.length > 30
+                ? item.title.slice(0, 30) + "..."
+                : item.title}
+            </p>
             <p className="search-price">
               ${item.discount > 0 ? item.discount : item.price}
             </p>
@@ -113,6 +122,7 @@ export default function TheNavBar(props) {
                 width="200px"
                 src={require("../../../Assets/Orange and Gray Tag Cart Virtual Shop Logo.png")}
                 alt="logo"
+                loading="lazy"
               />{" "}
             </NavLink>
           </Navbar.Brand>
@@ -164,6 +174,7 @@ export default function TheNavBar(props) {
                         width="30px"
                         src={require("../../../Assets/shopping-cart.png")}
                         alt="Cart"
+                        loading="lazy"
                       />
                     </NavLink>
                     <span>{cartLength}</span>
@@ -221,126 +232,6 @@ export default function TheNavBar(props) {
         </Container>
       </Navbar>
       <div className="navbarsearch">{dataShow}</div>
-
-      {/* <div className="py-3">
-        <div className="d-flex align-items-center justify-content-between flex-wrap">
-          <NavLink className="col-3" to="/">
-            <img
-              width="200px"
-              src={require("../../../Assets/Orange and Gray Tag Cart Virtual Shop Logo.png")}
-              alt="logo"
-            />
-          </NavLink>
-          <div className="col-6 d-flex align-items-center justify-content-end gap-2 col-md-3 order-1">
-            <div className="d-flex gap-2">
-              <div>
-                <Form.Control
-                  type="search"
-                  className="search-bar"
-                  aria-label="Search here..."
-                  placeholder="Search..."
-                  value={searchTitle}
-                  onChange={(e) => {
-                    setSearchTitle(e.target.value);
-                    setSearch(e.target.value);
-                    setSearchLoading(true);
-                  }}
-                />
-              </div>
-              <div className="d-flex">
-                {name ? (
-                  <>
-                    <NavLink to="/cart">
-                      <img
-                        width="30px"
-                        src={require("../../../Assets/shopping-cart.png")}
-                        alt="Cart"
-                      />
-                    </NavLink>
-                    <span>{cartLength}</span>
-                  </>
-                ) : (
-                  <></>
-                )}
-              </div>
-            </div>
-            <Dropdown>
-              <Dropdown.Toggle
-                variant="0"
-                style={{ border: "1px solid white" }}
-                id="dropdown-basic"
-              >
-                <img
-                  width="30px"
-                  src={require("../../../Assets/profile.png")}
-                  alt="Cart"
-                />
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item
-                  disabled
-                  style={{
-                    marginTop: "-0.5rem",
-                    color: "black",
-                    fontSize: "1rem",
-                  }}
-                >
-                  {name.name}
-                </Dropdown.Item>
-
-                {name ? (
-                  <>
-                    <Dropdown.Item>
-                      <NavLink to="/profile" style={{ color: "black" }}>
-                        Profile
-                      </NavLink>
-                    </Dropdown.Item>
-                    {name.role === "1995" && (
-                      <div>
-                        <Dropdown.Item>
-                          <NavLink
-                            to="/dashboard/activity"
-                            className="text-black"
-                          >
-                            Dashboard
-                          </NavLink>
-                        </Dropdown.Item>
-                      </div>
-                    )}
-                    <Dropdown.Item>
-                      <NavLink to="/orders" style={{ color: "black" }}>
-                        My Orders
-                      </NavLink>
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-                  </>
-                ) : (
-                  <Dropdown.Item>
-                    <NavLink to="../login" style={{ color: "black" }}>
-                      Login / Register
-                    </NavLink>
-                  </Dropdown.Item>
-                )}
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-        </div>
-      </div>
-      {searchLoading ? (
-        <tr style={{ textAlign: "center" }}>
-          <td colSpan={12}>Searching...</td>
-        </tr>
-      ) : (
-        <div
-          onClick={() => {
-            setSearch("");
-            setSearchTitle("");
-          }}
-          className="search-bar position-sticky overflow-y-scroll"
-        >
-          {dataShow}
-        </div>
-      )} */}
     </Container>
   );
 }

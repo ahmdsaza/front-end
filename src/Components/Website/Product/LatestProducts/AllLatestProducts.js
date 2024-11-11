@@ -1,45 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Axios } from "../../../API/axios";
-import { CATEGORY, categorry } from "../../../API/Api";
+import { Axios } from "../../../../API/axios";
+import { ALLLATEST } from "../../../../API/Api";
 import { NavLink, useParams } from "react-router-dom";
-import "../../../Components/Website/Product/AllProducts/AllProducts.css";
+import "../../../../Components/Website/Product/AllProducts/AllProducts.css";
 import { Container } from "react-bootstrap";
-import PaginatedItems from "../../../Components/Dashboard/Pagination/Pagination";
+import PaginatedItems from "../../../../Components/Dashboard/Pagination/Pagination";
 import Form from "react-bootstrap/Form";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function CategoriesPage() {
-  const [categories, setCategories] = useState([]);
-  const [title, setTitle] = useState();
+export default function AllLatestProducts() {
+  const [latestProducts, setLatestProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(8);
   const [total, setTotal] = useState(0);
-  const [sort, setSort] = useState("created_at");
-  const [type, setType] = useState("asc");
 
   const { id } = useParams();
 
-  // Get Title
   useEffect(() => {
-    Axios.get(`${categorry}/${id}`)
-      .then((data) => setTitle(data.data.title))
-      .catch((err) => console.log(err));
-  }, [id]);
-
-  useEffect(() => {
-    Axios.get(
-      `${CATEGORY}/${id}?sort=${sort}&type=${type}&limit=${limit}&page=${page}`
-    )
+    Axios.get(`${ALLLATEST}?limit=${limit}&page=${page}`)
       .then((data) => {
-        setCategories(data.data.data);
+        setLatestProducts(data.data.data);
         setTotal(data.data.total);
       })
       .catch((err) => console.log(err));
-  }, [limit, page, sort, type, id]);
+  }, [limit, page, id]);
 
-  const showData = categories.map((item, key) => {
+  const showData = latestProducts.map((item, key) => {
     const roundStars = Math.round(item.rating);
     const stars = Math.min(roundStars, 5);
     const showGoldStars = Array.from({ length: stars }).map((_, index) => (
@@ -55,7 +43,7 @@ export default function CategoriesPage() {
         className={`col-12 ${
           window.innerWidth > 1400 ? "col-xl-3" : "col-xl-4"
         } col-lg-5 col-md-6  my-2`}
-        key={item.index}
+        key={key}
       >
         <div className="cards bg-white">
           <div>
@@ -89,7 +77,7 @@ export default function CategoriesPage() {
               </div>
             </div>
             <h4
-              className="mx-2 text-black d-flex justify-content-center"
+              className=" mx-2 text-black d-flex justify-content-center"
               style={{ color: "gray", maxWidth: "300px" }}
             >
               {item.title}
@@ -101,13 +89,6 @@ export default function CategoriesPage() {
               {showEmptyStars}
               <small className="mx-1 fw-bold">({item.ratings_number})</small>
               <div className="d-flex align-items-center gap-3">
-                {/* <h5 className="m-0 text-primary">{item.discount}$</h5>
-              <h6
-                className="m-0"
-                style={{ color: "gray", textDecoration: "line-through" }}
-              >
-                {item.price}$
-              </h6> */}
                 {item.discount > 0 ? (
                   <>
                     {" "}
@@ -128,13 +109,12 @@ export default function CategoriesPage() {
               </div>
             </div>
             <div className="border p-2 rounded">
-              {/* <Link to={`products/${item.id}`}> */}
               <img
-                src={require("../../../Assets/shopping-cart.png")}
+                src={require("../../../../Assets/shopping-cart.png")}
                 alt="cart"
                 width="20px"
+                loading="lazy"
               />
-              {/* </Link> */}
             </div>
           </div>
         </div>
@@ -142,17 +122,22 @@ export default function CategoriesPage() {
     );
   });
 
-  function handleInputChange(e) {
-    const { value } = e.target;
-    setSort(value.slice(4, 20));
-    setType(value.slice(0, 4));
+  function handlePagination(e) {
+    setLimit(e.target.value);
+    setPage(1);
   }
+
+  //   function handleInputChange(e) {
+  //     const { value } = e.target;
+  //     setSort(value.slice(4, 20));
+  //     setType(value.slice(0, 4));
+  //   }
 
   return (
     <Container>
-      <h1 className="page-title">{title}</h1>
-      <div>
-        <Form.Select
+      <h1 className="page-title">Latest Products</h1>
+      <div className="">
+        {/* <Form.Select
           onChange={(e) => {
             handleInputChange(e);
           }}
@@ -168,15 +153,13 @@ export default function CategoriesPage() {
           <option value="desctitle" name="desc">
             Name Z-A
           </option>
-        </Form.Select>
+        </Form.Select> */}
       </div>
-      <div className="d-flex justify-content-center flex-wrap mt-3">
-        {showData}
-      </div>
+      <div className="d-flex justify-content-center flex-wrap">{showData}</div>
       <div className="pagination-display">
         <div className="">
           <Form.Select
-            onChange={(e) => setLimit(e.target.value)}
+            onChange={handlePagination}
             aria-label="Default select example"
           >
             <option value="8">8</option>

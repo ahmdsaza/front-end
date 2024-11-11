@@ -1,5 +1,5 @@
-export const baseURL = `https://ahmed-saud-e-commerce-back-end-efc619c22ed8.herokuapp.com/api`;
-// export const baseURL = `http://192.168.0.113:80/api`;
+// export const baseURL = `https://ahmed-saud-e-commerce-back-end-efc619c22ed8.herokuapp.com/api`;
+export const baseURL = `http://192.168.0.113:80/api`;
 
 // export const baseURL = `https://ahmedsaud.me/api`;
 
@@ -13,6 +13,12 @@ export const ORDER = "orders";
 export const ORDERID = "order";
 export const ALLORDERS = "get-order";
 export const LASTORDERS = "last-order";
+export const LatestSale = "latest-sale";
+export const ALLLATESTSALE = "all-latest-sale";
+export const Latest = "latest";
+export const ALLLATEST = "all-latest";
+export const TopRatedApi = "top-rated";
+export const ALLLTOPRATED = "all-top-rated";
 
 // Showing Orders
 export const ORDERSCOUNT = "get-order-count";
@@ -32,9 +38,7 @@ export const USERPROFILE = "profile-edit";
 export const CATEGORIES = "categories";
 export const CATEGORY = "category";
 export const CATEGORYSHOW = "category-show";
-export const LatestSale = "latest-sale";
-export const Latest = "latest";
-export const TopRatedApi = "top-rated";
+
 export const categorry = "categorry";
 
 // Products

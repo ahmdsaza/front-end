@@ -27,7 +27,7 @@ export default function Landing() {
             alt="First slide"
           />
           <Carousel.Caption>
-            {callDescription.length > 1 ? item.description : <></>}
+            {callDescription != null ? item.description : <></>}
           </Carousel.Caption>
         </NavLink>
       </Carousel.Item>

@@ -23,7 +23,7 @@ export default function TableShow(props) {
 
   useEffect(() => {
     document.title = `Ahmed store | ${props.title}`;
-  });
+  }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -78,7 +78,7 @@ export default function TableShow(props) {
           ) : item2.key === "images" ? (
             <div className="d-flex align-items-center justify-content-start gap-2 flex-wrap">
               {item[item2.key].map((img) => (
-                <img width={"50px"} src={img.image} alt="" />
+                <img width={"50px"} src={img.image} alt="photo" />
               ))}
             </div>
           ) : item2.key === "created_at" || item2.key === "updated_at" ? (

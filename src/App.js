@@ -44,6 +44,9 @@ import EditCoupon from "./Pages/Dashboard/Coupon/EditCoupon";
 import Banner from "./Pages/Dashboard/Banner/Banner";
 import AddBanner from "./Pages/Dashboard/Banner/AddBanner";
 import EditBanner from "./Pages/Dashboard/Banner/EditBanner";
+import AllLatestSaleProducts from "./Components/Website/Product/SaleProducts/AllLatestSaleProducts";
+import AllLatestProducts from "./Components/Website/Product/LatestProducts/AllLatestProducts";
+import AllTopRated from "./Components/Website/Product/TopRated/AllTopRated";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +61,9 @@ function App() {
             <Route path="/categories" element={<WebsiteCategoreis />} />
             <Route path="/categories/:id" element={<CategoriesPage />} />
             {/* <Route path="/products" element={<AllProducts />} /> */}
+            <Route path="latest-sale" element={<AllLatestSaleProducts />} />
+            <Route path="latest-products" element={<AllLatestProducts />} />
+            <Route path="all-top-rated" element={<AllTopRated />} />
             <Route path="products/:id" element={<ProductsPage />} />
             <Route
               element={

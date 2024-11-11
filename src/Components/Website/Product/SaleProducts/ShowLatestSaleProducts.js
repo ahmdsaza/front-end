@@ -3,7 +3,8 @@ import { Axios } from "../../../../API/axios";
 import { LatestSale } from "../../../../API/Api";
 import SkeletonShow from "../../Skeleton/SkeletonShow";
 import SaleProducts from "./SaleProducts";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 export default function ShowLatestSaleProducts() {
   const [products, setProducts] = useState([]);
@@ -37,8 +38,19 @@ export default function ShowLatestSaleProducts() {
   return (
     <Container>
       <div>
-        <h1 className="d-flex justify-content-center">Latest Sale Products</h1>
-        <div className="d-flex align-items-stretch justify-content-center flex-wrap mt-5 row-gap-2 m-3">
+        <div className="d-flex justify-content-between align-items-center">
+          <Button>
+            <NavLink to={`../latest-sale`} className="text-white">
+              {" "}
+              See All
+            </NavLink>
+          </Button>
+          <h1 className="d-flex justify-content-center">
+            Latest Sale Products
+          </h1>
+          <div></div>
+        </div>
+        <div className="d-flex align-items-stretch justify-content-center flex-wrap row-gap-2 m-3">
           {loading ? (
             <>
               <SkeletonShow

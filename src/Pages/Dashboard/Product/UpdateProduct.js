@@ -209,7 +209,6 @@ export default function UpdateProduct() {
     Axios.get(`${SIZES}/${id}`)
       .then((data) => {
         setShowSizes(data.data);
-        console.log("Call");
       })
       .catch((err) => console.log(err));
   }, [count]);

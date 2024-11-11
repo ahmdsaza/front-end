@@ -181,17 +181,18 @@ export default function ProductsPage() {
 
     return (
       <div className="product-div" key={key}>
-        <div className="col-lg-6">
+        <div className="col col-lg-6">
           <ImageGallery
             items={images}
             showFullscreenButton={false}
             showPlayButton={false}
+            lazyLoad
           />
         </div>
         <div className="product-side">
           <div className="product-description">
             {showGoldStars}
-            {showEmptyStars}
+            {showEmptyStars}({item.ratings_number})
             <span className="product-category">{item.category.title}</span>
             <h1 className="product-title">{item.title}</h1>
             <p className="product-description">{item.description}</p>
@@ -254,7 +255,13 @@ export default function ProductsPage() {
               />
             </div>
             <button className="addToCart" onClick={submitToCart}>
+              <img
+                src={require("../../../../Assets/shopping-cart.png")}
+                alt="cart"
+                width="20px"
+              />
               Add to cart
+              <div></div>
             </button>
           </div>
         </div>
@@ -285,60 +292,69 @@ export default function ProductsPage() {
     return (
       <NavLink
         to={`../products/${item.slug}`}
-        className="d-flex flex-wrap mt-4"
-        key={key}
+        className={`col-12 ${
+          window.innerWidth > 1400 ? "col-xl-3" : "col-xl-4"
+        } col-lg-5 col-md-6  my-2`}
+        key={item.index}
       >
-        <div className="cards bg-white" style={{ height: "450px" }}>
+        <div className="cards bg-white" style={{ height: "500px" }}>
           <div>
-            <div className="px-5 py-5 position-relative">
+            <div className="p-2 position-relative">
               {item.discount > 0 && (
                 <p
                   className="m-0 position-absolute top-0 start-0 bg-primary rounded-circle text-white text-uppercase d-inline-block
                   text-center"
-                  style={{
-                    width: "50px",
-                    height: "50px",
-                    lineHeight: "50px",
-                  }}
+                  style={{ width: "50px", height: "50px", lineHeight: "50px" }}
                 >
                   Sale
                 </p>
               )}
-              <div
-                className="w-100"
-                alt=""
-                style={{
-                  backgroundImage: `url('${item?.images[0].image}')`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "top",
-                  height: "200px",
-                  width: "100%",
-                }}
-              ></div>
+              <div>
+                <img
+                  src={
+                    item?.images[1]?.image
+                      ? item?.images[1]?.image
+                      : item?.images[0]?.image
+                  }
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: "top",
+                    height: "300px",
+                    width: "270px",
+                    borderRadius: "5px",
+                  }}
+                  alt={item.title}
+                  loading="lazy"
+                />
+              </div>
             </div>
             <h4
-              className=".text-truncate text-black d-flex justify-content-center"
-              style={{ color: "gray" }}
+              className=" mx-2 text-black d-flex justify-content-center"
+              style={{ color: "gray", maxWidth: "300px" }}
             >
               {item.title}
             </h4>
           </div>
-          <div className="d-flex align-items-center justify-content-between pt-4 border-top">
+          <div className="d-flex align-items-center justify-content-between p-2 border-top">
             <div className="text-black">
               {showGoldStarsRelated}
               {showEmptyStarsRelated}
               <small className="mx-1 fw-bold">({item.ratings_number})</small>
               <div className="d-flex align-items-center gap-3">
+                {/* <h5 className="m-0 text-primary">{item.discount}$</h5>
+              <h6
+                className="m-0"
+                style={{ color: "gray", textDecoration: "line-through" }}
+              >
+                {item.price}$
+              </h6> */}
                 {item.discount > 0 ? (
                   <>
                     {" "}
                     <h5 className="m-0 text-black">{item.discount}$</h5>
                     <h6
                       className="m-0"
-                      style={{
-                        color: "gray",
-                        textDecoration: "line-through",
-                      }}
+                      style={{ color: "gray", textDecoration: "line-through" }}
                     >
                       {item.price}$
                     </h6>
@@ -356,6 +372,7 @@ export default function ProductsPage() {
                 src={require("../../../../Assets/shopping-cart.png")}
                 alt="cart"
                 width="20px"
+                loading="lazy"
               />
             </div>
           </div>
@@ -448,6 +465,7 @@ export default function ProductsPage() {
             centerMode={window.innerWidth > 768 ? true : false}
             responsive={responsive}
             infinite={true}
+            draggable
           >
             {showRelatedProduct}
           </Carousel>
