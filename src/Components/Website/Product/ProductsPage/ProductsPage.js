@@ -13,6 +13,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import "./ProductsPage.css";
+import SkeletonShow from "../../Skeleton/SkeletonShow";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -28,6 +29,7 @@ export default function ProductsPage() {
   const [sizeChoice, setSizeChoice] = useState();
   const [images, setImages] = useState([]);
   const { setIsChange } = useContext(CartExport);
+  const [loading, setLoading] = useState(true);
 
   const responsive = {
     superLargeDesktop: {
@@ -75,8 +77,8 @@ export default function ProductsPage() {
         );
         setCount(1);
       })
-      // .then((document.title = `${products[0]?.title}`))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, [id, sizeChoice]);
 
   // Related Projects
@@ -448,7 +450,73 @@ export default function ProductsPage() {
 
   return (
     <Container>
-      {showData}
+      {loading ? (
+        <>
+          <div
+            // className="col-12 flex-column"
+            className={`d-flex ${
+              window.innerHeight < 768 ? "flex-wrap" : "flex-wrap"
+            }`}
+          >
+            <div className="col">
+              <SkeletonShow
+                length="1"
+                // width={`${window.innerWidth > 786 ? 600 : 400}`}
+                width={`${window.innerWidth > 786 ? 600 : 350}px`}
+                height={`${window.innerWidth > 786 ? 600 : 400}px`}
+                baseColor="white"
+                classes="col-lg-2 col-md-6 col-12"
+              />
+            </div>
+            <div className="col mt-4 ps-4">
+              <SkeletonShow
+                length="1"
+                // width={`${window.innerWidth > 786 ? 600 : 400}`}
+                width={`${window.innerWidth > 786 ? 600 : 350}px`}
+                height={`${window.innerWidth > 786 ? 50 : 50}px`}
+                baseColor="white"
+                classes="col-lg-2 col-md-6 col-12"
+              />
+              <SkeletonShow
+                length="1"
+                // width={`${window.innerWidth > 786 ? 600 : 400}`}
+                width={`${window.innerWidth > 786 ? 600 : 350}px`}
+                height={`${window.innerWidth > 786 ? 50 : 50}px`}
+                baseColor="white"
+                classes="col-lg-2 col-md-6 col-12"
+              />
+              <SkeletonShow
+                length="1"
+                // width={`${window.innerWidth > 786 ? 600 : 400}`}
+                width={`${window.innerWidth > 786 ? 600 : 350}px`}
+                height={`${window.innerWidth > 786 ? 400 : 200}px`}
+                baseColor="white"
+                classes="col-lg-2 col-md-6 col-12"
+              />
+              <div className="d-flex justify-content-around col-10">
+                <SkeletonShow
+                  length="1"
+                  // width={`${window.innerWidth > 786 ? 600 : 400}`}
+                  width={`${window.innerWidth > 786 ? 100 : 100}px`}
+                  height={`${window.innerWidth > 786 ? 50 : 50}px`}
+                  baseColor="white"
+                  classes="col-lg-2 col-md-6 col-12"
+                />
+                <SkeletonShow
+                  length="1"
+                  // width={`${window.innerWidth > 786 ? 600 : 400}`}
+                  width={`${window.innerWidth > 786 ? 200 : 300}px`}
+                  height={`${window.innerWidth > 786 ? 50 : 50}px`}
+                  baseColor="white"
+                  classes="col-lg-2 col-md-6 col-12"
+                />
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        showData
+      )}
       <ToastContainer />
       {showRate.length > 0 ? (
         <div>

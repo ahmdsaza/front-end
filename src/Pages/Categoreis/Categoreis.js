@@ -18,8 +18,8 @@ export default function WebsiteCategoreis() {
   }, []);
 
   const showCategories = categories.map((item) => (
-    <div className="">
-      <div className="m-1 bg-white border d-flex align-items-center justify-content-center gap-3 p-1 rounded h-100">
+    <div className="mt-3">
+      <div className="m-1 p-1 bg-white border d-flex align-items-center justify-content-center rounded">
         <Link to={`${item.id}`}>
           <img
             className="category-products-image"
@@ -27,9 +27,7 @@ export default function WebsiteCategoreis() {
             alt={item.title}
             loading="lazy"
           />
-          <p className="catTitle d-flex my-1  justify-content-center text-black">
-            {item.title}
-          </p>
+          <p className="catTitle text-center text-black">{item.title}</p>
         </Link>
       </div>
     </div>
@@ -37,6 +35,7 @@ export default function WebsiteCategoreis() {
   return (
     <Container>
       <div className="py-5">
+        <h1 className="text-center">Categories</h1>
         <div className="d-flex align-items-center justify-content-center flex-wrap row-gap-5">
           {loading ? (
             <SkeletonShow

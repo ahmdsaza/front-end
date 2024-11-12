@@ -3,7 +3,13 @@ import { Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { Axios } from "../../../API/axios";
-import { PRODUCT, LOGOUT, USER, CARTLENGTH } from "../../../API/Api";
+import {
+  PRODUCT,
+  LOGOUT,
+  USER,
+  CARTLENGTH,
+  CATEGORIES,
+} from "../../../API/Api";
 // import SkeletonShow from "../Skeleton/SkeletonShow";
 import Cookie from "cookie-universal";
 import { CartExport } from "../../../Context/CartContext";
@@ -15,7 +21,7 @@ import "./TheNavBar.css";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function TheNavBar(props) {
+export default function TheNavBar() {
   const [name, setName] = useState("");
   const [search, setSearch] = useState([]);
   const [searchData, setSearchData] = useState([]);
@@ -23,6 +29,7 @@ export default function TheNavBar(props) {
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchTitle, setSearchTitle] = useState("");
   const showEmpty = [];
+  const [categories, setCategories] = useState([]);
 
   const { isChange } = useContext(CartExport);
 
@@ -32,6 +39,12 @@ export default function TheNavBar(props) {
   useEffect(() => {
     Axios.get(`${USER}`)
       .then((data) => setName(data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    Axios.get(`${CATEGORIES}`)
+      .then((data) => setCategories(data.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -149,6 +162,16 @@ export default function TheNavBar(props) {
                     Categories
                   </NavLink>
                 </Nav.Link>
+                {categories?.map((item) => (
+                  <Nav.Link href="#" collapseOnSelect>
+                    <NavLink
+                      to={`../Categories/${item.id}`}
+                      className="text-black text-decoration-none"
+                    >
+                      {item.title}
+                    </NavLink>
+                  </Nav.Link>
+                ))}
               </Nav>
               <Form.Control
                 type="search"

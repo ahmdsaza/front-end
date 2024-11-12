@@ -23,7 +23,6 @@ export default function CheckOut() {
   const [couponCheckCall, setCouponCheckCall] = useState([]);
   const [couponCheck, setCouponCheck] = useState(0);
   const [count2, setCount2] = useState(false);
-  const [errCall, setErrorCall] = useState("");
   const [checkLowestPrice, setCheckLowestPrice] = useState("");
   const [addressCall, setAddressCall] = useState([]);
   const [totalPriceState, setTotalPriceState] = useState("");
@@ -842,15 +841,6 @@ export default function CheckOut() {
             >
               Check Out
             </button>
-            {errCall ? (
-              <div className="d-flex justify-content-center">
-                <span className="d-flex alert alert-danger mt-2 justify-content-center ">
-                  {errCall}
-                </span>
-              </div>
-            ) : (
-              <></>
-            )}
           </div>
         </div>
       </div>

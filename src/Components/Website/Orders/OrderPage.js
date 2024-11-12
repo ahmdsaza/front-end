@@ -171,7 +171,9 @@ export default function OrderPage() {
                           Cancelled
                         </p>
                       ) : (
-                        <p>Waiting</p>
+                        <p className="bg-warning rounded-1 p-1 text-white">
+                          Waiting
+                        </p>
                       )}
                     </p>
                   </div>
@@ -280,12 +282,12 @@ export default function OrderPage() {
                 </table>
               </div>
             </div>
-            {orders.status == 5 ? (
-              <></>
-            ) : (
+            {orders?.status < 3 ? (
               <Button onClick={handleCancelCall} className="btn btn-danger">
                 Cancel Order
               </Button>
+            ) : (
+              <></>
             )}
           </div>
         </section>

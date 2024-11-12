@@ -25,6 +25,11 @@ export default function SideBar() {
       .catch(() => navigate("/login", { replace: true }));
   }, []);
 
+  function closeSideBar() {
+    setIsOpen((prev) => !prev);
+    window.scrollTo(0, 0);
+  }
+
   return (
     <>
       <div
@@ -42,7 +47,7 @@ export default function SideBar() {
               component={<Link to={`./activity`} />}
               icon={<i className="material-icons">dashboard</i>}
               label="Dashboard"
-              onClick={() => setIsOpen((prev) => !prev)}
+              onClick={closeSideBar}
             >
               Dashboard
             </MenuItem>
@@ -53,14 +58,14 @@ export default function SideBar() {
               <MenuItem
                 icon={<i className="material-icons">group</i>}
                 component={<Link to={`./users`} />}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={closeSideBar}
               >
                 Users
               </MenuItem>
               <MenuItem
                 icon={<i className="material-icons">add</i>}
                 component={<Link to={`./user/add`} />}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={closeSideBar}
               >
                 Add User
               </MenuItem>
@@ -72,14 +77,14 @@ export default function SideBar() {
               <MenuItem
                 icon={<i className="material-icons">inventory_2</i>}
                 component={<Link to={`./categories`} />}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={closeSideBar}
               >
                 Categories
               </MenuItem>
               <MenuItem
                 component={<Link to={`./category/add`} />}
                 icon={<i className="material-icons">add</i>}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={closeSideBar}
               >
                 Add Category
               </MenuItem>
@@ -91,14 +96,14 @@ export default function SideBar() {
               <MenuItem
                 component={<Link to={`./products`} />}
                 icon={<i className="material-icons">local_shipping</i>}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={closeSideBar}
               >
                 Products
               </MenuItem>
               <MenuItem
                 component={<Link to={`./product/add`} />}
                 icon={<i className="material-icons">add</i>}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={closeSideBar}
               >
                 Add Product
               </MenuItem>
@@ -110,14 +115,14 @@ export default function SideBar() {
               <MenuItem
                 icon={<i className="material-icons">percent</i>}
                 component={<Link to={`./coupon`} />}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={closeSideBar}
               >
                 Coupons
               </MenuItem>
               <MenuItem
                 component={<Link to={`./coupon/add`} />}
                 icon={<i className="material-icons">add</i>}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={closeSideBar}
               >
                 Add Coupons
               </MenuItem>
@@ -129,14 +134,14 @@ export default function SideBar() {
               <MenuItem
                 icon={<i className="material-icons">image</i>}
                 component={<Link to={`./banner`} />}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={closeSideBar}
               >
                 Banners
               </MenuItem>
               <MenuItem
                 component={<Link to={`./banner/add`} />}
                 icon={<i className="material-icons">add_photo_alternate</i>}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={closeSideBar}
               >
                 Add Banners
               </MenuItem>
@@ -144,14 +149,14 @@ export default function SideBar() {
             <MenuItem
               component={<Link to={`./orders`} />}
               icon={<i className="material-icons">list_alt</i>}
-              onClick={() => setIsOpen((prev) => !prev)}
+              onClick={closeSideBar}
             >
               Orders
             </MenuItem>
             <MenuItem
               component={<Link to={`./rate`} />}
               icon={<span class="material-icons">star_rate</span>}
-              onClick={() => setIsOpen((prev) => !prev)}
+              onClick={closeSideBar}
             >
               Reviews
             </MenuItem>

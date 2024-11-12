@@ -9,6 +9,7 @@ import Form from "react-bootstrap/Form";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SkeletonShow from "../../../Components/Website/Skeleton/SkeletonShow";
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
@@ -18,6 +19,7 @@ export default function CategoriesPage() {
   const [total, setTotal] = useState(0);
   const [sort, setSort] = useState("created_at");
   const [type, setType] = useState("asc");
+  const [loading, setLoading] = useState(true);
 
   const { id } = useParams();
 
@@ -25,7 +27,8 @@ export default function CategoriesPage() {
   useEffect(() => {
     Axios.get(`${categorry}/${id}`)
       .then((data) => setTitle(data.data.title))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, [id]);
 
   useEffect(() => {
@@ -171,7 +174,16 @@ export default function CategoriesPage() {
         </Form.Select>
       </div>
       <div className="d-flex justify-content-center flex-wrap mt-3">
-        {showData}
+        {loading ? (
+          <SkeletonShow
+            length="8"
+            height="400px"
+            baseColor="white"
+            classes="col-12 col-md-5 col-lg-3 p-3"
+          />
+        ) : (
+          showData
+        )}
       </div>
       <div className="pagination-display">
         <div className="">

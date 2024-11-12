@@ -6,12 +6,16 @@ import "./landing.css";
 import banner1 from "../../../Assets/2.jpg";
 import { Axios } from "../../../API/axios";
 import { BANNER } from "../../../API/Api";
+import SkeletonShow from "../Skeleton/SkeletonShow";
 
 export default function Landing() {
   const [banners, setBanners] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Axios.get(`${BANNER}`).then((data) => setBanners(data.data));
+    Axios.get(`${BANNER}`)
+      .then((data) => setBanners(data.data))
+      .finally(() => setLoading(false));
   }, []);
 
   let callDescription = "";
@@ -37,31 +41,16 @@ export default function Landing() {
 
   return (
     <Container className="my-4">
-      <Carousel>
-        {showBanners}
-        {/* <Carousel.Item>
-          <NavLink to="/categories/1">
-            <img className="d-block w-100" src={banner1} alt="First slide" />
-            <Carousel.Caption>
-            </Carousel.Caption>
-          </NavLink>
-        </Carousel.Item> */}
-        {/* <Carousel.Item>
-          <NavLink to="/categories/2">
-            <img className="d-block w-100" src={banner1} alt="First slide" />
-            <Carousel.Caption></Carousel.Caption>
-          </NavLink>
-        </Carousel.Item> */}
-        {/*<Carousel.Item>
-          <NavLink to="/categories/3">
-            <img className="d-block w-100" src={banner1} alt="First slide" />
-            <Carousel.Caption>
-               <h5>First slide label</h5>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </Carousel.Caption>
-          </NavLink>
-        </Carousel.Item> */}
-      </Carousel>
+      {loading ? (
+        <SkeletonShow
+          length="1"
+          height={window.innerWidth > 768 ? "500px" : "200px"}
+          baseColor="white"
+          classes="col"
+        />
+      ) : (
+        <Carousel>{showBanners}</Carousel>
+      )}
     </Container>
   );
 }

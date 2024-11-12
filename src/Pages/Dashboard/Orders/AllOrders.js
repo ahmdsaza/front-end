@@ -86,7 +86,9 @@ export default function AllOrders() {
             </span>
           </td>
         ) : (
-          <span>Waiting</span>
+          <td>
+            <span className="bg-warning rounded-1 p-1 text-black">Waiting</span>
+          </td>
         )}
         <td key={key + 1}>
           <div className="d-flex align-items-center gap-2">
