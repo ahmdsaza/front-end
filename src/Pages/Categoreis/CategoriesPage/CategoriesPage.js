@@ -145,6 +145,11 @@ export default function CategoriesPage() {
     );
   });
 
+  function handlePagination(e) {
+    setLimit(e.target.value);
+    setPage(1);
+  }
+
   function handleInputChange(e) {
     const { value } = e.target;
     setSort(value.slice(4, 20));
@@ -188,7 +193,7 @@ export default function CategoriesPage() {
       <div className="pagination-display">
         <div className="">
           <Form.Select
-            onChange={(e) => setLimit(e.target.value)}
+            onChange={handlePagination}
             aria-label="Default select example"
           >
             <option value="8">8</option>
