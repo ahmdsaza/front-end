@@ -19,14 +19,16 @@ export default function WebsiteCategoreis() {
 
   const showCategories = categories.map((item) => (
     <div className="mt-3">
-      <div className="m-1 p-1 bg-white border d-flex align-items-center justify-content-center rounded">
+      <div className="category-card m-1 p-1 bg-white border d-flex align-items-center justify-content-center rounded">
         <Link to={`${item.id}`}>
-          <img
-            className="category-products-image"
-            src={item.image}
-            alt={item.title}
-            loading="lazy"
-          />
+          <div className="category-image-div">
+            <img
+              className="category-products-image"
+              src={item.image}
+              alt={item.title}
+              loading="lazy"
+            />
+          </div>
           <p className="catTitle text-center text-black">{item.title}</p>
         </Link>
       </div>

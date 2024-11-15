@@ -40,7 +40,7 @@ export default function AllLatestProducts() {
     return (
       <NavLink
         to={`../products/${item.slug}`}
-        className={`col-12 ${
+        className={`d-flex col-12 ${
           window.innerWidth > 1400 ? "col-xl-3" : "col-xl-4"
         } col-lg-5 col-md-6  my-2`}
         key={key}
@@ -127,34 +127,10 @@ export default function AllLatestProducts() {
     setPage(1);
   }
 
-  //   function handleInputChange(e) {
-  //     const { value } = e.target;
-  //     setSort(value.slice(4, 20));
-  //     setType(value.slice(0, 4));
-  //   }
-
   return (
     <Container>
       <h1 className="page-title">Latest Products</h1>
-      <div className="">
-        {/* <Form.Select
-          onChange={(e) => {
-            handleInputChange(e);
-          }}
-          aria-label="Default select example"
-          className="w-25"
-        >
-          <option value="asc created_at">Default</option>
-          <option value="asc discount">Price low-high</option>
-          <option value="descdiscount">Price high-low</option>
-          <option value="asc title" name="asc">
-            Name A-Z
-          </option>
-          <option value="desctitle" name="desc">
-            Name Z-A
-          </option>
-        </Form.Select> */}
-      </div>
+      <div className=""></div>
       <div className="d-flex justify-content-center flex-wrap">{showData}</div>
       <div className="pagination-display">
         <div className="">

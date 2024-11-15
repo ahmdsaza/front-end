@@ -37,32 +37,28 @@ export default function ShowLatestSaleProducts() {
   ));
   return (
     <Container>
-      <div>
-        <div className="d-flex justify-content-between align-items-center">
-          <Button>
-            <NavLink to={`../latest-sale`} className="text-white">
-              {" "}
-              See All
-            </NavLink>
-          </Button>
-          <h1 className="d-flex justify-content-center">
-            Latest Sale Products
-          </h1>
-          <div></div>
-        </div>
-        <div className="d-flex align-items-stretch justify-content-center flex-wrap row-gap-2 m-3">
-          {loading ? (
-            <>
-              <SkeletonShow
-                height="300px"
-                length="4"
-                classes="col-lg-3 col-md-6 col-12"
-              />
-            </>
-          ) : (
-            productsShow
-          )}
-        </div>
+      <div className="d-flex justify-content-between align-items-center">
+        <Button>
+          <NavLink to={`../latest-sale`} className="text-white">
+            {" "}
+            See All
+          </NavLink>
+        </Button>
+        <h1 className="d-flex justify-content-center">Latest Sale Products</h1>
+        <div></div>
+      </div>
+      <div className="d-flex align-items-stretch justify-content-center flex-wrap row-gap-2 m-3">
+        {loading ? (
+          <>
+            <SkeletonShow
+              height="300px"
+              length="4"
+              classes="col-lg-3 col-md-6 col-12"
+            />
+          </>
+        ) : (
+          productsShow
+        )}
       </div>
     </Container>
   );

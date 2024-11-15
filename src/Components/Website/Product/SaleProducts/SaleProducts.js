@@ -19,7 +19,7 @@ export default function SaleProducts(props) {
       to={`products/${props.id}`}
       className={`col-12 ${
         window.innerWidth > 1400 ? "col-xl-3" : "col-xl-4"
-      } col-lg-5 col-md-6 my-2`}
+      } col-lg-5 col-md-6 my-2 d-flex`}
       key={props.index}
     >
       <div className="cards rounded-3 bg-white">
@@ -34,7 +34,7 @@ export default function SaleProducts(props) {
                 Sale
               </p>
             )}
-            <div>
+            <div style={{ height: "300px" }}>
               <img
                 src={props.img}
                 style={{

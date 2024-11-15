@@ -163,7 +163,10 @@ export default function CheckOut() {
       nav("/reload");
     } catch (err) {
       // setLoading(false);
-      if (err.response.data.message.includes(`address`)) {
+      if (
+        err.response.data.message.includes(`address`) ||
+        err.response.data.message.includes(`firstname`)
+      ) {
         toast.error("Please choose address", {
           autoClose: 2000,
         });

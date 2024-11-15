@@ -49,7 +49,7 @@ export default function AllTopRated() {
     return (
       <NavLink
         to={`../products/${item.slug}`}
-        className={`col- ${
+        className={`d-flex col- ${
           window.innerWidth > 1400 ? "col-xl-3" : "col-xl-4"
         } col-lg-5 col-md-6 my-2`}
         key={key}

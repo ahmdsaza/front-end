@@ -64,7 +64,14 @@ export default function Rating() {
       <div className="row">
         <div className="col">
           <div className="product-img-rate">
-            <img src={item.images[0].image} alt="" />
+            <img
+              src={
+                item?.images[1]?.image
+                  ? item.images[1].image
+                  : item.images[0].image
+              }
+              alt={item?.title}
+            />
           </div>
         </div>
         <div className="product-side">
