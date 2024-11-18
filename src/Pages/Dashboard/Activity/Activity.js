@@ -35,17 +35,17 @@ export default function Activity() {
   }, []);
 
   const showOrders = lastOrders.map((item, key) => (
-    // <table className="card-styling table-responsive" >
     <tr>
       <NavLink
         className="text-black d-flex gap-4"
         key={key}
         to={`../orders/${item?.slug}`}
+        style={{ maxWidth: "1000px" }}
       >
-        <td className="col-">#{item.id}</td>
+        <td className="col-1">#{item.id}</td>
         <td className="col-2">{item?.users[0].name}</td>
         <td className="col-1">${item?.totalprice}</td>
-        <td className="col-1">
+        <td className="col-2">
           {item?.status === 0 ? (
             <p>Pending</p>
           ) : item?.status === 1 ? (
@@ -62,14 +62,13 @@ export default function Activity() {
             <p>Waiting</p>
           )}
         </td>
-        <td className="col-">
+        <td className="col-2">
           {(item?.updated_at).slice(0, 10) +
             " | " +
             (item?.updated_at).slice(11, 16)}
         </td>
       </NavLink>
     </tr>
-    // </table>
   ));
 
   return (
@@ -80,7 +79,7 @@ export default function Activity() {
 
       <div className="m-3">
         <div className="flex gap20 flex-wrap">
-          <div>
+          <div className="col">
             <NavLink className="text-black" to="../orders">
               <div className="wg-chart-default mb-20">
                 <div className="flex items-center justify-between">
@@ -165,7 +164,7 @@ export default function Activity() {
           <div>
             <NavLink className="text-black" to="../orders">
               <div className="wg-chart-default mb-20">
-                <div className="flex align-items-center justify-content-between">
+                <div className=" flex align-items-center justify-content-between">
                   <div className="flex align-items-center gap14">
                     <i
                       className="material-icons mt-3"
@@ -272,7 +271,7 @@ export default function Activity() {
                     </div>
                   </NavLink>
                 </div>
-                <div className="col-5 col-md">
+                <div className="col col-md">
                   <NavLink className="text-black" to="../products">
                     <div className="wg-chart-default-products mb-20">
                       <div className="flex align-items-center justify-content-between">
@@ -313,7 +312,7 @@ export default function Activity() {
                     }}
                   >
                     <div className="table-responsive rounded">
-                      <Table striped hover>
+                      <Table striped hover bordered>
                         <tbody>{showOrders}</tbody>
                       </Table>
                     </div>
