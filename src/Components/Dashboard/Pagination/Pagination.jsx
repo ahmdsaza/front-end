@@ -11,6 +11,7 @@ export default function PaginatedItems({ itemsPerPage, setPage, total }) {
         breakLabel="..."
         nextLabel=">"
         onPageChange={(e) => setPage(e.selected + 1)}
+        onClick={window.scrollTo(0, 0)}
         pageRangeDisplayed={2}
         pageCount={pageCount}
         previousLabel="<"

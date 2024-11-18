@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./orders.css";
 import { Axios } from "../../../API/axios";
-import { ALLORDERS } from "../../../API/Api";
+import { ORDER } from "../../../API/Api";
 import { Container, Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import PaginatedItems from "../../Dashboard/Pagination/Pagination";
@@ -14,7 +14,7 @@ export default function Orders() {
   const [status, setStatus] = useState(0);
 
   useEffect(() => {
-    Axios.get(`${ALLORDERS}?status=${status}&limit=${limit}&page=${page}`)
+    Axios.get(`${ORDER}?status=${status}&limit=${limit}&page=${page}`)
       .then((data) => {
         setOrders(data.data.data);
         setTotal(data.data.total);
@@ -96,7 +96,7 @@ export default function Orders() {
           showTheOrder
         ) : (
           <div className="card w-100 d-flex flex-row justify-content-center p-3">
-            <h3>No Orders yet</h3>
+            <h3>No Orders</h3>
           </div>
         )}
       </div>
