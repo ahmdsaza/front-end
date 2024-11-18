@@ -43,7 +43,7 @@ export default function Login() {
 
   // Handle Focus
   useEffect(() => {
-    focus.current.focus();
+    // focus.current.focus();
     document.title = `Ahmed store | Login`;
   }, []);
 
@@ -70,7 +70,6 @@ export default function Login() {
   return (
     <>
       {loading && <LoadingSubmit />}
-      <TheNavBar />
       <div className="container text-center">
         <div className="row card-design">
           <div className="col-md-6 col-xl-4">
@@ -86,7 +85,7 @@ export default function Login() {
                   controlId="exampleForm.ControlInput1"
                 >
                   <Form.Control
-                    ref={focus}
+                    // ref={focus}
                     value={form.email}
                     onChange={handleChange}
                     type="email"
@@ -122,7 +121,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

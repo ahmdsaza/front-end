@@ -33,7 +33,7 @@ export default function Register() {
   const [err, setErr] = useState("");
 
   // Ref
-  const focus = useRef();
+  // const focus = useRef();
 
   // Handle Form Change
   function handleChange(e) {
@@ -42,7 +42,7 @@ export default function Register() {
 
   // Handle Focus
   useEffect(() => {
-    focus.current.focus();
+    // focus.current.focus();
     document.title = `Ahmed store | Register`;
   }, []);
 
@@ -68,9 +68,8 @@ export default function Register() {
   }
   return (
     <>
-      <TheNavBar />
       {loading && <LoadingSubmit />}
-      <div className="container text-center">
+      <div className="container text-center" style={{ marginBottom: "50px" }}>
         <div className="row card-design">
           <div className="col-md-6 col-xl-4">
             <Form
@@ -85,7 +84,7 @@ export default function Register() {
                   controlId="exampleForm.ControlInput1"
                 >
                   <Form.Control
-                    ref={focus}
+                    // ref={focus}
                     value={form.name}
                     onChange={handleChange}
                     type="text"
@@ -93,7 +92,7 @@ export default function Register() {
                     placeholder="Enter your name.."
                     required
                   />
-                  <Form.Label>Name:</Form.Label>
+                  <Form.Label>Username:</Form.Label>
                 </Form.Group>
                 <Form.Group
                   className="form-custom"

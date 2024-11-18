@@ -20,6 +20,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import "./TheNavBar.css";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Prev } from "react-bootstrap/esm/PageItem";
 
 export default function TheNavBar() {
   const [name, setName] = useState("");
@@ -30,6 +31,7 @@ export default function TheNavBar() {
   const [searchTitle, setSearchTitle] = useState("");
   const showEmpty = [];
   const [categories, setCategories] = useState([]);
+  const [isShowingData, setIsShowingData] = useState(true);
 
   const { isChange } = useContext(CartExport);
 
@@ -93,6 +95,12 @@ export default function TheNavBar() {
     window.scrollTo(0, 0);
   }
 
+  function clearSearchBar() {
+    setSearch("");
+    setSearchTitle("");
+    setIsShowingData(false);
+  }
+
   const dataShow = showWichData.map((item, key) => (
     <div key={key} onClick={handleClickSearch}>
       <NavLink to={`./products/${item.slug}`}>
@@ -123,138 +131,165 @@ export default function TheNavBar() {
   ));
 
   return (
-    <Container>
-      <Navbar expand="xl" className="mb-3" collapseOnSelect>
-        <Container fluid>
-          <Navbar.Brand href="#">
-            <NavLink
-              to={"../"}
-              className="d-flex align-items-end text-black text-decoration-none gap-2"
-            >
-              <img
-                width="200px"
-                src={require("../../../Assets/Orange and Gray Tag Cart Virtual Shop Logo.png")}
-                alt="logo"
-                loading="lazy"
-              />{" "}
-            </NavLink>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-          <Navbar.Offcanvas placement="end">
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title>Ahmed Store</Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="#" collapseOnSelect>
-                  <NavLink
-                    to={"../"}
-                    className="text-black text-decoration-none"
-                  >
-                    Home
-                  </NavLink>
-                </Nav.Link>
-                <Nav.Link href="#" collapseOnSelect>
-                  <NavLink
-                    to={"../Categories"}
-                    className="text-black text-decoration-none"
-                  >
-                    Categories
-                  </NavLink>
-                </Nav.Link>
-                {categories?.map((item) => (
+    <div className="navbar-body">
+      <Container>
+        <Navbar expand="xl" className=" bg-blue" collapseOnSelect>
+          <Container fluid>
+            <Navbar.Brand href="#">
+              <NavLink
+                to={"../"}
+                className="d-flex align-items-end text-black text-decoration-none gap-2"
+              >
+                <img
+                  width="200px"
+                  src={require("../../../Assets/Orange and Gray Tag Cart Virtual Shop Logo.png")}
+                  alt="logo"
+                  loading="lazy"
+                />{" "}
+              </NavLink>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+            <Navbar.Offcanvas placement="end">
+              <Offcanvas.Header closeButton>
+                <Offcanvas.Title>Ahmed Store</Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <Nav className="justify-content-start flex-grow-1">
                   <Nav.Link href="#" collapseOnSelect>
                     <NavLink
-                      to={`../Categories/${item.id}`}
-                      className="text-black text-decoration-none"
+                      to={"../"}
+                      className="text-black text-decoration-none category-title"
                     >
-                      {item.title}
+                      Home
                     </NavLink>
                   </Nav.Link>
-                ))}
-              </Nav>
-              <Form.Control
-                type="search"
-                className="search-bar"
-                aria-label="Search here..."
-                placeholder="Search..."
-                value={searchTitle}
-                onChange={(e) => {
-                  setSearchTitle(e.target.value);
-                  setSearch(e.target.value);
-                  setSearchLoading(true);
-                }}
-              />
-              {name ? (
-                <div
-                  className={`${
-                    window.innerWidth > 1200 ? "d-flex" : ""
-                  } gap-2`}
-                >
-                  <Nav.Link className="m-2" href="#" collapseOnSelect>
-                    <NavLink to="/cart">
-                      <img
-                        width="30px"
-                        src={require("../../../Assets/shopping-cart.png")}
-                        alt="Cart"
-                        loading="lazy"
-                      />
+                  <Nav.Link href="#" collapseOnSelect>
+                    <NavLink
+                      to={"../Categories"}
+                      className="text-black text-decoration-none category-title"
+                    >
+                      Categories
                     </NavLink>
-                    <span>{cartLength}</span>
-                  </Nav.Link>{" "}
+                  </Nav.Link>
+                  {categories?.map((item) => (
+                    <Nav.Link href="#" collapseOnSelect>
+                      <NavLink
+                        to={`../Categories/${item.id}`}
+                        className="text-black text-decoration-none category-title"
+                      >
+                        {item.title}
+                      </NavLink>
+                    </Nav.Link>
+                  ))}
+                </Nav>
+                {name ? (
+                  <div
+                    className={`${
+                      window.innerWidth > 1200 ? "d-flex" : ""
+                    } gap-2`}
+                  >
+                    <Nav.Link className="m-2" href="#" collapseOnSelect>
+                      <NavLink to="/cart">
+                        <img
+                          width="30px"
+                          src={require("../../../Assets/shopping-cart.png")}
+                          alt="Cart"
+                          loading="lazy"
+                        />
+                      </NavLink>
+                      <span>{cartLength}</span>
+                    </Nav.Link>{" "}
+                    <NavDropdown
+                      title={<FontAwesomeIcon icon={faUser} />}
+                      className="m-2 fs-5"
+                    >
+                      <NavDropdown.Item href="#" collapseOnSelect>
+                        <NavLink
+                          to={"../profile"}
+                          className="text-black d-block"
+                        >
+                          {" "}
+                          Profile
+                        </NavLink>
+                      </NavDropdown.Item>
+                      {name.role === "1995" && (
+                        <NavDropdown.Item>
+                          <NavLink
+                            to="/dashboard/activity"
+                            className="text-black d-block"
+                          >
+                            Dashboard
+                          </NavLink>
+                        </NavDropdown.Item>
+                      )}
+                      <NavDropdown.Item href="#" collapseOnSelect>
+                        <NavLink
+                          to={"../orders"}
+                          className="text-black d-block"
+                        >
+                          {" "}
+                          My orders
+                        </NavLink>
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item
+                        href="#"
+                        collapseOnSelect
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </div>
+                ) : (
                   <NavDropdown
                     title={<FontAwesomeIcon icon={faUser} />}
                     className="m-2 fs-5"
                   >
-                    <NavDropdown.Item href="#" collapseOnSelect>
-                      <NavLink to={"../profile"} className="text-black d-block">
-                        {" "}
-                        Profile
+                    <NavDropdown.Item>
+                      <NavLink to={"../login"} className="text-black d-block">
+                        Login / Register{" "}
                       </NavLink>
-                    </NavDropdown.Item>
-                    {name.role === "1995" && (
-                      <NavDropdown.Item>
-                        <NavLink
-                          to="/dashboard/activity"
-                          className="text-black d-block"
-                        >
-                          Dashboard
-                        </NavLink>
-                      </NavDropdown.Item>
-                    )}
-                    <NavDropdown.Item href="#" collapseOnSelect>
-                      <NavLink to={"../orders"} className="text-black d-block">
-                        {" "}
-                        My orders
-                      </NavLink>
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item
-                      href="#"
-                      collapseOnSelect
-                      onClick={handleLogout}
-                    >
-                      Logout
                     </NavDropdown.Item>
                   </NavDropdown>
-                </div>
-              ) : (
-                <NavDropdown
-                  title={<FontAwesomeIcon icon={faUser} />}
-                  className="m-2 fs-5"
-                >
-                  <NavDropdown.Item>
-                    <NavLink to={"../login"} className="text-black d-block">
-                      Login / Register{" "}
-                    </NavLink>
-                  </NavDropdown.Item>
-                </NavDropdown>
-              )}
-            </Offcanvas.Body>
-          </Navbar.Offcanvas>
-        </Container>
-      </Navbar>
-      <div className="navbarsearch">{dataShow}</div>
-    </Container>
+                )}
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
+          </Container>
+        </Navbar>
+        <div className="d-flex justify-content-center align-items-center px-3">
+          {" "}
+          <Form.Control
+            type="text"
+            className="search-bar"
+            aria-label="Search here..."
+            placeholder="Search..."
+            value={searchTitle}
+            onChange={(e) => {
+              setSearchTitle(e.target.value);
+              setSearch(e.target.value);
+              setSearchLoading(true);
+            }}
+            onClick={() => setIsShowingData(true)}
+          />{" "}
+          {/* <button onClick={() => setIsShowingData(false)}>Close</button> */}
+          {searchTitle.length > 3 ? (
+            <i
+              class="material-icons search-bar-close text-secondary"
+              onClick={clearSearchBar}
+            >
+              close
+            </i>
+          ) : null}
+        </div>
+        <div
+          className={`navbarsearch ${
+            searchTitle.length > 3 ? "position-absolute" : "d-none"
+          }`}
+        >
+          {searchTitle.length > 3 && isShowingData ? dataShow : <></>}
+        </div>
+      </Container>
+    </div>
   );
 }

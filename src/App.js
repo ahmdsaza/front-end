@@ -79,12 +79,13 @@ function App() {
               <Route path="profile/edit/:id" element={<ProfileEdit />} />
               <Route path="/thankyou" element={<ThankYou />} />
             </Route>
+            <Route element={<RequireBack />}>
+              <Route path="/login" element={<Login />}></Route>
+              <Route path="/register" element={<Register />}></Route>
+            </Route>
           </Route>
           <Route path="/reload" element={<ReloadPage />} />
-          <Route element={<RequireBack />}>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/register" element={<Register />}></Route>
-          </Route>
+
           <Route path="/auth/google/callback" element={<GoogleCallback />} />
           <Route path="/*" element={<Err404 />} />
 

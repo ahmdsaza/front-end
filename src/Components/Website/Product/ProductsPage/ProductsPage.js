@@ -193,8 +193,10 @@ export default function ProductsPage() {
         </div>
         <div className="product-side">
           <div className="product-description">
-            {showGoldStars}
-            {showEmptyStars}({item.ratings_number})
+            <div className="ps-3">
+              {showGoldStars}
+              {showEmptyStars}({item.ratings_number})
+            </div>
             <span className="product-category">{item.category.title}</span>
             <h1 className="product-title">{item.title}</h1>
             <p className="product-description">{item.description}</p>
@@ -452,6 +454,8 @@ export default function ProductsPage() {
     <Container>
       {loading ? (
         <>
+          {" "}
+          {/* Skeleton */}
           <div
             // className="col-12 flex-column"
             className={`d-flex ${
@@ -459,6 +463,8 @@ export default function ProductsPage() {
             }`}
           >
             <div className="col">
+              {" "}
+              {/* Image skeleton */}
               <SkeletonShow
                 length="1"
                 // width={`${window.innerWidth > 786 ? 600 : 400}`}
@@ -472,7 +478,7 @@ export default function ProductsPage() {
               <SkeletonShow
                 length="1"
                 // width={`${window.innerWidth > 786 ? 600 : 400}`}
-                width={`${window.innerWidth > 786 ? 600 : 350}px`}
+                width={`${window.innerWidth > 786 ? 200 : 150}px`}
                 height={`${window.innerWidth > 786 ? 50 : 50}px`}
                 baseColor="white"
                 classes="col-lg-2 col-md-6 col-12"
@@ -493,29 +499,29 @@ export default function ProductsPage() {
                 baseColor="white"
                 classes="col-lg-2 col-md-6 col-12"
               />
-              <div className="d-flex justify-content-around col-10">
+              <div className="d-flex justify-content-around col">
                 <SkeletonShow
                   length="1"
                   // width={`${window.innerWidth > 786 ? 600 : 400}`}
                   width={`${window.innerWidth > 786 ? 100 : 100}px`}
                   height={`${window.innerWidth > 786 ? 50 : 50}px`}
                   baseColor="white"
-                  classes="col-lg-2 col-md-6 col-12"
+                  classes="col-lg-2 col-md-6 col"
                 />
                 <SkeletonShow
                   length="1"
                   // width={`${window.innerWidth > 786 ? 600 : 400}`}
-                  width={`${window.innerWidth > 786 ? 200 : 300}px`}
+                  width={`${window.innerWidth > 786 ? 150 : 100}px`}
                   height={`${window.innerWidth > 786 ? 50 : 50}px`}
                   baseColor="white"
-                  classes="col-lg-2 col-md-6 col-12"
+                  classes="col-lg-2 col-md-6 col"
                 />
               </div>
             </div>
           </div>
         </>
       ) : (
-        showData
+        <div>{showData}</div>
       )}
       <ToastContainer />
       {showRate.length > 0 ? (

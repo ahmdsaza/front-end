@@ -3,7 +3,10 @@ import { CARTS, ORDERS, ADDRESS, COUPON } from "../../../API/Api";
 import { Axios } from "../../../API/axios";
 import Form from "react-bootstrap/Form";
 import { Container, Collapse, Button } from "react-bootstrap";
-import resetIcon from "../../../Assets/resetIcon.png";
+// import resetIcon from "../../../Assets/resetIcon.png";
+import madaIcon from "../../../Assets/MADA_icon.png";
+import visaIcon from "../../../Assets/VISA_icon.png";
+import codIcon from "../../../Assets/COD_icon.png";
 import "./checkout.css";
 import {
   faPenToSquare,
@@ -106,7 +109,11 @@ export default function CheckOut() {
           <div className="d-flex align-items-center">
             <img
               className="pic"
-              src={item.images[0].image}
+              src={
+                item?.images[1]?.image
+                  ? item?.images[1]?.image
+                  : item?.images[0]?.image
+              }
               alt={item.product.title}
             />
             <div className="ps-3 d-flex flex-column justify-content">
@@ -757,12 +764,7 @@ export default function CheckOut() {
               <div className="d-flex align-items-center justify-content-between">
                 <div className="fw-bold">
                   <div className="d-flex gap-2">
-                    <img
-                      className=""
-                      src="https://www.mada.com.sa/sites/mada/themes/custom/mada_theme/images/logo.svg"
-                      width="45px"
-                      alt=""
-                    />
+                    <img className="" src={madaIcon} width="45px" alt="" />
                     Mada
                   </div>
                 </div>
@@ -784,11 +786,7 @@ export default function CheckOut() {
               <div className="d-flex align-items-center justify-content-between">
                 <div className="fw-bold">
                   <div className="d-flex gap-2">
-                    <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Old_Visa_Logo.svg/2560px-Old_Visa_Logo.svg.png"
-                      alt=""
-                      width="45px"
-                    />
+                    <img src={visaIcon} alt="" width="45px" />
                     VISA
                   </div>
                 </div>
@@ -810,11 +808,7 @@ export default function CheckOut() {
               <div className="d-flex align-items-center justify-content-between">
                 <div>
                   <div className="d-flex align-items-center">
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/10351/10351751.png"
-                      alt=""
-                      width="45px"
-                    />
+                    <img src={codIcon} alt="" width="45px" />
                     <p className="fw-bold">Cash on Delivery</p>
                   </div>
                   <small className="text-muted">
