@@ -48,7 +48,9 @@ export default function Orders() {
             ) : items.status === 5 ? (
               <p className="bg-danger rounded-1 px-1 text-white">Cancelled</p>
             ) : (
-              <p className="bg-warning rounded-1 p-1 text-black">Waiting</p>
+              <>
+                {/* <p className="bg-warning rounded-1 p-1 text-white">Waiting</p> */}
+              </>
             )}
           </p>
         </div>

@@ -171,9 +171,12 @@ export default function OrderPage() {
                           Cancelled
                         </p>
                       ) : (
-                        <p className="bg-warning rounded-1 p-1 text-white">
+                        <>
+                          {" "}
+                          {/* <p className="bg-warning rounded-1 p-1 text-white">
                           Waiting
-                        </p>
+                        </p> */}
+                        </>
                       )}
                     </p>
                   </div>
